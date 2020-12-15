@@ -1,0 +1,6 @@
+# define also stages which are used in includes
+stages:
+  - build
+
+include:
+  - local: "docs/.gitlab-ci.yml"
