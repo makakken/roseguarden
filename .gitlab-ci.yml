@@ -25,4 +25,10 @@ pack:
       - docs/site
   only:
     - master
-
+  only:
+    refs:
+      - master
+    changes:
+      - frontend/*
+      - backend/*
+      - docs/*
