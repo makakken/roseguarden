@@ -14,6 +14,7 @@ docs:
     paths:
       - docs/site
   only:
-    - master
-  changes:
-    - docs/*
+    refs:
+      - master
+    changes:
+      - docs/*

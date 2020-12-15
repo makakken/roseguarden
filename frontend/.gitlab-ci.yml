@@ -10,6 +10,7 @@ frontend:
     paths:
       - frontend/static
   only:
-    - master
+    refs:
+      - master
     changes:
       - frontend/*
