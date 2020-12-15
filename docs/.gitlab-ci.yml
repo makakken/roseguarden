@@ -1,6 +1,4 @@
 docs:
-  image: python:alpine
-
   before_script:
     - apk add --no-cache openssl gcc musl-dev
     - pip install Cython setuptools
@@ -17,3 +15,5 @@ docs:
       - docs/site
   only:
     - master
+  changes:
+    - docs/*

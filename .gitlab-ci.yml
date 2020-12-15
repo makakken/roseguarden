@@ -1,8 +1,30 @@
 # define also stages which are used in includes
+default:
+  image: python:alpine
+
 stages:
   - build
   - docs
+  - pack
 
 include:
   - local: "docs/.gitlab-ci.yml"
   - local: "frontend/.gitlab-ci.yml"
+
+pack:
+  before_script:
+    - echo before-script
+  stage: pack
+  dependencies: 
+    - build
+  script:
+    - ls
+    - ls frontend
+    - ls backend
+    - python3 scripts/pack.py
+  artifacts:
+    paths:
+      - docs/site
+  only:
+    - master
+

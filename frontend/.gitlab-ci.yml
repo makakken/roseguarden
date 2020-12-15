@@ -11,3 +11,5 @@ frontend:
       - frontend/static
   only:
     - master
+  changes:
+    - frontend/*
