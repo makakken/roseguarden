@@ -16,10 +16,10 @@ pack:
     - echo before-script
   stage: pack
   script:
+    - python3 scripts/pack.py
     - ls
     - ls frontend
     - ls backend
-    - python3 scripts/pack.py
   artifacts:
     paths:
       - scripts
