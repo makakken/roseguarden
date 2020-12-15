@@ -16,6 +16,6 @@ docs:
     - mkdocs build
   artifacts:
     paths:
-      - public
+      - docs/site
   only:
     - master

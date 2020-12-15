@@ -10,6 +10,6 @@ frontend:
     - npm run build
   artifacts:
     paths:
-      - frontend
+      - frontend/static
   only:
     - master
