@@ -20,9 +20,9 @@ __contact__ =  "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from app.jobs.job import Job
-from app.users.models import User
-from app.logs import logManager
+from core.jobs.job import Job
+from core.users.models import User
+from core.logs import logManager
 
 
 class TestJob(Job):

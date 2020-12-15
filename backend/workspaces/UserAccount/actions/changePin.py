@@ -24,12 +24,12 @@ from flask import request
 import arrow
 import random
 import string
-from app.users.models import User
-from app.actions.action import Action
-from app.logs import logManager
-from app.actions import webclientActions
-from app.users import userManager
-from app.messages import send_mail
+from core.users.models import User
+from core.actions.action import Action
+from core.logs import logManager
+from core.actions import webclientActions
+from core.users import userManager
+from core.messages import send_mail
 
 class ChangePin(Action):
     def __init__(self, app):

@@ -25,8 +25,8 @@ from flask import Flask, jsonify, request, redirect, url_for, send_from_director
 from flask_jwt_extended import jwt_required, jwt_optional, get_jwt_identity, get_raw_jwt
 from pprint import pprint
 import json 
-from app import logManager as logger
-from app import actionManager
+from core import logManager as logger
+from core import actionManager
 import datetime
 
 # this module routes the action based api on e.g. .../api/v1

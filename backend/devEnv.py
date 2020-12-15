@@ -22,17 +22,17 @@ __license__ = "GPLv3"
 
 import os
 from pprint import pprint
-from app.users.models import User
-from app.messages.models import Message
-from app.workspaces.models import Permission, PermissionGroup
-from app.messages import send_mail, send_message
-from app.jobs import jobManager, add_dated_job
-from app.workspaces import workspaceManager
-from app.actions import generateActionLink
-from app.actions.models import ActionLink
-from app.logs import logManager
-from app.users import userManager
-from app.nodes.nodeClass import NodeClass
+from core.users.models import User
+from core.messages.models import Message
+from core.workspaces.models import Permission, PermissionGroup
+from core.messages import send_mail, send_message
+from core.jobs import jobManager, add_dated_job
+from core.workspaces import workspaceManager
+from core.actions import generateActionLink
+from core.actions.models import ActionLink
+from core.logs import logManager
+from core.users import userManager
+from core.nodes.nodeClass import NodeClass
 import arrow
 import pprint
 import json
@@ -41,17 +41,17 @@ from workspaces.Log.permissions import ViewLogs
 from workspaces.Access.models import SpaceAccessGroup, SpaceAccessProperties, SpaceAccessSpace
 from workspaces.Template.nodes.nodeTemplate import NodeTemplate
 
-from app.workspaces.workspaceHooks import WorkspaceHooks
-from app.nodes import nodeManager
-from app.nodes.models import Node
+from core.workspaces.workspaceHooks import WorkspaceHooks
+from core.nodes import nodeManager
+from core.nodes.models import Node
 
-from app.actions import models
-from app.files import models
-from app.jobs import models
-from app.messages import models
-from app.workspaces import models
-from app.users import models
-from app.nodes import models
+from core.actions import models
+from core.files import models
+from core.jobs import models
+from core.messages import models
+from core.workspaces import models
+from core.users import models
+from core.nodes import models
 
 def create_devEnv(app, db, clean=True):
     print()

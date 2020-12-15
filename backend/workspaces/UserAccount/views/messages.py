@@ -20,10 +20,10 @@ __contact__ =  "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from app.workspaces import DataView, Workspace
-from app.users.models import User
-from app.messages.models import Message
-from app import db
+from core.workspaces import DataView, Workspace
+from core.users.models import User
+from core.messages.models import Message
+from core import db
 
 """ A view contaning a list of all users not locked
 """

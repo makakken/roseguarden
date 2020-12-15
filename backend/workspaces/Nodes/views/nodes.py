@@ -21,13 +21,13 @@ __credits__ = []
 __license__ = "GPLv3"
 
 import json
-from app.workspaces import DataView, Workspace
-from app.workspaces.models import Permission, PermissionGroup
-from app.users.models import User
-from app.nodes.models import Node
-from app.nodes.errors import AuthorizationError
-from app.nodes import nodeManager
-from app import db
+from core.workspaces import DataView, Workspace
+from core.workspaces.models import Permission, PermissionGroup
+from core.users.models import User
+from core.nodes.models import Node
+from core.nodes.errors import AuthorizationError
+from core.nodes import nodeManager
+from core import db
 
 from workspaces.Permissions.permissions import ViewPermission
 

@@ -20,8 +20,8 @@ __contact__ =  "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from app.workspaces import DataView, Workspace
-from app.users.models import User
+from core.workspaces import DataView, Workspace
+from core.users.models import User
 from datetime import datetime
 
 """ A View contaning the user info

@@ -21,11 +21,11 @@ __credits__ = []
 __license__ = "GPLv3"
 
 import arrow
-from app.users.models import User, Authenticator
-from app.users.enum import AuthenticatorSendBy, AuthenticatorType, AuthenticatorValidityType, UserAuthenticatorStatus
-from app.actions.action import Action
-from app.logs import logManager
-from app.actions import webclientActions
+from core.users.models import User, Authenticator
+from core.users.enum import AuthenticatorSendBy, AuthenticatorType, AuthenticatorValidityType, UserAuthenticatorStatus
+from core.actions.action import Action
+from core.logs import logManager
+from core.actions import webclientActions
 
 class UnassignUserAuthentictor(Action):
     def __init__(self, app):

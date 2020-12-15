@@ -20,9 +20,9 @@ __contact__ =  "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from app.workspaces import Workspace
-from app.workspaces import DataView
-from app.logs import logManager
+from core.workspaces import Workspace
+from core.workspaces import DataView
+from core.logs import logManager
 
 """This plugin is for the administrations of all users
 """

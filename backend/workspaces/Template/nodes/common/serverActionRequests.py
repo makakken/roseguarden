@@ -20,7 +20,7 @@ __contact__ =  "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from app.actions.actionGenerator import BaseNodeAction
+from core.actions.actionGenerator import BaseNodeAction
 
 class RequestPinAction(BaseNodeAction):
     action = 'requestPin'

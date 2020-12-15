@@ -20,12 +20,12 @@ __contact__ =  "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from app.nodes.nodeClass import NodeClass
-from app.nodes.errors import MissingPropertyError
-from app.logs import logManager
-from app.users import userManager
+from core.nodes.nodeClass import NodeClass
+from core.nodes.errors import MissingPropertyError
+from core.logs import logManager
+from core.users import userManager
 from workspaces.Template.nodes.common.serverActionRequests import UpdateUserInfoAction, UpdateAssignInfoAction, RequestPinAction, DenyAccessAction, GrandAccessAction
-from app.users.enum import AuthenticatorSendBy, AuthenticatorType, AuthenticatorValidityType
+from core.users.enum import AuthenticatorSendBy, AuthenticatorType, AuthenticatorValidityType
 
 class NodeTemplate(NodeClass):
 

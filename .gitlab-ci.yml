@@ -22,7 +22,7 @@ pack:
     - python3 scripts/pack.py
   artifacts:
     paths:
-      - docs/site
+      - scripts
   only:
     - master
   only:

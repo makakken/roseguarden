@@ -24,13 +24,13 @@ import arrow
 import random
 from flask import request
 
-from app.users.models import User
-from app.actions.action import Action
-from app.actions import generateActionLink
-from app.logs import logManager
-from app.actions import webclientActions
-from app.users import userManager
-from app.messages import send_mail
+from core.users.models import User
+from core.actions.action import Action
+from core.actions import generateActionLink
+from core.logs import logManager
+from core.actions import webclientActions
+from core.users import userManager
+from core.messages import send_mail
 
 from workspaces.Users.actions.verifyUser import VerifyUser
 

@@ -20,11 +20,11 @@ __contact__ =  "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from app.workspaces import DataView, Workspace
-from app.users.enum import AuthenticatorValidityType, AuthenticatorType, AuthenticatorSendBy, UserAuthenticatorStatus
-from app.users.models import User
-from app.common.deface import deface_string_end, deface_string_middle
-from app import db
+from core.workspaces import DataView, Workspace
+from core.users.enum import AuthenticatorValidityType, AuthenticatorType, AuthenticatorSendBy, UserAuthenticatorStatus
+from core.users.models import User
+from core.common.deface import deface_string_end, deface_string_middle
+from core import db
 
 
 

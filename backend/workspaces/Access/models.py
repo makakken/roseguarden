@@ -20,9 +20,9 @@ __contact__ =  "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from app import db
-from app.users.models import User
-from app.nodes.models import Node
+from core import db
+from core.users.models import User
+from core.nodes.models import Node
 from sqlalchemy_utils import ArrowType
 import arrow
 

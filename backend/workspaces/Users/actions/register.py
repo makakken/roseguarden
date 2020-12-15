@@ -20,12 +20,12 @@ __contact__ =  "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from app.actions.action import Action
-from app.logs import logManager
-from app.actions import webclientActions
-from app.users import userManager
-from app.messages import send_mail, send_message
-from app.actions import generateActionLink
+from core.actions.action import Action
+from core.logs import logManager
+from core.actions import webclientActions
+from core.users import userManager
+from core.messages import send_mail, send_message
+from core.actions import generateActionLink
 
 class Register(Action):
     def __init__(self, app):

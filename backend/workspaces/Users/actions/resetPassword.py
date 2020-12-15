@@ -21,10 +21,10 @@ __credits__ = []
 __license__ = "GPLv3"
 
 import arrow
-from app.users.models import User
-from app.actions.action import Action
-from app.logs import logManager
-from app.actions import webclientActions
+from core.users.models import User
+from core.actions.action import Action
+from core.logs import logManager
+from core.actions import webclientActions
 
 class ResetPassword(Action):
     def __init__(self, app):

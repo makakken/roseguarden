@@ -20,10 +20,10 @@ __contact__ =  "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from app.actions.action import Action
-from app.logs import logManager
-from app.actions import webclientActions
-from app.users.models import User
+from core.actions.action import Action
+from core.logs import logManager
+from core.actions import webclientActions
+from core.users.models import User
 import json
 
 class VerifyUser(Action):
