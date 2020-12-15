@@ -32,3 +32,4 @@ pack:
       - frontend/*
       - backend/*
       - docs/*
+      - scripts/*
