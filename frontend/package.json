@@ -1,0 +1,51 @@
+{
+  "name": "roseguarden_frontend",
+  "version": "0.0.4",
+  "description": "roseguarden frontend based on vue-material-admin integration with Nuxt.js by Mohamed Eddami",
+  "author": "Marcus Drobisch",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "dev-debug": "node --inspect-brk node_modules/.bin/nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/proxy": "^1.3.3",
+    "axios": "^0.19.0",
+    "cross-env": "^5.2.0",
+    "echarts": "^4.2.1",
+    "font-awesome": "^4.7.0",
+    "lodash.truncate": "^4.4.2",
+    "material-design-icons": "^3.0.1",
+    "moment": "^2.29.1",
+    "nuxt": "^2.4.2",
+    "quill": "^1.3.6",
+    "roboto-fontface": "^0.10.0",
+    "sass": "^1.23.7",
+    "sass-loader": "^7.3.1",
+    "vee-validate": "^2.1.7",
+    "vue-axios": "^2.1.4",
+    "vue-codemirror": "^4.0.6",
+    "vue-cookie-law": "^1.13.3",
+    "vue-cookies": "^1.5.13",
+    "vue-echarts": "^4.0.2",
+    "vue-fullcalendar": "^1.0.9",
+    "vue-perfect-scrollbar": "^0.1.0",
+    "vue-quill-editor": "^3.0.6",
+    "vuetify": "^2.3.4",
+    "vuetify-loader": "^1.3.1",
+    "vuex-map-fields": "^1.3.6"
+  },
+  "devDependencies": {
+    "@nuxtjs/vuetify": "^1.9.0",
+    "deepmerge": "^4.2.2",
+    "fibers": "^4.0.2",
+    "nodemon": "^1.18.9",
+    "sass": "^1.23.3",
+    "sass-loader": "^8.0.0",
+    "stylus": "^0.54.7",
+    "stylus-loader": "^3.0.2"
+  }
+}

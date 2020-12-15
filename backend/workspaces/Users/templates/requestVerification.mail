@@ -1,0 +1,7 @@
+Hello {{username}},
+you successfully registered to roseguarden.
+Please verify yourself by following the link. 
+{{action_link}}
+
+With best regards.
+Your roseguarden team

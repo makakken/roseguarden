@@ -1,0 +1,11 @@
+
+<html>
+    Hello {{username}},
+    <br/>
+    welcome to roseguarden.
+    <br/>
+    <br/>
+    With best regards.
+    <br/>
+    Your roseguarden team
+</html>

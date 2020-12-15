@@ -1,0 +1,60 @@
+""" 
+The roseguarden project 
+
+Copyright (C) 2018-2020  Marcus Drobisch,
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <http://www.gnu.org/licenses/>.
+"""
+
+__authors__ = ["Marcus Drobisch"]
+__contact__ =  "roseguarden@fabba.space"
+__credits__ = []
+__license__ = "GPLv3"
+
+import arrow
+import random
+from flask import request
+
+from app.users.models import User
+from app.actions.action import Action
+from app.actions import generateActionLink
+from app.logs import logManager
+from app.actions import webclientActions
+from app.users import userManager
+from app.messages import send_mail
+
+from workspaces.Users.actions.verifyUser import VerifyUser
+
+
+class ResendVerificationRequest(Action):
+    def __init__(self, app):
+        super().__init__(app, uri='resendVerificationMail')
+
+    def handle(self, action, user, workspace, actionManager ):
+        logManager.info("Execute resend activation mail action")
+        notification_action = webclientActions.NotificationAction.generate("The verification of your account got requested.", "success")
+        ref = request.referrer.split('/')
+        if ref[0] != 'http:' and ref[0] != 'https:':
+            ref = '/'.join(ref[:1])
+        else:
+            ref = '/'.join(ref[:3])
+
+        verifyUser = userManager.getUser(action.username)
+        if verifyUser is not None:
+            link = generateActionLink(workspace,'verifyUser', { 'email' : verifyUser.email }, "user/login", True, False)
+            data = {
+                'username' :  verifyUser.firstname + ' ' + verifyUser.lastname,
+                'action_link' : link
+            }
+            print(link)
+            send_mail([verifyUser.email], "Verify your account", workspace, 'requestVerification.mail', data )
+        return 'success', [notification_action]

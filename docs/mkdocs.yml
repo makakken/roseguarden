@@ -1,0 +1,44 @@
+site_name: roseguarden
+site_url: https://www.docs.roseguarden.fabba.space
+
+nav:
+  - index.md
+  - protocol.md
+  - 'Actions': 
+      - serveractions.md
+      - clientactions.md
+      - nodeactions.md
+  - 'Authentification':
+      - nodeauthentication.md
+theme:
+  name: 'material'
+  custom_dir: 'theme'
+
+markdown_extensions:
+  - codehilite:
+      linenums: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.progressbar
+  - pymdownx.extra
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - admonition
+  - footnotes
+  - pymdownx.keys
+  - pymdownx.arithmatex
+
+repo_url: https://gitlab.com/roseguarden/roseguarden.docs
+repo_name: "gitlab:roseguarden.docs"
+edit_uri: "edit/master/docs/"
