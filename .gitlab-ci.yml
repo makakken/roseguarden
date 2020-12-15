@@ -5,3 +5,4 @@ stages:
 
 include:
   - local: "docs/.gitlab-ci.yml"
+  - local: "frontend/.gitlab-ci.yml"
