@@ -5,6 +5,7 @@ default:
     - apk add --no-cache openssl gcc musl-dev
     - pip install Cython setuptools
     - pip install mkdocs-material
+    - cd docs
     # Add your custom theme if not inside a theme_dir
     # (https://github.com/mkdocs/mkdocs/wiki/MkDocs-Themes)
     # - pip install mkdocs-material
@@ -12,10 +13,10 @@ default:
 docs:
   stage: docs 
   script:
-  - mkdocs build
-  - mv site public
+    - mkdocs build
+    - mv site public
   artifacts:
     paths:
-    - public
+      - public
   only:
-  - master
+    - master
