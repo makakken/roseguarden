@@ -1,6 +1,7 @@
 # define also stages which are used in includes
 stages:
   - build
+  - docs
 
 include:
   - local: "docs/.gitlab-ci.yml"

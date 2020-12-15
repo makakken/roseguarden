@@ -1,3 +1,6 @@
+stages:
+  - docs
+
 image: python:alpine
 
 before_script:
@@ -8,7 +11,7 @@ before_script:
   # (https://github.com/mkdocs/mkdocs/wiki/MkDocs-Themes)
   # - pip install mkdocs-material
 
-pages:
+docs:
   script:
   - mkdocs build
   - mv site public
