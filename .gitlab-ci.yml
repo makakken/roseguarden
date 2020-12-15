@@ -15,9 +15,6 @@ pack:
   before_script:
     - echo before-script
   stage: pack
-  needs:
-    - job: frontend
-      artifacts: true
   script:
     - ls
     - ls frontend
