@@ -20,6 +20,7 @@ pack:
     - ls
     - ls frontend
     - ls backend
+    - ls latest_package
   artifacts:
     name: "roseguarden-snapshot-$CI_COMMIT_TIMESTAMP-$CI_COMMIT_SHORT_SHA"
     paths:
