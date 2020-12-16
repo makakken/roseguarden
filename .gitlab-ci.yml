@@ -6,6 +6,7 @@ stages:
   - build
   - docs
   - pack
+  - release
 
 include:
   - local: "docs/.gitlab-ci.yml"
@@ -23,6 +24,8 @@ pack:
     - python3 scripts/pack.py
     - ls
     - ls latest_package
+    - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file roseguarden.zip "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/releases/0.0.1/roseguarden-${CI_COMMIT_SHORT_SHA}.zip"'
+
   artifacts:
     name: "roseguarden-snapshot-$CI_COMMIT_TIMESTAMP-$CI_COMMIT_SHORT_SHA"
     paths:
@@ -33,3 +36,13 @@ pack:
     refs:
       - master
 
+
+release:
+  stage: release
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  rules:
+    - if: $CI_COMMIT_TAG
+  script:
+    - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file path/to/file.txt "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/releases/$CI_COMMIT_TAG/file.txt"'
+    - |
+      release-cli create --name "Release $CI_COMMIT_TAG" --tag-name $CI_COMMIT_TAG

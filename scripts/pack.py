@@ -4,6 +4,11 @@ import zipfile
 import os
 
 
+def zipdir(path, ziph):
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            ziph.write(os.path.join(root, file))
+
 def copyfile(src, dst):
     shutil.copy2(src, dst)
 
@@ -95,5 +100,7 @@ if not os.path.exists("frontend/dist"):
 else:
     copytree("frontend/dist", "roseguarden/client", exclude=['__pycache__'])
 
+with zipfile.ZipFile('roseguarden.zip', 'w', zipfile.ZIP_DEFLATED) as zip_rel:
+    zipdir('roseguarden', zip_rel)
 
 print("finished")
