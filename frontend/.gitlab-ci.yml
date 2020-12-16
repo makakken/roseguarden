@@ -8,7 +8,7 @@ frontend:
     - npm run build
   artifacts:
     paths:
-      - frontend/static
+      - frontend/dist
   only:
     refs:
       - master
