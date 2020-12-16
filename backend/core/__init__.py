@@ -30,7 +30,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS, cross_origin
 
-version = "0.2.1"
+version = "0.2.2"
 
 
 from config import configure_app, load_config

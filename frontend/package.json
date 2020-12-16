@@ -1,6 +1,6 @@
 {
   "name": "roseguarden_frontend",
-  "version": "0.0.4",
+  "version": "0.2.2",
   "description": "roseguarden frontend based on vue-material-admin integration with Nuxt.js by Mohamed Eddami",
   "author": "Marcus Drobisch",
   "private": true,
