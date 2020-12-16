@@ -27,18 +27,18 @@ from flask import Flask, jsonify, request, redirect, url_for, send_from_director
 # index route
 @app_bp.route('/')
 def index():
-    return send_from_directory('../dist', 'index.html')
+    return send_from_directory('../client', 'index.html')
     #return render_template("index.html")
 
 @app_bp.route('/<path:path>')
 def static_proxy(path):
     # send_static_file will guess the correct MIME type
-    if (os.path.isdir("./dist/" + path)):
-        return send_from_directory('../dist/' + path, 'index.html')
-    if (os.path.isfile("./dist/" + path)):
+    if (os.path.isdir("./client/" + path)):
+        return send_from_directory('../client/' + path, 'index.html')
+    if (os.path.isfile("./client/" + path)):
         return app_bp.send_static_file(path)
     else:
-        return send_from_directory('../dist/section', 'index.html')
+        return send_from_directory('../client/section', 'index.html')
 
 @app_bp.errorhandler(404)
 def page_not_found(e):

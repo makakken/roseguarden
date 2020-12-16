@@ -39,6 +39,7 @@ __pycache__
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
 dist/
+client/
 
 # Dependency directories
 node_modules/
