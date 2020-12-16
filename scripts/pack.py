@@ -19,3 +19,4 @@ with open("release.zip", 'wb') as out_file:
     shutil.copyfileobj(response, out_file)
 
 print("finished") 
+exit(1)
