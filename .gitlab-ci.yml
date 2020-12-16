@@ -14,8 +14,7 @@ include:
 
 pack:
   before_script:
-    - echo before-script
-
+    - apk add --update curl && rm -rf /var/cache/apk/*
   stage: pack
   script:
     - ls frontend
