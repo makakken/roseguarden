@@ -14,12 +14,14 @@ include:
 pack:
   before_script:
     - echo before-script
+
   stage: pack
   script:
-    - python3 scripts/pack.py
-    - ls
     - ls frontend
     - ls backend
+    - ls
+    - python3 scripts/pack.py
+    - ls
     - ls latest_package
   artifacts:
     name: "roseguarden-snapshot-$CI_COMMIT_TIMESTAMP-$CI_COMMIT_SHORT_SHA"
