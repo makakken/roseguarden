@@ -125,5 +125,5 @@ def create_app(minimal = False):
 
 
 # declare app routes
-app_bp = Blueprint('app', __name__, static_folder = "../dist")
+app_bp = Blueprint('app', __name__, static_folder = "../client")
 from core import routes

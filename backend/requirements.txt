@@ -10,4 +10,6 @@ sqlalchemy_utils==0.36.1
 python-dotenv==0.10.3
 flask-bcrypt
 flask-cors
-apscheduler==3.6.4
+apscheduler
+cron-descriptor
+Werkzeug==0.15.5
