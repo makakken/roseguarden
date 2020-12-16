@@ -86,6 +86,8 @@ except Exception as e:
     exit(1)
 
 if not os.path.exists("frontend/dist"):
+    if not os.path.exists("latest_package/roseguarden/client"):
+        copytree("latest_package/roseguarden/client", "roseguarden/client", exclude=['__pycache__'])
     print("No frontend build found in 'frontend'")
     exit(1)
 else:
