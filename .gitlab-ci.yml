@@ -14,7 +14,7 @@ include:
 
 pack:
   before_script:
-    - apk add --update curl && rm -rf /var/cache/apk/*
+    - echo pack
   stage: pack
   script:
     - ls frontend
@@ -37,6 +37,8 @@ pack:
 
 release:
   stage: release
+  before_script:
+    - apk add --update curl && rm -rf /var/cache/apk/*
   image: registry.gitlab.com/gitlab-org/release-cli:latest
   rules:
     - if: $CI_COMMIT_TAG
