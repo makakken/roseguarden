@@ -21,7 +21,7 @@ pack:
     - ls frontend
     - ls backend
   artifacts:
-    name: "release-$CI_COMMIT_SHORT_SHA"
+    name: "roseguarden-snapshot-$CI_COMMIT_TIMESTAMP-$CI_COMMIT_SHORT_SHA"
     paths:
       - scripts
   only:
