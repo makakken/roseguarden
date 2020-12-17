@@ -20,7 +20,7 @@ pack:
   script:
     - ls
     - python3 scripts/pack.py
-    - zip -r roseguarden.zip ./roseguarden
+    - zip -qr roseguarden.zip ./roseguarden
 
   artifacts:
     name: "roseguarden-snapshot-$CI_COMMIT_TIMESTAMP-$CI_COMMIT_SHORT_SHA"
