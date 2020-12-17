@@ -17,31 +17,26 @@ pack:
     - echo pack
   stage: pack
   script:
-    - ls frontend
-    - ls backend
     - ls
     - python3 scripts/pack.py
-    - ls
-    - ls latest_package
 
   artifacts:
     name: "roseguarden-snapshot-$CI_COMMIT_TIMESTAMP-$CI_COMMIT_SHORT_SHA"
     paths:
       - roseguarden
   only:
-    - master
-  only:
     refs:
+      - tags
       - master
-
 
 release:
   stage: release
   before_script:
     - apk add --update curl && rm -rf /var/cache/apk/*
   image: registry.gitlab.com/gitlab-org/release-cli:latest
-  rules:
-    - if: $CI_COMMIT_TAG
+  only:
+    refs:
+      - tags
   script:
     - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file roseguarden.zip "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/roseguarden-${CI_COMMIT_TAG}/$CI_COMMIT_TAG/roseguarden-${CI_COMMIT_TAG}-${CI_COMMIT_SHORT_SHA}.zip"'
     - |
