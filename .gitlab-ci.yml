@@ -14,7 +14,7 @@ include:
 
 pack:
   before_script:
-    - apt-get install zip
+    - apk add --update zip
     - echo pack
   stage: pack
   script:
