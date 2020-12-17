@@ -18,7 +18,7 @@
 - install the Vue Extension Pack (Vetur, vue-peek, etc.) extensions ("Extensions", Ctrl + Shift + X)
 - install 'Vue.js Extension Pack'
 
-### Install useful tools
+### Install useful tools 
 
 #### JSON-Server
 
