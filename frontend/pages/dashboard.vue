@@ -3,59 +3,55 @@
       <v-row
       >
         <v-col cols="12" lg="12" sm="12" xs="12" align="center">
-          This is a test dashboard for specific actions. 
-        </v-col>
-        <v-col cols="3" lg="3" sm="3" xs="3"/>
-        <v-col cols="6" lg="6" sm="6" xs="6">
-          <v-text-field
-            label="Router"
-            single-line
-            v-model="route"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="3" lg="3" sm="3" xs="3">
-          <v-btn dark color="error" @click="onRoute()">Go</v-btn>
+          <h1>
+            Welcome to the roseguarden test server
+          </h1>
+          <br/>
+          <v-alert type="info">
+            You are encouraged to test the features and the worklow with roseguarden on this server. <br/>
+            If you find bugs or have feature requests, please start with an issue
+            <a href="https://gitlab.com/roseguarden/roseguarden/-/issues" style="color:white;" target="_blank"> here. </a> 
+          </v-alert>
         </v-col>
         <v-col cols="12" lg="12" sm="12" xs="12" align="center">
+          <h2>
+            Please login to start testing
+          </h2>
+        </v-col>        
+        <v-col cols="12" lg="4" sm="4" xs="12" align="center">
           <div class="text-xs-center">          
-            <v-btn dark color="primary" @click="onNotification()">Notify</v-btn>
+            <v-btn  color="success" @click="onTestLogin('roseguarden@fabba.space', 'test1234')">Test as a normal user (login)</v-btn>
+          </div>
+        </v-col>           
+        <v-col cols="12" lg="4" sm="4" xs="12" align="center">
+          <div class="text-xs-center">          
+            <v-btn dark color="success" @click="onTestLogin('super@fabba.space', 'test1234')">Test as a supervisor user (login)</v-btn>
+          </div>
+        </v-col>           
+        <v-col cols="12" lg="4" sm="4" xs="12" align="center">
+          <div class="text-xs-center">          
+            <v-btn dark color="success" @click="onTestLogin('admin@fabba.space', 'admin1234')">Test as an admin user (login)</v-btn>
           </div>
         </v-col>
-        <v-col cols="12" lg="3" sm="3" xs="12" align="center">
-          <div class="text-xs-center">          
-            <v-btn  color="primary" @click="onTestLogin('roseguarden@fabba.space', 'test1234')">Login (User)</v-btn>
-          </div>
-        </v-col>           
-        <v-col cols="12" lg="3" sm="3" xs="12" align="center">
-          <div class="text-xs-center">          
-            <v-btn dark color="primary" @click="onTestLogin('super@fabba.space', 'test1234')">Login (Supervisor)</v-btn>
-          </div>
-        </v-col>           
-        <v-col cols="12" lg="3" sm="3" xs="12" align="center">
-          <div class="text-xs-center">          
-            <v-btn dark color="primary" @click="onTestLogin('admin@fabba.space', 'admin1234')">Login (Admin)</v-btn>
-          </div>
-        </v-col>           
-        <v-col cols="12" lg="3" sm="3" xs="12" align="center">
+        <v-col cols="12" lg="12" sm="12" xs="12" align="center">        
+            (The pin for all default users is '123456' but can be changed at any time)
+        </v-col>
+        <v-col cols="3" lg="4" sm="4"/>
+        <v-col cols="6" lg="4" sm="4" align="center">
           <div class="text-xs-center">          
             <v-btn dark color="primary" @click="onTestLogout()">Logout</v-btn>
           </div>
         </v-col>
         <v-col cols="3" lg="4" sm="4"/>
-        <v-col cols="6" lg="4" sm="4" align="center">
-          <v-text-field
-            label="user-email"
-            single-line
-            v-model="newuser"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" lg="4" sm="4" align="center">
-          <div class="text-xs-center">          
-            <v-btn dark color="primary" @click="onTestRegistration()">Register Testuser</v-btn>
-          </div>
-        </v-col>
-
+        <v-col cols="12" lg="12" sm="12" xs="12" align="center">
+          <v-alert type="error"> 
+            This is a public server. Please be aware that all data is visible to anybody.
+            <br>
+            It's meant to be only for test purposes. The data can be reset at any time. 
+          </v-alert>
+        </v-col>        
       </v-row>
+      <br/>
     </v-container>
 </template>
 

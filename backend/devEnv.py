@@ -73,6 +73,8 @@ def create_devEnv(app, db, clean=True):
         pg.permissions.append(permissions['Log.ViewLogs'])
     db.session.add(pg)
 
+    usersWorkspace = workspaceManager.getWorkspace('Users')
+
     u = User.query.filter_by(email='roseguarden@fabba.space').first()
     if u is None:
         u = User(email='roseguarden@fabba.space', password='test1234', isAdmin=False)
@@ -80,9 +82,11 @@ def create_devEnv(app, db, clean=True):
         u.lastname = "User"
         u.organization = "Konglomerat"
         u.account_verified = True
-        u.pin = "222222"
+        u.pin = "123456"
         workspaceManager.triggerWorkspaceHooks(WorkspaceHooks.CREATEUSER, user=u)
         db.session.add(u)
+        data = { 'username' : u.firstname + " " + u.lastname }        
+        send_message(u, "Welcome", usersWorkspace, 'welcome.message', data, 'Roseguarden')
 
     s = User.query.filter_by(email='super@fabba.space').first()
     if s is None:
@@ -91,10 +95,12 @@ def create_devEnv(app, db, clean=True):
         s.lastname = "User"
         s.organization = "Konglomerat"
         s.account_verified = True
-        s.pin = "111111"
+        s.pin = "123456"
         s.permission_groups.append(pg)
         workspaceManager.triggerWorkspaceHooks(WorkspaceHooks.CREATEUSER, user=s)
         db.session.add(s)
+        data = { 'username' : s.firstname + " " + s.lastname }        
+        send_message(s, "Welcome", usersWorkspace, 'welcome.message', data, 'Roseguarden')
 
     a = User.query.filter_by(email='admin@fabba.space').first()
     if a is None:
@@ -106,6 +112,9 @@ def create_devEnv(app, db, clean=True):
         a.pin = "123456"
         workspaceManager.triggerWorkspaceHooks(WorkspaceHooks.CREATEUSER, user=a)
         db.session.add(a)
+        data = { 'username' : a.firstname + " " + a.lastname }        
+        send_message(a, "Welcome", usersWorkspace, 'welcome.message', data, 'Roseguarden')
+
 
     node_ident =     {
       "nodename": "Door 1",
@@ -154,15 +163,7 @@ def create_devEnv(app, db, clean=True):
     print(pAll)
 
 
-
-    usersWorkspace = workspaceManager.getWorkspace('Users')
-    data = {
-        'username' : 'mdrobisch'
-    }
     #send_mail(["m.drobisch@googlemail.com"], "Welcome", usersWorkspace, 'welcome.mail', data )
-    #send_message(u, "Welcome", usersWorkspace, 'welcome.message', data, 'Roseguarden')
-    #send_message(s, "Welcome", usersWorkspace, 'welcome.message', data, 'Roseguarden')
-    #send_message(a, "Welcome", usersWorkspace, 'welcome.message', data, 'Roseguarden')
     #print(generateActionLink(usersWorkspace, 'verifyUser', { 'email' : "roseguarden@fabba.space" }, "dashboard"))
 
     db.session.commit()

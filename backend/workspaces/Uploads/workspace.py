@@ -27,6 +27,6 @@ from core.logs import logManager
 """
 
 class Uploads(Workspace):
-    disable=False # IMPORTANT: set this to False to enable the workspace.
+    disable=True # IMPORTANT: set this to False to enable the workspace.
     uri='uploads'
     description='The workspace to manage uploads'
