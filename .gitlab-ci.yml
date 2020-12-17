@@ -35,7 +35,7 @@ release:
   stage: release
   before_script:
     - apk add --update curl && rm -rf /var/cache/apk/*
-    - apt-get install zip
+    - apk add --update zip
   image: registry.gitlab.com/gitlab-org/release-cli:latest
   only:
     refs:
