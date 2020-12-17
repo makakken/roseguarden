@@ -14,11 +14,13 @@ include:
 
 pack:
   before_script:
+    - apt-get install zip
     - echo pack
   stage: pack
   script:
     - ls
     - python3 scripts/pack.py
+    - zip -r roseguarden.zip ./roseguarden
 
   artifacts:
     name: "roseguarden-snapshot-$CI_COMMIT_TIMESTAMP-$CI_COMMIT_SHORT_SHA"
@@ -33,6 +35,7 @@ release:
   stage: release
   before_script:
     - apk add --update curl && rm -rf /var/cache/apk/*
+    - apt-get install zip
   image: registry.gitlab.com/gitlab-org/release-cli:latest
   only:
     refs:
