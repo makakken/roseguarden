@@ -25,7 +25,7 @@
         ></v-progress-circular>
       </div>
       <v-list v-else dense expand>
-        <v-list-item v-if="submenu">
+        <v-list-item v-if="submenu" :to="item.href">
           <v-list-item-action>
             <v-btn style="min-width: 40px" item dark small color="#616161">
               <v-icon dark style="margin: 4px">reply</v-icon>
@@ -52,7 +52,7 @@
                     <v-list-item-title>{{ subItem.title }}</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
-                <v-list-item v-for="(grand, i) in subItem.children" :key="i" @click="click(item)" 
+                <v-list-item v-for="(grand, i) in subItem.children"  :to="item.href" :key="i" @click="click(item)" 
                              ripple="ripple">
                   <v-list-item-content>
                     <v-list-item-title>{{ grand.title }}</v-list-item-title>
@@ -60,7 +60,7 @@
                 </v-list-item>
               </v-list-group>
               <!--child item-->
-              <v-list-item v-else :key="i" @click="click(item)"  
+              <v-list-item v-else :key="i" :to="item.href" @click="click(item)"  
                            :disabled="subItem.disabled" :target="subItem.target" ripple="ripple">
                 <v-list-item-content>
                   <v-list-item-title><span>{{ subItem.title }}</span></v-list-item-title>
@@ -73,7 +73,7 @@
           </v-list-group>
           <v-subheader v-else-if="item.header" :key="i">{{ item.header }}</v-subheader>
           <v-divider v-else-if="item.divider" :key="i"></v-divider>
-          <v-list-item v-else-if="item.external === true" @click="click(item)" 
+          <v-list-item v-else-if="item.external === true" :href="item.href" 
                        :key="item.name" target="_blank">
             <v-list-item-action v-if="item.icon">
               <v-icon>{{ item.icon }} </v-icon>
@@ -86,7 +86,7 @@
             </v-list-item-action>
           </v-list-item>
           <!--top-level link-->
-          <v-list-item v-else @click="click(item)" ripple="ripple"
+          <v-list-item v-else  :to="item.href" @click="click(item)" ripple="ripple"
                        :disabled="item.disabled" :target="item.target" rel="noopener" :key="item.name">
             <v-list-item-action v-if="item.icon">
               <v-icon>{{ item.icon }}</v-icon>
@@ -147,14 +147,14 @@
     methods: {
       click(item) {
         console.log('click', item);
-
+        /*
         if(item.href) {
           if(item.external) {
             window.location = item.href;
           } else {
             this.$router.push(item.href)
           }
-        }
+        }*/
       },
       genChildTarget(item, subItem) {
         if (subItem.href) return;

@@ -21,20 +21,7 @@ export default {
   computed: { 
   },
   mounted () {
-    menu.forEach(item => {
-      if (item.items) {
-        let child =  item.items.find(i => {
-          return i.href === this.$route.path;
-        });
-        if (child) {
-          this.title = child.title;
-        }
-      } else {
-        if (item.href === this.$route.path) {
-          this.title = item.title;
-        }
-      }
-    })
+
   }
 }
 </script>

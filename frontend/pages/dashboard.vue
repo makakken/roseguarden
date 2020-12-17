@@ -8,7 +8,7 @@
           </h1>
           <br/>
           <v-alert type="info">
-            You are encouraged to test the features and the worklow with roseguarden on this server. <br/>
+            Please feel encouraged to test the features and the worklow of roseguarden on this server. <br/>
             If you find bugs or have feature requests, please start with an issue
             <a href="https://gitlab.com/roseguarden/roseguarden/-/issues" style="color:white;" target="_blank"> here. </a> 
           </v-alert>

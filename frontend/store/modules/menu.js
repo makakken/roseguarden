@@ -31,6 +31,8 @@ export default {
       state.submenu = submenu;
     },
     setMainMenu (state, { mainmenu }) {
+      let m = mainmenu;
+      mainmenu.push(...menu.MenuStaticAppend);
       state.mainmenu = mainmenu;
       state.loading = false;
     } 

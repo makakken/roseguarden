@@ -1,38 +1,17 @@
-const Menu = [
-  {header: 'roseguarden'},
-  {
-    title: 'Home',
-    group: 'apps',
-    icon: 'dashboard',
-    name: 'Dashboard',
-    href: 'dashboard'
-  },
+const MenuStaticAppend = [
   {divider: true},
-  {header: 'Templates&Links'},
+  {header: 'Tools & Links'},
   { 
-    title: 'Vue Material Admin',
+    title: 'Emulator',
     group: 'links', 
     icon: 'touch_app',
     external: true,
-    href: 'https://github.com/tookit/vue-material-admin'
+    href: 'https://rosemockup.fabba.space/door'
   },
-  { 
-    title: 'Vue Material Admin Demo',
-    group: 'links', 
-    icon: 'touch_app',
-    external: true,
-    href: 'http://vma.isocked.com/#/dashboard'
-  },    
-  {
-    title: 'Vuetify',
-    group: 'links',
-    icon: 'touch_app',
-    external: true,
-    href: 'https://vuetifyjs.com/en/getting-started/quick-start'
-  },    
 ];
+
 // reorder menu
-Menu.forEach((item) => {
+MenuStaticAppend.forEach((item) => {
   if (item.items) {
     item.items.sort((x, y) => {
       let textA = x.title.toUpperCase();
@@ -42,4 +21,6 @@ Menu.forEach((item) => {
   }
 });
 
-export default Menu;
+export default {
+  MenuStaticAppend
+}
