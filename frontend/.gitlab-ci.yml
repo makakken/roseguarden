@@ -14,4 +14,3 @@ frontend:
       - master
     changes:
       - frontend/*
-  allow_failure: true
