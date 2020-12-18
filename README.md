@@ -4,7 +4,7 @@ Roseguarden is an access and management system for spaces.
 
 ## Live demo
 
-You can find test server here : https://roseguarden.fabba.space/dashboard
+You can find test server here : https://roseguarden.fabba.space
 
 ## How to run roseguarden
 
