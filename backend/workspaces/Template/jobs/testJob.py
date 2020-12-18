@@ -27,7 +27,8 @@ from core.logs import logManager
 
 class TestJob(Job):
     cron = True
-    minute = "*/15"
+    hour = "*/12"
+    minute = "0"
     disable = False
     description = "Test"
 

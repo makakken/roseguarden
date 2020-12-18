@@ -30,6 +30,9 @@ pack:
     refs:
       - tags
       - master
+  except:
+    changes:
+      - "README.md"
 
 release:
   stage: release
