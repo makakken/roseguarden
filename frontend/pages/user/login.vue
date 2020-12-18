@@ -3,9 +3,9 @@
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
-          <v-flex xs12 sm8 md4 lg4>
-            <v-card class="elevation-1 pa-3">
-              <v-card-text>
+          <v-flex xs12 sm8 md5 lg5>
+            <v-card width="100%" class="pa-3">
+              <v-card-text >
                 <div class="layout column align-center">
                   <!---
                   <img src="../static/fabba_logo.png" alt="Roseguarden logo" width="120" height="120">
@@ -88,6 +88,7 @@
   #login {
     height: 50%;
     width: 100%;
+    min-width: 600px;
     position: absolute;
     top: 0;
     left: 0;
