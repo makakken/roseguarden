@@ -4,7 +4,11 @@ Roseguarden is an access and management system for spaces.
 
 ## Live demo
 
-You can find test server here : https://roseguarden.fabba.space
+You can find our live server here : https://roseguarden.fabba.space .
+There is also a emulator available to test the full workflow without a need for own hardware.
+If you find bugs or have feature requests, please start with an issue [here](https://gitlab.com/roseguarden/roseguarden/-/issues). 
+The demo server is a public. Please be aware that all data is visible to anybody.
+It's meant to be only for test purposes. The data can be reset at any time. 
 
 ## How to run roseguarden
 
