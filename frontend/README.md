@@ -4,19 +4,19 @@
 - the following desciption is a wrap up of needed prequisites
 - install nodejs LTE and the nodejs packaga manager (npm)
    - Windows: Packages installation here https://nodejs.org/en/download/
-   - Linux: 'sudo apt install nodejs npm'
+   - Linux: `sudo apt install nodejs npm`
 - install the VSCode
    - Windows: ---fail
    - Linux: https://code.visualstudio.com/docs/setup/linux
 - install the the vue client vue-client
-   - Windows, Linux: 'npm install -g @vue/cli'
-   - check the version: 'vue -V' should be > 3.0.0 otherwise deinstall old versions with npm uninstall vue-cli -g
+   - Windows, Linux: `npm install -g @vue/cli`
+   - check the version: `vue -V` should be > 3.0.0 otherwise deinstall old versions with npm uninstall vue-cli -g
 
 ### Setup the VSCode for vue developement (Vetur, vue-peek)
 
 - open Visual Studio Code in your workspace-folder
 - install the Vue Extension Pack (Vetur, vue-peek, etc.) extensions ("Extensions", Ctrl + Shift + X)
-- install 'Vue.js Extension Pack'
+- install `Vue.js Extension Pack`
 
 ### Install useful tools 
 
@@ -24,12 +24,12 @@
 
 The json-server is useful to make requests while developing.
 
-Install json-server with 'sudo npm install -g json-server'
+Install json-server with `sudo npm install -g json-server`
 
 ### Import and run a this vue application
 
-- 'git clone' the repository
-- install packages with 'npm install'
+- `git clone` the repository
+- install packages with `npm install`
 - see the README.md for running and build the app
 
 
@@ -62,7 +62,7 @@ Install json-server with 'sudo npm install -g json-server'
 
 ### Build Setup
 
-``` bash
+```bash
 # install dependencies
 npm install
 
