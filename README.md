@@ -20,12 +20,14 @@ It's meant to be only for test purposes. The data can be reset at any time.
     * Create a `config.ini` with your settings (see `config.template`) 
     * Run 'flask run'
 
-### By using or forking the repository
+### By cloning or forking this repository
 
-* Clone or fork the repository
+* Clone or fork this repository
 * Have a look in the `backend` and `frontend` folder for details to setup your development enviroment
 * run `backend` and `frontend` from your development environment (e.g. we use vs code)
-+ alternativly you can use the `script/pack.py`-script to build your own package 
+    * start the backend with `flask run` out of the `backend` folder
+    * start the frontend with `npm run dev` out of the `frontend` folder
++ alternativly you can use the `script/pack.py`-script to build your own package and host it with an HTTP-server
 
 ## News
 
@@ -33,7 +35,7 @@ You can find news about the project [on patreon](https://www.patreon.com/rosegua
 
 ## Support 
 
-Support us on patreon : https://www.patreon.com/roseguarden 
+Please support us on patreon : https://www.patreon.com/roseguarden 
 
 ## Contribute
 
@@ -42,7 +44,8 @@ Help is needed in every area e.g. frontend, backend, hardware and documentation.
 
 ## License
 
-The different parts of roseguarden are license as followed:
+The different parts of roseguarden are license differently.
+The licensing is as followed:
 
 * frontend : MIT license
 * backend : GPLv3 license
