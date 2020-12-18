@@ -61,7 +61,7 @@ class JobManager(object):
         self.config = config
         self.app = app
         self.db = db
-        self.scheduler = BackgroundScheduler({'apscheduler.timezone': 'Europe/Berlin'})
+        self.scheduler = BackgroundScheduler()
         self.scheduler.add_listener(self.listener, EVENT_ALL)
         self.jobstore = SQLAlchemyJobStore(url='sqlite:///jobs.sqlite')
         self.scheduler.add_jobstore(self.jobstore, alias='sqlalchemy')

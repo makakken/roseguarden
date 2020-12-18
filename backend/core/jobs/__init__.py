@@ -20,7 +20,7 @@ __contact__ =  "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from datetime import datetime
+from datetime import datetime, timedelta
 from flask import Blueprint
 from core.jobs.job import Job
 jobs_bp = Blueprint('jobs', __name__)
@@ -33,7 +33,7 @@ jobManager = JobManager()
 
 def trigger_job(job_key, args, user):
     logManager.info("User {} triggered job {}".format(user.email, job_key))
-    job_id = jobManager.run_job(user, job_key, args, datetime.now(), log_trigger=True)
+    job_id = jobManager.run_job(user, job_key, args, datetime.now()+timedelta(seconds=5), log_trigger=True)
     return job_id
 
 def add_dated_job(user, job, args, date = None, workspace = None, max_instances=10):
