@@ -20,6 +20,7 @@ __contact__ =  "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
+import logging
 from core.logs import logManager
 from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -66,10 +67,12 @@ class JobManager(object):
         self.scheduler.add_jobstore(self.jobstore, alias='sqlalchemy')
         self.scheduler.start()
 
+        logging.basicConfig()
+        logging.getLogger('apscheduler').setLevel(logging.DEBUG)
         from core.jobs.models import JobExecute
         self.job = JobExecute
 
-        logManager.info("MessageManager initialized")
+        logManager.info("JobManager initialized")
     
     def get_jobs(self):
         return self.jobs
@@ -152,7 +155,8 @@ class JobManager(object):
         self.jobs[str(jobkey)] = ObjDict(job.copy())
 
 
-    def run_job(self, user, jobkey, args, date, max_instances=10, log_trigger= False):            
+    def run_job(self, user, jobkey, args, date, max_instances=10, log_trigger= False):
+        print("run job ", jobkey)     
         if jobkey in self.jobs:
             je = None
             if log_trigger is True:
