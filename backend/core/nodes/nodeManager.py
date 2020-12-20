@@ -19,7 +19,7 @@ __authors__ = ["Marcus Drobisch"]
 __contact__ =  "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
-
+ 
 import inspect
 import os
 import json
@@ -40,7 +40,7 @@ class NodeManager(object):
     """
 
     def __init__(self):
-        self.node_classes = {}
+        self.node_classes = {} 
         self.nodes = {}
 
     def disable_node(self, node):

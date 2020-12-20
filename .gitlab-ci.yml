@@ -1,8 +1,14 @@
 # define also stages which are used in includes
 default:
-  image: python:alpine
-
+  image: "python:3.7"
+  before_script:
+    - apk add --update curl && rm -rf /var/cache/apk/*
+    - apk add --update zip
+    - echo pack
+    - pip install -r backend/requirements.txt  
+    
 stages:
+  - analysis
   - build
   - docs
   - pack
@@ -11,11 +17,9 @@ stages:
 include:
   - local: "docs/.gitlab-ci.yml"
   - local: "frontend/.gitlab-ci.yml"
+  - local: "backend/.gitlab-ci.yml"
 
 pack:
-  before_script:
-    - apk add --update zip
-    - echo pack
   stage: pack
   script:
     - ls
@@ -36,10 +40,10 @@ pack:
 
 release:
   stage: release
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
   before_script:
     - apk add --update curl && rm -rf /var/cache/apk/*
     - apk add --update zip
-  image: registry.gitlab.com/gitlab-org/release-cli:latest
   only:
     refs:
       - tags

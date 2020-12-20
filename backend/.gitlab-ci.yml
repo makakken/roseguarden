@@ -1,0 +1,16 @@
+flake8:
+  stage: analysis 
+  allow_failure: true  
+  script:
+    - flake8 backend/.
+  artifacts:
+    paths:
+      - frontend/dist
+  only:
+    refs:
+      - master
+    changes:
+      - frontend/**/*
+  except:
+    changes:
+      - "README.md"      

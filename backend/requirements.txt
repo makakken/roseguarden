@@ -12,4 +12,6 @@ flask-bcrypt
 flask-cors
 apscheduler
 cron-descriptor
+yapf
+flake8==3.5.0
 Werkzeug==0.15.5
