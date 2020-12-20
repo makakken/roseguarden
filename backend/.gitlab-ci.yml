@@ -13,3 +13,21 @@ flake8:
   except:
     changes:
       - "README.md"      
+
+pylint:
+  stage: analysis 
+  allow_failure: true  
+  before_script:
+    - pip install pylint
+  script:
+    - pylint backend/*.py
+  only:
+    refs:
+      - master
+    changes:
+      - backend/**/*
+  except:
+    changes:
+      - "README.md"      
+
+  
