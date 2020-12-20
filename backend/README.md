@@ -58,7 +58,7 @@ Add a entry in the `launch.json` (e.g. from the run menu)
             "request": "launch",
             "module": "flask",
             "env": {
-                "FLASK_APP": "server.py",
+                "FLASK_APP": "app.py",
                 "FLASK_ENV": "development",
                 "FLASK_DEBUG": "0"
             },
