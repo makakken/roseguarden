@@ -3,14 +3,11 @@ flake8:
   allow_failure: true  
   script:
     - flake8 backend/.
-  artifacts:
-    paths:
-      - frontend/dist
   only:
     refs:
       - master
     changes:
-      - frontend/**/*
+      - backend/**/*
   except:
     changes:
       - "README.md"      
