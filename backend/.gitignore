@@ -95,3 +95,6 @@ jobs.sqlite
 
 # Service worker
 sw.*
+
+# virtual environment
+.venv
