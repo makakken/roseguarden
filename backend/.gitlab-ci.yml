@@ -4,7 +4,9 @@ flake8:
   before_script:
     - pip install flake8
   script:
-    - flake8 backend/.
+    - flake8 backend/. --statistics --count $(cat files.processed)
+  after_script:
+    - wc -l files.processed    
   only:
     refs:
       - master
