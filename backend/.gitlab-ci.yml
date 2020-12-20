@@ -1,6 +1,8 @@
 flake8:
   stage: analysis 
   allow_failure: true  
+  before_script:
+    - pip install flake8
   script:
     - flake8 backend/.
   only:
