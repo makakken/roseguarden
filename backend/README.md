@@ -30,7 +30,7 @@ You should see now `(.venv)` at the very beginning of your terminal line.
 #### Windows
 ⚠️ At the moment (20.12.2020) it is not possible to run the roseguarden backend with native python directly on Windows, because some python packages like [bcrypt](https://pypi.org/project/bcrypt/) can not be installed on Windows.
 
-But you can install it in a WSL2 distribution or you use anaconda to realise a virtual environment.
+But you can install it in a **WSL2 distribution** or you use **anaconda** to realise a virtual environment.
 
 ###  Install required packages
 To install all dependencies run
