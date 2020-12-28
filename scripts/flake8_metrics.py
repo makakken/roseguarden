@@ -39,6 +39,7 @@ with open(args.filename) as flake_report, open('flake8_metrics.txt',
                     'flake8_failures{{code="{}",error="{}"}} {}\n'.format(
                         tokens[1], ' '.join(tokens[2:]).replace("'", ""),
                         count))
+            exit(0)
         except ValueError:
             pass
 if exit_with_failure is True:
