@@ -20,6 +20,7 @@ flake8:
   artifacts:
     reports:
       junit: junit_test.xml
+      dotenv: deploy_test.env
 
 pylint:
   stage: analysis
