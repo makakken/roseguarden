@@ -4,8 +4,10 @@ flake8:
   before_script:
     - pip install flake8
   script:
+    - echo 'metric_name metric_value' > metrics.txt
     - flake8 backend/. --exit-zero --statistics  --tee --output-file=flake8_report.txt
     - python3 scripts/flake8_metrics.py flake8_report.txt
+    - cat flake8_report.txt
   only:
     refs:
       - merge_requests
@@ -17,7 +19,7 @@ flake8:
       - "README.md"
   artifacts:
     reports:
-      metrics: flake8_metrics.txt
+      codequality: quality_report.json
 
 pylint:
   stage: analysis
