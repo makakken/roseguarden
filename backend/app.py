@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -32,7 +32,6 @@ app = create_app()
 
 print()
 print(app.url_map)
-
 
 with app.app_context():
     nodeManager.init_nodes()
