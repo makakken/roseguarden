@@ -6,8 +6,6 @@ flake8:
   script:
     - flake8 backend/. --statistics  --tee --output-file=flake8_report.txt
     - python3 scripts/flake8_metrics.py flake8_report.txt
-  after_script:
-    - wc -l files.processed    
   only:
     refs:
       - master
