@@ -1,6 +1,6 @@
 flake8:
-  stage: analysis 
-  allow_failure: true  
+  stage: analysis
+  allow_failure: true
   before_script:
     - pip install flake8
   script:
@@ -9,18 +9,19 @@ flake8:
   only:
     refs:
       - master
+      - merge_requests
     changes:
       - backend/**/*
   except:
     changes:
-      - "README.md"      
+      - "README.md"
   artifacts:
     reports:
-      metrics: flake8_metrics.txt    
+      metrics: flake8_metrics.txt
 
 pylint:
-  stage: analysis 
-  allow_failure: true  
+  stage: analysis
+  allow_failure: true
   before_script:
     - pip install pylint
   script:
@@ -32,6 +33,4 @@ pylint:
       - backend/**/*
   except:
     changes:
-      - "README.md"      
-
-  
+      - "README.md"
