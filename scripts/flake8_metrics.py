@@ -5,11 +5,15 @@ parser = argparse.ArgumentParser()
 parser.add_argument('filename')
 args = parser.parse_args()
 
+
+exit_with_failure=False
+
 with open(args.filename) as flake_report, open('flake8_metrics.txt', 'w') as metrics_file:
     for l in flake_report:
         tokens = [s for s in str.split(l) if s.strip() != '']
         try:
             count = int(tokens[0])
+            exit_with_failure=True
             if tokens[1][0] == 'E':
                 metrics_file.write('flake8_style_errors{{code="{}",error="{}"}} {}\n'.format(tokens[1],' '.join(tokens[2:]),count))
             if tokens[1][0] == 'W':
@@ -22,4 +26,5 @@ with open(args.filename) as flake_report, open('flake8_metrics.txt', 'w') as met
                 metrics_file.write('flake8_failures{{code="{}",error="{}"}} {}\n'.format(tokens[1],' '.join(tokens[2:]),count))
         except ValueError:
             pass
-
+if exit_with_failure is True:
+    exit(1)
