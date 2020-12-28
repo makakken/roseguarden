@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -26,6 +26,7 @@ import configparser
 from ast import literal_eval
 
 basedir = os.path.abspath(os.path.dirname(__file__))
+
 
 def remove_quotes(original):
     d = original.copy()
@@ -40,19 +41,20 @@ def remove_quotes(original):
         if isinstance(value, dict):
             d[key] = remove_quotes(value)
     return d
- 
+
+
 class SystemConfigs:
     def __init__(self, preferences_ini):
         self.preferences_ini = preferences_ini
- 
+
         self.config = configparser.ConfigParser()
         self.config.read(preferences_ini)
- 
+
         self.d = self.to_dict(self.config._sections)
- 
+
     def as_dict(self):
         return self.d
- 
+
     def to_dict(self, config):
         """
         Nested OrderedDict to normal dict and remove quotes around string
@@ -60,6 +62,7 @@ class SystemConfigs:
         d = json.loads(json.dumps(config))
         d = remove_quotes(d)
         return d
+
 
 def load_config(file):
     def remove_quotes(data):
@@ -120,7 +123,7 @@ def configure_app(app, config):
 
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-    app.config['MAIL_SERVER']= config['MAIL'].get('server', 'server')
+    app.config['MAIL_SERVER'] = config['MAIL'].get('server', 'server')
     app.config['MAIL_PORT'] = config['MAIL'].get('port', 465)
     app.config['MAIL_USERNAME'] = config['MAIL'].get('username', 'username')
     app.config['MAIL_PASSWORD'] = config['MAIL'].get('password', 'password')
