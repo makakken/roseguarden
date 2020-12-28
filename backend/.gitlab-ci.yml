@@ -19,7 +19,7 @@ flake8:
       - "README.md"
   artifacts:
     reports:
-      metrics: metrics_test.txt
+      junit: junit_test.xml
 
 pylint:
   stage: analysis
