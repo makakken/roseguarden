@@ -13,6 +13,7 @@ include:
   - local: "docs/.gitlab-ci.yml"
   - local: "frontend/.gitlab-ci.yml"
   - local: "backend/.gitlab-ci.yml"
+  - template: Code-Quality.gitlab-ci.yml
 
 pack:
   before_script:
