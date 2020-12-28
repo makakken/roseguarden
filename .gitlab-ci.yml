@@ -14,9 +14,6 @@ include:
   - local: "frontend/.gitlab-ci.yml"
   - local: "backend/.gitlab-ci.yml"
 
-include:
-  - template: Code-Quality.gitlab-ci.yml
-
 pack:
   before_script:
     - apk add --update zip
