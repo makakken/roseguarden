@@ -3,3 +3,5 @@ latest_package/
 .vscode/
 latest_package.zip
 roseguarden.zip
+flake_report.txt
+flake_metrics.txt

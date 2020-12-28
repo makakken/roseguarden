@@ -4,7 +4,8 @@ flake8:
   before_script:
     - pip install flake8
   script:
-    - flake8 backend/. --statistics --count $(cat files.processed)
+    - flake8 backend/. --statistics  --tee --output-file=flake8_report.txt
+    - python3 scripts/flake8_metrics.py flake8_report.txt
   after_script:
     - wc -l files.processed    
   only:
@@ -15,6 +16,9 @@ flake8:
   except:
     changes:
       - "README.md"      
+  artifacts:
+    reports:
+      metrics: flake8_metrics.txt    
 
 pylint:
   stage: analysis 
