@@ -19,7 +19,7 @@ flake8:
       - "README.md"
   artifacts:
     reports:
-      metrics: metrics.txt
+      metrics: metrics_test.txt
 
 pylint:
   stage: analysis
