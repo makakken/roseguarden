@@ -131,4 +131,5 @@ def configure_app(app, config):
     app.config['MAIL_USE_SSL'] = config['MAIL'].get('ssl', True)
     app.config['MAIL_SENDER'] = config['MAIL'].get('sender', 'test@test.com')
 
+
     # app.config.from_pyfile('config.cfg', silent=True) # instance-folders configuration
