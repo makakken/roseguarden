@@ -19,8 +19,7 @@ flake8:
       - "README.md"
   artifacts:
     reports:
-      junit: junit_test.xml
-      dotenv: deploy_test.env
+      codequality: quality_report.json
 
 pylint:
   stage: analysis
