@@ -8,10 +8,8 @@ args = parser.parse_args()
 
 exit_with_failure = False
 
-with open(args.filename) as flake_report, open('flake8_metrics.txt',
-                                               'w') as metrics_file, open(
-                                                   'flake8_quality.txt',
-                                                   'w') as quality_file:
+with open(args.filename) as flake_report, open('flake8_quality.json',
+                                               'w') as quality_file:
     issues = []
     for l in flake_report:
         # its an issue

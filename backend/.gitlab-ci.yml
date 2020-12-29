@@ -19,7 +19,7 @@ flake8:
       - "README.md"
   artifacts:
     reports:
-      codequality: quality_report.json
+      codequality: flake8_quality.json
 
 pylint:
   stage: analysis
