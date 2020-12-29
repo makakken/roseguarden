@@ -4,7 +4,7 @@ flake8:
   before_script:
     - pip install flake8
   script:
-    - flake8 backend/. --exit-zero --statistics --count --tee --output-file=flake8_report.txt
+    - flake8 backend/. --exit-zero --config backend/setup.cfg --statistics --count --tee --output-file=flake8_report.txt
     - python3 scripts/flake8_quality.py flake8_report.txt
     - cat flake8_report.txt
   only:
