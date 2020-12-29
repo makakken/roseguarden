@@ -1,4 +1,4 @@
-""" 
+"""
 The roseguarden project 
 
 Copyright (C) 2018-2020  Marcus Drobisch,
@@ -20,7 +20,6 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-import os
 from pprint import pprint
 from core.users.models import User
 from core.messages.models import Message
@@ -34,8 +33,6 @@ from core.logs import logManager
 from core.users import userManager
 from core.nodes.nodeClass import NodeClass
 import arrow
-import pprint
-import json
 
 from workspaces.Log.permissions import ViewLogs
 from workspaces.Access.models import SpaceAccessGroup, SpaceAccessProperties, SpaceAccessSpace
