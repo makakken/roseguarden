@@ -125,7 +125,7 @@ class DataView(object):
         prop = {'name': name, 'label': label, 'type': 'email'}
         if isKey == True:
             prop['isKey'] = True
-            if self.entrykey != None:
+            if self.entrykey is not None:
                 raise KeyError("DataView '{}' already have a key ({}) and cant be overridden with {}".format(
                     self.name, self.entrykey, name))
             self.entrykey = name
@@ -172,7 +172,7 @@ class DataView(object):
         prop = {'name': name, 'label': label, 'type': 'double'}
         if isKey == True:
             prop['isKey'] = True
-            if self.entrykey != None:
+            if self.entrykey is not None:
                 raise KeyError("DataView '{}' already have a key ({}) and cant be overridden with {}".format(
                     self.name, self.entrykey, name))
             self.entrykey = name

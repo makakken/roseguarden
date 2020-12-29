@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -148,15 +148,6 @@ class MenuBuilder(object):
             menu.pop()
 
         return menu
-        '''
-        if user is None:
-            return  self.buildGuestMenu()
-        else:
-            if user.admin is False:
-                return self.buildUserMenu(user)
-            else:
-                return self.buildAdminMenu(user)
-        '''
 
 
 '''
@@ -172,27 +163,27 @@ EXAMPLE of menu structure
   },
   {divider: true},
   {header: 'Templates&Links'},
-  { 
+  {
     title: 'Vue Material Admin',
     group: 'links', 
     icon: 'touch_app',
     external: true,
     href: 'https://github.com/tookit/vue-material-admin'
   },
-  { 
+  {
     title: 'Vue Material Admin Demo',
     group: 'links', 
     icon: 'touch_app',
     external: true,
     href: 'http://vma.isocked.com/#/dashboard'
-  },    
+  },
   {
     title: 'Vuetify',
     group: 'links',
     icon: 'touch_app',
     external: true,
     href: 'https://vuetifyjs.com/en/getting-started/quick-start'
-  },    
+  }
 ];
 
 '''

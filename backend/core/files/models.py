@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -25,11 +25,7 @@ from core import db, bcrypt
 from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
 from sqlalchemy_utils import ArrowType
 import arrow
-import json
 import enum
-
-from core.common.jsonDict import JsonDict
-from core.users.models import User
 
 association_table_user_filepermissiongroup = db.Table(
     'filepermissiongroup_user_map', db.Column('user_id', db.Integer, db.ForeignKey('users.id')),

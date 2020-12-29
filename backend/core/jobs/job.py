@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -27,7 +27,7 @@ import datetime
 
 
 class Job(object):
-    """Base class that each job inherit from. 
+    """Base class that each job inherit from.
        The class define methods that all jobs have to implement
     """
     description = "Not available"  # description of the job
