@@ -20,12 +20,11 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from pprint import pprint
 from core.users.models import User
 from core.messages.models import Message
 from core.workspaces.models import Permission, PermissionGroup
-from core.messages import send_mail, send_message
-from core.jobs import jobManager, add_dated_job
+from core.messages import send_message
+from core.jobs import jobManager
 from core.workspaces import workspaceManager
 from core.actions import generateActionLink
 from core.actions.models import ActionLink
@@ -42,13 +41,13 @@ from core.workspaces.workspaceHooks import WorkspaceHooks
 from core.nodes import nodeManager
 from core.nodes.models import Node
 
-from core.actions import models
-from core.files import models
-from core.jobs import models
-from core.messages import models
-from core.workspaces import models
-from core.users import models
-from core.nodes import models
+import core.actions.models
+import core.files.models
+import core.jobs.models
+import core.messages.models
+import core.workspaces.models
+import core.users.models
+import core.nodes.models
 
 
 def create_devEnv(app, db, clean=True):
@@ -174,7 +173,3 @@ def create_devEnv(app, db, clean=True):
     print("n")
 
     print(jobManager)
-    args = ["test"]
-    # add_dated_job("UpdateBudgetsWeeklyJob", args, workspace="Access" )
-
-    mAll = Message.query.all()
