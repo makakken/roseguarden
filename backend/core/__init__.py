@@ -16,24 +16,22 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
 import logging
-import datetime
 
-from flask import Flask, Blueprint, request, current_app, jsonify, redirect, url_for, send_from_directory
+from flask import Flask, Blueprint
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_cors import CORS, cross_origin
-
-version = "0.2.2"
-
+from flask_cors import CORS
 
 from config import configure_app, load_config
+
+from core.version import version
 from core.logs import logManager
 from core.workspaces import workspaceManager
 from core.nodes import nodeManager
@@ -49,9 +47,10 @@ db = SQLAlchemy()
 bcrypt = Bcrypt()
 migrate = Migrate()
 
-def create_app(minimal = False):
+
+def create_app(minimal=False):
     config = load_config("config.ini")
-    app = Flask(__name__, static_folder = "./dist")
+    app = Flask(__name__, static_folder="./dist")
     # configure the app
     configure_app(app, config)
 
@@ -61,7 +60,6 @@ def create_app(minimal = False):
         app.logger.setLevel(gunicorn_logger.level)
 
     #logging.basicConfig(level=logging.DEBUG, format='%(threadName)s %(message)s')
-
 
     if not minimal:
         cors = CORS(app)
@@ -97,7 +95,7 @@ def create_app(minimal = False):
 
     # import workspace blueprint and models
     from core.workspaces import workspaces_bp
-    from core.workspaces import models
+    import core.workspaces.models
 
     app.register_blueprint(workspaces_bp)
 
@@ -111,19 +109,18 @@ def create_app(minimal = False):
 
     if not minimal:
         migrate.init_app(app, db)
-        jobManager.init_manager(app,db, config)
+        jobManager.init_manager(app, db, config)
         workspaceManager.init_app(app, db)
         userManager.init_manager(app, db, workspaceManager, config)
-        nodeManager.init_manager(app,db, workspaceManager)
-        messageManager.init_manager(app,db, workspaceManager, config)
-        menuBuilder.init_builder(app, db, userManager, workspaceManager)    
+        nodeManager.init_manager(app, db, workspaceManager)
+        messageManager.init_manager(app, db, workspaceManager, config)
+        menuBuilder.init_builder(app, db, userManager, workspaceManager)
         actionManager.init_manager(app, db, userManager, menuBuilder, workspaceManager, nodeManager, config)
-        fileManager.init_manager(app,db, workspaceManager, config)
-
+        fileManager.init_manager(app, db, workspaceManager, config)
 
     return app
 
 
 # declare app routes
-app_bp = Blueprint('app', __name__, static_folder = "../client")
+app_bp = Blueprint('app', __name__, static_folder="../client")
 from core import routes

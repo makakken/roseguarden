@@ -1,5 +1,5 @@
 """
-The roseguarden project 
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -21,16 +21,11 @@ __credits__ = []
 __license__ = "GPLv3"
 
 from core.users.models import User
-from core.messages.models import Message
 from core.workspaces.models import Permission, PermissionGroup
 from core.messages import send_message
 from core.jobs import jobManager
 from core.workspaces import workspaceManager
-from core.actions import generateActionLink
 from core.actions.models import ActionLink
-from core.logs import logManager
-from core.users import userManager
-from core.nodes.nodeClass import NodeClass
 import arrow
 
 from workspaces.Log.permissions import ViewLogs
