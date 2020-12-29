@@ -20,9 +20,7 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-import os
 from core.logs import logs_bp, logManager
-from flask import Flask, jsonify, request, redirect, url_for, send_from_directory
 
 
 @logs_bp.route('/api/v1/log', methods=["GET"])

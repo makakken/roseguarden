@@ -100,7 +100,7 @@ class MenuBuilder(object):
             if page.requireLogin == False:
                 return True
         else:
-            if user.admin == True:
+            if user.admin is True:
                 return True
             if page.requireAdmin == False:
                 if hasattr(page, 'requirePermission'):
@@ -165,14 +165,14 @@ EXAMPLE of menu structure
   {header: 'Templates&Links'},
   {
     title: 'Vue Material Admin',
-    group: 'links', 
+    group: 'links',
     icon: 'touch_app',
     external: true,
     href: 'https://github.com/tookit/vue-material-admin'
   },
   {
     title: 'Vue Material Admin Demo',
-    group: 'links', 
+    group: 'links',
     icon: 'touch_app',
     external: true,
     href: 'http://vma.isocked.com/#/dashboard'

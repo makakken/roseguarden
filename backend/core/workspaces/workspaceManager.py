@@ -245,7 +245,7 @@ class WorkspaceManager(object):
                                 logManager.info(
                                     f'Workspace discovered : {workspaceInstance.name} [{c.__module__}] with uri "{workspaceInstance.uri}"'
                                 )
-                                if workspaceInstance.disable == True:
+                                if workspaceInstance.disable is True:
                                     logManager.info(
                                         f'Workspace {workspaceInstance.name} [{c.__module__}] is disabled and wont show up'
                                     )

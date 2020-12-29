@@ -22,7 +22,7 @@ __license__ = "GPLv3"
 
 import os
 from core import app_bp
-from flask import Flask, jsonify, request, redirect, url_for, send_from_directory
+from flask import request, redirect, url_for, send_from_directory
 
 
 # index route

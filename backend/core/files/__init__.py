@@ -20,7 +20,6 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-import os
 from flask import Blueprint
 from core.files.fileManager import FileManager
 

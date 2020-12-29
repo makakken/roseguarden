@@ -40,7 +40,7 @@ class LogManager(object):
         if type(msg) is str:
             try:
                 s = msg % args
-            except:
+            except Exception:
                 s = msg.format(*args)
             indents = s.replace("\n", "\n" + " " * 29)
             self.logQueue.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + " [INFO] : " + indents)
@@ -52,7 +52,7 @@ class LogManager(object):
             self.app.logger.info(msg, *args, **kwargs)
             indents = s.replace("\n", "\n" + " " * 14)
             print("[{:4.4}][INFO]: {}".format(threading.current_thread().name, indents))
-        except:
+        except Exception:
             print("logger failed to print: ", s)
 
     def warning(self, msg, *args, **kwargs):
@@ -62,7 +62,7 @@ class LogManager(object):
         if type(msg) is str:
             try:
                 s = msg % args
-            except:
+            except Exception:
                 s = msg.format(*args)
             self.logQueue.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + " [INFO] : " + s)
             self.logQueue.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + " [WARN] : " + s)
@@ -73,7 +73,7 @@ class LogManager(object):
         try:
             self.app.logger.info(msg, *args, **kwargs)
             print("[WARNING]:", s)
-        except:
+        except Exception:
             print("logger failed to print: ", s)
 
     def error(self, msg, *args, **kwargs):
@@ -84,7 +84,7 @@ class LogManager(object):
             try:
                 s = msg % args
                 print("%", s)
-            except:
+            except Exception:
                 s = msg.format(*args)
             self.logQueue.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + " [FAIL] : " + s)
         else:
@@ -94,5 +94,5 @@ class LogManager(object):
         try:
             self.app.logger.error(msg, *args, **kwargs)
             print("[FAIL]:", s)
-        except:
+        except Exception:
             print("logger failed to print: ", s)

@@ -21,7 +21,6 @@ __credits__ = []
 __license__ = "GPLv3"
 
 import inspect
-import os
 import pkgutil
 
 from core.actions.action import Action
@@ -181,7 +180,7 @@ class Workspace(object):
                     if issubclass(c, Page) & (c is not Page):
                         pageInstance = c()
                         logManager.info(f'Page: "{pageInstance.name}" loaded from "{c.__module__}"')
-                        if pageInstance.disable == True:
+                        if pageInstance.disable is True:
                             logManager.info(f'Page: "{pageInstance.name}" is diabled and wont show up')
                         else:
                             self.pages[str(pageInstance.name)] = pageInstance
@@ -207,7 +206,7 @@ class Workspace(object):
                         dataViewInstance.defineProperties()
                         dataViewInstance.defineMetadata()
 
-                        if dataViewInstance.disable == True:
+                        if dataViewInstance.disable is True:
                             logManager.info(f'DataView: "{dataViewInstance.name}" is diabled and wont show up')
                         else:
                             self.dataViews[str(dataViewInstance.uri)] = (dataViewInstance)
@@ -249,7 +248,7 @@ class Workspace(object):
                     if issubclass(c, Action) & (c is not Action):
                         actionInstance = c(self.app)
                         logManager.info(f'Action "{c.__module__}" created for workspace "{self.name}"')
-                        if actionInstance.disable == True:
+                        if actionInstance.disable is True:
                             logManager.info(f'Action: "{actionInstance.name}" is diabled and wont show up')
                         else:
                             self.actions.append(actionInstance)

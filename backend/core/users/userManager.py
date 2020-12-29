@@ -23,7 +23,6 @@ __license__ = "GPLv3"
 import secrets
 import datetime
 import arrow
-from pprint import pprint
 from flask_jwt_extended import create_access_token, create_refresh_token
 
 from core.logs import logManager

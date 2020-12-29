@@ -110,7 +110,7 @@ class ActionManager(object):
                 print('action workspace found')
                 if al.action in self.actionsMap[al.workspace]:
                     print('action', al.action, 'found in workspace')
-                    if user is None and al.need_login == True:
+                    if user is None and al.need_login is True:
                         response_actions.append(
                             webclientActions.NotificationAction.generate("Login needed you will be redirected.",
                                                                          "success"))

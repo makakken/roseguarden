@@ -22,7 +22,7 @@ __license__ = "GPLv3"
 
 from core.messages import messages_bp
 from core.messages import messageManager
-from flask_jwt_extended import jwt_required, jwt_optional, get_jwt_identity
+from flask_jwt_extended import jwt_optional
 from jinja2 import Template
 
 
