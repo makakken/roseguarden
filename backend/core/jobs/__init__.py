@@ -23,11 +23,12 @@ __license__ = "GPLv3"
 from datetime import datetime, timedelta
 from flask import Blueprint
 from core.jobs.job import Job
-jobs_bp = Blueprint('jobs', __name__)
 
 from core.jobs.jobManager import JobManager
 from core.logs import logManager
 from inspect import isclass
+
+jobs_bp = Blueprint('jobs', __name__)
 
 jobManager = JobManager()
 

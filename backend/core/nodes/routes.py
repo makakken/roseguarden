@@ -23,7 +23,7 @@ __license__ = "GPLv3"
 from core.nodes import nodes_bp, nodeManager
 from core.nodes.errors import AuthorizationError, RequestError
 from core.logs import logManager
-from flask import Flask, jsonify, make_response, request, redirect, url_for, send_from_directory
+from flask import make_response, request
 from flask_cors import cross_origin
 from pprint import pprint
 import json

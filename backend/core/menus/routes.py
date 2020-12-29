@@ -21,8 +21,7 @@ __credits__ = []
 __license__ = "GPLv3"
 
 from core.menus import menus_bp
-from core.logs import logManager
-from flask import Flask, jsonify, request, make_response, redirect, url_for, send_from_directory
+from flask import make_response
 
 
 @menus_bp.route('/api/v1/menu', methods=["GET"])

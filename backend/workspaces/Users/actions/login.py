@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -37,7 +37,7 @@ class Login(Action):
         replyActions = []
         user = (actionManager.userManager.getUser(action['username']))
 
-        if user != None:
+        if user is not None:
             if user.account_verified is False:
                 replyActions.append(
                     webclientActions.NotificationAction.generate("Your account need to be verified before login.",

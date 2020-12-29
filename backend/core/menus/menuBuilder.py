@@ -97,12 +97,12 @@ class MenuBuilder(object):
 
     def hasPermission(self, user, page, workspace):
         if user is None:
-            if page.requireLogin == False:
+            if page.requireLogin is False:
                 return True
         else:
             if user.admin is True:
                 return True
-            if page.requireAdmin == False:
+            if page.requireAdmin is False:
                 if hasattr(page, 'requirePermission'):
                     if page.requirePermission is None:
                         return True
@@ -115,7 +115,7 @@ class MenuBuilder(object):
         for w in self.workspaceManager.workspaces:
             for key, p in w.pages.items():
                 # is pages in a group
-                if p.group != None:
+                if p.group is not None:
                     if str(p.group) in menu_groups:
                         rankSum, pageList = menu_groups[str(p.group)]
 

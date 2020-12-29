@@ -20,14 +20,13 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from core.actions.actionGenerator import BaseAction
 from core.actions.action import Action
 from core.common.objDict import ObjDict
 from core.logs import logManager
 from core.actions import webclientActions
-from core.actions.errors import NotFoundError, ExpiredError, RequireLoginError
-from flask_jwt_extended import create_access_token, create_refresh_token
-import sys, traceback
+from core.actions.errors import RequireLoginError
+import sys
+import traceback
 
 
 class RemoveViewEntryActionHandler(Action):
@@ -39,8 +38,6 @@ class RemoveViewEntryActionHandler(Action):
 
     def handle(self, action, user, workspace, actionManager):
         logManager.info("Execute removal for view entry for", action['view'])
-        userManager = actionManager.userManager
-        workspaceManager = actionManager.workspaceManager
         viewname = action['view']
 
         if viewname in workspace.dataViews:
@@ -94,8 +91,6 @@ class CreateViewEntryActionHandler(Action):
 
     def handle(self, action, user, workspace, actionManager):
         logManager.info("Execute creation of view entry for", action['view'])
-        userManager = actionManager.userManager
-        workspaceManager = actionManager.workspaceManager
         viewname = action['view']
 
         if viewname in workspace.dataViews:
@@ -142,8 +137,6 @@ class UpdateViewEntryActionHandler(Action):
 
     def handle(self, action, user, workspace, actionManager):
         logManager.info("Execute update of view entry for '{}'", action['view'])
-        userManager = actionManager.userManager
-        workspaceManager = actionManager.workspaceManager
         viewname = action['view']
 
         if viewname in workspace.dataViews:
@@ -198,8 +191,6 @@ class ExecuteViewActionsActionHandler(Action):
 
     def handle(self, action, user, workspace, actionManager):
         logManager.info("Execute action '{}' on view '{}'", action['viewAction'], action['view'])
-        userManager = actionManager.userManager
-        workspaceManager = actionManager.workspaceManager
         viewname = action['view']
         if viewname in workspace.dataViews:
             print('found view', viewname, 'in', workspace.name, workspace.dataViews[viewname])
@@ -259,8 +250,6 @@ class GetViewActionHandler(Action):
 
     def handle(self, action, user, workspace, actionManager):
         logManager.info("Execute get view action for", action['view'])
-        userManager = actionManager.userManager
-        workspaceManager = actionManager.workspaceManager
 
         viewname = action['view']
         print(workspace.dataViews)

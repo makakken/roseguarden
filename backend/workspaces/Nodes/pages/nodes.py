@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -22,12 +22,10 @@ __license__ = "GPLv3"
 
 from core.workspaces import DataView, Workspace, Page
 from core.users.models import User
-from core import db
+
+
 """ The log page
-"""
-
-
-class NodesList(Page):
+"""class NodesList(Page):
     title = 'Nodes'  # Shown label of the page in the menu
     group = 'Nodes'  # groupname multiple pages
     icon = 'all_out'  # icon (in typeset of material design icons)

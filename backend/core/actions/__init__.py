@@ -20,9 +20,6 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-import collections
-import logging
-import datetime
 from flask import Blueprint
 from core.actions.actionManager import ActionManager
 
@@ -46,4 +43,4 @@ def executeActionLink(hash, user):
     return actionManager.executeActionLink(hash, user)
 
 
-from core.actions import routes
+import core.actions.routes

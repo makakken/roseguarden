@@ -20,13 +20,11 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from datetime import datetime
 from core import db, bcrypt
 from core.users.enum import AuthenticatorSendBy, AuthenticatorType, AuthenticatorValidityType, UserAuthenticatorStatus
 from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
 from sqlalchemy_utils import ArrowType
 import arrow
-import enum
 
 
 class User(db.Model):

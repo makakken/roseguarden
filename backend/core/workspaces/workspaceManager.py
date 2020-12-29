@@ -80,7 +80,7 @@ class WorkspaceManager(object):
         for ws in self.workspaces:
 
             workspace_permissions = ws.permissions
-            if workspace_permissions != None:
+            if workspace_permissions is not None:
                 all_permissions = {**all_permissions, **workspace_permissions}
             logManager.info(f'Register permissions for {ws.name}-workspace : {workspace_permissions}')
 
@@ -197,7 +197,7 @@ class WorkspaceManager(object):
         imported_source = __import__(source, fromlist=['blah'])
         all_current_paths = []
 
-        #all_current_paths.append(imported_source.__path__._path)
+        # all_current_paths.append(imported_source.__path__._path)
 
         if isinstance(imported_source.__path__, str):
             all_current_paths.append(imported_source.__path__)

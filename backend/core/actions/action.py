@@ -31,7 +31,7 @@ class Action(object):
     disable = False
 
     def __init__(self, app, uri=None):
-        if uri == None:
+        if uri is None:
             self.uri = self.__class__.__name__
         else:
             self.uri = uri

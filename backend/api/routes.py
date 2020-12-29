@@ -52,7 +52,7 @@ def api_v1():
     return reply
 
 
-"""     if get_jwt_identity() != None:
+"""     if get_jwt_identity() is not None:
         print("api call for ", request.method, " for valid user ", get_jwt_identity())
     else:
         print("api call for ", request.method, " for guest ")

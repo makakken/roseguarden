@@ -26,7 +26,7 @@ import hashlib
 
 from core.logs import logManager
 from core.nodes import nodeclientActions
-from core.nodes.errors import AuthorizationError, RequestError
+from core.nodes.errors import AuthorizationError
 
 
 class NodeManager(object):

@@ -24,7 +24,6 @@ from core.workspaces import DataView, Workspace
 from core.nodes.models import Node
 from workspaces.Access.models import SpaceAccessSpace
 from core.users.models import User
-from core import db
 """ A view contaning a list of spaces
 """
 

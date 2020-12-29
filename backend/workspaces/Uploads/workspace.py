@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -21,7 +21,6 @@ __credits__ = []
 __license__ = "GPLv3"
 
 from core.workspaces import Workspace
-from core.logs import logManager
 """This upload workspace
 """
 

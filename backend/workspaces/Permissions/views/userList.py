@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -23,7 +23,6 @@ __license__ = "GPLv3"
 from core.workspaces import DataView, Workspace
 from core.workspaces.models import Permission, PermissionGroup
 from core.users.models import User
-from core import db
 
 from workspaces.Permissions.permissions import ViewPermission
 """ A view contaning a list of permission groups

@@ -22,7 +22,6 @@ __license__ = "GPLv3"
 
 from core.workspaces import DataView, Workspace, Page
 from core.users.models import User
-from core import db
 
 
 class AccessGroups(Page):

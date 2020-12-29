@@ -43,6 +43,6 @@ class ObjDict(dict):
     def extract(self):
         r = {}
         for a in self:
-            if self[a] != None:
+            if self[a] is not None:
                 r[a] = self[a]
         return r

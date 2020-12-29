@@ -149,7 +149,7 @@ class DataView(object):
         prop = {'name': name, 'label': label, 'type': 'string'}
         if isKey is True:
             prop['isKey'] = True
-            if self.entrykey != None:
+            if self.entrykey is not None:
                 raise KeyError("DataView '{}' already have a key ({}) and cant be overridden with {}".format(
                     self.name, self.entrykey, name))
             self.entrykey = name
@@ -195,7 +195,7 @@ class DataView(object):
         prop = {'name': name, 'label': label, 'type': 'integer'}
         if isKey is True:
             prop['isKey'] = True
-            if self.entrykey != None:
+            if self.entrykey is not None:
                 raise KeyError("DataView '{}' already have a key ({}) and cant be overridden with {}".format(
                     self.name, self.entrykey, name))
             self.entrykey = name
@@ -218,7 +218,7 @@ class DataView(object):
         prop = {'name': name, 'label': label, 'type': 'datetime'}
         if isKey is True:
             prop['isKey'] = True
-            if self.entrykey != None:
+            if self.entrykey is not None:
                 raise KeyError("DataView '{}' already have a key ({}) and cant be overridden with {}".format(
                     self.name, self.entrykey, name))
             self.entrykey = name
@@ -240,7 +240,7 @@ class DataView(object):
         prop = {'name': name, 'label': label, 'type': 'time'}
         if isKey is True:
             prop['isKey'] = True
-            if self.entrykey != None:
+            if self.entrykey is not None:
                 raise KeyError("DataView '{}' already have a key ({}) and cant be overridden with {}".format(
                     self.name, self.entrykey, name))
             self.entrykey = name
@@ -262,7 +262,7 @@ class DataView(object):
         prop = {'name': name, 'label': label, 'type': 'date'}
         if isKey is True:
             prop['isKey'] = True
-            if self.entrykey != None:
+            if self.entrykey is not None:
                 raise KeyError("DataView '{}' already have a key ({}) and cant be overridden with {}".format(
                     self.name, self.entrykey, name))
             self.entrykey = name
@@ -285,7 +285,7 @@ class DataView(object):
         prop = {'name': name, 'label': label, 'type': 'boolean'}
         if isKey is True:
             prop['isKey'] = True
-            if self.entrykey != None:
+            if self.entrykey is not None:
                 raise KeyError("DataView '{}' already have a key ({}) and cant be overridden with {}".format(
                     self.name, self.entrykey, name))
             self.entrykey = name
@@ -309,7 +309,7 @@ class DataView(object):
         prop = {'name': name, 'label': label, 'type': 'select'}
         if isKey is True:
             prop['isKey'] = True
-            if self.entrykey != None:
+            if self.entrykey is not None:
                 raise KeyError("DataView '{}' already have a key ({}) and cant be overridden with {}".format(
                     self.name, self.entrykey, name))
             self.entrykey = name
@@ -333,7 +333,7 @@ class DataView(object):
         prop = {'name': name, 'label': label, 'type': 'multiselect'}
         if isKey is True:
             prop['isKey'] = True
-            if self.entrykey != None:
+            if self.entrykey is not None:
                 raise KeyError("DataView '{}' already have a key ({}) and cant be overridden with {}".format(
                     self.name, self.entrykey, name))
             self.entrykey = name

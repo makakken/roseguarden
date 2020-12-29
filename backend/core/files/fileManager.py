@@ -20,11 +20,10 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from core.logs import logManager
-import sys, traceback
-import arrow
 import os
-from core.jobs import jobManager, add_dated_job
+
+from core.logs import logManager
+from core.jobs import add_dated_job
 
 
 class FileManager(object):

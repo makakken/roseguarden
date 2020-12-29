@@ -20,12 +20,12 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from core.users import users_bp, auth_bp
+from core.users import auth_bp
 from flask import jsonify, request
 from pprint import pprint
 
-from flask_jwt_extended import (JWTManager, jwt_required, create_access_token, jwt_refresh_token_required,
-                                create_refresh_token, get_jwt_identity, set_access_cookies, jwt_optional,
+from flask_jwt_extended import (create_access_token, jwt_refresh_token_required,
+                                create_refresh_token, get_jwt_identity, set_access_cookies,
                                 set_refresh_cookies, unset_jwt_cookies)
 
 
