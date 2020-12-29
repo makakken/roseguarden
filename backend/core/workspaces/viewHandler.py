@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -29,14 +29,15 @@ from core.actions.errors import NotFoundError, ExpiredError, RequireLoginError
 from flask_jwt_extended import create_access_token, create_refresh_token
 import sys, traceback
 
+
 class RemoveViewEntryActionHandler(Action):
-    def __init__(self, app,  db,  uri="removeViewEntry"):
+    def __init__(self, app, db, uri="removeViewEntry"):
         self.uri = uri
         self.app = app
         self.db = db
         # logManager.info("Instance of RemoveViewEntryActionHandler created")
 
-    def handle(self, action, user, workspace, actionManager ):
+    def handle(self, action, user, workspace, actionManager):
         logManager.info("Execute removal for view entry for", action['view'])
         userManager = actionManager.userManager
         workspaceManager = actionManager.workspaceManager
@@ -52,30 +53,35 @@ class RemoveViewEntryActionHandler(Action):
                 responseActions = []
                 try:
                     if view.entrykey not in action['entry']:
-                        notification_action = webclientActions.NotificationAction.generate("UpdateViewEntryActionHandler miss entrykey", "error")
+                        notification_action = webclientActions.NotificationAction.generate(
+                            "UpdateViewEntryActionHandler miss entrykey", "error")
                         responseActions = [notification_action]
                     else:
                         view.dataSyncs = []
                         view.removeViewEntryHandler(user, workspace, action['entry'][str(view.entrykey)])
                         self.db.session.commit()
                         for v in view.dataSyncs:
-                            updateView =  workspace.dataViews[v['view']]
+                            updateView = workspace.dataViews[v['view']]
                             entries = updateView.getViewHandler(user, workspace, None)
                             meta_data = updateView.getViewMetaHandler(user, workspace)
                             properties = updateView.getProperties()
                             uri = workspace.uri + '/' + updateView.uri
-                            loadviewaction = webclientActions.LoadViewAction.generate(uri, properties, entries, meta_data)
+                            loadviewaction = webclientActions.LoadViewAction.generate(
+                                uri, properties, entries, meta_data)
                             responseActions.append(loadviewaction)
-                    responseActions.append(webclientActions.NotificationAction.generate("Removed successfully", "success"))
+                    responseActions.append(
+                        webclientActions.NotificationAction.generate("Removed successfully", "success"))
                     return 'success', responseActions
                 except Exception as e:
-                    notification_action = webclientActions.NotificationAction.generate("RemoveViewEntry '" + str(action['view']) + "' failed with: " + str(e), "error")
+                    notification_action = webclientActions.NotificationAction.generate(
+                        "RemoveViewEntry '" + str(action['view']) + "' failed with: " + str(e), "error")
                     responseActions = [notification_action]
                     logManager.error(str(type(e).__name__) + 'in ExecuteViewActionsActionHandler ' + action['view'])
                     traceback.print_exc(file=sys.stdout)
                 return 'success', responseActions
 
-        notification_action = webclientActions.NotificationAction.generate("View >" + viewname +  "< not found", "error")
+        notification_action = webclientActions.NotificationAction.generate("View >" + viewname + "< not found",
+                                                                           "error")
         return 'success', [notification_action]
 
 
@@ -86,11 +92,11 @@ class CreateViewEntryActionHandler(Action):
         self.db = db
         # logManager.info("Instance of CreateViewEntryActionHandler created")
 
-    def handle(self, action, user, workspace, actionManager ):
+    def handle(self, action, user, workspace, actionManager):
         logManager.info("Execute creation of view entry for", action['view'])
         userManager = actionManager.userManager
         workspaceManager = actionManager.workspaceManager
-        viewname = action['view'] 
+        viewname = action['view']
 
         if viewname in workspace.dataViews:
             view = workspace.dataViews[viewname]
@@ -106,24 +112,25 @@ class CreateViewEntryActionHandler(Action):
                     view.createViewEntryHandler(user, workspace, ObjDict(dictionary))
                     self.db.session.commit()
                     for v in view.dataSyncs:
-                        updateView =  workspace.dataViews[v['view']]
+                        updateView = workspace.dataViews[v['view']]
                         entries = updateView.getViewHandler(user, workspace, None)
                         meta_data = updateView.getViewMetaHandler(user, workspace)
                         properties = updateView.getProperties()
                         uri = workspace.uri + '/' + updateView.uri
                         loadviewaction = webclientActions.LoadViewAction.generate(uri, properties, entries, meta_data)
                         responseActions.append(loadviewaction)
-                    return 'success', responseActions                    
+                    return 'success', responseActions
                 except Exception as e:
-                    notification_action = webclientActions.NotificationAction.generate("CreateViewEntry '" + str(action['view']) + "' failed with: " + str(e), "error")
+                    notification_action = webclientActions.NotificationAction.generate(
+                        "CreateViewEntry '" + str(action['view']) + "' failed with: " + str(e), "error")
                     responseActions = [notification_action]
                     logManager.error(str(type(e).__name__) + 'in ExecuteViewActionsActionHandler ' + action['view'])
-                    traceback.print_exc(file=sys.stdout)                    
+                    traceback.print_exc(file=sys.stdout)
                 return 'success', responseActions
 
-        notification_action = webclientActions.NotificationAction.generate("View >" + viewname +  "< not found", "error")
+        notification_action = webclientActions.NotificationAction.generate("View >" + viewname + "< not found",
+                                                                           "error")
         return 'success', [notification_action]
-
 
 
 class UpdateViewEntryActionHandler(Action):
@@ -133,7 +140,7 @@ class UpdateViewEntryActionHandler(Action):
         self.db = db
         # logManager.info("Instance of UpdateViewEntryActionHandler created")
 
-    def handle(self, action, user, workspace, actionManager ):
+    def handle(self, action, user, workspace, actionManager):
         logManager.info("Execute update of view entry for '{}'", action['view'])
         userManager = actionManager.userManager
         workspaceManager = actionManager.workspaceManager
@@ -149,40 +156,47 @@ class UpdateViewEntryActionHandler(Action):
                 responseActions = []
                 try:
                     if view.entrykey not in action['entry']:
-                        notification_action = webclientActions.NotificationAction.generate("UpdateViewEntryActionHandler miss entrykey", "error")
+                        notification_action = webclientActions.NotificationAction.generate(
+                            "UpdateViewEntryActionHandler miss entrykey", "error")
                         responseActions = [notification_action]
                     else:
                         view.dataSyncs = []
                         dictionary = action['entry']
-                        view.updateViewEntryHandler(user, workspace, action['entry'][str(view.entrykey)], ObjDict(dictionary))
+                        view.updateViewEntryHandler(user, workspace, action['entry'][str(view.entrykey)],
+                                                    ObjDict(dictionary))
                         self.db.session.commit()
                         for v in view.dataSyncs:
-                            updateView =  workspace.dataViews[v['view']]
+                            updateView = workspace.dataViews[v['view']]
                             entries = updateView.getViewHandler(user, workspace, None)
                             meta_data = updateView.getViewMetaHandler(user, workspace)
                             properties = updateView.getProperties()
                             uri = workspace.uri + '/' + updateView.uri
-                            loadviewaction = webclientActions.LoadViewAction.generate(uri, properties, entries, meta_data)
+                            loadviewaction = webclientActions.LoadViewAction.generate(
+                                uri, properties, entries, meta_data)
                             responseActions.append(loadviewaction)
-                    responseActions.append(webclientActions.NotificationAction.generate("Updated successfully", "success"))
+                    responseActions.append(
+                        webclientActions.NotificationAction.generate("Updated successfully", "success"))
                     return 'success', responseActions
                 except Exception as e:
-                    notification_action = webclientActions.NotificationAction.generate("UpdateViewEntry '" + str(action['view']) + "' failed with: " + str(e), "error")
+                    notification_action = webclientActions.NotificationAction.generate(
+                        "UpdateViewEntry '" + str(action['view']) + "' failed with: " + str(e), "error")
                     responseActions = [notification_action]
-                    logManager.error(str(type(e).__name__) + 'in ExecuteViewActionsActionHandler ' +  action['view'])
+                    logManager.error(str(type(e).__name__) + 'in ExecuteViewActionsActionHandler ' + action['view'])
                     traceback.print_exc(file=sys.stdout)
                 return 'success', responseActions
 
-        notification_action = webclientActions.NotificationAction.generate("View >" + viewname +  "< not found", "error")
+        notification_action = webclientActions.NotificationAction.generate("View >" + viewname + "< not found",
+                                                                           "error")
         return 'success', [notification_action]
 
+
 class ExecuteViewActionsActionHandler(Action):
-    def __init__(self, app, db,  uri="executeViewAction"):
+    def __init__(self, app, db, uri="executeViewAction"):
         self.uri = uri
         self.app = app
         self.db = db
 
-    def handle(self, action, user, workspace, actionManager ):
+    def handle(self, action, user, workspace, actionManager):
         logManager.info("Execute action '{}' on view '{}'", action['viewAction'], action['view'])
         userManager = actionManager.userManager
         workspaceManager = actionManager.workspaceManager
@@ -202,20 +216,22 @@ class ExecuteViewActionsActionHandler(Action):
                     view.dataSyncs = []
                     dictionary = action
                     response_data = view.executeViewActionHandler(user, workspace, ObjDict(dictionary))
-                    notification_action = webclientActions.NotificationAction.generate("Action '" + str(action['viewAction']) + "' executed", "info")
+                    notification_action = webclientActions.NotificationAction.generate(
+                        "Action '" + str(action['viewAction']) + "' executed", "info")
                     response_actions.append(notification_action)
                     self.db.session.commit()
                     for v in view.dataSyncs:
-                        updateView =  workspace.dataViews[v['view']]
+                        updateView = workspace.dataViews[v['view']]
                         meta_data = updateView.getViewMetaHandler(user, workspace)
-                        entries = updateView.getViewHandler(user, workspace, None)                     
+                        entries = updateView.getViewHandler(user, workspace, None)
                         properties = updateView.getProperties()
                         uri = workspace.uri + '/' + updateView.uri
                         loadviewaction = webclientActions.LoadViewAction.generate(uri, properties, entries, meta_data)
                         response_actions.append(loadviewaction)
 
                 except Exception as e:
-                    notification_action = webclientActions.NotificationAction.generate("Action '" + str(action['viewAction']) + "' failed with: ", "error")
+                    notification_action = webclientActions.NotificationAction.generate(
+                        "Action '" + str(action['viewAction']) + "' failed with: ", "error")
                     response_actions = [notification_action]
                     logManager.error(str(type(e).__name__) + 'in ExecuteViewActionsActionHandler', action['view'])
                     traceback.print_exc(file=sys.stdout)
@@ -229,17 +245,19 @@ class ExecuteViewActionsActionHandler(Action):
                     return 'success', response_actions
 
         # view not found
-        notification_action = webclientActions.NotificationAction.generate("View >" + viewname +  "< not found", "error")
-        return 'success', [notification_action]            
+        notification_action = webclientActions.NotificationAction.generate("View >" + viewname + "< not found",
+                                                                           "error")
+        return 'success', [notification_action]
+
 
 class GetViewActionHandler(Action):
     def __init__(self, app, db, uri="getView"):
         self.uri = uri
         self.app = app
-        self.db = db        
+        self.db = db
         # logManager.info("Instance of GetViewActionHandler created")
-        
-    def handle(self, action, user, workspace, actionManager ):
+
+    def handle(self, action, user, workspace, actionManager):
         logManager.info("Execute get view action for", action['view'])
         userManager = actionManager.userManager
         workspaceManager = actionManager.workspaceManager
@@ -263,5 +281,6 @@ class GetViewActionHandler(Action):
                 return 'success', [loadviewaction]
 
         # view not found
-        notification_action = webclientActions.NotificationAction.generate("View >" + viewname +  "< not found", "error")
+        notification_action = webclientActions.NotificationAction.generate("View >" + viewname + "< not found",
+                                                                           "error")
         return 'success', [notification_action]

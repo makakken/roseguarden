@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -26,7 +26,7 @@ import pkgutil
 
 from core.actions.action import Action
 from core.nodes.nodeClass import NodeClass
-from core.workspaces import viewHandler 
+from core.workspaces import viewHandler
 from core.workspaces.dataView import DataView
 from core.workspaces.section import Section
 from core.workspaces.page import Page
@@ -65,17 +65,17 @@ class Workspace(object):
     def addSinglePageSection(self, name, page, caption=None, permission=None):
         key = self.name + "_" + name
         if caption is None:
-            caption = name 
-        self.sections[key] = { "caption" : caption, "page" : page, "permission" : permission}
+            caption = name
+        self.sections[key] = {"caption": caption, "page": page, "permission": permission}
 
     def addPage(self, name, callback, caption=None, permission=None):
         key = self.name + "_" + name
         if caption is None:
             caption = name
-        self.pages[key] = { "caption" : caption, "callback" : callback, "permission" : permission}
+        self.pages[key] = {"caption": caption, "callback": callback, "permission": permission}
 
     def addDataView(self, dataView):
-        key = dataView.name   
+        key = dataView.name
         self.dataViews[key] = dataView
 
     def getPage(self, name):
@@ -111,7 +111,7 @@ class Workspace(object):
                         permissionInstance = c()
                         logManager.info(f'Permission: "{permissionInstance.name}"" loaded from "{c.__module__}"')
                         self.addPermission(str(permissionInstance.name), permissionInstance)
- 
+
     def discoverSections(self, workspaceSource):
         '''
         sectionsSource = workspaceSource + '.' + self.name
@@ -136,7 +136,7 @@ class Workspace(object):
 
         node_sources = workspaceSource + '.' + self.name + '.' + 'nodes'
         imported_source = __import__(node_sources, fromlist=['blah'])
-        
+
         for _, nodename, ispkg in pkgutil.iter_modules(imported_source.__path__, imported_source.__name__ + '.'):
             if not ispkg:
                 node_module = __import__(nodename, fromlist=['blah'])
@@ -183,9 +183,8 @@ class Workspace(object):
                         logManager.info(f'Page: "{pageInstance.name}" loaded from "{c.__module__}"')
                         if pageInstance.disable == True:
                             logManager.info(f'Page: "{pageInstance.name}" is diabled and wont show up')
-                        else:                   
+                        else:
                             self.pages[str(pageInstance.name)] = pageInstance
-
 
     def discoverDataViews(self, workspaceSource):
         actionsSource = workspaceSource + '.' + self.name + '.' + 'views'
@@ -204,7 +203,7 @@ class Workspace(object):
                         else:
                             dataViewInstance = c(c.__name__, c.uri)
                             logManager.info(f'DataView "{c.__name__}" loaded from "{c.__module__}"')
-                        
+
                         dataViewInstance.defineProperties()
                         dataViewInstance.defineMetadata()
 
@@ -216,7 +215,6 @@ class Workspace(object):
                         if dataViewInstance.entrykey == None:
                             raise LookupError("DataView {} dont define a key".format(dataViewInstance.name))
 
-
     def discoverActions(self, workspaceSource):
 
         # create manager wide generic handlers for the view
@@ -225,7 +223,7 @@ class Workspace(object):
         self.removeViewEntryActionHandler = viewHandler.RemoveViewEntryActionHandler(self.app, self.db)
         self.updateViewEntryActionHandler = viewHandler.UpdateViewEntryActionHandler(self.app, self.db)
         self.executeViewActionsActionHandler = viewHandler.ExecuteViewActionsActionHandler(self.app, self.db)
-        
+
         # add handlers for view actions
         # the view handlers are generic and added to every workspace
         self.actions.append(self.getViewActionHandler)
@@ -260,7 +258,7 @@ class Workspace(object):
         from .models import Permission
         from core import db
         key = self.name + "." + name
-        description =  "No description available"
+        description = "No description available"
 
         if hasattr(permission, 'description'):
             description = permission.description
@@ -281,11 +279,9 @@ class Workspace(object):
         else:
             logManager.error('Unable to create permission "{}" for workspace {}'.format(name, self.name))
 
-        
     def getPermission(self, name):
         key = self.name + "." + name
         return self.permissions[key]
-
 
     def createUserHook(self, user):
         pass

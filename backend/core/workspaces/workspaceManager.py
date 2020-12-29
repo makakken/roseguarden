@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -30,13 +30,12 @@ from core.common.objDict import ObjDict
 import sys, traceback
 from flask_sqlalchemy import SQLAlchemy
 
+
 class WorkspaceManager(object):
     """ The WorkspaceManager holds all available workspaces and load them while creation.
     """
-
     def __init__(self, workspaceSource):
         self.workspaceSource = workspaceSource
-        
 
     def init_app(self, app, db):
         self.app = app
@@ -62,7 +61,6 @@ class WorkspaceManager(object):
                     w.removeUserHook(**kwargs)
             except Exception as e:
                 logManager.error('Failed to run hook {} on {} with {}'.format(hook, w.name, e))
-
 
     def reloadWorkspaces(self):
         """Reset the list of all plugins and initiate the walk over the main
@@ -107,7 +105,7 @@ class WorkspaceManager(object):
         logManager.info("")
         logManager.info("Register components from workspaces:")
         logManager.info("")
-       
+
         for w in self.workspaces:
             logManager.info(f'Workspace: "{w.name}"')
 
@@ -116,44 +114,45 @@ class WorkspaceManager(object):
                 w.discoverPermissions(self.workspaceSource)
             except Exception as e:
                 traceback.print_exc(file=sys.stdout)
-                logManager.error(f'Workspace "{w.name}" unable to discover permissions  ({str(type(e).__name__)}:{e})')   
+                logManager.error(f'Workspace "{w.name}" unable to discover permissions  ({str(type(e).__name__)}:{e})')
 
             # try to register dataViews
             try:
                 w.discoverDataViews(self.workspaceSource)
             except Exception as e:
                 traceback.print_exc(file=sys.stdout)
-                logManager.error(f'Workspace "{w.name}" unable to discover dataviews  ({str(type(e).__name__)}:{e})')      
+                logManager.error(f'Workspace "{w.name}" unable to discover dataviews  ({str(type(e).__name__)}:{e})')
 
             # try to register jobs
             try:
                 w.discoverJobs(self.workspaceSource)
             except Exception as e:
                 traceback.print_exc(file=sys.stdout)
-                logManager.error(f'Workspace "{w.name}" unable to discover jobs  ({str(type(e).__name__)}:{e})')  
+                logManager.error(f'Workspace "{w.name}" unable to discover jobs  ({str(type(e).__name__)}:{e})')
 
             # try to register actions
             try:
                 w.discoverActions(self.workspaceSource)
             except Exception as e:
                 traceback.print_exc(file=sys.stdout)
-                logManager.error(f'Workspace "{w.name}" unable to discover actions  ({str(type(e).__name__)}:{e})')   
+                logManager.error(f'Workspace "{w.name}" unable to discover actions  ({str(type(e).__name__)}:{e})')
 
             # try to register sections
             try:
                 w.discoverSections(self.workspaceSource)
             except Exception as e:
                 traceback.print_exc(file=sys.stdout)
-                logManager.error(f'Workspace "{w.name}" unable to discover sections  ({str(type(e).__name__)}:{e})')   
+                logManager.error(f'Workspace "{w.name}" unable to discover sections  ({str(type(e).__name__)}:{e})')
 
             # try to register node classes
             try:
                 w.discoverNodeClasses(self.workspaceSource)
             except ModuleNotFoundError as me:
-                logManager.info(f'No node classes discover for "{w.name}"')   
+                logManager.info(f'No node classes discover for "{w.name}"')
             except Exception as e:
                 traceback.print_exc(file=sys.stdout)
-                logManager.error(f'Workspace "{w.name}" unable to discover node classes  ({str(type(e).__name__)}:{e})')   
+                logManager.error(
+                    f'Workspace "{w.name}" unable to discover node classes  ({str(type(e).__name__)}:{e})')
 
             # try to register permissions
             try:
@@ -163,7 +162,6 @@ class WorkspaceManager(object):
                 logManager.error(f'Workspace "{w.name}" unable to discover pages  ({str(type(e).__name__)}:{e})')
 
             logManager.info("")
-
 
     def discoverModels(self):
         source = self.workspaceSource
@@ -216,7 +214,8 @@ class WorkspaceManager(object):
             # Every sub directory contains one workspace
             for child_pkg in child_pkgs:
                 imported_package = __import__(source + '.' + child_pkg, fromlist=['blah'])
-                for _, workspacename, ispkg in pkgutil.iter_modules(imported_package.__path__, imported_package.__name__ + '.'):
+                for _, workspacename, ispkg in pkgutil.iter_modules(imported_package.__path__,
+                                                                    imported_package.__name__ + '.'):
                     workspaceCounter = 0
                     if not ispkg:
                         workspace_module = __import__(workspacename, fromlist=['blah'])
@@ -225,26 +224,30 @@ class WorkspaceManager(object):
                         for (_, c) in clsmembers:
                             # Check for workspace classes
                             if issubclass(c, Workspace) & (c is not Workspace):
-                                workspaceCounter+=1
+                                workspaceCounter += 1
                                 if workspaceCounter > 1:
-                                    logManager.error(f'Only one workspace is allowed for one folder, other workspaces will skipped')
+                                    logManager.error(
+                                        f'Only one workspace is allowed for one folder, other workspaces will skipped')
                                     break
 
                                 uri = ""
                                 if hasattr(c, 'uri'):
                                     uri = c.uri
                                 else:
-                                    logManager.error(f'No uri defined and will not be accessable for workspace: {c.__module__}')
+                                    logManager.error(
+                                        f'No uri defined and will not be accessable for workspace: {c.__module__}')
 
                                 name = c.__name__
                                 if hasattr(c, 'name'):
                                     name = c.name
                                 workspaceInstance = c(self.app, self.db, name, uri)
                                 workspaceInstance.path = os.path.dirname(workspace_module.__file__)
-                                logManager.info(f'Workspace discovered : {workspaceInstance.name} [{c.__module__}] with uri "{workspaceInstance.uri}"')
+                                logManager.info(
+                                    f'Workspace discovered : {workspaceInstance.name} [{c.__module__}] with uri "{workspaceInstance.uri}"'
+                                )
                                 if workspaceInstance.disable == True:
-                                    logManager.info(f'Workspace {workspaceInstance.name} [{c.__module__}] is disabled and wont show up')
+                                    logManager.info(
+                                        f'Workspace {workspaceInstance.name} [{c.__module__}] is disabled and wont show up'
+                                    )
                                 else:
                                     self.workspaces.append(workspaceInstance)
-
-

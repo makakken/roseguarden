@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,11 +16,12 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
 from core.logs import logManager
+
 
 class BaseAction(object):
     action = 'undefined'
@@ -33,7 +34,7 @@ class BaseAction(object):
 
     def execute(self, ):
         print("Execute not defined")
-    
+
     @classmethod
     def generate(cls, delay=0.0):
         action = {}
@@ -54,7 +55,7 @@ class BaseNodeAction(object):
 
     def execute(self, ):
         print("Execute not defined")
-    
+
     @classmethod
     def generate(cls):
         action = {}
