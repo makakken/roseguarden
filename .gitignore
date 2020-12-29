@@ -5,3 +5,4 @@ latest_package.zip
 roseguarden.zip
 flake8_report.txt
 flake8_metrics.txt
+flake8_quality.json

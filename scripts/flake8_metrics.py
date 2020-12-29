@@ -1,5 +1,6 @@
-import os
 import argparse
+import hashlib
+import json
 
 parser = argparse.ArgumentParser()
 parser.add_argument('filename')
@@ -8,9 +9,13 @@ args = parser.parse_args()
 exit_with_failure = False
 
 with open(args.filename) as flake_report, open('flake8_metrics.txt',
-                                               'w') as metrics_file:
+                                               'w') as metrics_file, open(
+                                                   'flake8_quality.txt',
+                                                   'w') as quality_file:
+    issues = []
     for l in flake_report:
         tokens = [s for s in str.split(l) if s.strip() != '']
+        i = None
         try:
             count = int(tokens[0])
             exit_with_failure = True
