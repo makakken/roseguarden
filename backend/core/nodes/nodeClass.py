@@ -33,7 +33,7 @@ class NodeStatus(Enum):
 
 
 class NodeClass(object):
-    """Base class that each node class have to inherit from. 
+    """Base class that each node class have to inherit from.
        The class define methods that all nodes must implement
     """
 

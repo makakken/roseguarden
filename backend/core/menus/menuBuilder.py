@@ -96,7 +96,7 @@ class MenuBuilder(object):
         return False
 
     def hasPermission(self, user, page, workspace):
-        if user == None:
+        if user is None:
             if page.requireLogin == False:
                 return True
         else:
@@ -104,7 +104,7 @@ class MenuBuilder(object):
                 return True
             if page.requireAdmin == False:
                 if hasattr(page, 'requirePermission'):
-                    if page.requirePermission == None:
+                    if page.requirePermission is None:
                         return True
                     else:
                         return self.checkUserPermissions(user, page.requirePermission, workspace)

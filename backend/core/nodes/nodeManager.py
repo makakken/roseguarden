@@ -114,7 +114,7 @@ class NodeManager(object):
         node_class_key = None
         for key, value in self.node_classes.items():
             if value.class_id == node.class_id:
-                if node_class_key == None:
+                if node_class_key is None:
                     node_class_key = key
                 else:
                     raise AuthorizationError("Authorization failed, duplicate class_id for "

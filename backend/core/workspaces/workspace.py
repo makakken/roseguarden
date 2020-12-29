@@ -37,7 +37,7 @@ from core.logs import logManager
 
 
 class Workspace(object):
-    """Base class that each workspaceinherit from. 
+    """Base class that each workspaceinherit from.
        The class define methods that all workspaces have to implement
     """
 
@@ -45,11 +45,11 @@ class Workspace(object):
 
     def __init__(self, app, db, name=None, uri=None):
         self.description = 'UNKNOWN'
-        if name == None:
+        if name is None:
             self.name = type(self).__name__
         else:
             self.name = name
-        if uri == None:
+        if uri is None:
             self.uri = self.name
         else:
             self.uri = uri
@@ -211,7 +211,7 @@ class Workspace(object):
                         else:
                             self.dataViews[str(dataViewInstance.uri)] = (dataViewInstance)
 
-                        if dataViewInstance.entrykey == None:
+                        if dataViewInstance.entrykey is None:
                             raise LookupError("DataView {} dont define a key".format(dataViewInstance.name))
 
     def discoverActions(self, workspaceSource):

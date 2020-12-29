@@ -71,7 +71,7 @@ class NodeTemplate(NodeClass):
             if 'pin' not in action:
                 return [RequestPinAction.generate()]
             else:
-                if action['pin'] == None or action['pin'] == "":
+                if action['pin'] is None or action['pin'] == "":
                     return [RequestPinAction.generate()]
             pinValid = userManager.checkUserPin(user.email, action['pin'])
 

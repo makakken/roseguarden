@@ -33,11 +33,11 @@ class DataView(object):
 
     def __init__(self, name=None, uri=None):
         self.description = 'UNKNOWN'
-        if name == None:
+        if name is None:
             self.name = type(self).__name__
         else:
             self.name = name
-        if uri == None:
+        if uri is None:
             self.uri = self.name
         else:
             self.uri = uri
@@ -416,7 +416,7 @@ class DataView(object):
     def executeViewActionHandler(self, user, workspace, action):
         try:
             return self.dataAction[action.viewAction](user, workspace, action, action.entry[self.entrykey])
-        except:
+        except Exception:
             return self.dataAction[action.viewAction](user, workspace, action.entry[self.entrykey])
 
     def defineProperties(self):

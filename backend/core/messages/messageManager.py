@@ -21,7 +21,6 @@ __credits__ = []
 __license__ = "GPLv3"
 
 from core.logs import logManager
-import sys, traceback
 import arrow
 from jinja2 import Template
 from core.jobs import jobManager, add_dated_job

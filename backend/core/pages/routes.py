@@ -20,10 +20,8 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-import os
 from core.pages import pages_bp
-from core.logs import logManager
-from flask import Flask, jsonify, make_response, request, redirect, url_for, send_from_directory
+from flask import make_response
 
 
 @pages_bp.route('/api/v1/pages', methods=["GET"])

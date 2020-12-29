@@ -47,7 +47,7 @@ class Job(object):
     second = None
 
     def __init__(self, name=None, uri=None):
-        if name == None:
+        if name is None:
             self.name = type(self).__name__
         else:
             self.name = name

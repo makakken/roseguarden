@@ -20,7 +20,6 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-import os
 from core.nodes import nodes_bp, nodeManager
 from core.nodes.errors import AuthorizationError, RequestError
 from core.logs import logManager

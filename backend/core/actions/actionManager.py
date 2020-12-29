@@ -88,7 +88,7 @@ class ActionManager(object):
         al.action_data_json = action_data_dict
         al.run_only_once = once
 
-        if redirect_to == "" or redirect_to == None:
+        if redirect_to == "" or redirect_to is None:
             al.redirect_to = ""
         else:
             al.redirect_to = redirect_to
