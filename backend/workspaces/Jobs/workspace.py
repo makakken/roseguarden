@@ -16,17 +16,17 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
 from core.workspaces import Workspace
 from core.logs import logManager
-
 """ The jobs workspace
 """
 
+
 class Jobs(Workspace):
-    disable=False # IMPORTANT: set this to False to enable the workspace.
-    uri='jobs'
-    description='A job workspace'
+    disable = False  # IMPORTANT: set this to False to enable the workspace.
+    uri = 'jobs'
+    description = 'A job workspace'

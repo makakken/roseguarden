@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -28,11 +28,11 @@ from core import db
 class UserAccess(Page):
     """ The log page
     """
-    title = 'User access'              # Shown label of the page in the menu
-    group = 'Space access'       # groupname multiple pages 
-    icon = 'lock_open'          # icon (in typeset of material design icons)
-    route = '/access/users'            # routing 
-    builder = 'frontend'        # page get build by the client (frontend)
-    rank = 4.1               # ranks (double) the page higher values are at the top of the menu
-                                # groups will be ranked by the sum of the rank-values of their entries 
-    requireLogin = True        # login is required to view the page
+    title = 'User access'  # Shown label of the page in the menu
+    group = 'Space access'  # groupname multiple pages
+    icon = 'lock_open'  # icon (in typeset of material design icons)
+    route = '/access/users'  # routing
+    builder = 'frontend'  # page get build by the client (frontend)
+    rank = 4.1  # ranks (double) the page higher values are at the top of the menu
+    # groups will be ranked by the sum of the rank-values of their entries
+    requireLogin = True  # login is required to view the page

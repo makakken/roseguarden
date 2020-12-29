@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -26,18 +26,19 @@ from core.users.models import User
 from core import db
 
 from workspaces.Permissions.permissions import ViewPermission
-
 """ A view contaning a list of permission groups
 """
+
+
 class PermissionUserList(DataView):
 
     uri = 'userList'
     requireLogin = True
 
-#    def __init__(self):
-#        super().__init__(name='PermissionList', uri ='permissionList')
+    #    def __init__(self):
+    #        super().__init__(name='PermissionList', uri ='permissionList')
 
-    def defineProperties(self):        
+    def defineProperties(self):
         self.addIntegerProperty(name='id', label='ID', isKey=True)
         self.addStringProperty(name='name', label='Name')
         self.addStringProperty(name='email', label='eMail')
@@ -64,10 +65,8 @@ class PermissionUserList(DataView):
             if len(u.permission_groups) > 0:
                 entry.roles = " : "
                 for p in u.permission_groups:
-                    entry.roles +=  p.name + " "
+                    entry.roles += p.name + " "
                     entry.rolesSelection.append(p.id)
-            
-
 
             entrylist.append(entry.extract())
         return entrylist
@@ -75,17 +74,17 @@ class PermissionUserList(DataView):
     def __repr__(self):
         return '<{} with {} properties>'.format(self.name, len(self.properties))
 
-    # Handler for a request to create a new view entry 
+    # Handler for a request to create a new view entry
     def createViewEntryHandler(self, user, workspace, entry):
         raise Exception("User creation not allowed in userList view")
 
     # Handler for a request to update a single view entry
-    def removeViewEntryHandler(self, user, workspace, key):        
+    def removeViewEntryHandler(self, user, workspace, key):
         raise Exception("User removal not allowed in userList view")
 
     # Handler for a request to update a single view entry
-    def updateViewEntryHandler(self, user, workspace, key,  entry):
-        print("Handle updateViewEntryHandler request for " +  self.uri)
+    def updateViewEntryHandler(self, user, workspace, key, entry):
+        print("Handle updateViewEntryHandler request for " + self.uri)
         all_groups = PermissionGroup.query.all()
         u = User.query.filter_by(id=key).first()
         if hasattr(entry, 'rolesSelection'):
@@ -93,6 +92,4 @@ class PermissionUserList(DataView):
             for g in all_groups:
                 if g.id in entry['rolesSelection']:
                     u.permission_groups.append(g)
-        self.emitSyncUpdate(key)        
-
-
+        self.emitSyncUpdate(key)

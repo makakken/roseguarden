@@ -16,20 +16,22 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
 from core.files import files_bp
 from flask import Flask, render_template, request
 from werkzeug import secure_filename
-import os 
+import os
 
 from . import fileManager
+
 
 @files_bp.route('/api/v1/file/download/<id>', methods=['GET'])
 def file_request(id):
     return "File", 200
+
 
 @files_bp.route('/api/v1/file/upload', methods=['POST'])
 def upload_request():

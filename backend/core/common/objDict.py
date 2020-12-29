@@ -16,9 +16,10 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
+
 
 class ObjDict(dict):
     def __getattr__(self, name):
@@ -38,7 +39,7 @@ class ObjDict(dict):
             del self[name]
         else:
             raise AttributeError("No attribute: " + name + " found")
-    
+
     def extract(self):
         r = {}
         for a in self:

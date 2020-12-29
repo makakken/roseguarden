@@ -16,14 +16,13 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
 from core import db
 
 # Define your database models here
-
 """ A template model to show how to define Model classes. You can have multiple classes here.
 class Template(db.Model):
     id = db.Column(db.Integer, primary_key=True)

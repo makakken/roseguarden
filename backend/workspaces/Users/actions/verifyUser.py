@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -26,12 +26,13 @@ from core.actions import webclientActions
 from core.users.models import User
 import json
 
+
 class VerifyUser(Action):
     def __init__(self, app):
         # logManager.info("ProvideMenu of type Action created")
         super().__init__(app, uri='verifyUser')
 
-    def handle(self, action, user, workspace, actionManager ):
+    def handle(self, action, user, workspace, actionManager):
         logManager.info("Request user verification")
         user = User.query.filter_by(email=action.email).first()
         if user is None:
@@ -42,4 +43,4 @@ class VerifyUser(Action):
 
     @staticmethod
     def generate(**kwargs):
-        return kwargs        
+        return kwargs

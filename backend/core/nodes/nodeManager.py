@@ -16,10 +16,10 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
- 
+
 import inspect
 import os
 import json
@@ -35,12 +35,12 @@ from core.logs import logManager
 from core.nodes import nodeclientActions
 from core.nodes.errors import AuthorizationError, RequestError
 
+
 class NodeManager(object):
     """ The NodeManager holds all available node-types and load them while creation.
     """
-
     def __init__(self):
-        self.node_classes = {} 
+        self.node_classes = {}
         self.nodes = {}
 
     def disable_node(self, node):
@@ -48,7 +48,7 @@ class NodeManager(object):
             del self.nodes[node.fingerprint]
         except KeyError:
             logManager.warning("Failed to disable node.")
-        
+
         node.active = False
         node.status = "Disabled"
 
@@ -58,12 +58,14 @@ class NodeManager(object):
         for k, v in self.node_classes.items():
             if v.class_id == node.class_id:
                 nodeInstance = self.node_classes[k]()
-                nodeInstance.identity = node.identification                
+                nodeInstance.identity = node.identification
 
         if nodeInstance is not None:
             self.nodes[node.fingerprint] = nodeInstance
         else:
-            logManager.error(f"NodeManager is unable to register node {node.name} ({node.fingerprint}) with unknown class_id '{node.class_id}'")
+            logManager.error(
+                f"NodeManager is unable to register node {node.name} ({node.fingerprint}) with unknown class_id '{node.class_id}'"
+            )
 
         node.active = True
         node.status = "Active"
@@ -85,12 +87,12 @@ class NodeManager(object):
         if fingerprint in self.nodes:
             return self.nodes[fingerprint]
         else:
-            return None            
+            return None
 
     def get_node_classes(self):
         return self.node_classes
 
-    def buildActionReply(self, actions, target="node", source="server", version= "1.0.0"):
+    def buildActionReply(self, actions, target="node", source="server", version="1.0.0"):
         reply = {}
         reply['header'] = {}
         reply['header']['version'] = version
@@ -100,8 +102,8 @@ class NodeManager(object):
         return reply
 
     def revoke_node_authorization(self, node):
-        node.authorized = False    
-        node.authorization_status = "Revoked"     
+        node.authorized = False
+        node.authorization_status = "Revoked"
         self.db.session.commit()
 
         self.disable_node(node)
@@ -109,7 +111,7 @@ class NodeManager(object):
     def authorizeNode(self, node_fingerprint, commit=True):
         n = self.node.query.filter_by(fingerprint=node_fingerprint).first()
         if n is not None:
-            n.authorized = True    
+            n.authorized = True
             n.authorization_status = "Ok"
             self.activate_node(n)
             if commit is True:
@@ -122,24 +124,26 @@ class NodeManager(object):
                 if node_class_key == None:
                     node_class_key = key
                 else:
-                    raise AuthorizationError("Authorization failed, duplicate class_id for " + self.node_classes[key].name + " and " + self.node_classes[node_class_key].name)
+                    raise AuthorizationError("Authorization failed, duplicate class_id for "
+                                             + self.node_classes[key].name + " and "
+                                             + self.node_classes[node_class_key].name)
 
         if node_class_key is None:
-            raise AuthorizationError("Authorization failed, no match found for registered node classes with class_id: " + node.class_id)
+            raise AuthorizationError("Authorization failed, no match found for registered node classes with class_id: "
+                                     + node.class_id)
 
         if node.checkAuthentification(authentification_plain) is False:
             raise AuthorizationError("Authorization failed, authentification secret mismatch.")
 
-        node.authorized = True    
+        node.authorized = True
         node.authorization_status = "Ok"
 
         self.activate_node(node)
 
         self.db.session.commit()
 
-
     def create_node_from_identification(self, ident_action, fingerprint, authentification_plain):
-        # make copy of the ident action and remove action specific entries 
+        # make copy of the ident action and remove action specific entries
         ident_copy = ident_action.copy()
         if 'version' in ident_copy:
             del ident_copy['version']
@@ -148,7 +152,7 @@ class NodeManager(object):
         if 'actionid' in ident_copy:
             del ident_copy['actionid']
 
-        # create a sha256 hash 
+        # create a sha256 hash
         ident_hash = hashlib.sha256()
         ident_copy_json_encoded = json.dumps(ident_copy, sort_keys=True).encode()
         ident_hash.update(ident_copy_json_encoded)
@@ -159,9 +163,9 @@ class NodeManager(object):
         n.name = ident_action['nodename']
         n.fingerprint = fingerprint
         n.authentification = authentification_plain
-        n.class_name =  ident_action['classname']
-        n.class_id =  ident_action['classid']
-        n.class_workspace =  ident_action['classworkspace']
+        n.class_name = ident_action['classname']
+        n.class_id = ident_action['classid']
+        n.class_workspace = ident_action['classworkspace']
         n.identification = ident_copy
         n.identification_hash = ident_hash.hexdigest()
 
@@ -186,7 +190,7 @@ class NodeManager(object):
         action_names_list = []
         if len(actions) > 0:
             for i in actions:
-                action_names_list.append( i['action'])
+                action_names_list.append(i['action'])
                 if actions_string != "":
                     actions_string = actions_string + ", "
                 actions_string = actions_string + i['action']
@@ -202,10 +206,10 @@ class NodeManager(object):
         self.db.session.add(l)
         self.db.session.commit()
 
-        # check 
+        # check
         n = self.node.query.filter_by(fingerprint=fingerprint).first()
-        if n is None:            
-            logManager.info("request of unknown node {} ({})".format(source,fingerprint))
+        if n is None:
+            logManager.info("request of unknown node {} ({})".format(source, fingerprint))
             ident_action = self.check_for_identification_sync(actions)
             if ident_action is not None:
                 self.create_node_from_identification(ident_action, fingerprint, authentification)
@@ -226,7 +230,7 @@ class NodeManager(object):
         self.nodes[fingerprint].check_actions_available(action_names_list)
 
         reply_actions = []
-        for a in actions:        
+        for a in actions:
             action_reply = self.nodes[fingerprint].handleNodeActionRequest(a, header)
             reply_actions = reply_actions + action_reply
 
@@ -239,7 +243,7 @@ class NodeManager(object):
         self.db = db
         self.workspaceManager = workspaceManager
         logManager.info("NodeManager initialized")
-        
+
         from core.nodes.models import Node, NodeLog
         self.node = Node
         self.nodeLog = NodeLog

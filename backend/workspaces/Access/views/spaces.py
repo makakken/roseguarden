@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -25,21 +25,20 @@ from core.nodes.models import Node
 from workspaces.Access.models import SpaceAccessSpace
 from core.users.models import User
 from core import db
-
 """ A view contaning a list of spaces
 """
+
+
 class SpacesList(DataView):
 
     uri = 'spacesList'
     requireLogin = True
 
-
-    def defineProperties(self):        
+    def defineProperties(self):
         self.addIntegerProperty(name='id', label='ID', isKey=True)
         self.addStringProperty(name='name', label='Name')
         self.addStringProperty(name='description', label='Description')
         self.addMultiSelectProperty(name='entrance_nodes', label='Entrance node keys', selectables=[])
-
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
         print("getDataViewHandler for SpacesList")
@@ -64,7 +63,7 @@ class SpacesList(DataView):
     def __repr__(self):
         return '<{} with {} properties>'.format(self.name, len(self.properties))
 
-    # Handler for a request to create a new view entry 
+    # Handler for a request to create a new view entry
     def createViewEntryHandler(self, user, workspace, entry):
         s = SpaceAccessSpace()
         if hasattr(entry, 'name'):
@@ -72,20 +71,19 @@ class SpacesList(DataView):
         else:
             s.name = "New space"
         self.emitSyncCreate(s.id, "spacesList")
-        workspace.db.session.add(s)   
-        print("Handle createViewEntry request for " +  self.uri)
+        workspace.db.session.add(s)
+        print("Handle createViewEntry request for " + self.uri)
 
     # Handler for a request to update a single view entry
-    def removeViewEntryHandler(self, user, workspace, key):        
-        print("Handle removeViewEntryHandler request for " +  self.uri)
+    def removeViewEntryHandler(self, user, workspace, key):
+        print("Handle removeViewEntryHandler request for " + self.uri)
         s = SpaceAccessSpace.query.filter_by(id=key).first()
         workspace.db.session.delete(s)
         self.emitSyncRemove(key)
 
-
     # Handler for a request to update a single view entry
-    def updateViewEntryHandler(self, user, workspace, key,  entry):
-        print("Handle updateViewEntryHandler request for " +  self.uri)
+    def updateViewEntryHandler(self, user, workspace, key, entry):
+        print("Handle updateViewEntryHandler request for " + self.uri)
         all_nodes = Node.query.all()
         s = SpaceAccessSpace.query.filter_by(id=key).first()
         if hasattr(entry, 'name'):
@@ -97,6 +95,4 @@ class SpacesList(DataView):
             for n in all_nodes:
                 if n.id in entry['entrance_nodes']:
                     s.entrance_nodes.append(n)
-        self.emitSyncUpdate(key)        
-
-
+        self.emitSyncUpdate(key)

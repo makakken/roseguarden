@@ -16,21 +16,21 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
 from core.workspaces import DataView, Workspace
 from core.users.models import User
 from datetime import datetime
-
 """ A View contaning the user info
 """
+
+
 class UserInfo(DataView):
 
     uri = 'userInfo'
     requireLogin = True
-
 
     def defineProperties(self):
         self.addMailProperty(name='email', isKey=True)
@@ -43,7 +43,6 @@ class UserInfo(DataView):
         self.addSelectProperty(name='verified', selectables=['Yes', 'No'], label='Verified')
         self.addDatetimeProperty(name="creationdate")
         self.addDatetimeProperty(name="lastlogindate")
-
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
 
@@ -68,17 +67,15 @@ class UserInfo(DataView):
     def __repr__(self):
         return '<{} with {} properties>'.format(self.name, len(self.properties))
 
-    # Handler for a request to create a new view entry 
+    # Handler for a request to create a new view entry
     def createViewEntryHandler(self, user, workspace, entry):
-        print("Handle createViewEntry request for " +  self.uri)
+        print("Handle createViewEntry request for " + self.uri)
 
     # Handler for a request to update a single view entry
-    def updateViewEntryHandler(self, user, workspace,  key, entry):
+    def updateViewEntryHandler(self, user, workspace, key, entry):
         user.firstname = entry.firstname
         user.lastname = entry.lastname
         user.organization = entry.organization
         user.phone = entry.phone
-        self.emitSyncUpdate(self.entrykey, 'userInfo') 
-        print("Handle updateViewEntryHandler request for " +  self.uri)
-
-
+        self.emitSyncUpdate(self.entrykey, 'userInfo')
+        print("Handle updateViewEntryHandler request for " + self.uri)

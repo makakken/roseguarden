@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -24,12 +24,13 @@ from core.actions.action import Action
 from core.logs import logManager
 from core.actions import webclientActions
 
+
 class ProvideMenu(Action):
     def __init__(self, app):
         # logManager.info("ProvideMenu of type Action created")
         super().__init__(app, uri='menu')
 
-    def handle(self, action, user, workspace, actionManager ):
+    def handle(self, action, user, workspace, actionManager):
         userManager = actionManager.userManager
         menuBuilder = actionManager.menuBuilder
         logManager.info("Execute registration action")

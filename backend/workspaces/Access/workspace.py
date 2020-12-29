@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -24,13 +24,13 @@ from core.workspaces import Workspace
 from core.logs import logManager
 
 from workspaces.Access.models import SpaceAccessProperties
-
 """This plugin for the administration of the permissions
 """
+
+
 class Access(Workspace):
-    uri='access'
-    description='Access administration workspace'
-    
+    uri = 'access'
+    description = 'Access administration workspace'
+
     def createUserHook(self, user):
         user.access = SpaceAccessProperties()
-

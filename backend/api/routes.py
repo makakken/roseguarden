@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -24,7 +24,7 @@ from api import api_bp
 from flask import Flask, jsonify, request, redirect, url_for, send_from_directory, make_response
 from flask_jwt_extended import jwt_required, jwt_optional, get_jwt_identity, get_raw_jwt
 from pprint import pprint
-import json 
+import json
 from core import logManager as logger
 from core import actionManager
 import datetime
@@ -34,22 +34,25 @@ import datetime
 # every app module can hold additional entrypoint in a rest based form
 # e.g. '/login/refresh'
 
-@api_bp.route('/api/v1', methods=["POST","GET"])
+
+@api_bp.route('/api/v1', methods=["POST", "GET"])
 @jwt_optional
 def api_v1():
     print("call on api version v1")
     # pprint(request.json, indent=2)
-    pprint(request.json, depth= 2, indent=2)
+    pprint(request.json, depth=2, indent=2)
     a = get_raw_jwt()
     expire_date = None
     if 'exp' in a:
         expire_date = datetime.datetime.fromtimestamp(a['exp'])
     reply = actionManager.handleActionRequest(get_jwt_identity(), expire_date, request.json)
     print("Send reply:")
-    pprint(reply, depth= 2, indent=2)
+    pprint(reply, depth=2, indent=2)
     reply = json.dumps(reply)
     reply = make_response(reply, 200)
     return reply
+
+
 """     if get_jwt_identity() != None:
         print("api call for ", request.method, " for valid user ", get_jwt_identity())
     else:

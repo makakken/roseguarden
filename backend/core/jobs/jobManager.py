@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -29,10 +29,10 @@ from apscheduler.events import EVENT_ALL, SchedulerEvent, JobEvent, JobExecution
 from cron_descriptor import ExpressionDescriptor, Options, CasingTypeEnum
 from core.common.objDict import ObjDict
 
+
 class JobManager(object):
     """ The MessageManager ...
     """
-
     def __init__(self, ):
         # preparation to instanciate
         self.config = None
@@ -73,7 +73,7 @@ class JobManager(object):
         self.job = JobExecute
 
         logManager.info("JobManager initialized")
-    
+
     def get_jobs(self):
         return self.jobs
 
@@ -94,20 +94,22 @@ class JobManager(object):
         jobInstance.job_key = jobkey
         if workspace is not None:
             jobInstance.workspace = workspace.name
-        job = { 'job_class' : job_class,
-                'name': jobInstance.name,
-                'workspace': workspace_name,
-                'description' : jobInstance.description,
-                'parameters': jobInstance.parameters,
-                'trigger' : 'Internal',
-                'log_in_db': log_in_db,
-                'cron': jobInstance.cron,
-                'day': jobInstance.day,
-                'week': jobInstance.week,
-                'day_of_week': jobInstance.day_of_week,
-                'hour': jobInstance.hour,
-                'minute': jobInstance.minute,
-                'second': jobInstance.second }
+        job = {
+            'job_class': job_class,
+            'name': jobInstance.name,
+            'workspace': workspace_name,
+            'description': jobInstance.description,
+            'parameters': jobInstance.parameters,
+            'trigger': 'Internal',
+            'log_in_db': log_in_db,
+            'cron': jobInstance.cron,
+            'day': jobInstance.day,
+            'week': jobInstance.week,
+            'day_of_week': jobInstance.day_of_week,
+            'hour': jobInstance.hour,
+            'minute': jobInstance.minute,
+            'second': jobInstance.second
+        }
 
         if jobInstance.cron is True:
             cron_list = []
@@ -132,8 +134,7 @@ class JobManager(object):
             if job_class.day_of_week is None:
                 cron_list.append("*")
             else:
-                cron_list.append(job_class.day_of_week)      
-
+                cron_list.append(job_class.day_of_week)
 
             cron_string = " ".join(cron_list)
             options = Options()
@@ -143,20 +144,25 @@ class JobManager(object):
             options.casing_type = CasingTypeEnum.LowerCase
             descripter = ExpressionDescriptor(cron_string, options)
             logManager.info("Register repetitive job '{}' triggered {}".format(jobkey, descripter.get_description()))
-            self.scheduler.add_job(jobInstance.start_job,kwargs=({"job_id" : str(jobkey)}), id=(str(jobkey)), trigger='cron',replace_existing=True,
-                                    day=job_class.day,
-                                    day_of_week=job_class.day_of_week,
-                                    week=job_class.week,
-                                    hour=job_class.hour,
-                                    minute=job_class.minute,
-                                    second=job_class.second)
-            job['trigger'] =  descripter.get_description()
+            self.scheduler.add_job(jobInstance.start_job,
+                                   kwargs=({
+                                       "job_id": str(jobkey)
+                                   }),
+                                   id=(str(jobkey)),
+                                   trigger='cron',
+                                   replace_existing=True,
+                                   day=job_class.day,
+                                   day_of_week=job_class.day_of_week,
+                                   week=job_class.week,
+                                   hour=job_class.hour,
+                                   minute=job_class.minute,
+                                   second=job_class.second)
+            job['trigger'] = descripter.get_description()
 
         self.jobs[str(jobkey)] = ObjDict(job.copy())
 
-
-    def run_job(self, user, jobkey, args, date, max_instances=10, log_trigger= False):
-        print("run job ", jobkey)     
+    def run_job(self, user, jobkey, args, date, max_instances=10, log_trigger=False):
+        print("run job ", jobkey)
         if jobkey in self.jobs:
             je = None
             if log_trigger is True:
@@ -172,7 +178,7 @@ class JobManager(object):
                 je.state = "TRIGGERED"
                 self.db.session.add(je)
                 self.db.session.commit()
-                        
+
             # if self.jobs[jobkey]['cron']:
             #     # handle a cron job
             #     job = self.scheduler.get_job(jobkey)
@@ -187,11 +193,15 @@ class JobManager(object):
 
             if je is not None:
                 job_ececution_id = je.id
-            
-            kwargs = {"job_id" : str(jobkey) + str(self.job_counter), "job_execution_id": job_ececution_id}
+
+            kwargs = {"job_id": str(jobkey) + str(self.job_counter), "job_execution_id": job_ececution_id}
             kwargs = {**kwargs, **args}
-            job = self.scheduler.add_job(jobInstance.start_job, id=(str(jobkey) + str(self.job_counter)), trigger='date', next_run_time=str(date), 
-                                            kwargs=kwargs, max_instances=max_instances)
+            job = self.scheduler.add_job(jobInstance.start_job,
+                                         id=(str(jobkey) + str(self.job_counter)),
+                                         trigger='date',
+                                         next_run_time=str(date),
+                                         kwargs=kwargs,
+                                         max_instances=max_instances)
             if je is not None:
                 return je.id
             else:
@@ -200,5 +210,3 @@ class JobManager(object):
         else:
             logManager.error("Unknown type of job in add_dated_job")
             return None
-
-

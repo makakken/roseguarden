@@ -16,20 +16,21 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
 from core.actions.actionGenerator import BaseNodeAction
 
+
 class SendIdentificationAction(BaseNodeAction):
     action = 'sendIdentification'
     target = 'node'
-    
+
     def __init__(self, app):
         pass
-    
+
     @classmethod
     def generate(cls):
         action = super(SendIdentificationAction, cls).generate()
-        return action 
+        return action

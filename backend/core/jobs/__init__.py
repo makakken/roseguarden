@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -31,12 +31,14 @@ from inspect import isclass
 
 jobManager = JobManager()
 
+
 def trigger_job(job_key, args, user):
     logManager.info("User {} triggered job {}".format(user.email, job_key))
-    job_id = jobManager.run_job(user, job_key, args, datetime.now()+timedelta(seconds=5), log_trigger=True)
+    job_id = jobManager.run_job(user, job_key, args, datetime.now() + timedelta(seconds=5), log_trigger=True)
     return job_id
 
-def add_dated_job(user, job, args, date = None, workspace = None, max_instances=10):
+
+def add_dated_job(user, job, args, date=None, workspace=None, max_instances=10):
     if date is None:
         date = datetime.now()
     key = ""
@@ -59,7 +61,8 @@ def add_dated_job(user, job, args, date = None, workspace = None, max_instances=
     else:
         logManager.error("Unknown type of job in add_dated_job")
         return
-    jobManager.run_job(user, key, args, date, max_instances) 
+    jobManager.run_job(user, key, args, date, max_instances)
+
 
 def print_job_list():
     actual_jobs = jobManager.scheduler.get_jobs()
@@ -67,5 +70,5 @@ def print_job_list():
     all_jobs = jobManager.jobstore.get_all_jobs()
     print(all_jobs)
 
-from core.jobs import routes
 
+from core.jobs import routes

@@ -3,20 +3,17 @@
 import requests
 import json
 # make login request
-json = { 
-    'actions': 
-    [ 
-        { 
-            'action': 'login',
-            'password': 'test',
-            'username': 'test@fabba.space',
-            'version': 1,
-            'workspace': 'users'
-        }
-    ],
-    'data': None,
-    'head': 
-    { 
+json = {
+    'actions': [{
+        'action': 'login',
+        'password': 'test',
+        'username': 'test@fabba.space',
+        'version': 1,
+        'workspace': 'users'
+    }],
+    'data':
+    None,
+    'head': {
         'msgId': 1,
         'requestType': '',
         'session': 'bK0GIzkTfybtIjWPZGWt_x05f0HHB2_0sfcJYEshvLE',

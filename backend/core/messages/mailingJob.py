@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -24,15 +24,17 @@ import smtplib
 from email.mime.text import MIMEText
 from jinja2 import Template
 from core.jobs.job import Job
+
+
 class MailFromFileTemplateJob(Job):
 
     description = "Send a mail from a local template file with data"
 
     def defineArguments(self):
-        self.addListArgument('recipients', label = "Recipients", description="List of recipients email adresses")
-        self.addStringArgument('subject', label = "Subject", description="Subject of the mail")
-        self.addStringArgument('template_path', label = "Template path", description="File path to the template")
-        self.addDictArgument('data', label = "Template data", description="Data for the template")
+        self.addListArgument('recipients', label="Recipients", description="List of recipients email adresses")
+        self.addStringArgument('subject', label="Subject", description="Subject of the mail")
+        self.addStringArgument('template_path', label="Template path", description="File path to the template")
+        self.addDictArgument('data', label="Template data", description="Data for the template")
 
     def run(self, **kwargs):
         config = kwargs['mail_config']
@@ -50,7 +52,7 @@ class MailFromFileTemplateJob(Job):
         template = Template(jinja2_template_string)
 
         content = template.render(**data)
-        #print(content) 
+        #print(content)
 
         # Render HTML Template String
         try:
@@ -63,11 +65,11 @@ class MailFromFileTemplateJob(Job):
             port = config.get('port')
             username = config.get('username')
             password = config.get('password')
-            s = smtplib.SMTP_SSL(host,port)
-            s.login(username,password)
+            s = smtplib.SMTP_SSL(host, port)
+            s.login(username, password)
             print(sender, recipients, host, port, username, password)
             s.send_message(msg)
-            s.quit() 
+            s.quit()
         except Exception as e:
             print(e)
             raise e

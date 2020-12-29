@@ -16,16 +16,17 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
 from core.workspaces import DataView, Workspace
 from core.users.models import User
 from core import db
-
 """ A view contaning a list of all users not locked
 """
+
+
 class UserList(DataView):
 
     uri = 'userList'
@@ -34,14 +35,25 @@ class UserList(DataView):
     def defineMetadata(self):
         self.addStringMeta("test")
 
-    def defineProperties(self):            
+    def defineProperties(self):
         self.addMailProperty(name='email', label='eMail', isKey=True)
         self.addStringProperty(name='name', label='Name')
         self.addStringProperty(name='organization', label='Organization')
         self.addSelectProperty(name='verified', selectables=['Yes', 'No'], label='Verified')
-        self.addActionProperty(name='lock', label='Lock user', action='lock', actionHandler=self.lockHandler, icon='clear') 
-        self.addActionProperty(name='setAdmin', label='Give admin privileges', action='setAdmin', icon='flash_on', color="green") 
-        self.addActionProperty(name='unsetAdmin', label='Remove admin privileges', action='unsetAdmin', icon='flash_off') 
+        self.addActionProperty(name='lock',
+                               label='Lock user',
+                               action='lock',
+                               actionHandler=self.lockHandler,
+                               icon='clear')
+        self.addActionProperty(name='setAdmin',
+                               label='Give admin privileges',
+                               action='setAdmin',
+                               icon='flash_on',
+                               color="green")
+        self.addActionProperty(name='unsetAdmin',
+                               label='Remove admin privileges',
+                               action='unsetAdmin',
+                               icon='flash_off')
 
     def getViewMetaHandler(self, user, workspace):
         meta = self.createMeta()
@@ -49,7 +61,7 @@ class UserList(DataView):
         return meta
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
-        print("getDataViewHandler for " +  self.uri)
+        print("getDataViewHandler for " + self.uri)
         userlist = []
         all_user = User.query.filter_by(account_locked=False).all()
         for u in all_user:
@@ -87,12 +99,10 @@ class UserList(DataView):
     def __repr__(self):
         return '<{} with {} properties>'.format(self.name, len(self.properties))
 
-    # Handler for a request to create a new view entry 
+    # Handler for a request to create a new view entry
     def createViewEntryHandler(self, user, workspace, entry):
-        print("Handle createViewEntry request for " +  self.uri)
+        print("Handle createViewEntry request for " + self.uri)
 
     # Handler for a request to update a single view entry
-    def updateViewEntryHandler(self, user, workspace, key,  entry):
-        print("Handle updateViewEntryHandler request for " +  self.uri)
-
-
+    def updateViewEntryHandler(self, user, workspace, key, entry):
+        print("Handle updateViewEntryHandler request for " + self.uri)

@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -27,22 +27,22 @@ from sqlalchemy_utils import ArrowType
 import arrow
 import json
 
-
 from core.common.jsonDict import JsonDict
 from core.users.models import User
 
+
 class Message(db.Model):
     __tablename__ = 'messages'
-    # nonvolatile data stored in the db 
+    # nonvolatile data stored in the db
     id = db.Column(db.Integer, primary_key=True)
     recipient_email = db.Column(db.String, db.ForeignKey('users.email'))
     recipient = db.relationship("User", backref=db.backref("messages", uselist=True))
-    sender_name = db.Column(db.String(120), default= "")
-    subject = db.Column(db.String(120), default= "")
-    message_html = db.Column(db.UnicodeText(), default= "")
+    sender_name = db.Column(db.String(120), default="")
+    subject = db.Column(db.String(120), default="")
+    message_html = db.Column(db.UnicodeText(), default="")
     message_send_date = db.Column(ArrowType, default=arrow.utcnow)
     message_read = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
-        return '<Message from {} to {} with subject "{}" [{}] >'.format(self.sender_name, self.recipient_name, self.subject, message_send_date)
-
+        return '<Message from {} to {} with subject "{}" [{}] >'.format(self.sender_name, self.recipient_name,
+                                                                        self.subject, message_send_date)

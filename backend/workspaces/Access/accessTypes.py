@@ -16,11 +16,12 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
 from enum import Enum
+
 
 class SpaceAccessType(Enum):
     NO_ACCESS = "No access"
@@ -30,11 +31,14 @@ class SpaceAccessType(Enum):
     AUTO_CHARGED_MONTHLY_BUDGET = "Auto-charged budget (monthly)"
     AUTO_CHARGED_WEEKLY_BUDGET = "Auto-charged budget (weekly)"
 
+
 def getAccessSpacesOfNode(node):
     return []
 
+
 def checkUserAccessToSpace(user, space):
     return False
+
 
 def setDefaultAccessTypeUserProperties(user, access_type):
     pass

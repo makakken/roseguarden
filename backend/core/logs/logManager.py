@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -24,6 +24,7 @@ import collections
 import logging
 import datetime
 import threading
+
 
 class LogManager(object):
     def __init__(self):
@@ -50,7 +51,7 @@ class LogManager(object):
         try:
             self.app.logger.info(msg, *args, **kwargs)
             indents = s.replace("\n", "\n" + " " * 14)
-            print("[{:4.4}][INFO]: {}".format(threading.current_thread().name,indents))
+            print("[{:4.4}][INFO]: {}".format(threading.current_thread().name, indents))
         except:
             print("logger failed to print: ", s)
 

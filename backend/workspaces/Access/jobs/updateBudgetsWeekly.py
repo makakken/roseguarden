@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -29,8 +29,8 @@ class UpdateBudgetsWeeklyJob(Job):
     cron = True
     second = "0"
     minute = "0"
-    hour= "1"
-    day_of_week= "mon"
+    hour = "1"
+    day_of_week = "mon"
     disable = False
     description = "Update the account for weekly access budget users"
 

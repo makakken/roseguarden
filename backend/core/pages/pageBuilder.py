@@ -16,23 +16,23 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
 from core.logs import logManager
 from pprint import pprint
 
+
 class PageBuilder(object):
     """ The PageBuilder ...
     """
-
     def __init__(self, ):
         # preparation to instanciate
         pass
 
-    def init_builder(self,  app, db, userManager, workspaceManager):
+    def init_builder(self, app, db, userManager, workspaceManager):
         self.app = app
         self.db = db
         self.workspaceManager = workspaceManager
-        self.userManager = userManager    
+        self.userManager = userManager

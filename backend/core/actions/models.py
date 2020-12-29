@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -29,19 +29,20 @@ import json
 
 from core.common.jsonDict import JsonDict
 
+
 class ActionLink(db.Model):
     __tablename__ = 'actionlinks'
-    # nonvolatile data stored in the db 
+    # nonvolatile data stored in the db
     id = db.Column(db.Integer, primary_key=True)
-    hash = db.Column(db.String(128), default= "")
-    workspace = db.Column(db.String(120), default= "")
+    hash = db.Column(db.String(128), default="")
+    workspace = db.Column(db.String(120), default="")
     need_login = db.Column(db.Boolean, default=True)
-    action = db.Column(db.String(120), default= "")
+    action = db.Column(db.String(120), default="")
     action_data_json = db.Column(JsonDict)
     run_only_once = db.Column(db.Boolean, default=True)
     expire_on_date = db.Column(ArrowType, default=arrow.utcnow)
-    redirect_to = db.Column(db.String(255), default= "")
+    redirect_to = db.Column(db.String(255), default="")
 
     def __repr__(self):
-        return '<ActionLink {} for {}/{} [expires on {}] >'.format(self.link, self.workspace, self.action, self.expire_on_date)
-
+        return '<ActionLink {} for {}/{} [expires on {}] >'.format(self.link, self.workspace, self.action,
+                                                                   self.expire_on_date)

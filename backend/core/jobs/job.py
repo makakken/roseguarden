@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -25,26 +25,26 @@ from core.logs import logManager
 import arrow
 import datetime
 
+
 class Job(object):
     """Base class that each job inherit from. 
        The class define methods that all jobs have to implement
     """
-    description = "Not available"   # description of the job
-    disable = False                 # disable the job
-    local = True                    # only runable by the same workspace
-    strict = True                   # strict argument parsing
-    requireAdmin = False            # admin is required to view the page
-    requirePermission = None        # a permission is required in the meaning of one of the following    
+    description = "Not available"  # description of the job
+    disable = False  # disable the job
+    local = True  # only runable by the same workspace
+    strict = True  # strict argument parsing
+    requireAdmin = False  # admin is required to view the page
+    requirePermission = None  # a permission is required in the meaning of one of the following
 
     # Repetetive members
-    cron = False # see https://apscheduler.readthedocs.io/en/stable/modules/triggers/cron.html for the encoding
-    day=None 
-    week=None
-    day_of_week=None
-    hour=None
-    minute=None
-    second=None
-
+    cron = False  # see https://apscheduler.readthedocs.io/en/stable/modules/triggers/cron.html for the encoding
+    day = None
+    week = None
+    day_of_week = None
+    hour = None
+    minute = None
+    second = None
 
     def __init__(self, name=None, uri=None):
         if name == None:
@@ -55,7 +55,7 @@ class Job(object):
         self.workspace = ""
         self.parameters = None
         self.defineArguments()
-    
+
     def start_job(self, **kwargs):
         from core import create_app, db
         from core.jobs.models import JobExecute
@@ -88,27 +88,27 @@ class Job(object):
             je.state = "FAILED"
             print(e)
 
-        after = datetime.datetime.now()        
+        after = datetime.datetime.now()
         delta = after - triggered
         je.lifetime = delta.total_seconds()
         self.db.session.commit()
 
-    def addArgument(self, name, typestring, label="",  description="", optional=False, group=None):
+    def addArgument(self, name, typestring, label="", description="", optional=False, group=None):
         p = {'name': name, 'type': typestring, 'label': label, 'optional': optional, 'group': group}
         if self.parameters is None:
             self.parameters = [p]
         else:
             self.parameters.append(p)
 
-    def addDictArgument(self, name, label="",  description="", optional=False, group=None):
+    def addDictArgument(self, name, label="", description="", optional=False, group=None):
         logManager.info("Add dict type argument to job {}".format(self.name))
         self.addArgument(name, 'dict', label, description, optional, group)
 
-    def addListArgument(self, name, label="",  description="", optional=False, group=None):
+    def addListArgument(self, name, label="", description="", optional=False, group=None):
         logManager.info("Add list type argument to job {}".format(self.name))
         self.addArgument(name, 'list', label, description, optional, group)
 
-    def addStringArgument(self, name, label="",  description="", optional=False, group=None):
+    def addStringArgument(self, name, label="", description="", optional=False, group=None):
         logManager.info("Add string type argument to job {}".format(self.name))
         self.addArgument(name, 'string', label, description, optional, group)
 

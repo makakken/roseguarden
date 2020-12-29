@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -25,10 +25,10 @@ from core.users.enum import AuthenticatorValidityType, AuthenticatorType, Authen
 from core.common.deface import deface_string_end, deface_string_middle
 from core.users.models import Authenticator, User
 from core import db
-
-
 """ A view contaning a list of all available authenticator
 """
+
+
 class AuthenticatorList(DataView):
 
     uri = 'authenticatorList'
@@ -37,7 +37,7 @@ class AuthenticatorList(DataView):
     def defineMetadata(self):
         self.addStringMeta("test")
 
-    def defineProperties(self):            
+    def defineProperties(self):
         self.addIntegerProperty(name='id', label='Id', isKey=True, hide=True)
         self.addStringProperty(name='type', label='Type')
         self.addStringProperty(name='hash', label='Hash')
@@ -56,7 +56,7 @@ class AuthenticatorList(DataView):
         print("getDataViewHandler for AuthenticatorRequestList")
 
         entrylist = []
-        all_authenticators = Authenticator.query.all()        
+        all_authenticators = Authenticator.query.all()
         for ar in all_authenticators:
 
             # get new empty entry
@@ -65,19 +65,19 @@ class AuthenticatorList(DataView):
             # fill entry
             entry.id = ar.id
             entry.type = str(ar.authenticator_type.value)
-            entry.hash =  deface_string_end(ar.authenticator.decode("utf-8"), 10 )
+            entry.hash = deface_string_end(ar.authenticator.decode("utf-8"), 10)
 
             entry.code = deface_string_middle(ar.code, 4)
 
             if ar.validity_type == AuthenticatorValidityType.ONCE:
                 entry.validity = "Once"
             if ar.validity_type == AuthenticatorValidityType.EXPIRATION_DATE:
-                entry.validity = "Expires"  
+                entry.validity = "Expires"
             if ar.validity_type == AuthenticatorValidityType.LIMITED_USAGE:
-                entry.validity = str(ar.usage_limit) +  " times"                                
-            entry.code_send = str(ar.code_send_by.value) + ' (' +str(ar.code_send_to) + ')'          
-            entry.creation_date = ar.creation_date.format()            
-            entry.expiration_date = ar.expiration_date.format()            
+                entry.validity = str(ar.usage_limit) + " times"
+            entry.code_send = str(ar.code_send_by.value) + ' (' + str(ar.code_send_to) + ')'
+            entry.creation_date = ar.creation_date.format()
+            entry.expiration_date = ar.expiration_date.format()
 
             entrylist.append(entry.extract())
         return entrylist
@@ -85,12 +85,10 @@ class AuthenticatorList(DataView):
     def __repr__(self):
         return '<{} with {} properties>'.format(self.name, len(self.properties))
 
-    # Handler for a request to create a new view entry 
+    # Handler for a request to create a new view entry
     def createViewEntryHandler(self, user, workspace, entry):
-        print("Handle createViewEntry request for " +  self.uri)
+        print("Handle createViewEntry request for " + self.uri)
 
     # Handler for a request to update a single view entry
-    def updateViewEntryHandler(self, user, workspace, key,  entry):
-        print("Handle updateViewEntryHandler request for " +  self.uri)
-
-
+    def updateViewEntryHandler(self, user, workspace, key, entry):
+        print("Handle updateViewEntryHandler request for " + self.uri)

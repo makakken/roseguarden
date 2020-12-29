@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -26,34 +26,37 @@ import pkgutil
 from enum import Enum
 from core.logs import logManager
 from core.nodes.errors import RequestError
+
+
 class NodeStatus(Enum):
     UNKNOWN = "UNKNOWN"
+
 
 class NodeClass(object):
     """Base class that each node class have to inherit from. 
        The class define methods that all nodes must implement
     """
 
-    disable = False         # enable or disable detection 
-    name = None             # overwrites the name (default = self.__class__.__name__) 
-    class_id = ""            # the nodes class identifier to map hardware nodes with the node class
+    disable = False  # enable or disable detection
+    name = None  # overwrites the name (default = self.__class__.__name__)
+    class_id = ""  # the nodes class identifier to map hardware nodes with the node class
     description = "UNKNOWN"
-    version = "1.0"         # version of the node this class should handle
+    version = "1.0"  # version of the node this class should handle
 
     def __init__(self, class_id=class_id, name=name):
         self.description = 'UNKNOWN'
         if name is None:
             self.name = self.__class__.__name__
         self.status = NodeStatus.UNKNOWN
-        self.actions = {}   
+        self.actions = {}
         self.defineNodeActionRequests()
         self.identity = {}
-    
+
     def init_node(self, app, db):
         self.app = app
         self.db = db
 
-    def defineActionProperty(self, actionname, property_name, optional = False, description=""):
+    def defineActionProperty(self, actionname, property_name, optional=False, description=""):
         self.actions[actionname]['properties'].append(property_name)
         self.actions[actionname]['optional'] = optional
 
@@ -79,4 +82,3 @@ class NodeClass(object):
 
     def handleNodeActionRequest(self, action, header):
         pass
-

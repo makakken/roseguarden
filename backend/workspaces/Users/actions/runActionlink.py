@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -34,16 +34,19 @@ class RunActionlink(Action):
         # logManager.info("ProvideMenu of type Action created")
         super().__init__(app, uri='runActionlink')
 
-    def handle(self, action, user, workspace, actionManager ):
+    def handle(self, action, user, workspace, actionManager):
         logManager.info("Execute actionlink")
         response_actions = []
         try:
-            response_actions.append(webclientActions.UpdateActionlinkStatusAction.generate("success", "Action succeed"))
+            response_actions.append(webclientActions.UpdateActionlinkStatusAction.generate(
+                "success", "Action succeed"))
             response_actions = response_actions + executeActionLink(action.hash, user)
         except (ExpiredError, NotFoundError) as e:
-            response_actions = [webclientActions.UpdateActionlinkStatusAction.generate("error", "Action not found or expired")]
+            response_actions = [
+                webclientActions.UpdateActionlinkStatusAction.generate("error", "Action not found or expired")
+            ]
         except Exception as e:
             logManager.error("Execute actionlink failed: {}".format(str(e)))
             response_actions = [webclientActions.UpdateActionlinkStatusAction.generate("error", "Action failed")]
-            
+
         return 'success', response_actions

@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -29,10 +29,11 @@ from flask_cors import cross_origin
 from pprint import pprint
 import json
 
+
 @cross_origin()
 @nodes_bp.route('/api/v1/nodes', methods=["POST"])
 def nodes():
-    reply_dict={}
+    reply_dict = {}
     s = json.dumps(request.json, indent=4)
     logManager.info("node request from: {}:\n{}".format(request.remote_addr, s))
     if request.method == "OPTIONS":
@@ -46,17 +47,17 @@ def nodes():
         except RequestError as re:
             return make_response(str(re), 400)
 
-
         reply = json.dumps(reply_dict)
         pprint(reply)
         return make_response(reply, 200)
     else:
         return make_response("No json data", 400)
-        
+
+
 @nodes_bp.after_request
 def after_request(response):
     header = response.headers
     header['Access-Control-Allow-Origin'] = '*'
     header['Access-Control-Allow-Headers'] = '*'
-    header['Access-Control-Allow-Methods'] = '*'    
+    header['Access-Control-Allow-Methods'] = '*'
     return response

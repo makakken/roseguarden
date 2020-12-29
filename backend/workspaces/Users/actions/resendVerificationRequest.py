@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -39,9 +39,10 @@ class ResendVerificationRequest(Action):
     def __init__(self, app):
         super().__init__(app, uri='resendVerificationMail')
 
-    def handle(self, action, user, workspace, actionManager ):
+    def handle(self, action, user, workspace, actionManager):
         logManager.info("Execute resend activation mail action")
-        notification_action = webclientActions.NotificationAction.generate("The verification of your account got requested.", "success")
+        notification_action = webclientActions.NotificationAction.generate(
+            "The verification of your account got requested.", "success")
         ref = request.referrer.split('/')
         if ref[0] != 'http:' and ref[0] != 'https:':
             ref = '/'.join(ref[:1])
@@ -50,11 +51,8 @@ class ResendVerificationRequest(Action):
 
         verifyUser = userManager.getUser(action.username)
         if verifyUser is not None:
-            link = generateActionLink(workspace,'verifyUser', { 'email' : verifyUser.email }, "user/login", True, False)
-            data = {
-                'username' :  verifyUser.firstname + ' ' + verifyUser.lastname,
-                'action_link' : link
-            }
+            link = generateActionLink(workspace, 'verifyUser', {'email': verifyUser.email}, "user/login", True, False)
+            data = {'username': verifyUser.firstname + ' ' + verifyUser.lastname, 'action_link': link}
             print(link)
-            send_mail([verifyUser.email], "Verify your account", workspace, 'requestVerification.mail', data )
+            send_mail([verifyUser.email], "Verify your account", workspace, 'requestVerification.mail', data)
         return 'success', [notification_action]

@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -29,15 +29,17 @@ from core import db
 from workspaces.Permissions.permissions import ViewPermission
 """ A view contaning a list of permissions
 """
+
+
 class JobList(DataView):
 
     uri = 'jobList'
     requireLogin = True
 
-#    def __init__(self):
-#        super().__init__(name='PermissionList', uri ='permissionList')
+    #    def __init__(self):
+    #        super().__init__(name='PermissionList', uri ='permissionList')
 
-    def defineProperties(self):        
+    def defineProperties(self):
         self.addStringProperty(name='id', label='ID', isKey=True)
         self.addStringProperty(name='workspace', label='Workspace')
         self.addStringProperty(name='name', label='Name')
@@ -78,12 +80,10 @@ class JobList(DataView):
     def __repr__(self):
         return '<{} with {} properties>'.format(self.name, len(self.properties))
 
-    # Handler for a request to create a new view entry 
+    # Handler for a request to create a new view entry
     def createViewEntryHandler(self, user, workspace, entry):
-        print("Handle createViewEntry request for " +  self.uri)
+        print("Handle createViewEntry request for " + self.uri)
 
     # Handler for a request to update a single view entry
-    def updateViewEntryHandler(self, user, workspace, key,  entry):
-        print("Handle updateViewEntryHandler request for " +  self.uri)
-
-
+    def updateViewEntryHandler(self, user, workspace, key, entry):
+        print("Handle updateViewEntryHandler request for " + self.uri)
