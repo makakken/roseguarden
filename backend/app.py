@@ -25,9 +25,6 @@ from flask import Flask, jsonify, request, redirect, url_for, send_from_director
 from devEnv import create_devEnv
 from core.nodes import nodeManager
 
-import os
-import sys
-
 app = create_app()
 
 print()
