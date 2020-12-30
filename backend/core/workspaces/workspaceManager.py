@@ -241,12 +241,13 @@ class WorkspaceManager(object):
                                     name = c.name
                                 workspaceInstance = c(self.app, self.db, name, uri)
                                 workspaceInstance.path = os.path.dirname(workspace_module.__file__)
-                                logManager.info(
-                                    f'Workspace discovered : {workspaceInstance.name} [{c.__module__}] with uri "{workspaceInstance.uri}"'
-                                )
+                                logManager.info('Workspace discovered : {} [{}] with uri "{}"'.
+                                                format(workspaceInstance.name,
+                                                       c.__module__,
+                                                       workspaceInstance.uri))
                                 if workspaceInstance.disable is True:
-                                    logManager.info(
-                                        f'Workspace {workspaceInstance.name} [{c.__module__}] is disabled and wont show up'
-                                    )
+                                    logManager.info('Workspace {} [{}] is disabled and wont show up.'.
+                                                    format(workspaceInstance.name,
+                                                           c.__module__))
                                 else:
                                     self.workspaces.append(workspaceInstance)

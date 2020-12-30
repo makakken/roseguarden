@@ -28,4 +28,4 @@ workspaceManager = WorkspaceManager('workspaces')
 
 workspaces_bp = Blueprint('workspaces', __name__)
 
-from core.workspaces import routes
+from core.workspaces import routes  # noqa: F401

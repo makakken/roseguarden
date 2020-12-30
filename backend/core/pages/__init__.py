@@ -24,4 +24,4 @@ from flask import Blueprint
 
 pages_bp = Blueprint('pages', __name__)
 
-from core.pages import routes
+from core.pages import routes  # noqa: F401

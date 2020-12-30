@@ -27,4 +27,4 @@ files_bp = Blueprint('files', __name__)
 
 fileManager = FileManager()
 
-from core.files import routes
+from core.files import routes  # noqa: F401

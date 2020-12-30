@@ -26,4 +26,4 @@ from core.menus.menuBuilder import MenuBuilder
 menuBuilder = MenuBuilder()
 menus_bp = Blueprint('menus', __name__)
 
-from core.menus import routes
+from core.menus import routes  # noqa: F401

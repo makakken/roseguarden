@@ -69,37 +69,35 @@ def create_app(minimal=False):
         workspaceManager.discoverModels()
         bcrypt.init_app(app)
 
-    from core import app_bp
+    from core import app_bp  # noqa: F401
     app.register_blueprint(app_bp)
 
-    from core.actions import actions_bp, models
+    from core.actions import actions_bp, models  # noqa: F401, F811
     app.register_blueprint(actions_bp)
 
-    from core.users import auth_bp, models
+    from core.users import auth_bp, models  # noqa: F401, F811
     app.register_blueprint(auth_bp)
 
-    from core.logs import logs_bp
+    from core.logs import logs_bp  # noqa: F401, F811
     app.register_blueprint(logs_bp)
 
-    from core.jobs import jobs_bp
+    from core.jobs import jobs_bp  # noqa: F401, F811
     app.register_blueprint(jobs_bp)
 
-    from core.messages import messages_bp
+    from core.messages import messages_bp  # noqa: F401, F811
     app.register_blueprint(messages_bp)
 
-    from core.files import files_bp
+    from core.files import files_bp  # noqa: F401, F811
     app.register_blueprint(files_bp)
 
-    from core.nodes import nodes_bp
+    from core.nodes import nodes_bp  # noqa: F401, F811
     app.register_blueprint(nodes_bp)
 
     # import workspace blueprint and models
-    from core.workspaces import workspaces_bp
-    import core.workspaces.models
-
+    from core.workspaces import workspaces_bp, models  # noqa: F401, F811
     app.register_blueprint(workspaces_bp)
 
-    from api import api_bp
+    from api import api_bp  # noqa: F401, F811
     app.register_blueprint(api_bp)
 
     db.init_app(app)
@@ -124,4 +122,4 @@ def create_app(minimal=False):
 # declare app routes
 app_bp = Blueprint('app', __name__, static_folder="../client")
 
-from core import routes
+from core import routes  # noqa: F401
