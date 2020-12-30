@@ -30,6 +30,7 @@ pylint:
   only:
     refs:
       - master
+      - merge_requests
     changes:
       - backend/**/*
   except:
