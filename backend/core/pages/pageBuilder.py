@@ -20,9 +20,6 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from core.logs import logManager
-from pprint import pprint
-
 
 class PageBuilder(object):
     """ The PageBuilder ...

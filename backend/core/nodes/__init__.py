@@ -22,7 +22,6 @@ __license__ = "GPLv3"
 
 from flask import Blueprint
 
-from .nodeClass import NodeClass
 from .nodeManager import NodeManager
 
 nodeManager = NodeManager()

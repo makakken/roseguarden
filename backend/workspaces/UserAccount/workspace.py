@@ -20,9 +20,8 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from core.workspaces import Workspace
-from core.logs import logManager
-"""This plugin handle the user account 
+from core.workspaces.workspace import Workspace
+"""This plugin handle the user account
 """
 
 

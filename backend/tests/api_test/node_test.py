@@ -1,9 +1,9 @@
 # %%
 
 import requests
-import json
+
 # make login request
-json = {
+json_data = {
     'actions': [{
         'action': 'login',
         'password': 'test',
@@ -23,5 +23,5 @@ json = {
     }
 }
 
-node_request = requests.post('https://roseguarden.fabba.space/api/v1/nodes', json=json)
+node_request = requests.post('https://roseguarden.fabba.space/api/v1/nodes', json=json_data)
 print(node_request.status_code, node_request.reason, node_request.content)

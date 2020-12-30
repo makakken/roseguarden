@@ -20,11 +20,11 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from core.workspaces import DataView, Workspace
-from core.users.enum import AuthenticatorValidityType, AuthenticatorType, AuthenticatorSendBy
+from core.workspaces.workspace import Workspace
+from core.workspaces.dataView import DataView
+from core.users.enum import AuthenticatorValidityType
 from core.common.deface import deface_string_end, deface_string_middle
 from core.users.models import Authenticator, User
-from core import db
 """ A view contaning a list of all available authenticator
 """
 

@@ -21,14 +21,13 @@ __credits__ = []
 __license__ = "GPLv3"
 
 import inspect
+import sys
+import traceback
 import os
 import pkgutil
 from core.workspaces.workspace import Workspace
 from core.workspaces.workspaceHooks import WorkspaceHooks
 from core.logs import logManager
-from core.common.objDict import ObjDict
-import sys, traceback
-from flask_sqlalchemy import SQLAlchemy
 
 
 class WorkspaceManager(object):
@@ -168,7 +167,7 @@ class WorkspaceManager(object):
         imported_source = __import__(source, fromlist=['blah'])
         all_current_paths = []
 
-        #all_current_paths.append(imported_source.__path__._path)
+        # all_current_paths.append(imported_source.__path__._path)
 
         if isinstance(imported_source.__path__, str):
             all_current_paths.append(imported_source.__path__)
@@ -184,7 +183,7 @@ class WorkspaceManager(object):
 
             for child_pkg in child_pkgs:
                 try:
-                    imported_package = __import__(source + '.' + child_pkg + '.models', fromlist=['blah'])
+                    __import__(source + '.' + child_pkg + '.models', fromlist=['blah'])
                 except ModuleNotFoundError:
                     modelmodule = source + '.' + child_pkg + '.models'
                     logManager.info(f'No model found for {modelmodule}')

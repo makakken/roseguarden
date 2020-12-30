@@ -21,7 +21,6 @@ __credits__ = []
 __license__ = "GPLv3"
 
 from core.jobs.job import Job
-from core.users.models import User
 from core.logs import logManager
 
 

@@ -26,12 +26,10 @@ from core.common.objDict import ObjDict
 from pprint import pprint
 from core.actions.errors import NotFoundError, ExpiredError, RequireLoginError
 from core.actions import webclientActions
-from flask_jwt_extended import create_access_token, create_refresh_token
 import arrow
 import random
 import datetime
 import string
-import json
 
 
 class ActionManager(object):
@@ -156,7 +154,6 @@ class ActionManager(object):
         return reply
 
     def handleActionRequest(self, identity, expire_date, request):
-        header = request['head']
         actions = request['actions']
         response_actions = []
         response_data = {}

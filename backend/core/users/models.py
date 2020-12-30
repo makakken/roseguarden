@@ -55,7 +55,7 @@ class User(db.Model):
     failedPinAttempts = db.Column(db.Integer(), default=0)
     failedLoginAttempts = db.Column(db.Integer(), default=0)
 
-    #def __init__(self, **kwargs):
+    # def __init__(self, **kwargs):
     #    super(User, self).__init__(**kwargs)
 
     def __init__(self, email, password, isAdmin=False):

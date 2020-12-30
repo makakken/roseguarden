@@ -79,7 +79,7 @@ class UserManager(object):
         session_expiration_minutes = self.config['SYSTEM'].get('session_expiration_minutes', 15)
         exp_delta = datetime.timedelta(minutes=session_expiration_minutes)
         access_token = create_access_token(identity=username, expires_delta=exp_delta)
-        refresh_token = create_refresh_token(identity=username)
+        create_refresh_token(identity=username)
         return access_token
 
     def createUserAuthenticatorRequest(self,

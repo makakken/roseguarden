@@ -20,6 +20,6 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from core.workspaces import Permission
+# from core.workspaces.permission import Permission
 
 # Define your Permissions here

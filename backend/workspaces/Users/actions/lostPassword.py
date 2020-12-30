@@ -24,7 +24,6 @@ from flask import request
 import arrow
 import random
 import string
-from core.users.models import User
 from core.actions.action import Action
 from core.logs import logManager
 from core.actions import webclientActions

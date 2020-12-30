@@ -21,9 +21,7 @@ __credits__ = []
 __license__ = "GPLv3"
 
 import os
-
 from core.logs import logManager
-from core.jobs import add_dated_job
 
 
 class FileManager(object):

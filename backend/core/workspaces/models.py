@@ -20,9 +20,7 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from datetime import datetime
 from core import db
-from core.users.models import User
 
 association_table_user_permissiongroup = db.Table(
     'permissiongroup_user_map', db.Column('user_id', db.Integer, db.ForeignKey('users.id')),

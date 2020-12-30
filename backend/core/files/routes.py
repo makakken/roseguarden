@@ -21,7 +21,7 @@ __credits__ = []
 __license__ = "GPLv3"
 
 from core.files import files_bp
-from flask import Flask, render_template, request
+from flask import request
 from werkzeug import secure_filename
 import os
 

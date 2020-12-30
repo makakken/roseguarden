@@ -20,10 +20,10 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from core.workspaces import Permission
-
 # Define your Permissions here
 """ An example for defining a workspace permission class
+from core.workspaces.permission import Permission
+
 class TemplatePermission(Permission):
     description = "This is a template permission"
 """

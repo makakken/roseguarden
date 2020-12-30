@@ -21,8 +21,6 @@ __credits__ = []
 __license__ = "GPLv3"
 
 from core import db
-from core.users.models import User
-from core.nodes.models import Node
 from sqlalchemy_utils import ArrowType
 import arrow
 

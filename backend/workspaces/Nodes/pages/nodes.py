@@ -20,12 +20,12 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from core.workspaces import DataView, Workspace, Page
-from core.users.models import User
-
-
+from core.workspaces.page import Page
 """ The log page
-"""class NodesList(Page):
+"""
+
+
+class NodesList(Page):
     title = 'Nodes'  # Shown label of the page in the menu
     group = 'Nodes'  # groupname multiple pages
     icon = 'all_out'  # icon (in typeset of material design icons)

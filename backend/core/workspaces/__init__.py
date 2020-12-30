@@ -23,11 +23,6 @@ __license__ = "GPLv3"
 from flask import Blueprint
 
 from .workspaceManager import WorkspaceManager
-from .workspace import Workspace
-from .dataView import DataView
-from .permission import Permission
-from .section import Section
-from .page import Page
 
 workspaceManager = WorkspaceManager('workspaces')
 

@@ -21,7 +21,6 @@ __credits__ = []
 __license__ = "GPLv3"
 
 from core.workspaces import workspaces_bp
-from flask import Flask, jsonify, request, redirect, url_for, send_from_directory
 
 
 @workspaces_bp.route('/api/page', methods=["GET"])

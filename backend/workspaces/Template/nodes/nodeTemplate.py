@@ -21,10 +21,10 @@ __credits__ = []
 __license__ = "GPLv3"
 
 from core.nodes.nodeClass import NodeClass
-from core.nodes.errors import MissingPropertyError
 from core.logs import logManager
 from core.users import userManager
-from workspaces.Template.nodes.common.serverActionRequests import UpdateUserInfoAction, UpdateAssignInfoAction, RequestPinAction, DenyAccessAction, GrandAccessAction
+from workspaces.Template.nodes.common.serverActionRequests import UpdateUserInfoAction, \
+    UpdateAssignInfoAction, RequestPinAction, DenyAccessAction, GrandAccessAction
 from core.users.enum import AuthenticatorSendBy, AuthenticatorType, AuthenticatorValidityType
 
 

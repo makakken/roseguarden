@@ -25,8 +25,8 @@ from flask import jsonify, request
 from pprint import pprint
 
 from flask_jwt_extended import (create_access_token, jwt_refresh_token_required,
-                                create_refresh_token, get_jwt_identity, set_access_cookies,
-                                set_refresh_cookies, unset_jwt_cookies)
+                                get_jwt_identity, set_access_cookies,
+                                unset_jwt_cookies)
 
 
 @auth_bp.route('/activate', methods=['POST'])
@@ -44,21 +44,21 @@ def login():
     pprint(request.json, indent=4)
     return jsonify({'login': False}), 401
 
-    username = request.json.get('username', None)
-    password = request.json.get('password', None)
+    # username = request.json.get('username', None)
+    # password = request.json.get('password', None)
 
     # Create the tokens we will be sending back to the user
-    access_token = create_access_token(identity=username)
-    refresh_token = create_refresh_token(identity=username)
+    # access_token = create_access_token(identity=username)
+    # refresh_token = create_refresh_token(identity=username)
 
     # Set the JWTs and the CSRF double submit protection cookies
     # in this response
-    resp = jsonify({'login': True})
+    # resp = jsonify({'login': True})
     # the access cookie expire after 15 minutes and have to get refreshed by the client
-    set_access_cookies(resp, access_token, max_age=15 * 60)
+    # set_access_cookies(resp, access_token, max_age=15 * 60)
     # the refresh cookie expire after 30 minutes
-    set_refresh_cookies(resp, refresh_token, max_age=30 * 60)
-    return resp, 200
+    # set_refresh_cookies(resp, refresh_token, max_age=30 * 60)
+    # return resp, 200
 
 
 @auth_bp.route('/login/refresh', methods=['POST'])

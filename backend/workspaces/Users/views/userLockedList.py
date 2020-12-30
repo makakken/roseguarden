@@ -20,9 +20,9 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from core.workspaces import DataView, Workspace
+from core.workspaces.workspace import Workspace
+from core.workspaces.dataView import DataView
 from core.users.models import User
-from core import db
 from core.users import userManager
 """ A view contaning a list of all users locked
 """

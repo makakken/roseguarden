@@ -22,14 +22,14 @@ __license__ = "GPLv3"
 
 import os
 from core import app_bp
-from flask import request, redirect, url_for, send_from_directory
+from flask import redirect, url_for, send_from_directory
 
 
 # index route
 @app_bp.route('/')
 def index():
     return send_from_directory('../client', 'index.html')
-    #return render_template("index.html")
+    # return render_template("index.html")
 
 
 @app_bp.route('/<path:path>')

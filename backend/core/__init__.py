@@ -59,10 +59,10 @@ def create_app(minimal=False):
         app.logger.handlers = gunicorn_logger.handlers
         app.logger.setLevel(gunicorn_logger.level)
 
-    #logging.basicConfig(level=logging.DEBUG, format='%(threadName)s %(message)s')
+    # logging.basicConfig(level=logging.DEBUG, format='%(threadName)s %(message)s')
 
     if not minimal:
-        cors = CORS(app)
+        CORS(app)
         logManager.init_app(app)
         logManager.info("Started roseguarden: " + version)
         jwt.init_app(app)
@@ -123,4 +123,5 @@ def create_app(minimal=False):
 
 # declare app routes
 app_bp = Blueprint('app', __name__, static_folder="../client")
+
 from core import routes

@@ -20,11 +20,10 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from core.workspaces import DataView, Workspace
-from core.workspaces.models import Permission, PermissionGroup
+from core.workspaces.workspace import Workspace
+from core.workspaces.dataView import DataView
+from core.workspaces.models import PermissionGroup
 from core.users.models import User
-
-from workspaces.Permissions.permissions import ViewPermission
 """ A view contaning a list of permission groups
 """
 

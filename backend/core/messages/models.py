@@ -39,4 +39,4 @@ class Message(db.Model):
 
     def __repr__(self):
         return '<Message from {} to {} with subject "{}" [{}] >'.format(self.sender_name, self.recipient_name,
-                                                                        self.subject, message_send_date)
+                                                                        self.subject, self.message_send_date)

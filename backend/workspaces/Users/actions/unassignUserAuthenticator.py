@@ -20,9 +20,8 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-import arrow
-from core.users.models import User, Authenticator
-from core.users.enum import AuthenticatorSendBy, AuthenticatorType, AuthenticatorValidityType, UserAuthenticatorStatus
+from core.users.models import User
+from core.users.enum import UserAuthenticatorStatus
 from core.actions.action import Action
 from core.logs import logManager
 from core.actions import webclientActions

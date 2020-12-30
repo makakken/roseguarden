@@ -28,9 +28,7 @@ from core.workspaces import workspaceManager
 from core.actions.models import ActionLink
 import arrow
 
-from workspaces.Log.permissions import ViewLogs
-from workspaces.Access.models import SpaceAccessGroup, SpaceAccessProperties, SpaceAccessSpace
-from workspaces.Template.nodes.nodeTemplate import NodeTemplate
+from workspaces.Access.models import SpaceAccessGroup, SpaceAccessSpace
 
 from core.workspaces.workspaceHooks import WorkspaceHooks
 from core.nodes import nodeManager
@@ -41,8 +39,6 @@ import core.files.models
 import core.jobs.models
 import core.messages.models
 import core.workspaces.models
-import core.users.models
-import core.nodes.models
 
 
 def create_devEnv(app, db, clean=True):

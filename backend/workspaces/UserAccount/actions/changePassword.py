@@ -20,16 +20,9 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from flask import request
-import arrow
-import random
-import string
-from core.users.models import User
 from core.actions.action import Action
 from core.logs import logManager
 from core.actions import webclientActions
-from core.users import userManager
-from core.messages import send_mail
 
 
 class ChangePassword(Action):

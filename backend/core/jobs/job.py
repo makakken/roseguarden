@@ -22,8 +22,6 @@ __license__ = "GPLv3"
 
 from datetime import datetime
 from core.logs import logManager
-import arrow
-import datetime
 
 
 class Job(object):

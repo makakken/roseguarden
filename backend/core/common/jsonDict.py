@@ -21,8 +21,8 @@ __credits__ = []
 __license__ = "GPLv3"
 
 import json
-from core import db, bcrypt
 from sqlalchemy.ext import mutable
+from core import db
 
 
 class JsonDict(db.TypeDecorator):

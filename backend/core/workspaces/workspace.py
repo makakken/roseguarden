@@ -27,7 +27,6 @@ from core.actions.action import Action
 from core.nodes.nodeClass import NodeClass
 from core.workspaces import viewHandler
 from core.workspaces.dataView import DataView
-from core.workspaces.section import Section
 from core.workspaces.page import Page
 from core.workspaces.permission import Permission
 from core.jobs.job import Job

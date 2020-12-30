@@ -21,7 +21,6 @@ __credits__ = []
 __license__ = "GPLv3"
 
 import collections
-import logging
 import datetime
 import threading
 

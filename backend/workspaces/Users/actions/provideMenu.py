@@ -31,7 +31,7 @@ class ProvideMenu(Action):
         super().__init__(app, uri='menu')
 
     def handle(self, action, user, workspace, actionManager):
-        userManager = actionManager.userManager
+        # userManager = actionManager.userManager
         menuBuilder = actionManager.menuBuilder
         logManager.info("Execute registration action")
         menu = menuBuilder.buildMenu(user)

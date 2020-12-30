@@ -1,6 +1,4 @@
-from core.workspaces import DataView, Workspace, Page
-from core.users.models import User
-from core import db
+from core.workspaces.page import Page
 """ The startpage
 """
 

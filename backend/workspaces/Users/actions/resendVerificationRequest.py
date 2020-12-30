@@ -20,19 +20,13 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-import arrow
-import random
 from flask import request
-
-from core.users.models import User
 from core.actions.action import Action
 from core.actions import generateActionLink
 from core.logs import logManager
 from core.actions import webclientActions
 from core.users import userManager
 from core.messages import send_mail
-
-from workspaces.Users.actions.verifyUser import VerifyUser
 
 
 class ResendVerificationRequest(Action):

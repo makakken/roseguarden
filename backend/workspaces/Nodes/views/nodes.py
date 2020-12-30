@@ -21,15 +21,12 @@ __credits__ = []
 __license__ = "GPLv3"
 
 import json
-from core.workspaces import DataView, Workspace
-from core.workspaces.models import Permission, PermissionGroup
+from core.workspaces.workspace import Workspace
+from core.workspaces.dataView import DataView
 from core.users.models import User
 from core.nodes.models import Node
 from core.nodes.errors import AuthorizationError
 from core.nodes import nodeManager
-from core import db
-
-from workspaces.Permissions.permissions import ViewPermission
 """ A view contaning a list of permission groups
 """
 
@@ -38,9 +35,6 @@ class NodeList(DataView):
 
     uri = 'nodeList'
     requireLogin = True
-
-    #    def __init__(self):
-    #        super().__init__(name='PermissionList', uri ='permissionList')
 
     def defineProperties(self):
         self.addIntegerProperty(name='id', label='ID', isKey=True, hide=True)

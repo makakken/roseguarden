@@ -20,10 +20,10 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from core import db
-
 # Define your database models here
 """ A template model to show how to define Model classes. You can have multiple classes here.
+from core import db
+
 class Template(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), index=True, unique=True)

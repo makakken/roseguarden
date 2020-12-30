@@ -20,8 +20,6 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from core.logs import logManager
-
 
 class Action(object):
     """Base class that each action for every workspace have to inherit from.

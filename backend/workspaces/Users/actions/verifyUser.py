@@ -22,9 +22,7 @@ __license__ = "GPLv3"
 
 from core.actions.action import Action
 from core.logs import logManager
-from core.actions import webclientActions
 from core.users.models import User
-import json
 
 
 class VerifyUser(Action):

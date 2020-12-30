@@ -196,12 +196,12 @@ class JobManager(object):
 
             kwargs = {"job_id": str(jobkey) + str(self.job_counter), "job_execution_id": job_ececution_id}
             kwargs = {**kwargs, **args}
-            job = self.scheduler.add_job(jobInstance.start_job,
-                                         id=(str(jobkey) + str(self.job_counter)),
-                                         trigger='date',
-                                         next_run_time=str(date),
-                                         kwargs=kwargs,
-                                         max_instances=max_instances)
+            self.scheduler.add_job(jobInstance.start_job,
+                                   id=(str(jobkey) + str(self.job_counter)),
+                                   trigger='date',
+                                   next_run_time=str(date),
+                                   kwargs=kwargs,
+                                   max_instances=max_instances)
             if je is not None:
                 return je.id
             else:

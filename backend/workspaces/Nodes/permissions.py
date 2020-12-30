@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -20,7 +20,7 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from core.workspaces import Permission
+from core.workspaces.permission import Permission
 
 # Define your Permissions here
 

@@ -52,7 +52,7 @@ class MailFromFileTemplateJob(Job):
         template = Template(jinja2_template_string)
 
         content = template.render(**data)
-        #print(content)
+        # print(content)
 
         # Render HTML Template String
         try:
