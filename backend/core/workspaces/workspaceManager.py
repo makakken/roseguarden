@@ -146,7 +146,7 @@ class WorkspaceManager(object):
             # try to register node classes
             try:
                 w.discoverNodeClasses(self.workspaceSource)
-            except ModuleNotFoundError as me:
+            except ModuleNotFoundError:
                 logManager.info(f'No node classes discover for "{w.name}"')
             except Exception as e:
                 traceback.print_exc(file=sys.stdout)
@@ -226,7 +226,7 @@ class WorkspaceManager(object):
                                 workspaceCounter += 1
                                 if workspaceCounter > 1:
                                     logManager.error(
-                                        f'Only one workspace is allowed for one folder, other workspaces will skipped')
+                                        'Only one workspace is allowed for one folder, other workspaces will skipped')
                                     break
 
                                 uri = ""

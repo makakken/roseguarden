@@ -13,6 +13,7 @@ flask-cors
 apscheduler
 cron-descriptor
 yapf
-flake8==3.5.0
+entrypoints>=0.3.0
+flake8==3.8.4
 Werkzeug==0.15.5
 pylint
