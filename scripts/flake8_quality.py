@@ -29,6 +29,7 @@ with open(args.filename) as flake_report, open('flake8_quality.json',
         issue_text = ' '.join(tokens[2:]).replace("'", "")
         issue_hash = hashlib.md5(l.encode('utf-8')).hexdigest()
         issue_type = "critical"
+
         if tokens[1][0] == 'E':
             issue_type = "major"
         if tokens[1][0] == 'W':
@@ -40,6 +41,7 @@ with open(args.filename) as flake_report, open('flake8_quality.json',
         if tokens[1][0] == 'F':
             issue_type = "major"
 
+        exit_with_failure = True
         i = {}
         i["description"] = "[{}] {}".format(issue_code, issue_text)
         i["fingerprint"] = issue_hash
