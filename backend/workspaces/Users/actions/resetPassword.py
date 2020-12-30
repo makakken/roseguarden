@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -26,17 +26,19 @@ from core.actions.action import Action
 from core.logs import logManager
 from core.actions import webclientActions
 
+
 class ResetPassword(Action):
     def __init__(self, app):
         super().__init__(app, uri='resetPassword')
 
-    def handle(self, action, user, workspace, actionManager ):
+    def handle(self, action, user, workspace, actionManager):
         user = User.query.filter_by(password_reset_hash=action.resetKey).first()
         if user is None:
             notification_action = webclientActions.NotificationAction.generate("Key is not valid or expired", "error")
         else:
             if user.password_reset_expired_date < arrow.utcnow():
-                notification_action = webclientActions.NotificationAction.generate("Key is not valid or expired", "error")
+                notification_action = webclientActions.NotificationAction.generate("Key is not valid or expired",
+                                                                                   "error")
             else:
                 notification_action = webclientActions.NotificationAction.generate("Password changed", "success")
                 user.password = action.password

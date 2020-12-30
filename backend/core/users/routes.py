@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,25 +16,22 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from core.users import users_bp, auth_bp
-from flask import Flask, jsonify, request, redirect, url_for, send_from_directory
+from core.users import auth_bp
+from flask import jsonify, request
 from pprint import pprint
 
-from flask_jwt_extended import (
-    JWTManager, jwt_required, create_access_token,
-    jwt_refresh_token_required, create_refresh_token,
-    get_jwt_identity, set_access_cookies, jwt_optional,
-    set_refresh_cookies, unset_jwt_cookies
-)
+from flask_jwt_extended import (create_access_token, jwt_refresh_token_required,
+                                get_jwt_identity, set_access_cookies,
+                                unset_jwt_cookies)
+
 
 @auth_bp.route('/activate', methods=['POST'])
 def activate():
     return "Activate", 200
-
 
 
 # With JWT_COOKIE_CSRF_PROTECT set to True, set_access_cookies() and
@@ -44,25 +41,25 @@ def activate():
 def login():
 
     # not used add the moment
-    pprint(request.json,indent=4)
+    pprint(request.json, indent=4)
     return jsonify({'login': False}), 401
 
-    username = request.json.get('username', None)
-    password = request.json.get('password', None)
-
+    # username = request.json.get('username', None)
+    # password = request.json.get('password', None)
 
     # Create the tokens we will be sending back to the user
-    access_token = create_access_token(identity=username)
-    refresh_token = create_refresh_token(identity=username)
+    # access_token = create_access_token(identity=username)
+    # refresh_token = create_refresh_token(identity=username)
 
     # Set the JWTs and the CSRF double submit protection cookies
     # in this response
-    resp = jsonify({'login': True})
-    # the access cookie expire after 15 minutes and have to get refreshed by the client    
-    set_access_cookies(resp, access_token, max_age=15*60)
-    # the refresh cookie expire after 30 minutes 
-    set_refresh_cookies(resp, refresh_token, max_age=30*60)
-    return resp, 200
+    # resp = jsonify({'login': True})
+    # the access cookie expire after 15 minutes and have to get refreshed by the client
+    # set_access_cookies(resp, access_token, max_age=15 * 60)
+    # the refresh cookie expire after 30 minutes
+    # set_refresh_cookies(resp, refresh_token, max_age=30 * 60)
+    # return resp, 200
+
 
 @auth_bp.route('/login/refresh', methods=['POST'])
 @jwt_refresh_token_required
@@ -77,6 +74,7 @@ def refresh():
     set_access_cookies(resp, access_token)
     return resp, 200
 
+
 # Because the JWTs are stored in an httponly cookie now, we cannot
 # log the user out by simply deleting the cookie in the frontend.
 # We need the backend to send us a response to delete the cookies
@@ -87,4 +85,3 @@ def logout():
     resp = jsonify({'logout': True})
     unset_jwt_cookies(resp)
     return resp, 200
-

@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,20 +16,22 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from core.workspaces import Permission
+from core.workspaces.permission import Permission
 
-# Define your Permissions here 
+# Define your Permissions here
 
 
 class ViewPermission(Permission):
     description = "Allow to see the permission list"
-    
+
+
 class ChangePermissionGroups(Permission):
     description = "Allow to create or remove permission groups"
+
 
 class ChangeUserPermissions(Permission):
     description = "Allow to change users permission groups"

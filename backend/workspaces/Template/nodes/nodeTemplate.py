@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,16 +16,17 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
 from core.nodes.nodeClass import NodeClass
-from core.nodes.errors import MissingPropertyError
 from core.logs import logManager
 from core.users import userManager
-from workspaces.Template.nodes.common.serverActionRequests import UpdateUserInfoAction, UpdateAssignInfoAction, RequestPinAction, DenyAccessAction, GrandAccessAction
+from workspaces.Template.nodes.common.serverActionRequests import UpdateUserInfoAction, \
+    UpdateAssignInfoAction, RequestPinAction, DenyAccessAction, GrandAccessAction
 from core.users.enum import AuthenticatorSendBy, AuthenticatorType, AuthenticatorValidityType
+
 
 class NodeTemplate(NodeClass):
 
@@ -33,23 +34,23 @@ class NodeTemplate(NodeClass):
     description = "A template node class"
 
     def defineNodeActionRequests(self):
-        # general node action request       
+        # general node action request
         self.defineNodeActionRequest("registerNodeStartup")
         self.defineNodeActionRequest("requestNodeUpdate")
 
-        # node specific action request       
+        # node specific action request
         self.defineNodeActionRequest("checkAuthenticator")
-        self.defineActionProperty("checkAuthenticator", "auth_key") 
+        self.defineActionProperty("checkAuthenticator", "auth_key")
 
         self.defineNodeActionRequest("requestAssignCode")
-        self.defineActionProperty("requestAssignCode", "auth_key") 
+        self.defineActionProperty("requestAssignCode", "auth_key")
 
         self.defineNodeActionRequest("requestUserInfo")
-        self.defineActionProperty("requestUserInfo", "auth_key") 
+        self.defineActionProperty("requestUserInfo", "auth_key")
 
         self.defineNodeActionRequest("requestUserAccess")
-        self.defineActionProperty("requestUserAccess", "auth_key") 
-        self.defineActionProperty("requestUserAccess", "pin", optional=True) 
+        self.defineActionProperty("requestUserAccess", "auth_key")
+        self.defineActionProperty("requestUserAccess", "pin", optional=True)
 
     def handleNodeActionRequest(self, action, header):
         logManager.info("handleNodeActionRequest for {}".format(self.name))
@@ -63,14 +64,14 @@ class NodeTemplate(NodeClass):
             user = userManager.getUserByAuthenticator(action['auth_key'])
             if user is None:
                 return [DenyAccessAction.generate("Access denied", "")]
-            
+
             if userManager.getUserRemainingPinAttempts(user.email) <= 0:
                 return [DenyAccessAction.generate("Access denied", "Pin locked")]
 
             if 'pin' not in action:
                 return [RequestPinAction.generate()]
             else:
-                if action['pin'] == None or action['pin'] == "":
+                if action['pin'] is None or action['pin'] == "":
                     return [RequestPinAction.generate()]
             pinValid = userManager.checkUserPin(user.email, action['pin'])
 
@@ -83,14 +84,10 @@ class NodeTemplate(NodeClass):
             if userManager.checkUserAuthenticatorExists(action['auth_key']) is True:
                 node_action = UpdateAssignInfoAction.generate("", False)
             else:
-                code = userManager.createUserAuthenticatorRequest(action['auth_key'], 
-                                                                    AuthenticatorType.USER,
-                                                                    AuthenticatorValidityType.ONCE,
-                                                                    AuthenticatorSendBy.NODE,
-                                                                    self.identity['nodename'])
+                code = userManager.createUserAuthenticatorRequest(action['auth_key'], AuthenticatorType.USER,
+                                                                  AuthenticatorValidityType.ONCE,
+                                                                  AuthenticatorSendBy.NODE, self.identity['nodename'])
                 node_action = UpdateAssignInfoAction.generate(code, True)
             return [node_action]
         else:
             return [{}]
-
-        

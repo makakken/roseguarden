@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
@@ -24,21 +24,22 @@ from flask import request
 import arrow
 import random
 import string
-from core.users.models import User
 from core.actions.action import Action
 from core.logs import logManager
 from core.actions import webclientActions
 from core.users import userManager
 from core.messages import send_mail
 
+
 class LostPassword(Action):
     def __init__(self, app):
         # logManager.info("ProvideMenu of type Action created")
         super().__init__(app, uri='lostPassword')
 
-    def handle(self, action, user, workspace, actionManager ):
+    def handle(self, action, user, workspace, actionManager):
         logManager.info("Execute lost password action")
-        notification_action = webclientActions.NotificationAction.generate("A email to reset the password will be send to you", "success")
+        notification_action = webclientActions.NotificationAction.generate(
+            "A email to reset the password will be send to you", "success")
         ref = request.referrer.split('/')
         if ref[0] != 'http:' and ref[0] != 'https:':
             ref = '/'.join(ref[:1])
@@ -51,11 +52,8 @@ class LostPassword(Action):
             resetUser.password_reset_expired_date = arrow.utcnow().shift(hours=2)
             resetUser.password_reset_hash = key
             link = ref + '/user/resetpassword' + '?key=' + key
-            data = {
-                'username' :  resetUser.firstname + ' ' + resetUser.lastname,
-                'reset_link' : link
-            }
+            data = {'username': resetUser.firstname + ' ' + resetUser.lastname, 'reset_link': link}
             print(key)
-            send_mail([resetUser.email], "Reset your password", workspace, 'lostPassword.mail', data )
+            send_mail([resetUser.email], "Reset your password", workspace, 'lostPassword.mail', data)
 
         return 'success', [notification_action]

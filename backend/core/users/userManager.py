@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,23 +16,22 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
 import secrets
 import datetime
 import arrow
-from pprint import pprint
 from flask_jwt_extended import create_access_token, create_refresh_token
 
 from core.logs import logManager
 from core.workspaces.workspaceHooks import WorkspaceHooks
 
+
 class UserManager(object):
     """ The UserManager ...
     """
-
     def __init__(self, ):
         # preparation to instanciate
         pass
@@ -69,7 +68,7 @@ class UserManager(object):
                 u.organization = userdata['organization']
 
             self.workspaceManager.triggerWorkspaceHooks(WorkspaceHooks.CREATEUSER, user=u)
-            self.db.session.add(u)  
+            self.db.session.add(u)
             self.db.session.commit()
             return u
 
@@ -79,14 +78,20 @@ class UserManager(object):
     def updateAccessToken(self, username):
         session_expiration_minutes = self.config['SYSTEM'].get('session_expiration_minutes', 15)
         exp_delta = datetime.timedelta(minutes=session_expiration_minutes)
-        access_token = create_access_token(identity = username,expires_delta=exp_delta)
-        refresh_token = create_refresh_token(identity = username)
+        access_token = create_access_token(identity=username, expires_delta=exp_delta)
+        create_refresh_token(identity=username)
         return access_token
 
-    def createUserAuthenticatorRequest(self, authenticator_key, authenticator_type, validity_type,  code_send_by, code_send_to, expire_days=3):
+    def createUserAuthenticatorRequest(self,
+                                       authenticator_key,
+                                       authenticator_type,
+                                       validity_type,
+                                       code_send_by,
+                                       code_send_to,
+                                       expire_days=3):
         token = secrets.token_hex(6)
         print(token)
-        code = ':'.join(a+b for a,b in zip(token[::2], token[1::2])).upper()      
+        code = ':'.join(a + b for a, b in zip(token[::2], token[1::2])).upper()
         print(code)
         a = self.authenticator_request()
         a.authenticator_type = authenticator_type
@@ -98,7 +103,7 @@ class UserManager(object):
         a.code_send_to = code_send_to
         a.authenticator = authenticator_key
         self.db.session.add(a)
-        self.db.session.commit()        
+        self.db.session.commit()
         return code
 
     def getUserByAuthenticator(self, authenticator_key):
@@ -133,23 +138,20 @@ class UserManager(object):
         else:
             return 0
 
-
     def checkUserPin(self, email, plaintext_pin):
         user = self.user.query.filter_by(email=email).first()
         if user.pinIsLocked is True:
             return False
         if user.checkPin(plaintext_pin) is True:
             user.failedPinAttempts = 0
-            self.db.session.commit()        
+            self.db.session.commit()
             return True
         else:
             user.failedPinAttempts = user.failedPinAttempts + 1
             if user.failedPinAttempts >= self.pinAttemptLimit:
                 user.pinIsLocked = True
-            self.db.session.commit()        
+            self.db.session.commit()
             return False
-
 
     def checkUserPassword(self, username, password):
         pass
-

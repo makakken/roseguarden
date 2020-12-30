@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,15 +16,15 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from core.workspaces import Workspace
-from core.logs import logManager
-
-"""This plugin handle the user account 
+from core.workspaces.workspace import Workspace
+"""This plugin handle the user account
 """
+
+
 class UserAccount(Workspace):
-    uri='account'
-    description='User account workspace'
+    uri = 'account'
+    description = 'User account workspace'

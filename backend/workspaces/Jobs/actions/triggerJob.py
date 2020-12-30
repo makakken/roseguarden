@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,28 +16,26 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
 from core.actions.action import Action
 from core.logs import logManager
 from core.actions import webclientActions
-from core.actions.models import ActionLink
 
-from core.actions import executeActionLink
-from core.actions.errors import NotFoundError, ExpiredError
 from core.jobs import trigger_job
+
 
 class TriggerJob(Action):
     def __init__(self, app):
         # logManager.info("ProvideMenu of type Action created")
         super().__init__(app, uri='triggerJob')
 
-    def handle(self, action, user, workspace, actionManager ):
+    def handle(self, action, user, workspace, actionManager):
         logManager.info("Trigger job")
         response_actions = []
-        job_execution_id = trigger_job(action.jobId,{}, user)
+        job_execution_id = trigger_job(action.jobId, {}, user)
         notification_action = webclientActions.NotificationAction.generate("Action triggered", "info")
         response_actions.append(notification_action)
         return 'success', response_actions, {"job_execution_id": job_execution_id}

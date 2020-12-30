@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,33 +16,29 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from datetime import datetime
-from core import db, bcrypt
-from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
+from core import db
 from sqlalchemy_utils import ArrowType
 import arrow
-import json
-
 
 from core.common.jsonDict import JsonDict
+
 
 class JobExecute(db.Model):
     __tablename__ = 'jobs'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), default= "")
-    workspace = db.Column(db.String(120), default= "")
-    job = db.Column(db.String(120), default= "")
-    state = db.Column(db.String(120), default= "")
+    name = db.Column(db.String(120), default="")
+    workspace = db.Column(db.String(120), default="")
+    job = db.Column(db.String(120), default="")
+    state = db.Column(db.String(120), default="")
     triggered_on = db.Column(ArrowType, default=arrow.utcnow)
-    triggered_by = db.Column(db.String(120), default= "")
+    triggered_by = db.Column(db.String(120), default="")
     lifetime = db.Column(db.Integer, default=0)
     args = db.Column(JsonDict)
     results = db.Column(JsonDict)
 
     def __repr__(self):
         return '<Job {} for {}/{} >'.format(self.name, self.workspace, self.job)
-

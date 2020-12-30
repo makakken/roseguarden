@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -109,8 +109,8 @@ def configure_app(app, config):
     # they aren't needed.
     app.config['JWT_ACCESS_COOKIE_PATH'] = '/api/v1/'
     app.config['JWT_REFRESH_COOKIE_PATH'] = '/api/v1/'
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or \
-                                                'sqlite:///' + os.path.join(basedir, 'app.db')
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(
+        basedir, 'app.db')
 
     # Enable csrf double submit protection. See this for a thorough
     # explanation: http://www.redotheweb.com/2015/11/09/api-security.html
@@ -130,6 +130,5 @@ def configure_app(app, config):
     app.config['MAIL_USE_TLS'] = config['MAIL'].get('tls', False)
     app.config['MAIL_USE_SSL'] = config['MAIL'].get('ssl', True)
     app.config['MAIL_SENDER'] = config['MAIL'].get('sender', 'test@test.com')
-
 
     # app.config.from_pyfile('config.cfg', silent=True) # instance-folders configuration

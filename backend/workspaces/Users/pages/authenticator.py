@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,22 +16,21 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from core.workspaces import DataView, Workspace, Page
-from core.users.models import User
-from core import db
-
+from core.workspaces.page import Page
 """ The log page
 """
+
+
 class AuthenticatorList(Page):
-    title = 'Authenticator'              # Shown label of the page in the menu
-    group = 'Admin'       # groupname multiple pages 
-    icon = 'credit_card'          # icon (in typeset of material design icons)
-    route = '/admin/authenticator'            # routing 
-    builder = 'frontend'        # page get build by the client (frontend)
-    rank = 1.6               # ranks (double) the page higher values are at the top of the menu
-                                # groups will be ranked by the sum of the rank-values of their entries 
-    requireLogin = True        # login is required to view the page
+    title = 'Authenticator'  # Shown label of the page in the menu
+    group = 'Admin'  # groupname multiple pages
+    icon = 'credit_card'  # icon (in typeset of material design icons)
+    route = '/admin/authenticator'  # routing
+    builder = 'frontend'  # page get build by the client (frontend)
+    rank = 1.6  # ranks (double) the page higher values are at the top of the menu
+    # groups will be ranked by the sum of the rank-values of their entries
+    requireLogin = True  # login is required to view the page

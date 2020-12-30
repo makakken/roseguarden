@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,26 +16,26 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from core.workspaces import DataView, Workspace
+from core.workspaces.workspace import Workspace
+from core.workspaces.dataView import DataView
 from core.users.models import User
-from core import db
 import arrow
 
-from workspaces.Access.permissions import ViewAccessGroups
-from workspaces.Access.models import SpaceAccessGroup, SpaceAccessProperties
-
+from workspaces.Access.models import SpaceAccessGroup
 """ A view contaning the list of accessGroups
 """
+
+
 class AccessGroupsList(DataView):
 
     uri = 'accessUserList'
     requireLogin = True
 
-    def defineProperties(self):        
+    def defineProperties(self):
         self.addMailProperty(name='email', label='User email', isKey=True)
         self.addStringProperty(name='name', label='User name')
         self.addIntegerProperty(name="access_group", label="Access group")
@@ -57,9 +57,9 @@ class AccessGroupsList(DataView):
             entry.name = "{0} {1}".format(u.firstname, u.lastname)
             if u.access is not None:
                 entry.access_budget = u.access.access_budget
-                entry.access_start_date = u.access.access_start_date.format('YYYY-MM-DD') 
-                entry.access_end_date = u.access.access_expire_date.format('YYYY-MM-DD') 
-                entry.access_last_update = u.access.access_last_update_date.format('YYYY-MM-DD') 
+                entry.access_start_date = u.access.access_start_date.format('YYYY-MM-DD')
+                entry.access_end_date = u.access.access_expire_date.format('YYYY-MM-DD')
+                entry.access_last_update = u.access.access_last_update_date.format('YYYY-MM-DD')
             else:
                 entry.access_start_date = "-"
                 entry.access_end_date = "-"
@@ -72,34 +72,32 @@ class AccessGroupsList(DataView):
                 entry.access_group = -1
                 entry.access_type = "-"
 
-
-
             userlist.append(entry.extract())
         return userlist
 
     def __repr__(self):
         return '<{} with {} properties>'.format(self.name, len(self.properties))
 
-    # Handler for a request to create a new view entry 
+    # Handler for a request to create a new view entry
     def createViewEntryHandler(self, user, workspace, entry):
         raise Exception("User creation not allowed in userAccess view")
 
     # Handler for a request to update a single view entry
-    def updateViewEntryHandler(self, user, workspace, key, entry):        
-        print("Handle updateViewEntryHandler request for " +  self.uri)
+    def updateViewEntryHandler(self, user, workspace, key, entry):
+        print("Handle updateViewEntryHandler request for " + self.uri)
         u = User.query.filter_by(email=key).first()
         u.access.access_last_update_date = arrow.utcnow()
         if hasattr(entry, 'access_budget'):
             u.access.access_budget = entry.access_budget
         if hasattr(entry, 'access_start_date'):
-            u.access.access_start_date = arrow.get(entry.access_start_date , 'YYYY-MM-DD')
+            u.access.access_start_date = arrow.get(entry.access_start_date, 'YYYY-MM-DD')
         if hasattr(entry, 'access_group'):
             g = SpaceAccessGroup.query.filter_by(id=entry['access_group']).first()
-            u.accessgroup = g 
+            u.accessgroup = g
         if hasattr(entry, 'access_expire_date'):
-            u.access.access_end_date = arrow.get(entry.access_expire_date , 'YYYY-MM-DD')
+            u.access.access_end_date = arrow.get(entry.access_expire_date, 'YYYY-MM-DD')
         self.emitSyncUpdate(key)
 
     # Handler for a request to update a single view entry
-    def removeViewEntryHandler(self, user, workspace, key):        
+    def removeViewEntryHandler(self, user, workspace, key):
         raise Exception("User removal not allowed in userAccess view")

@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,11 +16,6 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
-
-from core.actions import actions_bp
-from flask import Flask, jsonify, request, redirect, url_for, send_from_directory, make_response
-from flask_jwt_extended import jwt_required, jwt_optional, get_jwt_identity
-from pprint import pprint

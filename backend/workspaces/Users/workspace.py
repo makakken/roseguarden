@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,19 +16,15 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from core.workspaces import Workspace
-from core.workspaces import DataView
-from core.logs import logManager
-
+from core.workspaces.workspace import Workspace
 """This plugin is for the administrations of all users
 """
+
+
 class Users(Workspace):
-    uri='users'
-    description='User administration workspace'
- 
-
-
+    uri = 'users'
+    description = 'User administration workspace'

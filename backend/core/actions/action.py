@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,34 +16,31 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
 
-from core.logs import logManager
-
 class Action(object):
-    """Base class that each action for every workspace have to inherit from. 
+    """Base class that each action for every workspace have to inherit from.
        The class define methods that all action must implement by the plugin
     """
 
     disable = False
 
     def __init__(self, app, uri=None):
-        if uri == None:
+        if uri is None:
             self.uri = self.__class__.__name__
         else:
             self.uri = uri
-    
+
     def handle(self, action, user, workspace, actionManager):
-        """ Action handler method 
+        """ Action handler method
         """
         raise NotImplementedError
 
-
     @staticmethod
     def generate(**kwargs):
-        """ Action generator method 
+        """ Action generator method
         """
         raise NotImplementedError

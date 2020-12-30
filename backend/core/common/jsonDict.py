@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,14 +16,14 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-
 import json
-from core import db, bcrypt
 from sqlalchemy.ext import mutable
+from core import db
+
 
 class JsonDict(db.TypeDecorator):
     """Enables JSON storage by encoding and decoding on the fly."""
@@ -40,5 +40,6 @@ class JsonDict(db.TypeDecorator):
             return {}
         else:
             return json.loads(value)
+
 
 mutable.MutableDict.associate_with(JsonDict)

@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,27 +16,21 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from flask import request
-import arrow
-import random
-import string
-from core.users.models import User
 from core.actions.action import Action
 from core.logs import logManager
 from core.actions import webclientActions
-from core.users import userManager
-from core.messages import send_mail
+
 
 class ChangePin(Action):
     def __init__(self, app):
         # logManager.info("ProvideMenu of type Action created")
         super().__init__(app, uri='changePin')
 
-    def handle(self, action, user, workspace, actionManager ):
+    def handle(self, action, user, workspace, actionManager):
         logManager.info("Execute change pin action")
         if user is not None:
             if user.checkPassword(action['oldpassword']):
@@ -45,8 +39,10 @@ class ChangePin(Action):
                 user.failedPinAttempts = 0
                 notification_action = webclientActions.NotificationAction.generate("Pin changed", "success")
             else:
-                notification_action = webclientActions.NotificationAction.generate("Pin unchanged. Password is invalid", "error")
+                notification_action = webclientActions.NotificationAction.generate(
+                    "Pin unchanged. Password is invalid", "error")
         else:
-            notification_action = webclientActions.NotificationAction.generate("Internal error (user not found)", "error")
+            notification_action = webclientActions.NotificationAction.generate("Internal error (user not found)",
+                                                                               "error")
 
         return 'success', [notification_action]

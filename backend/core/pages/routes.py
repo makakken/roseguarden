@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,14 +16,12 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-import os
 from core.pages import pages_bp
-from core.logs import logManager
-from flask import Flask, jsonify, make_response, request, redirect, url_for, send_from_directory
+from flask import make_response
 
 
 @pages_bp.route('/api/v1/pages', methods=["GET"])

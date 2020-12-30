@@ -1,22 +1,19 @@
 # %%
 
 import requests
-import json
+
 # make login request
-json = { 
-    'actions': 
-    [ 
-        { 
-            'action': 'login',
-            'password': 'test',
-            'username': 'test@fabba.space',
-            'version': 1,
-            'workspace': 'users'
-        }
-    ],
-    'data': None,
-    'head': 
-    { 
+json_data = {
+    'actions': [{
+        'action': 'login',
+        'password': 'test',
+        'username': 'test@fabba.space',
+        'version': 1,
+        'workspace': 'users'
+    }],
+    'data':
+    None,
+    'head': {
         'msgId': 1,
         'requestType': '',
         'session': 'bK0GIzkTfybtIjWPZGWt_x05f0HHB2_0sfcJYEshvLE',
@@ -26,5 +23,5 @@ json = {
     }
 }
 
-node_request = requests.post('https://roseguarden.fabba.space/api/v1/nodes', json=json)
+node_request = requests.post('https://roseguarden.fabba.space/api/v1/nodes', json=json_data)
 print(node_request.status_code, node_request.reason, node_request.content)

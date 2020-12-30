@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,14 +16,13 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-import os
 from core.menus import menus_bp
-from core.logs import logManager
-from flask import Flask, jsonify, request, make_response, redirect, url_for, send_from_directory
+from flask import make_response
+
 
 @menus_bp.route('/api/v1/menu', methods=["GET"])
 def menus():

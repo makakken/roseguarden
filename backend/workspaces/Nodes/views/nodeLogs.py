@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,28 +16,27 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from core.workspaces import DataView, Workspace
-from core.workspaces.models import Permission, PermissionGroup
+from core.workspaces.workspace import Workspace
+from core.workspaces.dataView import DataView
 from core.nodes.models import NodeLog
 from core.users.models import User
-from core import db
-
-
 """ A view contaning a list of node logs
 """
+
+
 class NodeLogs(DataView):
 
     uri = 'nodeLogs'
     requireLogin = True
 
-#    def __init__(self):
-#        super().__init__(name='PermissionList', uri ='permissionList')
+    #    def __init__(self):
+    #        super().__init__(name='PermissionList', uri ='permissionList')
 
-    def defineProperties(self):        
+    def defineProperties(self):
         self.addIntegerProperty(name='id', label='ID', isKey=True)
         self.addStringProperty(name='date', label='Date')
         self.addStringProperty(name='node', label='Node')
@@ -45,7 +44,6 @@ class NodeLogs(DataView):
         self.addIntegerProperty(name='node_uptime', label='Node uptime [s]')
         self.addIntegerProperty(name='node_logcounter', label='Node logs')
         self.addIntegerProperty(name='node_errorcounter', label='Node errors')
-
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
         print("getDataViewHandler for NodeLogs")
@@ -65,21 +63,20 @@ class NodeLogs(DataView):
             entry.node_logcounter = l.node_logcounter
             entry.node_errorcounter = l.node_errorcounter
 
-
             entrylist.append(entry.extract())
         return entrylist
 
     def __repr__(self):
         return '<{} with {} properties>'.format(self.name, len(self.properties))
 
-    # Handler for a request to create a new view entry 
+    # Handler for a request to create a new view entry
     def createViewEntryHandler(self, user, workspace, entry):
-        pass 
-
-    # Handler for a request to update a single view entry
-    def removeViewEntryHandler(self, user, workspace, key):        
         pass
 
     # Handler for a request to update a single view entry
-    def updateViewEntryHandler(self, user, workspace, key,  entry):
+    def removeViewEntryHandler(self, user, workspace, key):
+        pass
+
+    # Handler for a request to update a single view entry
+    def updateViewEntryHandler(self, user, workspace, key, entry):
         pass

@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,19 +16,21 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
 import os
 from core import app_bp
-from flask import Flask, jsonify, request, redirect, url_for, send_from_directory
+from flask import redirect, url_for, send_from_directory
+
 
 # index route
 @app_bp.route('/')
 def index():
     return send_from_directory('../client', 'index.html')
-    #return render_template("index.html")
+    # return render_template("index.html")
+
 
 @app_bp.route('/<path:path>')
 def static_proxy(path):
@@ -39,6 +41,7 @@ def static_proxy(path):
         return app_bp.send_static_file(path)
     else:
         return send_from_directory('../client/section', 'index.html')
+
 
 @app_bp.errorhandler(404)
 def page_not_found(e):

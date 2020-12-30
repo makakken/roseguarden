@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,34 +16,36 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from core.workspaces import DataView, Workspace
-from core.users.models import User
-from core import db
 import arrow
 
-from workspaces.Access.permissions import ViewAccessGroups
-from workspaces.Access.models import SpaceAccessGroup, SpaceAccessSpace
+from core.workspaces.workspace import Workspace
+from core.workspaces.dataView import DataView
+from core.users.models import User
 
+from workspaces.Access.models import SpaceAccessGroup, SpaceAccessSpace
 """ A view contaning the list of accessGroups
 """
+
+
 class AccessGroupsList(DataView):
 
     uri = 'accessGroupsList'
     requireLogin = True
 
-    def defineProperties(self):        
+    def defineProperties(self):
         self.addIntegerProperty(name='id', label='ID', isKey=True)
         self.addStringProperty(name='name', label='Name')
         self.addStringProperty(name='note', label='Note')
-        self.addSelectProperty(name='type', label='Access type', selectables=['No access', 
-                                                                            'Unlimited', 
-                                                                            'Fixed day budget',
-                                                                            'Auto-charged budget (monthly)',
-                                                                            'Auto-charged budget (weekly)'])
+        self.addSelectProperty(name='type',
+                               label='Access type',
+                               selectables=[
+                                   'No access', 'Unlimited', 'Fixed day budget', 'Auto-charged budget (monthly)',
+                                   'Auto-charged budget (weekly)'
+                               ])
         self.addBooleanProperty(name='budget_needed', label='Need budget')
         self.addBooleanProperty(name='expires_as_default', label='Expires (as default)')
         self.addIntegerProperty(name='expires_after_days', label='Expires (days default)')
@@ -51,7 +53,6 @@ class AccessGroupsList(DataView):
         self.addIntegerProperty(name='days_mask', label='Accessable days')
         self.addTimeProperty(name='daily_start_time', label='Daily start time')
         self.addTimeProperty(name='daily_end_time', label='Daily end time')
-
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
         print("getDataViewHandler for AccessGroupsList")
@@ -67,8 +68,8 @@ class AccessGroupsList(DataView):
             entry.name = g.name
             entry.note = g.note
             entry.type = g.access_type
-            entry.daily_start_time = g.daily_access_start_time.format('HH:mm') 
-            entry.daily_end_time = g.daily_access_end_time.format('HH:mm') 
+            entry.daily_start_time = g.daily_access_start_time.format('HH:mm')
+            entry.daily_end_time = g.daily_access_end_time.format('HH:mm')
             entry.spaces = []
             for si in g.spaces:
                 entry.spaces.append(si.id)
@@ -84,7 +85,7 @@ class AccessGroupsList(DataView):
     def __repr__(self):
         return '<{} with {} properties>'.format(self.name, len(self.properties))
 
-    # Handler for a request to create a new view entry 
+    # Handler for a request to create a new view entry
     def createViewEntryHandler(self, user, workspace, entry):
         ag = SpaceAccessGroup()
         if hasattr(entry, 'name'):
@@ -93,12 +94,12 @@ class AccessGroupsList(DataView):
             ag.name = "New group"
         ag.note = "Add a note here"
         workspace.db.session.add(ag)
-        self.emitSyncCreate(ag.id, "accessGroupsList")       
-        print("Handle createViewEntry request for " +  self.uri)
+        self.emitSyncCreate(ag.id, "accessGroupsList")
+        print("Handle createViewEntry request for " + self.uri)
 
     # Handler for a request to update a single view entry
-    def updateViewEntryHandler(self, user, workspace, key,  entry):        
-        print("Handle updateViewEntryHandler request for " +  self.uri)
+    def updateViewEntryHandler(self, user, workspace, key, entry):
+        print("Handle updateViewEntryHandler request for " + self.uri)
         ag = SpaceAccessGroup.query.filter_by(id=key).first()
         sas = SpaceAccessSpace.query.all()
 
@@ -131,8 +132,8 @@ class AccessGroupsList(DataView):
         self.emitSyncUpdate(key)
 
     # Handler for a request to update a single view entry
-    def removeViewEntryHandler(self, user, workspace, key):        
-        print("Handle removeViewEntryHandler request for " +  self.uri)
+    def removeViewEntryHandler(self, user, workspace, key):
+        print("Handle removeViewEntryHandler request for " + self.uri)
         ag = SpaceAccessGroup.query.filter_by(id=key).first()
         workspace.db.session.delete(ag)
         self.emitSyncRemove(key)

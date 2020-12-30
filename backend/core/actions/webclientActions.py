@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,20 +16,22 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
 from core.actions.actionGenerator import BaseAction
 
+
 class ResetLoginAction(BaseAction):
     def __init__(self, app):
         print("Instance of ResetLoginAction created")
 
+
 class UpdateSessionTokenAction(BaseAction):
     action = 'updateToken'
     target = 'webclient'
-    
+
     def __init__(self, app):
         pass
 
@@ -37,45 +39,45 @@ class UpdateSessionTokenAction(BaseAction):
     def generate(cls, token, delay=0.0):
         action = super(UpdateSessionTokenAction, cls).generate(delay)
         action['token'] = token
-        return action 
+        return action
 
 
 class RouteAction(BaseAction):
     action = 'route'
     target = 'webclient'
-    
+
     def __init__(self, app):
         pass
-    
+
     @classmethod
     def generate(cls, route, delay=0.0):
         action = super(RouteAction, cls).generate(delay)
         action['route'] = route
-        return action 
+        return action
 
 
 class NotificationAction(BaseAction):
     action = 'notify'
     target = 'webclient'
-    
+
     def __init__(self, app):
         pass
-    
+
     @classmethod
     def generate(cls, message, messagetype, delay=0.0):
         action = super(NotificationAction, cls).generate(delay)
         action['message'] = message
         action['messagetype'] = messagetype
-        return action 
+        return action
 
 
 class LoadViewAction(BaseAction):
     action = 'loadView'
     target = 'webclient'
-    
+
     def __init__(self, app):
         pass
-    
+
     @classmethod
     def generate(cls, uri, properties, entries, metadata={}, delay=0.0):
         action = super(LoadViewAction, cls).generate(delay)
@@ -84,33 +86,33 @@ class LoadViewAction(BaseAction):
         action['viewdata']['properties'] = properties
         action['viewdata']['entries'] = entries
         action['viewdata']['metadata'] = entries
-        return action         
+        return action
 
 
 class UpdateMenuAction(BaseAction):
     action = 'updateMenu'
     target = 'webclient'
-    
+
     def __init__(self, app):
         pass
-    
+
     @classmethod
     def generate(cls, menu, delay=0.0):
         action = super(UpdateMenuAction, cls).generate(delay)
         action['data'] = menu
-        return action 
+        return action
 
 
 class UpdateActionlinkStatusAction(BaseAction):
     action = 'updateActionlinkStatus'
     target = 'webclient'
-    
+
     def __init__(self, app):
         pass
-    
+
     @classmethod
     def generate(cls, status, message, delay=0.0):
         action = super(UpdateActionlinkStatusAction, cls).generate(delay)
         action['status'] = status
         action['message'] = message
-        return action 
+        return action

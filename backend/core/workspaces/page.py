@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,27 +16,28 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
+
 
 class Page(object):
     """Base class to create and handle pages in the workspaces
     """
 
-    title = 'Missing title'         # Shown label of the page in the menu
-    group = None                    # groupname multiple pages 
-    icon = 'warning'                # icon (in typeset of material design icons)
-    route = '/error'                # routing 
-    builder = 'frontend'            # page get build by the client (frontend)
-    rank = 0.0                      # ranks (double) the page higher values are at the top of the menu
-                                    # groups will be ranked by the sum of the rank-values of their entries 
-    requireLogin = True             # login is required to view the page
-    requireAdmin = True            # admin is required to view the page
-    requirePermission = None        # a permission is required in the meaning of one of the following
+    title = 'Missing title'  # Shown label of the page in the menu
+    group = None  # groupname multiple pages
+    icon = 'warning'  # icon (in typeset of material design icons)
+    route = '/error'  # routing
+    builder = 'frontend'  # page get build by the client (frontend)
+    rank = 0.0  # ranks (double) the page higher values are at the top of the menu
+    # groups will be ranked by the sum of the rank-values of their entries
+    requireLogin = True  # login is required to view the page
+    requireAdmin = True  # admin is required to view the page
+    requirePermission = None  # a permission is required in the meaning of one of the following
 
     disable = False
+
     def __init__(self):
         if not hasattr(self, 'name'):
-            self.name = self.__class__.__name__     
-        
+            self.name = self.__class__.__name__

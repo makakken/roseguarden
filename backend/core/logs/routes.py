@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,13 +16,11 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-import os
 from core.logs import logs_bp, logManager
-from flask import Flask, jsonify, request, redirect, url_for, send_from_directory
 
 
 @logs_bp.route('/api/v1/log', methods=["GET"])
@@ -31,4 +29,3 @@ def log():
     for e in logManager.logQueue:
         log_string = log_string + e + "\n"
     return log_string
-

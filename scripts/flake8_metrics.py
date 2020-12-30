@@ -1,6 +1,4 @@
 import argparse
-import hashlib
-import json
 
 parser = argparse.ArgumentParser()
 parser.add_argument('filename')

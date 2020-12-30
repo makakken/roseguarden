@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,20 +16,17 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from core.logs import logManager
-import sys, traceback
-import arrow
 import os
-from core.jobs import jobManager, add_dated_job
+from core.logs import logManager
+
 
 class FileManager(object):
     """ The FileManager ...
     """
-
     def __init__(self, ):
         # preparation to instanciate
         self.config = None
@@ -48,15 +45,14 @@ class FileManager(object):
         self.upload_dir_path = None
 
         if 'file_storage_path' in config['SYSTEM']:
-            if os.path.exists(config['SYSTEM']['file_storage_path'] ):
+            if os.path.exists(config['SYSTEM']['file_storage_path']):
                 upload_dir_path = os.path.join(config['SYSTEM']['file_storage_path'], "uploads")
                 if not os.path.exists(upload_dir_path):
-                    os.mkdir(upload_dir_path)                
+                    os.mkdir(upload_dir_path)
                 self.upload_dir_path = upload_dir_path
             else:
                 logManager.error("FileManager 'file_storage_path' don't exist")
-        else:         
+        else:
             logManager.error("FileManager attribute 'file_storage_path' not defined in config")
 
         logManager.info("FileManager initialized")
-

@@ -1,5 +1,5 @@
-""" 
-The roseguarden project 
+"""
+The roseguarden project
 
 Copyright (C) 2018-2020  Marcus Drobisch,
 
@@ -16,47 +16,58 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 __authors__ = ["Marcus Drobisch"]
-__contact__ =  "roseguarden@fabba.space"
+__contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
 import json
-from core.workspaces import DataView, Workspace
-from core.workspaces.models import Permission, PermissionGroup
+from core.workspaces.workspace import Workspace
+from core.workspaces.dataView import DataView
 from core.users.models import User
 from core.nodes.models import Node
 from core.nodes.errors import AuthorizationError
 from core.nodes import nodeManager
-from core import db
-
-from workspaces.Permissions.permissions import ViewPermission
-
 """ A view contaning a list of permission groups
 """
+
+
 class NodeList(DataView):
 
     uri = 'nodeList'
     requireLogin = True
 
-#    def __init__(self):
-#        super().__init__(name='PermissionList', uri ='permissionList')
-
-    def defineProperties(self):        
+    def defineProperties(self):
         self.addIntegerProperty(name='id', label='ID', isKey=True, hide=True)
         self.addStringProperty(name='name', label='Name')
-        self.addBooleanProperty(name='active', label='Active', hide=True)    
+        self.addBooleanProperty(name='active', label='Active', hide=True)
         self.addStringProperty(name='status', label='Status')
-        self.addBooleanProperty(name='authorized', label='Authorized', hide=True)    
-        self.addStringProperty(name='authorization_status', label='Authorization') 
+        self.addBooleanProperty(name='authorized', label='Authorized', hide=True)
+        self.addStringProperty(name='authorization_status', label='Authorization')
         self.addStringProperty(name='fingerprint', label='Fingerprint')
         self.addStringProperty(name='nodeclass', label='Class id')
         self.addStringProperty(name='workspace', label='Workspace')
         self.addDateProperty(name='last_request_datetime', label='Last request')
-        self.addActionProperty(name='revoke', label='Revoke', action='revoke', actionHandler=self.revoke, color="orange", icon='block') 
-        self.addActionProperty(name='remove', label='Remove', action='remove', actionHandler=self.removeViewEntryHandler, icon='clear') 
-        self.addActionProperty(name='requestAuthorization', label='', action='requestAuthorization', actionHandler=self.requestAuthorization, icon='') 
-        self.addActionProperty(name='getIdentification', label='', action='getIdentification', actionHandler=self.getIdentification, icon='') 
-
+        self.addActionProperty(name='revoke',
+                               label='Revoke',
+                               action='revoke',
+                               actionHandler=self.revoke,
+                               color="orange",
+                               icon='block')
+        self.addActionProperty(name='remove',
+                               label='Remove',
+                               action='remove',
+                               actionHandler=self.removeViewEntryHandler,
+                               icon='clear')
+        self.addActionProperty(name='requestAuthorization',
+                               label='',
+                               action='requestAuthorization',
+                               actionHandler=self.requestAuthorization,
+                               icon='')
+        self.addActionProperty(name='getIdentification',
+                               label='',
+                               action='getIdentification',
+                               actionHandler=self.getIdentification,
+                               icon='')
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
         print("getDataViewHandler for NodeList")
@@ -79,7 +90,7 @@ class NodeList(DataView):
             entry.status = n.status
             entry.last_request_datetime = n.last_request_on.format()
             if user.admin is True:
-                entry.remove = True                
+                entry.remove = True
                 if entry.authorized is True:
                     entry.revoke = True
             entrylist.append(entry.extract())
@@ -89,11 +100,11 @@ class NodeList(DataView):
         return '<{} with {} properties>'.format(self.name, len(self.properties))
 
     def getSettings(self, user, workspace, action, entrykey):
-        pass        
+        pass
 
     def revoke(self, user, workspace, action, entrykey):
         n = Node.query.filter_by(id=entrykey).first()
-        nodeManager.revoke_node_authorization(n) 
+        nodeManager.revoke_node_authorization(n)
         self.emitSyncUpdate(entrykey)
 
     def requestAuthorization(self, user, workspace, action, entrykey):
@@ -101,33 +112,31 @@ class NodeList(DataView):
         try:
             nodeManager.handle_authorization_request(n, action['entry']['authentification'])
         except AuthorizationError as e:
-            return {'succeed' : False, 'message' : str(e)}
+            return {'succeed': False, 'message': str(e)}
 
         self.emitSyncUpdate(entrykey)
-        return {'succeed' : True, 'message' : "Authorization successful"}
-
+        return {'succeed': True, 'message': "Authorization successful"}
 
     def getIdentification(self, user, workspace, action, entrykey):
         ident_json = {}
-        n = Node.query.filter_by(id=entrykey).first()        
+        n = Node.query.filter_by(id=entrykey).first()
         ident_json['fingerprint'] = n.fingerprint
         ident_json['classid'] = n.class_id
         ident_json['workspace'] = n.class_workspace
         ident_json['identification'] = json.dumps(n.identification, indent=1)
         return ident_json
 
-    # Handler for a request to create a new view entry 
+    # Handler for a request to create a new view entry
     def createViewEntryHandler(self, user, workspace, entry):
         pass
 
     # Handler for a request to update a single view entry
-    def removeViewEntryHandler(self, user, workspace, entrykey):        
-        print("Handle removeViewEntryHandler request for " +  self.uri)
+    def removeViewEntryHandler(self, user, workspace, entrykey):
+        print("Handle removeViewEntryHandler request for " + self.uri)
         n = Node.query.filter_by(id=entrykey).first()
         workspace.db.session.delete(n)
         self.emitSyncRemove(entrykey)
 
     # Handler for a request to update a single view entry
-    def updateViewEntryHandler(self, user, workspace, key,  entry):
+    def updateViewEntryHandler(self, user, workspace, key, entry):
         pass
-
