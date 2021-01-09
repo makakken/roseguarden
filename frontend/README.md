@@ -1,16 +1,34 @@
-## roseguarden frontend
+# roseguarden frontend
 
-### Prequisites:
-- the following desciption is a wrap up of needed prequisites
+
+## Getting started on windows
+
+- Install nodejs LTE: https://nodejs.org/en/download/
+- We need `node-gyp` to compile some c++ packages (for fibers).  Please install:
+   - `npm install -g --production windows-build-tools` (need to be run by a PowerShell with admin privileges)
+   - `npm install -g node-gyp`
+- Install the node modules from the frontend folder with:
+   - `npm install`
+- To start the frontend in dev-mode run:
+   - `npm run dev`
+- Hint: You can change the proxy for the api-requests in the proxy section in `nuxt.config.json`
+
+
+## Getting started on linux 
 - install nodejs LTE and the nodejs packaga manager (npm)
-   - Windows: Packages installation here https://nodejs.org/en/download/
-   - Linux: `sudo apt install nodejs npm`
-- install the VSCode
-   - Windows: ---fail
-   - Linux: https://code.visualstudio.com/docs/setup/linux
-- install the the vue client vue-client
-   - Windows, Linux: `npm install -g @vue/cli`
-   - check the version: `vue -V` should be > 3.0.0 otherwise deinstall old versions with npm uninstall vue-cli -g
+   - Ubuntu/Debian: `sudo apt install nodejs npm`
+- We need `node-gyp` to compile some c++ packages (for fibers). Please install:
+   - Ubuntu/Debian: `sudo apt install build-essential`
+- Install the node modules from the frontend folder with:
+   - `npm install`
+- To start the frontend run:
+   - `npm run dev`
+- Hint: You can change the proxy for the api-requests in the proxy section in `nuxt.config.json`
+
+## Getting started with your changes
+
+- We suggest VS code to have a good development environment for beginners
+- Here are some tips you might be interested wenn you start development
 
 ### Setup the VSCode for vue developement (Vetur, vue-peek)
 
@@ -18,49 +36,7 @@
 - install the Vue Extension Pack (Vetur, vue-peek, etc.) extensions ("Extensions", Ctrl + Shift + X)
 - install `Vue.js Extension Pack`
 
-### Install useful tools 
-
-#### JSON-Server
-
-The json-server is useful to make requests while developing.
-
-Install json-server with `sudo npm install -g json-server`
-
-### Import and run a this vue application
-
-- `git clone` the repository
-- install packages with `npm install`
-- see the README.md for running and build the app
-
-
-### Template project Structure
-```bash
-├── build
-├── config (Webpack)
-├── src
-│   ├── api
-│   ├── components
-│   ├── mixins
-│   ├── pages (or views)
-│   ├── router
-│   ├── util
-│   ├── theme
-│   │   ├── default.styl
-│   └── App.vue
-│   └── event.js
-│   └── main.js
-├── dist
-├── release
-├── static (or asset)
-├── mock (or script to build mock data)
-├── node_modules
-├── test
-├── README.md
-├── package.json
-├── index.html
-└── .gitignore
-
-### Build Setup
+## A overview of useful commands
 
 ```bash
 # install dependencies
