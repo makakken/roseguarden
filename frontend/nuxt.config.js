@@ -4,7 +4,7 @@ import colors from 'vuetify/lib/util/colors'
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 module.exports = {
-  mode: 'spa',
+  ssr: false,
 
   /*
   ** Headers of the page
@@ -127,21 +127,15 @@ module.exports = {
         themes: {
             light: {
                 primary: "#1976D2",
-                secondary: colors.amber.darken3,
-                accent: colors.grey.darken3,
-                info: colors.teal.lighten1,
-                warning: colors.amber.base,
-                error: colors.deepOrange.accent4,
-                success: colors.green.accent3
+                secondary: colors.grey.darken1,
+                accent: colors.shades.black,
+                error: colors.red.accent3,
             },
             dark: {
               primary: "#1976D2",
-              secondary: colors.amber.darken3,
-              accent: colors.grey.darken3,
-              info: colors.teal.lighten1,
-              warning: colors.amber.base,
-              error: colors.deepOrange.accent4,
-              success: colors.green.accent3
+              secondary: colors.grey.darken1,
+              accent: colors.shades.black,
+              error: colors.red.accent3,
             }            
         }
     }
