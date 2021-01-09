@@ -72,4 +72,4 @@ def print_job_list():
     print(all_jobs)
 
 
-from core.jobs import routes
+from core.jobs import routes  # noqa: F401

@@ -55,4 +55,4 @@ def send_message(recipient_user,
     messageManager.add_message(recipient_user, subject, template_path, data, sender, mail, mail_template_path)
 
 
-from core.messages import routes
+from core.messages import routes  # noqa: F401

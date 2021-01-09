@@ -179,11 +179,11 @@ class ActionManager(object):
 
                     handle_result_len = len(handle_result)
 
-                    if handle_result_len is 1:
+                    if handle_result_len == 1:
                         state, actions, response = handle_result, [], {}
-                    elif handle_result_len is 2:
+                    elif handle_result_len == 2:
                         state, actions, response = handle_result[0], handle_result[1], {}
-                    elif handle_result_len is 3:
+                    elif handle_result_len == 3:
                         state, actions, response = handle_result
                     else:
                         state, actions, response = "error", [], {}
@@ -195,7 +195,7 @@ class ActionManager(object):
                         logManager.error('Action {} failed for user: {}', action['action'], user)
 
                     response_intersection = response_data.keys() & response
-                    if len(response_intersection) is not 0:
+                    if len(response_intersection) != 0:
                         logManager.warning('Action response data for {} overrided the following properties',
                                            action['action'], response_intersection)
                     response_data = {**response_data, **response}

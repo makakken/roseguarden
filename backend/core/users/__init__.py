@@ -28,4 +28,4 @@ users_bp = Blueprint('users', __name__)
 
 userManager = UserManager()
 
-from core.users import routes
+from core.users import routes  # noqa: F401

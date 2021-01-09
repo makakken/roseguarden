@@ -28,4 +28,4 @@ nodeManager = NodeManager()
 
 nodes_bp = Blueprint('nodes', __name__)
 
-from core.nodes import routes
+from core.nodes import routes  # noqa: F401

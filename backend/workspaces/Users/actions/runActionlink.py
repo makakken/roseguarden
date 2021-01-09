@@ -40,7 +40,7 @@ class RunActionlink(Action):
             response_actions.append(webclientActions.UpdateActionlinkStatusAction.generate(
                 "success", "Action succeed"))
             response_actions = response_actions + executeActionLink(action.hash, user)
-        except (ExpiredError, NotFoundError) as e:
+        except (ExpiredError, NotFoundError):
             response_actions = [
                 webclientActions.UpdateActionlinkStatusAction.generate("error", "Action not found or expired")
             ]

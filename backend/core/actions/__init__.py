@@ -43,4 +43,4 @@ def executeActionLink(hash, user):
     return actionManager.executeActionLink(hash, user)
 
 
-import core.actions.routes
+import core.actions.routes  # noqa: F401

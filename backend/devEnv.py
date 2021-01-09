@@ -34,11 +34,11 @@ from core.workspaces.workspaceHooks import WorkspaceHooks
 from core.nodes import nodeManager
 from core.nodes.models import Node
 
-import core.actions.models
-import core.files.models
-import core.jobs.models
-import core.messages.models
-import core.workspaces.models
+import core.actions.models  # noqa: F401
+import core.files.models  # noqa: F401
+import core.jobs.models  # noqa: F401
+import core.messages.models  # noqa: F401
+import core.workspaces.models  # noqa: F401
 
 
 def create_devEnv(app, db, clean=True):

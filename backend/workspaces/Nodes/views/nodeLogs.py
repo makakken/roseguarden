@@ -49,19 +49,19 @@ class NodeLogs(DataView):
         print("getDataViewHandler for NodeLogs")
         entrylist = []
         all_logs = NodeLog.query.all()
-        for l in all_logs:
+        for lg in all_logs:
 
             # get new empty entry
             entry = self.createEntry()
 
             # fill entry
-            entry.id = l.id
-            entry.node = l.node_name + ' (' + l.request_source + ')'
-            entry.date = l.request_date.format()
-            entry.node_actions = l.request_actions
-            entry.node_uptime = l.node_uptime
-            entry.node_logcounter = l.node_logcounter
-            entry.node_errorcounter = l.node_errorcounter
+            entry.id = lg.id
+            entry.node = lg.node_name + ' (' + lg.request_source + ')'
+            entry.date = lg.request_date.format()
+            entry.node_actions = lg.request_actions
+            entry.node_uptime = lg.node_uptime
+            entry.node_logcounter = lg.node_logcounter
+            entry.node_errorcounter = lg.node_errorcounter
 
             entrylist.append(entry.extract())
         return entrylist
