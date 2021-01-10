@@ -1,42 +1,50 @@
 # roseguarden frontend
 
 
-## Getting started on windows
+## Getting started on Windows
 
-- Install nodejs LTE: https://nodejs.org/en/download/
-- We need `node-gyp` to compile some c++ packages (for fibers).  Please install:
+- here is a quick overview how to setup your dev-system on Windows
+- tested with Windows 10 Pro (Version 2004) in 01/2021
+- install nodejs LTE: https://nodejs.org/en/download/
+- we need `node-gyp` to compile some c++ packages (for fibers).  Please install:
    - `npm install -g --production windows-build-tools` (need to be run by a PowerShell with admin privileges)
    - `npm install -g node-gyp`
-- Install the node modules from the frontend folder with:
+- when not done already, clone the repository with `git clone https://gitlab.com/roseguarden/roseguarden.git`
+- install the node modules from the `frontend` folder in the repository with:
    - `npm install`
-- To start the frontend in dev-mode run:
+- to start the frontend in dev-mode from the `frontend` folder run:
    - `npm run dev`
-- Hint: You can change the proxy for the api-requests in the proxy section in `nuxt.config.json`
+- Hint: You may change the proxy for the api-requests in the proxy section in `nuxt.config.json`
 
 
-## Getting started on linux 
+## Getting started on Linux 
+- here is a quick overview how to setup your dev-system on Windows
+- tested with Windows 10 Pro (Version 2004) in 01/2021
 - install nodejs LTE and the nodejs packaga manager (npm)
    - Ubuntu/Debian: `sudo apt install nodejs npm`
-- We need `node-gyp` to compile some c++ packages (for fibers). Please install:
+- we need `node-gyp` to compile some c++ packages (for fibers). Please install:
    - Ubuntu/Debian: `sudo apt install build-essential`
-- Install the node modules from the frontend folder with:
+- when not done already, clone the repository with `git clone https://gitlab.com/roseguarden/roseguarden.git`
+- install the node modules from the `frontend` folder with:
    - `npm install`
-- To start the frontend run:
+- to start the frontend in dev-mode from the `frontend` folder run:
    - `npm run dev`
-- Hint: You can change the proxy for the api-requests in the proxy section in `nuxt.config.json`
+- Hint: You may change the proxy for the api-requests in the proxy section in `nuxt.config.json`
 
 ## Getting started with your changes
 
 - We suggest VS code to have a good development environment for beginners
-- Here are some tips you might be interested wenn you start development
+- Here are some tipps you might be interested when you start your development
 
-### Setup the VSCode for vue developement (Vetur, vue-peek)
+### Use and setup VSCode for developement
 
-- open Visual Studio Code in your workspace-folder
-- install the Vue Extension Pack (Vetur, vue-peek, etc.) extensions ("Extensions", Ctrl + Shift + X)
-- install `Vue.js Extension Pack`
+- get Visual Studio Code from here: https://code.visualstudio.com/
+- run Visual Studio Code and use the workspace `roseguarden.code-workspace` to work on backend and frontend
+- you can use the Vue Extension Pack for better dev. experience
+   - extensions ("Extensions", Ctrl + Shift + X)#
+   - install `Vue.js Extension Pack`
 
-## A overview of useful commands
+## A overview of useful commands for the frontend development
 
 ```bash
 # install dependencies
