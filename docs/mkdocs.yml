@@ -5,11 +5,7 @@ nav:
   - index.md
   - protocol.md
   - 'Actions': 
-      - serveractions.md
-      - clientactions.md
-      - nodeactions.md
-  - 'Authentification':
-      - nodeauthentication.md
+      - servernodeactions.md
 theme:
   name: 'material'
   custom_dir: 'theme'

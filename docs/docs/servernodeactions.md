@@ -1,6 +1,6 @@
 # Actions of the server requested by a node
 
-!!! important "The description of this actions is written from the perspektive of action requested by a node. <br> The actions meant to be executed by the server." 
+!!! important "The description of this actions is written from the perspective of action requested by a node. <br> The actions meant to be executed by the server." 
 
 ## General actions
 
