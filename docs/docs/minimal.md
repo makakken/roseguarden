@@ -70,8 +70,6 @@ Event: when a authenticator appears (rfid)
 
 The node should request access for the user by sending a `requestUserAccess` action request to the server.
 
-#### Example of the requested action:
-
 ``` json
   "actions": [
     {
@@ -84,12 +82,12 @@ The node should request access for the user by sending a `requestUserAccess` act
   ]
 ```
 
-#### Authentication key
+#### Authentication key property
 
 The authetication key (`auth_key`) given from the authenticator (rfid).
 The property value have to be a string.
 
-####  PIN (optional)
+#### PIN property (optional)
 
 An optional `pin` in addition to the `auth_key`.
 The property value have to be a string with the given pin.
@@ -99,7 +97,23 @@ The property value have to be a string with the given pin.
 
 Event: when a authenticator appears (rfid) and assign mode is active
 
-requestAssignCode
+The node should request a assign code for the user by sending a `requestAssignCode` action request to the server.
+
+``` json 
+  "actions": [
+    {
+      "version": "1.0.0",
+      "action": "requestAssignCode",
+      "actionid": 2,
+      "auth_key": "112.123.23.1.91"
+    }
+  ]
+```      
+    
+#### Authentication key property
+
+The authetication key (`auth_key`) given from the authenticator (rfid).
+The property value have to be a string.
 
 
 ## Action requests from the server a node have to handle
