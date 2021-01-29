@@ -10,7 +10,9 @@ The following events have to be handled by the node:
 
 Event: On Startup
 
-Action: Send a request to the server to inform about the startup.
+Action: Send a `registerNodeStartup` request to the server to inform about the startup.
+
+**Example of the registerNodeStartup request to send:**
 
 ``` json
     {
@@ -41,6 +43,8 @@ Event: Every 1 minute
 
 Action: Send a `requestNodeUpdate` request to the server
 
+**Example of the requestNodeUpdate request to send:**
+
 ``` json
     {
     "header": {
@@ -57,7 +61,7 @@ Action: Send a `requestNodeUpdate` request to the server
     "actions": [
             {
                 "version": "1.0.0",
-                "action": "requestNodeUpdate",
+                "action": "requestNodeUp date",
                 "actionid": 8
             }
         ]
@@ -68,7 +72,9 @@ Action: Send a `requestNodeUpdate` request to the server
 
 Event: when a authenticator appears (rfid)
 
-The node should request access for the user by sending a `requestUserAccess` action request to the server.
+Action: The node should request access for the user by sending a `requestUserAccess` action request to the server.
+
+**Example of the requestUserAccess request to send:**
 
 ``` json
   "actions": [
@@ -82,12 +88,12 @@ The node should request access for the user by sending a `requestUserAccess` act
   ]
 ```
 
-#### Authentication key property
+**Authentication key property:**
 
 The authetication key (`auth_key`) given from the authenticator (rfid).
 The property value have to be a string.
 
-#### PIN property (optional)
+**PIN property (optional):**
 
 An optional `pin` in addition to the `auth_key`.
 The property value have to be a string with the given pin.
@@ -97,7 +103,9 @@ The property value have to be a string with the given pin.
 
 Event: when a authenticator appears (rfid) and assign mode is active
 
-The node should request a assign code for the user by sending a `requestAssignCode` action request to the server.
+Action: The node should request a assign code for the user by sending a `requestAssignCode` action request to the server.
+
+**Example of the requestAssignCode request to send:**
 
 ``` json 
   "actions": [
@@ -110,7 +118,7 @@ The node should request a assign code for the user by sending a `requestAssignCo
   ]
 ```      
     
-#### Authentication key property
+**Authentication key property:**
 
 The authetication key (`auth_key`) given from the authenticator (rfid).
 The property value have to be a string.
@@ -129,7 +137,7 @@ Until the identification was successfull (done by the administrators) every furt
 
 Have a look at the [Sync. the node identification ( syncNodeIdentification ) section](servernodeactions.md) how to send a valid `syncNodeIdentification` action request.
 
-#### Example of the requested action
+**Example of the requested action:**
 
 ``` json
   "actions": [
@@ -145,7 +153,7 @@ Have a look at the [Sync. the node identification ( syncNodeIdentification ) sec
 The node have to handle requested `grandAccess` actions.
 This action opens the door and show some user information.
 
-#### Example of the requested action
+**Example of the requested action:**
 
 ``` json
   "actions": [
@@ -158,11 +166,11 @@ This action opens the door and show some user information.
   ]
 ```   
 
-#### Message property
+**Message property:**
 
 The message to show
 
-#### Info property
+**Info property:**
 
 Further infos to show.
 
@@ -172,7 +180,7 @@ Further infos to show.
 The node have to handle requested `denyAccess` actions.
 This action deny the door opening and show some informations for that.
 
-#### Example of the requested action:
+**Example of the requested action:**
 
 ``` json
   "actions": [
@@ -185,11 +193,11 @@ This action deny the door opening and show some informations for that.
   ]
 ``` 
 
-#### Message property
+**Message property:**
 
 The message to show
 
-#### Info property
+**Info property:**
 
 Further infos to show.
 
@@ -197,7 +205,7 @@ Further infos to show.
 
 The node have to handle requested `updateAssignInfo` actions.
 
-#### Example of the requested action:
+**Example of the requested action:**
 
 ``` json
   "actions": [
@@ -210,10 +218,10 @@ The node have to handle requested `updateAssignInfo` actions.
   ]
 ``` 
 
-#### Valid property
+**Valid property:**
 
 Shows if the assign was succesfull.
 
-#### Code property
+**Code property:**
 
 The assign code to show to the user
