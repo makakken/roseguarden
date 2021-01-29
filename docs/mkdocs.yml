@@ -1,11 +1,14 @@
-site_name: roseguarden
-site_url: https://www.docs.roseguarden.fabba.space
+site_name: roseguarden api/rpc
+site_url: https://roseguarden.gitlab.io/roseguarden/docs/api-rpc
 
 nav:
   - index.md
   - protocol.md
   - 'Actions': 
+      - nodeactions.md
       - servernodeactions.md
+  - 'Getting started':
+      - minimal.md
 theme:
   name: 'material'
   custom_dir: 'theme'
@@ -35,6 +38,5 @@ markdown_extensions:
   - pymdownx.keys
   - pymdownx.arithmatex
 
-repo_url: https://gitlab.com/roseguarden/roseguarden.docs
-repo_name: "gitlab:roseguarden.docs"
-edit_uri: "edit/master/docs/"
+repo_url: https://gitlab.com/roseguarden/roseguarden/-/tree/master/docs
+repo_name: "gitlab:roseguarden"

@@ -12,7 +12,7 @@
 
 An example from the (web-)client to the server:
 
-```
+``` json
 {
     "head" : {
         "version" : "1.0.0",
@@ -39,7 +39,7 @@ An example from the (web-)client to the server:
 
 An example from the node to the server:
 
-```
+``` json
 {
     "head" : {
         "version" : "1.0.0",
@@ -49,11 +49,15 @@ An example from the node to the server:
         "fingerprint" : "43:51:43:A1:B5:FC:8B:B7:0A:3A:A9:B1:0F:66:73:A8:73:A8:19:B1",
         "authentification" : "Kol-Bi-Hop-Ban-Gan-To-Sep+129",
         "timestamp" : "2020-03-24T20:20:58+01:00",
+        "uptime": 0,
+        "logcounter": 0,
+        "errorcounter": 0,        
     },
     "actions" : [
         {
             "version" : "1.0",
-            "action" : "checkHeartbeat",          
+            "action" : "requestNodeUpdate",
+            "actionid" : 8          
         },
     ],
 }
@@ -66,8 +70,7 @@ The `head` section in a request, contains static information of the sender that 
 ### Version
 
 The version in `head` shows the protocol version.
-Will be ignored at the moment and dont have to be set. 
-Could be set to "1.0.0".
+Will be ignored at the moment and dont have to be set (string version number, e.g. "1.0.0")
 
 ### Target
 
@@ -93,7 +96,8 @@ Could be "client", "door-node", "server".
 
 ### Timestamp
 
-Will be ignored at the moment and dont have to be set.
+The `timestamp` property show the actual time of the device.
+Will be ignored at the moment but have to be set to any datestring value in the form of `2020-03-24T20:20:58+01:00`.
 
 
 ## Node specific head properties
@@ -108,10 +112,52 @@ The property is a string e.g. in the form of an SHA-1 (160bit) hash in the form 
 The `authentification` property have to be set to authenticate the node.
 The property is a string e.g. "Kol-Bi-Hop-Ban-Gan-To-Sep+129" (no further restricitions, like length at the moment).
 
+### Node uptime
+
+
+The `uptime` property have to be set to register startups.
+The value should be in seconds since startup.
+
+### Node logging counter
+
+The `logcounter` property have to be set to show the number of present log entries. 
+The property will be ignored at the moment but have to be set to any value (e.g. 0).
+
+### Node error counter
+
+The `errorcounter` property have to be set to inform about errors occure at node runtime.
+The property will be ignored at the moment but have to be set to any value (e.g. 0).
+
 ## Actions
 
 The `actions` section contain a list of actions that should be executed by the receiver of the request.
-See the pages for specific actions for node and client to get further information and a list of available action on each.
+
+An example:
+ 
+``` json
+    "actions" : [
+        {
+            "version" : "1.0.0",
+            "action" : "requestNodeUpdate",
+            "actionid" : 8          
+        },
+```
+
+### Version
+
+The `version` property in an action entry shows the action version requested.
+Will be ignored at the moment and dont have to be set (string value). 
+Could be set to "1.0.0".
+
+### Action ID
+
+The `actionid` property in an action entry identify the action.
+The value should be incremented for every action requested to be unique.
+The property-value should be an integer.
+
+### Specific actions for nodes and clients
+
+See the pages for specific actions for [node](nodeactions.md) and [client](clientactions.md) to get further information and a list of available action on each. Have a look at the [minimal node implementation](minimal.md) for a door
 
 ## Optionals
 

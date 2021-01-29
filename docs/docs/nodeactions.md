@@ -1,7 +1,7 @@
 
-# Actions of a node actions requested by the server
+# Node actions requested by the server
 
-!!! important "The description of this actions is written from the perspektive of action-requests by the server. <br> The actions meant to be executed by the node and will be a send in form of a reply to an request from the node." 
+!!! important "The description of this actions is written from the perspektive of action-requests by the server. <br> The actions meant to be executed by the node and will be a send in form of a request-reply by the node." 
 
 ## General actions
 
@@ -21,7 +21,7 @@ The node should send a list of `updateNodeHistory`-actions to the server.
 The actions contains actual history informations. The last n (min. 5) actions have to be stored in the nodes ram.
 The history wont be reset after send.
 
-```
+``` json
 {
     "head" : {
         ...
@@ -59,7 +59,7 @@ The list can be empty to trigger a `syncNodeSettings`-action with the actual pos
 
 E.g.: 
 
-```
+``` json
     "head" : {
         ...
     },
@@ -74,7 +74,7 @@ E.g.:
 
 The list can be empty to trigger a `syncNodeSettings`-action with the actual possible settings avalable.
 
-```
+``` json 
     "head" : {
         ...
     },
@@ -91,7 +91,7 @@ The node have to respond with a `syncNodeSettings`-action to the server as fast 
 
 E.g.:
 
-```
+``` json
     "head" : {
         ...
     },
