@@ -10,10 +10,11 @@ pages:
   stage: docs 
   script:
     - mkdir -p public/
-    - mkdir -p public/api-rpc/
+    - mkdir -p public/docs/
+    - mkdir -p public/docs/api-rpc/
     - cd docs
     - mkdocs build
-    - cp site/* ../public/api-rpc/ -R
+    - cp site/* ../public/docs/api-rpc/ -R
   artifacts:
     paths:
       - public/
