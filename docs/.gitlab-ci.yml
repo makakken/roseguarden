@@ -16,6 +16,7 @@ docs:
     - mkdocs build
     - ls
     - cp site/* ../public/ -R
+    - ls public
   artifacts:
     paths:
       - public/
