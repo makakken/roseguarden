@@ -1,6 +1,7 @@
-# roseguarden.docs
+# roseguarden developer information#
 
-Docs can be found under:
+The following docs are available:
 
-* https://docs.roseguarden.fabba.space/ or 
-* https://roseguarden.gitlab.io/roseguarden.docs 
+- RPC-API documentation : https://roseguarden.gitlab.io/roseguarden/docs/api-rpc/
+
+
