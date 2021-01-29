@@ -2,6 +2,10 @@
 default:
   image: python:alpine
 
+cache:
+  paths:
+    - public
+
 stages:
   - analysis
   - build
