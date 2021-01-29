@@ -9,6 +9,7 @@ nav:
       - servernodeactions.md
   - 'Getting started':
       - minimal.md
+  - doornodesactions.md
 theme:
   name: 'material'
   custom_dir: 'theme'
@@ -40,3 +41,4 @@ markdown_extensions:
 
 repo_url: https://gitlab.com/roseguarden/roseguarden/-/tree/master/docs
 repo_name: "gitlab:roseguarden"
+edit_uri: ""

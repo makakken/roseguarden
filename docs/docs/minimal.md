@@ -68,6 +68,8 @@ Action: Send a `requestNodeUpdate` request to the server
 
 Event: when a authenticator appears (rfid)
 
+The node should request access for the user by sending a `requestUserAccess` action request to the server.
+
 #### Example of the requested action:
 
 ``` json
@@ -85,12 +87,12 @@ Event: when a authenticator appears (rfid)
 #### Authentication key
 
 The authetication key (`auth_key`) given from the authenticator (rfid).
-Property have to be a string.
+The property value have to be a string.
 
 ####  PIN (optional)
 
-An optional pin in addition to the `auth_key`.
-Property have to be a string with the given pin.
+An optional `pin` in addition to the `auth_key`.
+The property value have to be a string with the given pin.
 
 
 ### Request a assign code when a authenticator appear

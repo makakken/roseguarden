@@ -161,4 +161,4 @@ See the pages for specific actions for [node](nodeactions.md) and [client](clien
 
 ## Optionals
 
-In addition to `head` and `action` there could be optional sections. 
+In addition to `head` and `action` there could be optional sections to customize to your needs. There is no strict checking. 

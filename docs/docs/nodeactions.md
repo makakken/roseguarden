@@ -5,7 +5,7 @@
 
 ## General actions
 
-This actions every node have to implement.
+This actions every node should implement.
 The node have to reply to this general actions send by the server.
 
 ### Identify ( sendIdentification )
@@ -17,7 +17,7 @@ Request the node to send a `syncNodeIdentification` action to the server.
 **Example:**
 
 
-The node should send a list of `updateNodeHistory`-actions to the server.
+The node should send a list of `updateNodeLog`-actions to the server.
 The actions contains actual history informations. The last n (min. 5) actions have to be stored in the nodes ram.
 The history wont be reset after send.
 
@@ -28,16 +28,16 @@ The history wont be reset after send.
     },
     "actions" : [
         {
-            "action" : "syncNodeHistory",          
-            "historyid" : 22,
-            "historyaction" : "openDoor",          
+            "action" : "updateNodeLog",          
+            "logid" : 22,
+            "logaction" : "openDoor",          
             "timestamp" : "2020-03-24T20:21:58+01:00",
             "source" : "roseguarden.fabba.space"
         },        
         {
-            "action" : "syncNodeHistory",          
-            "historyid" : 21,
-            "historyaction" : "readRfid", 
+            "action" : "updateNodeLog",          
+            "logid" : 21,
+            "logaction" : "readRfid", 
             "timestamp" : "2020-03-24T20:22:58+01:00",
             "source" : "internal"
         },
@@ -45,17 +45,10 @@ The history wont be reset after send.
 }
 ```
 
-### Time update ( updateTime )
-
-Properties to update:
-
-  * `nodeTime` :
-
 ### Update settings ( updateSettings )
 
 The server will send a action to update the list of node settings.
 The action contain all properties
-The list can be empty to trigger a `syncNodeSettings`-action with the actual possible settings avalable.
 
 E.g.: 
 
@@ -67,7 +60,7 @@ E.g.:
         {
             "action": "updateSettings",
             "settingA": "a",
-            "settingB": "b",
+            "settingB": "b"
         }
     ]
 ```
@@ -80,14 +73,14 @@ The list can be empty to trigger a `syncNodeSettings`-action with the actual pos
     },
     "actions" : [
         {
-            "action": "updateSettings",
+            "action": "updateSettings",       
         }
     ]
 ```
 
 
 
-The node have to respond with a `syncNodeSettings`-action to the server as fast as possible.
+The node have to respond with a `syncNodeSettings`-action to the server.
 
 E.g.:
 
@@ -98,6 +91,8 @@ E.g.:
     "actions" : [
         {
             "action": "syncNodeSettings",
+            "settingA": "a",
+            "settingB": "b"                 
         }
     ]
 ```
@@ -106,3 +101,5 @@ E.g.:
 
 
 ## Node specific actions 
+
+* [For door node](doornodesactions.md)

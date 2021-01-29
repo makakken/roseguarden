@@ -40,7 +40,7 @@ Triggered on: Startup of the node
 
 Triggered on: Interval (default is 1 minute) when authetification was successfull.
 
-### Sync the node logs ( syncNodeLog )
+### Sync. the node log ( syncNodeLog )
 
 ### Sync. the node settings ( syncNodeSettings )
 
@@ -98,3 +98,6 @@ Additional properties can be send.
 ## Node specific actions 
 
 In addition every node can supply further actions handled by the server.
+
+* [For door node](doornodesactions.md)
+
