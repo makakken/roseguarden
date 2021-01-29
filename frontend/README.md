@@ -4,7 +4,7 @@
 ## Getting started on Windows
 
 - here is a quick overview how to setup your dev-system on Windows
-- tested with Windows 10 Pro (Version 2004) in 01/2021
+- tested with Windows 10 Pro (Version 2004) on 01/2021
 - install nodejs LTE: https://nodejs.org/en/download/
 - we need `node-gyp` to compile some c++ packages (for fibers).  Please install:
    - `npm install -g --production windows-build-tools` (need to be run by a PowerShell with admin privileges)
@@ -19,7 +19,7 @@
 
 ## Getting started on Linux 
 - here is a quick overview how to setup your dev-system on Windows
-- tested with Windows 10 Pro (Version 2004) in 01/2021
+- tested with Ubuntu 20.04.1 LTS on 01/2021
 - install nodejs LTE and the nodejs packaga manager (npm)
    - Ubuntu/Debian: `sudo apt install nodejs npm`
 - we need `node-gyp` to compile some c++ packages (for fibers). Please install:
