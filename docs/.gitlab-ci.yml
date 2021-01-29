@@ -1,4 +1,4 @@
-docs:
+pages:
   before_script:
     - apk add --no-cache openssl gcc musl-dev
     - pip install Cython setuptools
