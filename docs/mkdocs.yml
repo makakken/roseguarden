@@ -38,6 +38,7 @@ markdown_extensions:
   - footnotes
   - pymdownx.keys
   - pymdownx.arithmatex
+  
 
 repo_url: https://gitlab.com/roseguarden/roseguarden/-/tree/master/docs
 repo_name: "gitlab:roseguarden"
