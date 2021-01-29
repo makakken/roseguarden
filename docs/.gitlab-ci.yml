@@ -15,7 +15,7 @@ docs:
     - cd docs
     - mkdocs build
     - ls
-    - cp site ../public/api-rpc/ -R
+    - cp site/* ../public/api-rpc/ -R
   artifacts:
     name: "api-rpc"
     paths:
