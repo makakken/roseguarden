@@ -3,17 +3,19 @@ docs:
     - apk add --no-cache openssl gcc musl-dev
     - pip install Cython setuptools
     - pip install mkdocs-material
-    - cd docs
     # Add your custom theme if not inside a theme_dir
     # (https://github.com/mkdocs/mkdocs/wiki/MkDocs-Themes)
     # - pip install mkdocs-material
 
   stage: docs 
   script:
-    - mkdir -p public
+    - ls
+    - mkdir -p public/
     - mkdir -p public/api-rpc/
+    - cd docs
     - mkdocs build
-    - cp docs/site public/api-rpc/ -R
+    - ls
+    - cp site ../public/api-rpc/ -R
   artifacts:
     name: "api-rpc"
     paths:
