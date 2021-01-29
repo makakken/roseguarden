@@ -17,9 +17,8 @@ docs:
     - ls
     - cp site/* ../public/ -R
   artifacts:
-    name: "api-rpc"
     paths:
-      - public
+      - public/
   only:
     refs:
       - master
