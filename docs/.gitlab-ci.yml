@@ -22,4 +22,4 @@ pages:
     refs:
       - master
     changes:
-      - docs/*
+      - docs/**/*
