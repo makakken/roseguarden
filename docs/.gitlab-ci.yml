@@ -24,4 +24,3 @@ docs:
       - master
     changes:
       - docs/*
-  allow_failure: true
