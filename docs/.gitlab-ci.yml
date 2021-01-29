@@ -7,12 +7,17 @@ docs:
     # Add your custom theme if not inside a theme_dir
     # (https://github.com/mkdocs/mkdocs/wiki/MkDocs-Themes)
     # - pip install mkdocs-material
+
   stage: docs 
   script:
+    - mkdir -p public
+    - mkdir -p public/api-rpc/
     - mkdocs build
+    - cp docs/site public/api-rpc/ -R
   artifacts:
+    name: "api-rpc"
     paths:
-      - docs/site
+      - public
   only:
     refs:
       - master
