@@ -125,7 +125,7 @@ The following actions have to be handled by the server after requested by the se
 The node have to handle requested `sendIdentification` actions.
 The action request an indetification of the node which is unknwon to the server.
 The server expect a `syncNodeIdentification` action request to be send.
-Until the identification was successfull (done by the administrators) every further action request will be replied with a request to send the nodes identification. 
+Until the identification was successfull (done by the administrators) every further action request will be replied with a request to send the nodes identification.  
 
 Have a look at the [Sync. the node identification ( syncNodeIdentification ) section](servernodeactions.md) how to send a valid `syncNodeIdentification` action request.
 
