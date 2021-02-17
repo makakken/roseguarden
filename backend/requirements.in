@@ -1,0 +1,16 @@
+semantic_version
+Flask
+flask-jwt-extended
+Flask-SQLAlchemy
+Flask-Migrate
+Flask-Mail
+click
+arrow
+sqlalchemy_utils
+python-dotenv
+flask-bcrypt
+flask-cors
+apscheduler
+cron-descriptor
+entrypoints
+Werkzeug
