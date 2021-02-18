@@ -31,6 +31,30 @@
    - `npm run dev`
 - Hint: You may change the proxy for the api-requests in the proxy section in `nuxt.config.json`
 
+## Troubleshooting
+
+### ENOSPC: System limit for number of file watchers reached
+
+If you try to start the Vue frontend on Ubuntu and you get many errors of the type `ENOSPC: System limit for number of file watchers reached`, then the number of files monitored by the system has reached the limit.
+You can solve this issue by editing the file `/etc/sysctl.conf`.
+
+Run
+```
+sudo nano /etc/sysctl.conf
+```
+and add the following line at the bottom:
+```
+fs.inotify.max_user_watches=524288
+```
+Save and exit the file with `CTRL + O` and `CTRL + X`.
+To check the new setting run
+```
+sudo sysctl -p
+```
+You should see now the line which you added to the sysctl config.
+
+Source: [stackoverflow](https://stackoverflow.com/a/56156015)
+
 ## Getting started with your changes
 
 - We suggest VS code to have a good development environment for beginners
