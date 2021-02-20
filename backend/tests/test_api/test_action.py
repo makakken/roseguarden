@@ -2,7 +2,7 @@ import requests
 
 
 class TestAction:
-    def test_asdf(self, set_up_and_tear_down_database):
+    def test_login(self, set_up_and_tear_down_database):
 
         app, app_context, db, client = set_up_and_tear_down_database
         # make login request
