@@ -26,10 +26,11 @@ class TestAction:
             }
         }
         login_request = client.post('http://127.0.0.1:5000/api/v1', json=jwt)
-        print(login_request.status_code, login_request.reason, login_request.content)
-        print('----')
-        print(login_request.cookies)
-        print("csrf_access_token: ", login_request.cookies['csrf_access_token'])
+        assert login_request.status_code == 200
+        #print(login_request.status_code, login_request.reason, login_request.content)
+        #print('----')
+        #print(login_request.cookies)
+        #print("csrf_access_token: ", login_request.cookies['csrf_access_token'])
 
         # extract cookies from login_request
         # cookies = requests.utils.dict_from_cookiejar(login_request.cookies)

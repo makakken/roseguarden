@@ -86,13 +86,13 @@ def load_config(file):
     cfg_parser.add_section('MAIL')
     cfg_parser.add_section('SYSTEM')
     # read and overwrite
-    cfg_parser.read('config.ini')
+    cfg_parser.read(file)
     data = json.loads(json.dumps(cfg_parser._sections))
     config = remove_quotes(data)
     return config
 
 
-def configure_app(app, config):
+def configure_app(app, config, test):
     # Configure application to store JWTs in cookies
     app.config['JWT_TOKEN_LOCATION'] = ['headers']
     app.config['CORS_HEADERS'] = 'Content-Type'
@@ -109,8 +109,13 @@ def configure_app(app, config):
     # they aren't needed.
     app.config['JWT_ACCESS_COOKIE_PATH'] = '/api/v1/'
     app.config['JWT_REFRESH_COOKIE_PATH'] = '/api/v1/'
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(
-        basedir, 'app.db')
+
+    if test:
+        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(
+            basedir, 'app.db')
+    else:
+        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(
+            basedir, 'test.db')
 
     # Enable csrf double submit protection. See this for a thorough
     # explanation: http://www.redotheweb.com/2015/11/09/api-security.html
