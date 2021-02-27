@@ -14,11 +14,7 @@
           <v-footer height="auto" class="white pa-3 app--footer">
             <span class="caption">
               <b> Roseguarden:</b>
-              <a href="https://gitlab.com/roseguarden"
-                >https://gitlab.com/roseguarden</a
-              >, &copy; {{ new Date().getFullYear() }}, Backend: v{{
-                backendVersion
-              }}, Frontend: v{{ frontendVersion }}
+              Version: v{{ backendVersion }}
             </span>
 
             <v-spacer></v-spacer>
