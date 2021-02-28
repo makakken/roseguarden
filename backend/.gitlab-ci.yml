@@ -40,6 +40,7 @@ pylint:
 pytest:
   stage: test
   before_script:
+    - pip install -r requirements.txt  
     - pip install pytest  
   script:
     - pytest --junitxml=report.xml
