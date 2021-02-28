@@ -54,7 +54,7 @@ class Login(Action):
                 replyActions.append(webclientActions.UpdateMenuAction.generate(menu))
                 replyActions.append(webclientActions.NotificationAction.generate("Login successful.", "success"))
 
-                if 'redirect' in action['options']:
+                if 'options' in action and 'redirect' in action['options']:
                     if action['options']['redirect'] != "":
                         replyActions.append(webclientActions.RouteAction.generate(action['options']['redirect'], 2))
                     else:
