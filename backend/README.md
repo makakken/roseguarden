@@ -86,3 +86,69 @@ Add a entry in the `launch.json` (e.g. from the run menu)
 ## Debug and develop roseguarden in VS Code
 
 https://code.visualstudio.com/docs/python/tutorial-flask
+
+## Developer setup
+
+### 🐧 Linux/macOS
+
+Open a terminal and create a new virtual environment in your home directory with the name `.toxbase` with the following commands
+
+```bash
+# Change to your user directory
+$ cd ~
+# Create a virtual environment called .toxbase
+$ python -m venv .toxbase
+```
+
+Now we activate the virtual environment, update pip and install tox:
+
+```bash
+# Linux/macOS
+$ source .toxbase/bin/activate
+# the virtual environment is active
+# if you see the environment name at the beginning of the line
+(.toxbase) $ python -m pip install --upgrade pip
+(.toxbase) $ pip install tox
+(.toxbase) $ tox --version
+```
+
+Setting the PATH variable
+
+```bash
+cd
+# open the config file .bashrc
+nano .bashrc
+# Go to the buttom of the file and insert
+# make tox accessable in each session from everywhere
+PATH = "${HOME}/bin:${PATH}"
+export PATH
+# save and close the file with CTRL+O and CTRL+X
+# create a `bin` directory 
+mkdir bin
+# set link to ~/bin/tox
+ln -s ~/.toxbase/bin/tox ~/bin/tox
+```
+
+```bash
+# open a new terminal session and test tox
+tox --version
+# this command should give you something similiar like
+3.20.1 imported from /home/YourUserName/.toxbase/lib/python3.8/site-packages/tox/__init__.py
+```
+
+⚠ You have to replace `YourUserName` with your actual *username* in the
+path!
+
+To make all these changes work you have to log out and in again.
+
+To get the same working environment you can just run
+```bash
+tox -e dev
+```
+This will create a virtual environment with all our development tools.
+
+Later you can run just 
+```bash
+tox
+```
+to run our tests and linter.

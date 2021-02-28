@@ -98,3 +98,4 @@ sw.*
 
 # virtual environment
 .venv
+.tox
