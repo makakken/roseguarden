@@ -36,3 +36,14 @@ pylint:
   except:
     changes:
       - "README.md"
+
+pytest:
+  stage: test
+  before_script:
+    - pip install pytest  
+  script:
+    - pytest --junitxml=report.xml
+  artifacts:
+    when: always
+    reports:
+      junit: report.xml
