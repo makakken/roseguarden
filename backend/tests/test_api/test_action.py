@@ -1,4 +1,5 @@
 import requests
+import json
 
 
 class TestAction:
@@ -27,6 +28,10 @@ class TestAction:
         }
         login_request = client.post('http://127.0.0.1:5000/api/v1', json=jwt)
         assert login_request.status_code == 200
+        resp = json.loads(login_request.get_data())
+        print(resp)
+        resp = login_request.response[0]
+        print(resp)
         #print(login_request.status_code, login_request.reason, login_request.content)
         #print('----')
         #print(login_request.cookies)
