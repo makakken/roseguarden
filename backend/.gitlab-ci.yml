@@ -42,7 +42,7 @@ pytest:
   image: python:3.8
   before_script:
     - pip install -r backend/requirements.txt  
-    - pip install pytest  
+    - pip install pytest requests
   script:
     - pytest --junitxml=report.xml
   artifacts:
