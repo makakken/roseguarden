@@ -87,6 +87,7 @@ dist
 .serverless
 
 app.db
+test.db
 jobs.sqlite
 
 # IDE
@@ -99,3 +100,4 @@ sw.*
 # virtual environment
 .venv
 .tox
+.toxbase

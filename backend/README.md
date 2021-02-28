@@ -102,15 +102,28 @@ $ python -m venv .toxbase
 
 Now we activate the virtual environment, update pip and install tox:
 
-```bash
+**Linux/maxOS:**
+``` bash
 # Linux/macOS
 $ source .toxbase/bin/activate
+```
+**Windows:**
+
+```
+.\.toxbase\Scripts\Activate.ps1
+``` 
+
+Update pip and install tox
+
+``` bash
 # the virtual environment is active
 # if you see the environment name at the beginning of the line
 (.toxbase) $ python -m pip install --upgrade pip
 (.toxbase) $ pip install tox
 (.toxbase) $ tox --version
 ```
+
+
 
 Setting the PATH variable
 
