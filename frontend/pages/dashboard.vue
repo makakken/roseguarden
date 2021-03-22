@@ -17,6 +17,28 @@
           </a>
         </v-alert>
       </v-col>
+    </v-row>
+    <v-row v-if="loading" align="center" justify="center">
+      <v-progress-circular
+        :size="70"
+        :width="7"
+        color="primary"
+        indeterminate
+      ></v-progress-circular>
+    </v-row>
+    <v-row v-else-if="valid && !loading">
+      <v-col cols="3" lg="4" sm="4" />
+      <v-col cols="6" lg="4" sm="4" align="center">
+        <!--
+        <div class="text-xs-center">Welcome {{ firstname }} {{ lastname }}</div>
+        -->
+        <div class="text-xs-center">
+          <v-btn dark color="primary" @click="onTestLogout()">Logout</v-btn>
+        </div>
+      </v-col>
+      <v-col cols="3" lg="4" sm="4" />
+    </v-row>
+    <v-row v-else>
       <v-col
         cols="12"
         lg="8"
@@ -34,7 +56,7 @@
                   ---->
           <h2 class="">Roseguarden login</h2>
         </div>
-        <v-form v-model="valid">
+        <v-form v-model="valid_credentials">
           <v-text-field
             append-icon="person"
             name="login"
@@ -54,8 +76,6 @@
           ></v-text-field>
         </v-form>
       </v-col>
-    </v-row>
-    <v-row dense>
       <v-col cols="9" lg="5" offset-lg="2" sm="5" offset-sm="2" xs="9">
         <v-btn
           dense
@@ -86,12 +106,15 @@
         xs="3"
         class="d-flex justify-end"
       >
-        <v-btn color="primary" width="100%" @click="login" :disabled="!valid"
+        <v-btn
+          color="primary"
+          width="100%"
+          @click="login"
+          :disabled="!valid_credentials"
           >Login</v-btn
         >
       </v-col>
-    </v-row>
-    <v-row>
+
       <v-col cols="3" lg="4" sm="4" />
       <v-col cols="6" lg="4" sm="4" align="center">
         <div class="text-center">
@@ -99,6 +122,8 @@
           <v-btn dark color="primary" to="/user/register">Register here</v-btn>
         </div>
       </v-col>
+    </v-row>
+    <v-row>
       <v-col cols="3" lg="4" sm="4" />
       <v-col cols="12" lg="12" sm="12" xs="12" align="center">
         <v-alert type="error">
@@ -148,7 +173,7 @@ export default {
     color: Material,
     selectedTab: "tab-1",
     log: "Loading log ...",
-    valid: false,
+    valid_credentials: false,
     rules: {
       required: (value) => !!value || "Required.",
       email: (v) =>
