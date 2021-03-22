@@ -137,6 +137,10 @@ export default {
         label: "Legal notice",
         link: "/legal",
       },
+      {
+        label: "Terms of use",
+        link: "/termsofuse",
+      },
     ],
     snackbar: {
       show: false,
