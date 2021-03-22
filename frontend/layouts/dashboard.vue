@@ -72,7 +72,7 @@
               color="white"
               text
               rounded
-              href="https://gitlab.com/roseguarden"
+              href="https://gitlab.com/roseguarden/roseguarden"
             >
               <strong
                 >Powered by roseguarden - &copy; {{ new Date().getFullYear() }}
