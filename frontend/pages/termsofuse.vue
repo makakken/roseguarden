@@ -11,8 +11,8 @@
         <p>
           These Terms and Conditions constitute a legally binding agreement made
           between you, whether personally or on behalf of an entity (“you”) and
-          the Konglomerat e.V. Dresden (“we,” “us” or “our”), concerning your
-          access to and use of the roseguarden.konglomerat.org website as well
+          the roseguarden service provider (“we,” “us” or “our”), concerning
+          your access to and use of the roseguarden.fabba.space website as well
           as any other media form, media channel, mobile website or mobile
           application related, linked, or otherwise connected thereto
           (collectively, the “Site”).
