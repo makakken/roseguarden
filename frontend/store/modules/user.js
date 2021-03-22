@@ -10,8 +10,11 @@ export default {
   namespaced: true,
   state: {
     jwttoken: null,
-    loggedin: false,
-    username: "Guest",
+    loading: true,
+    valid: false,
+    firstname: "",
+    lastname: "",
+    email: "",
     usermenu: [
       {
         icon: 'input',
@@ -19,7 +22,7 @@ export default {
         title: 'Login',
         click: (e) => {
           console.log(e);
-        }  
+        }
       },
       {
         icon: 'create',
@@ -27,12 +30,12 @@ export default {
         title: 'Register',
         click: (e) => {
           console.log(e);
-        }  
-      },      
+        }
+      },
     ],
   },
   actions: {
-    login ({ commit, state, dispatch }, message) {
+    setUserInfo({ commit, state, dispatch }, [firstname, lastname, email]) {
       let menu = [
         {
           icon: 'face',
@@ -49,12 +52,14 @@ export default {
           click: (e) => {
             dispatch('resetToken', null);
             // dispatch('logout', null);
-          } 
+          }
         }
       ];
       commit('updateUserMenu', { menu });
+      commit('updateUserInfo', [firstname, lastname, email]);
+      commit('setLoadingFinished');
     },
-    logout ({ commit, state, dispatch }, message) {
+    resetUserInfo({ commit, state, dispatch }) {
       let menu = [
         {
           icon: 'input',
@@ -62,7 +67,7 @@ export default {
           title: 'Login',
           click: (e) => {
             console.log(e);
-          }  
+          }
         },
         {
           icon: 'create',
@@ -70,31 +75,54 @@ export default {
           title: 'Register',
           click: (e) => {
             console.log(e);
-          }  
+          }
         },
-      ]
+      ];
       commit('updateUserMenu', { menu });
-      let menuAction = [actionBuilder.newProvideMenuAction()];
-      this.dispatch('actions/emitActionRequest', menuAction);   
+      commit('resetUserInfo');
+      commit('setLoadingFinished');
 
     },
-    setToken ({ commit, state, dispatch }, token) {
+    login({ commit, state, dispatch }, message) {
+      let infoAction = [actionBuilder.newProvideUserInfoAction()];
+      this.dispatch('actions/emitActionRequest', infoAction);
+    },
+    logout({ commit, state, dispatch }, message) {
+      let actions = [actionBuilder.newProvideMenuAction(), actionBuilder.newProvideUserInfoAction()];
+      this.dispatch('actions/emitActionRequest', actions);
+    },
+    setToken({ commit, state, dispatch }, token) {
       $cookies.set("user_jwt", token, 60 * 60);
-      commit('updateToken',token)
-    },    
-    resetToken ({ commit, state, dispatch }) {
-      commit('updateToken','')
+      commit('updateToken', token)
+    },
+    resetToken({ commit, state, dispatch }) {
+      commit('updateToken', '')
       $cookies.remove("user_jwt");
-    },    
+    },
   },
   mutations: {
-    updateUserMenu (state, { menu } ) {
-      console.log("change menu");
+    setLoadingFinished(state) {
+      state.loading = false;
+    },
+    updateUserMenu(state, { menu }) {
       state.usermenu = menu;
     },
-    updateToken (state, token ) {
-      console.log("change token", token);
+    updateToken(state, token) {
       state.jwttoken = token;
+    },
+    resetUserInfo(state) {
+      console.log("resetUserInfo");
+      state.valid = false;
+      state.firstname = "";
+      state.lastname = "";
+      state.email = "";
+    },
+    updateUserInfo(state, [firstname, lastname, email]) {
+      console.log("updateUserInfo");
+      state.valid = true;
+      state.firstname = firstname;
+      state.lastname = lastname;
+      state.email = email;
     }
   }
 };
