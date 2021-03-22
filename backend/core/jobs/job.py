@@ -61,7 +61,7 @@ class Job(object):
         self.app = create_app(True)
         self.db = db
         self.app.app_context().push()
-        triggered = datetime.datetime.now()
+        triggered = datetime.now()
         current_time = triggered.strftime("%H:%M:%S")
         logManager.info("Run " + self.name + " " + current_time)
 
@@ -86,7 +86,7 @@ class Job(object):
             je.state = "FAILED"
             print(e)
 
-        after = datetime.datetime.now()
+        after = datetime.now()
         delta = after - triggered
         je.lifetime = delta.total_seconds()
         self.db.session.commit()
