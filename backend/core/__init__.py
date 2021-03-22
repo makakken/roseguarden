@@ -54,7 +54,7 @@ def create_app(minimal=False, config_file="config.ini", test=False):
     # configure the app
     configure_app(app, config, test)
 
-    if __name__ != '__main__' and test != True:
+    if __name__ != '__main__' and test is False:
         gunicorn_logger = logging.getLogger('gunicorn.error')
         app.logger.handlers = gunicorn_logger.handlers
         app.logger.setLevel(gunicorn_logger.level)
