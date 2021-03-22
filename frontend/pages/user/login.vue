@@ -107,7 +107,6 @@ export default {
           { redirect: redirect }
         ),
       ];
-      console.log("---->", redirect, loginAction);
       this.$store.dispatch("actions/emitActionRequest", loginAction);
       this.$store.dispatch("user/login", null);
     },

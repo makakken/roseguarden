@@ -133,6 +133,10 @@ export default {
         label: "Legal notice",
         link: "/legal",
       },
+      {
+        label: "Terms of use",
+        link: "/termsofuse",
+      },
     ],
     snackbar: {
       show: false,
@@ -173,6 +177,22 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+>>> .error {
+  background-color: #FF5252 !important;
+}
+
+>>> .info {
+  background-color: #2196F3 !important;
+}
+
+>>> .success {
+  background-color: #4CAF50 !important;
+}
+
+>>> .warning {
+  background-color: #FFC107 !important;
+}
+
 .setting-fab {
   top: 50% !important;
   right: 0;

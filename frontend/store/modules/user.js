@@ -19,7 +19,7 @@ export default {
         title: 'Login',
         click: (e) => {
           console.log(e);
-        }  
+        }
       },
       {
         icon: 'create',
@@ -27,12 +27,15 @@ export default {
         title: 'Register',
         click: (e) => {
           console.log(e);
-        }  
-      },      
+        }
+      },
     ],
   },
   actions: {
-    login ({ commit, state, dispatch }, message) {
+    changeLoginStatus({ commit, state, dispatch }, loggedin) {
+      commit('updateLoginStatus', { loggedin });
+    },
+    login({ commit, state, dispatch }, message) {
       let menu = [
         {
           icon: 'face',
@@ -49,12 +52,12 @@ export default {
           click: (e) => {
             dispatch('resetToken', null);
             // dispatch('logout', null);
-          } 
+          }
         }
       ];
       commit('updateUserMenu', { menu });
     },
-    logout ({ commit, state, dispatch }, message) {
+    logout({ commit, state, dispatch }, message) {
       let menu = [
         {
           icon: 'input',
@@ -62,7 +65,7 @@ export default {
           title: 'Login',
           click: (e) => {
             console.log(e);
-          }  
+          }
         },
         {
           icon: 'create',
@@ -70,29 +73,32 @@ export default {
           title: 'Register',
           click: (e) => {
             console.log(e);
-          }  
+          }
         },
       ]
       commit('updateUserMenu', { menu });
       let menuAction = [actionBuilder.newProvideMenuAction()];
-      this.dispatch('actions/emitActionRequest', menuAction);   
+      this.dispatch('actions/emitActionRequest', menuAction);
 
     },
-    setToken ({ commit, state, dispatch }, token) {
+    setToken({ commit, state, dispatch }, token) {
       $cookies.set("user_jwt", token, 60 * 60);
-      commit('updateToken',token)
-    },    
-    resetToken ({ commit, state, dispatch }) {
-      commit('updateToken','')
+      commit('updateToken', token)
+    },
+    resetToken({ commit, state, dispatch }) {
+      commit('updateToken', '')
       $cookies.remove("user_jwt");
-    },    
+    },
   },
   mutations: {
-    updateUserMenu (state, { menu } ) {
+    updateLoginStatus(state, { loggedin }) {
+      state.loggedin = loggedin;
+    },
+    updateUserMenu(state, { menu }) {
       console.log("change menu");
       state.usermenu = menu;
     },
-    updateToken (state, token ) {
+    updateToken(state, token) {
       console.log("change token", token);
       state.jwttoken = token;
     }

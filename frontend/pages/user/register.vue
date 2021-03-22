@@ -65,6 +65,20 @@
                     type="text"
                     v-model="model.organization"
                   ></v-text-field>
+
+                  <v-switch
+                    dense
+                    v-model="switchMe"
+                    :rules="[rules.accept]"
+                    style="display: inline-block"
+                  >
+                    <template v-slot:label>
+                      I have read and accept the &nbsp;
+                    </template>
+                  </v-switch>
+                  <router-link to="/termsofuse" target="_blank">
+                    Terms of use.
+                  </router-link>
                 </v-form>
               </v-card-text>
               <v-card-actions>
@@ -100,11 +114,14 @@ export default {
       firstname: "",
       lastname: "",
       organization: "",
+      terms: "",
       password: "",
       password_verification: "",
     },
     rules: {
       required: (v) => !!v || "Value is required",
+      accept: (v) => !!v || "Have to be accepted",
+
       password: [
         (v) =>
           /(.){7,}\w+/.test(v) || "Password have to have at least 8 characters",
