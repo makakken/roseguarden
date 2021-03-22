@@ -2,7 +2,7 @@ const MenuStaticAppend = [
   { divider: true },
   { header: 'Konglomerat e.V.' },
   {
-    title: 'Konglomerat website',
+    title: 'Konglomerat',
     group: 'links',
     icon: 'home',
     external: true,
