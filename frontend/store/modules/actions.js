@@ -121,6 +121,12 @@ export default {
           case 'updateMenu':
             this.dispatch('menu/updateMenu', action.data);
             break;
+          case 'updateUserInfo':
+            this.dispatch('user/setUserInfo', [action.firstname, action.lastname, action.mail]);
+            break;
+          case 'resetUserInfo':
+            this.dispatch('user/resetUserInfo');
+            break;
           case 'loadView':
             this.dispatch('views/loadView', [action.viewname, action.viewdata]);
             break;

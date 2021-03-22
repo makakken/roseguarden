@@ -26,7 +26,7 @@ pylint:
   before_script:
     - pip install pylint
   script:
-    - pylint backend/*.py
+    - pylint backend
   only:
     refs:
       - master
@@ -36,3 +36,22 @@ pylint:
   except:
     changes:
       - "README.md"
+
+pytest:
+  stage: test
+  image: python:3.8
+  before_script:
+    - pip install -r backend/requirements.txt  
+    - pip install pytest requests
+  script:
+    - pytest --junitxml=report.xml
+  only:
+    refs:
+      - master
+      - merge_requests
+    changes:
+      - backend/**/*    
+  artifacts:
+    when: always
+    reports:
+      junit: report.xml

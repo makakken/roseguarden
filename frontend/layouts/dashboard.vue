@@ -169,7 +169,10 @@ export default {
   },
   mounted() {
     this.$store.dispatch("actions/startRunner").then((response) => {
-      let menuAction = [actionBuilder.newProvideMenuAction()];
+      let menuAction = [
+        actionBuilder.newProvideMenuAction(),
+        actionBuilder.newProvideUserInfoAction(),
+      ];
       this.$store.dispatch("actions/emitActionRequest", menuAction);
     });
   },

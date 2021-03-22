@@ -30,9 +30,6 @@ module.exports = {
   ** Customize the progress-bar color
   */
   loading: { color: '#3adced' },
-  server: {
-    port: 3001 // default: 3000
-  },
   /*
   ** Global CSS
   */
@@ -76,6 +73,9 @@ module.exports = {
     }
   },
 
+  server: {
+    port: 3333 // default: 3000
+  },
 
   /*
   ** Nuxt.js modules

@@ -218,7 +218,13 @@ export default {
     },
   },
   computed: {
-    ...mapState("user", ["jwttoken", "loggedin"]),
+    ...mapState("user", [
+      "jwttoken",
+      "valid",
+      "firstname",
+      "lastname",
+      "loading",
+    ]),
   },
   created() {},
   mounted() {},

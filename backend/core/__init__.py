@@ -48,13 +48,13 @@ bcrypt = Bcrypt()
 migrate = Migrate()
 
 
-def create_app(minimal=False):
-    config = load_config("config.ini")
+def create_app(minimal=False, config_file="config.ini", test=False):
+    config = load_config(config_file)
     app = Flask(__name__, static_folder="./dist")
     # configure the app
-    configure_app(app, config)
+    configure_app(app, config, test)
 
-    if __name__ != '__main__':
+    if __name__ != '__main__' and test is False:
         gunicorn_logger = logging.getLogger('gunicorn.error')
         app.logger.handlers = gunicorn_logger.handlers
         app.logger.setLevel(gunicorn_logger.level)
