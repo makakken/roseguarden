@@ -1,20 +1,13 @@
 const MenuStaticAppend = [
-  {divider: true},
-  {header: 'Tools & Links'},
-  { 
-    title: 'Door emulator',
-    group: 'links', 
+  { divider: true },
+  { header: 'Konglomerat e.V.' },
+  {
+    title: 'Konglomerat website',
+    group: 'links',
     icon: 'home',
     external: true,
-    href: 'https://rosemockup.fabba.space/door'
-  },
-  { 
-    title: 'Node emulator',
-    group: 'links', 
-    icon: 'touch_app',
-    external: true,
-    href: 'https://rosemockup.fabba.space/generic'
-  },
+    href: 'https://konglomerat.org/'
+  }
 ];
 
 // reorder menu
