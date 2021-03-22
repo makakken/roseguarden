@@ -45,6 +45,12 @@ pytest:
     - pip install pytest requests
   script:
     - pytest --junitxml=report.xml
+  only:
+    refs:
+      - master
+      - merge_requests
+    changes:
+      - backend/**/*    
   artifacts:
     when: always
     reports:

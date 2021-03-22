@@ -10,8 +10,8 @@ class TestAction:
         jwt = {
             'actions': [{
                 'action': 'login',
-                'password': 'test',
-                'username': 'test@fabba.space',
+                'password': 'test1234',
+                'username': 'roseguarden@fabba.space',
                 'version': 1,
                 'workspace': 'users'
             }],
@@ -29,6 +29,8 @@ class TestAction:
         login_request = client.post('http://127.0.0.1:5000/api/v1', json=jwt)
         assert login_request.status_code == 200
         resp = json.loads(login_request.get_data())
+        notify_action = next(item for item in resp['actions'] if item["action"] == "notify")
+        assert notify_action['messagetype'] == 'success'
         print(resp)
         resp = login_request.response[0]
         print(resp)
