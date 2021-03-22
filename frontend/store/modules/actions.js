@@ -15,14 +15,14 @@ export default {
 
   },
   actions: {
-    emitActionRequest ({ commit, rootState, state, dispatch }, action, data=null) {
+    emitActionRequest({ commit, rootState, state, dispatch }, action, data = null) {
       let token = $cookies.get("user_jwt");//rootState.user.jwttoken;
       console.log("emitAction:", action, data, token,);
       let actionRequest = requestBuilder.newActionRequest(action, data);
       let options = {};
-      if(token !== null) {
+      if (token !== null) {
         options = {
-          headers: {'X-CSRF-TOKEN': token, 'Authorization': 'Bearer ' + token},
+          headers: { 'X-CSRF-TOKEN': token, 'Authorization': 'Bearer ' + token },
           withCredentials: true
         };
       }
@@ -32,62 +32,62 @@ export default {
           .then(r => r.data)
           .then(reply => {
             dispatch('updateApp', reply.head);
-            for(let x of reply.actions) {
-              switch(x.action) {
+            for (let x of reply.actions) {
+              switch (x.action) {
                 case 'loadView':
                   this.dispatch('views/announceLoadView', [x.viewname]);
                   break;
               }
             }
-            commit('addActions', { actions: reply.actions, data: reply.data});
+            commit('addActions', { actions: reply.actions, data: reply.data });
             resolve(reply.response)
           })
           .catch(error => {
             console.log(error);
             if (error.response.status === 401) {
               this.dispatch('user/resetToken');
-            } 
+            }
             reject(error);
           });
-        });
+      });
     },
-    updateApp ({ commit, rootState,state, dispatch }, head) {
+    updateApp({ commit, rootState, state, dispatch }, head) {
       console.log((unescape(process.env.FRONTENDVERSION).toString()));
       rootState.app.backendVersion = head.version;
       rootState.app.frontendVersion = JSON.parse(unescape(process.env.FRONTENDVERSION).toString());
     },
-    startRunner ({ commit, state, dispatch }) {
+    startRunner({ commit, state, dispatch }) {
       return new Promise((resolve, reject) => {
         console.log(state.runner)
-        if(state.runner === 'uninitialized') {
-          commit('setRunner', { runnerstate : 'idle' } )
+        if (state.runner === 'uninitialized') {
+          commit('setRunner', { runnerstate: 'idle' })
           dispatch('cycleRunner')
           console.log("Action runner started");
         } else {
           console.log("Action runner already started");
         }
         resolve();  // Let the calling function know that http is done. You may send some data back
-      })  
+      })
     },
-    cycleRunner ({ commit, state, dispatch } ) {
+    cycleRunner({ commit, state, dispatch }) {
       let timeout = 100;
       switch (state.runner) {
         case 'uninitialized':
           break;
         case 'idle':
-          if(state.actionlist.length === 0) {
+          if (state.actionlist.length === 0) {
             break;
           } else {
-            commit('setRunner', { runnerstate : 'running' } )
+            commit('setRunner', { runnerstate: 'running' })
             console.log("runner is running with ", state.actionlist.length, " new actions");
           }
         case 'running':
-          if(state.actionlist.length === 0) {
-            commit('setRunner', { runnerstate : 'idle' } )
+          if (state.actionlist.length === 0) {
+            commit('setRunner', { runnerstate: 'idle' })
             console.log("runner is in idle");
             break;
           } else {
-            commit('setRunner', { runnerstate : 'waiting' } )
+            commit('setRunner', { runnerstate: 'waiting' })
             dispatch('runAction', state.actionlist[0]);
           }
           break;
@@ -96,15 +96,15 @@ export default {
         default:
           console.log("runner is in unhandled state");
           break;
-      }      
+      }
       let setTimeoutObject = setTimeout(() => {
         dispatch('cycleRunner');
       }, timeout);
     },
-    runAction ({ commit, state, dispatch }, action) {
+    runAction({ commit, state, dispatch }, action) {
       console.log(action);
       let setTimeoutObject = setTimeout(() => {
-        switch(action.action) {
+        switch (action.action) {
           case 'notify':
             this.dispatch('notifications/pushNotification', [action.message, action.messagetype]);
             break;
@@ -121,30 +121,36 @@ export default {
           case 'updateMenu':
             this.dispatch('menu/updateMenu', action.data);
             break;
+          case 'updateUserInfo':
+            this.dispatch('user/setUserInfo', [action.firstname, action.lastname, action.mail]);
+            break;
+          case 'resetUserInfo':
+            this.dispatch('user/resetUserInfo');
+            break;
           case 'loadView':
             this.dispatch('views/loadView', [action.viewname, action.viewdata]);
             break;
           default:
-            console.log("ingonore unknown action", action.action ,"to handle");
+            console.log("ingonore unknown action", action.action, "to handle");
             break;
         }
         Vue.nextTick(function () {
-          commit('shiftActions');          
-          commit('setRunner', { runnerstate : 'running' } );  
-        })        
-      }, action.delay*1000);
+          commit('shiftActions');
+          commit('setRunner', { runnerstate: 'running' });
+        })
+      }, action.delay * 1000);
     }
   },
   mutations: {
-    setRunner (state, { runnerstate }) {
+    setRunner(state, { runnerstate }) {
       state.runner = runnerstate;
     },
-    addActions (state, { actions, data } ) {
+    addActions(state, { actions, data }) {
       console.log(actions, data)
       state.actionlist = state.actionlist.concat(actions);
       console.log(state.actionlist)
     },
-    shiftActions  (state ) {
+    shiftActions(state) {
       state.actionlist.shift()
     }
   }
