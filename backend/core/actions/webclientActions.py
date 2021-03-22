@@ -89,6 +89,35 @@ class LoadViewAction(BaseAction):
         return action
 
 
+class ResetUserInfoAction(BaseAction):
+    action = 'resetUserInfo'
+    target = 'webclient'
+
+    def __init__(self, app):
+        pass
+
+    @classmethod
+    def generate(cls, delay=0.0):
+        action = super(ResetUserInfoAction, cls).generate(delay)
+        return action
+
+
+class UpdateUserInfoAction(BaseAction):
+    action = 'updateUserInfo'
+    target = 'webclient'
+
+    def __init__(self, app):
+        pass
+
+    @classmethod
+    def generate(cls, first_name, last_name, email, delay=0.0):
+        action = super(UpdateUserInfoAction, cls).generate(delay)
+        action['firstname'] = first_name
+        action['lastname'] = last_name
+        action['usermail'] = email
+        return action
+
+
 class UpdateMenuAction(BaseAction):
     action = 'updateMenu'
     target = 'webclient'
