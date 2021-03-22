@@ -12,24 +12,24 @@ module.exports = {
   head: {
     title: 'Roseguarden',
     meta: [
-      {charset: 'utf-8'},
-      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         hid: 'description', name: 'description', content: 'Roseguarden is a management tool for shared spaces'
       }
     ],
     link: [
-      {rel: 'icon', type: 'image/x-icon', href: '/fabba_logo.png'}
+      { rel: 'icon', type: 'image/x-icon', href: '/fabba_logo.png' }
     ],
     script: [
-      {src: 'https://cdnjs.cloudflare.com/ajax/libs/echarts/4.0.4/echarts-en.min.js'}
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/echarts/4.0.4/echarts-en.min.js' }
     ]
   },
 
   /*
   ** Customize the progress-bar color
   */
-  loading: {color: '#3adced'},
+  loading: { color: '#3adced' },
 
   /*
   ** Global CSS
@@ -38,8 +38,8 @@ module.exports = {
     //'~/assets/style/theme.styl',
     //'~/assets/style/app.styl',
     '~/assets/style/app.sass',
-    'vuetify/src/styles/styles.sass',   
-    
+    'vuetify/src/styles/styles.sass',
+
     'font-awesome/css/font-awesome.css',
     'roboto-fontface/css/roboto/roboto-fontface.css',
     'material-design-icons/iconfont/material-icons.css',
@@ -53,12 +53,12 @@ module.exports = {
     '@/plugins/vee-validate',
   ],
   router: {
-    extendRoutes (routes, resolve) {
-      routes.push( {
+    extendRoutes(routes, resolve) {
+      routes.push({
         path: "/actionlink/:actionhash",
         component: resolve(__dirname, 'pages/actionlink.vue'),
         name: "actionlink",
-        props: true        
+        props: true
       }, {
         path: "/:section",
         component: resolve(__dirname, 'pages/section.vue'),
@@ -68,12 +68,15 @@ module.exports = {
         path: "/:group/:section",
         component: resolve(__dirname, 'pages/section.vue'),
         name: "section-grouped",
-        props: true        
+        props: true
       }
       )
     }
-  },  
+  },
 
+  server: {
+    port: 3333 // default: 3000
+  },
 
   /*
   ** Nuxt.js modules
@@ -81,7 +84,7 @@ module.exports = {
   modules: [
     // Simple usage
     '@nuxtjs/proxy',
-    '@nuxtjs/vuetify',  
+    '@nuxtjs/vuetify',
   ],
 
   /*
@@ -93,17 +96,17 @@ module.exports = {
         indentedSyntax: true,
       }
     },
-    extractCSS : true,
-    defaultAssets : {
+    extractCSS: true,
+    defaultAssets: {
       font: {
-        family: 'Roboto' 
+        family: 'Roboto'
       },
       icons: 'mdi'
     },
     /*
     ** You can extend webpack config here
     */
-    extend (config, { isClient }) {
+    extend(config, { isClient }) {
       // Extend only webpack config for client-bundle
       if (isClient) {
         //config.devtool = '#source-map'
@@ -113,55 +116,55 @@ module.exports = {
   vuetify: {
     //treeShake: true,
     //customVariables: ['~/assets/style/variables.sass'],
-    theme: {    
-        options: {
-          customProperties: true,
-          minifyTheme(css) {
-            return process.env.NODE_ENV === 'production'
-              ? css //.replace(/(?<!v-application)[\s|\r\n|\r|\n]/g, '')
-              : css
-          },
+    theme: {
+      options: {
+        customProperties: true,
+        minifyTheme(css) {
+          return process.env.NODE_ENV === 'production'
+            ? css //.replace(/(?<!v-application)[\s|\r\n|\r|\n]/g, '')
+            : css
         },
-        light: true,
-        dark: false,
-        themes: {
-            light: {
-                primary: "#1976D2",
-                secondary: colors.grey.darken1,
-                accent: colors.shades.black,
-                error: colors.red.accent3,
-            },
-            dark: {
-              primary: "#1976D2",
-              secondary: colors.grey.darken1,
-              accent: colors.shades.black,
-              error: colors.red.accent3,
-            }            
+      },
+      light: true,
+      dark: false,
+      themes: {
+        light: {
+          primary: "#1976D2",
+          secondary: colors.grey.darken1,
+          accent: colors.shades.black,
+          error: colors.red.accent3,
+        },
+        dark: {
+          primary: "#1976D2",
+          secondary: colors.grey.darken1,
+          accent: colors.shades.black,
+          error: colors.red.accent3,
         }
+      }
     }
-  },  
+  },
   proxy: {
     // Simple proxy
     //'/api': 'https://www.roseguarden.fabba.space/api/log',
- 
+
     // With options
-    '/api/v1/log': { 
+    '/api/v1/log': {
       target: 'http://localhost:5000',
       // target: 'https://www.roseguarden.fabba.space', 
       ws: true,
       secure: true,
-      changeOrigin: true      
+      changeOrigin: true
     },
-    '/api/v1': { 
+    '/api/v1': {
       target: 'http://localhost:5000',
       // target: 'https://www.roseguarden.fabba.space', 
       ws: true,
       secure: false,
-      changeOrigin: true      
+      changeOrigin: true
     },
   },
   env: {
     baseUrl: process.env.BASE_URL || 'http://localhost:3000',
     FRONTENDVERSION: escape(JSON.stringify(require('./package.json').version))
-  }  
+  }
 }
