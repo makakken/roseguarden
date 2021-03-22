@@ -6,9 +6,9 @@ stages:
   - analysis
   - build
   - docs
+  - test
   - pack
   - release
-  - test
 
 include:
   - local: "docs/.gitlab-ci.yml"
