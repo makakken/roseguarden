@@ -1,4 +1,3 @@
-import requests
 import json
 
 
@@ -34,10 +33,10 @@ class TestAction:
         print(resp)
         resp = login_request.response[0]
         print(resp)
-        #print(login_request.status_code, login_request.reason, login_request.content)
-        #print('----')
-        #print(login_request.cookies)
-        #print("csrf_access_token: ", login_request.cookies['csrf_access_token'])
+        # print(login_request.status_code, login_request.reason, login_request.content)
+        # print('----')
+        # print(login_request.cookies)
+        # print("csrf_access_token: ", login_request.cookies['csrf_access_token'])
 
         # extract cookies from login_request
         # cookies = requests.utils.dict_from_cookiejar(login_request.cookies)
