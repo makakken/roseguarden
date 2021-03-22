@@ -60,6 +60,8 @@ class Login(Action):
                     else:
                         replyActions.append(webclientActions.RouteAction.generate("dashboard", 2))
 
+                replyActions.append(
+                    webclientActions.UpdateUserInfoAction.generate(user.firstname, user.lastname, user.email))
                 user.sessionValid = True
                 user.last_login_date = arrow.utcnow()
                 # actionManager.db.session.commit()

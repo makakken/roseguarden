@@ -114,7 +114,7 @@ class UpdateUserInfoAction(BaseAction):
         action = super(UpdateUserInfoAction, cls).generate(delay)
         action['firstname'] = first_name
         action['lastname'] = last_name
-        action['usermail'] = email
+        action['mail'] = email
         return action
 
 
