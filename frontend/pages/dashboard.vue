@@ -2,19 +2,21 @@
   <v-container>
     <v-row dense>
       <v-col cols="12" lg="12" sm="12" xs="12" align="center">
-        <h1>Welcome to the Konglomerat e.V. roseguarden</h1>
+        <h1>Willkommen im Rosengarten des Konglomerat!</h1>
         <br />
         <v-alert type="info">
-          Please feel encouraged to test the features and the worklow of
-          roseguarden on this server. <br />
-          If you find bugs or have feature requests, please start with an issue
+          Wenn du Bugs findest, poste sie bitte als Issue
           <a
             href="https://gitlab.com/roseguarden/roseguarden/-/issues"
             style="color: white"
             target="_blank"
           >
-            here.
+            hier.
           </a>
+          <br />
+          Wenn dir das nichts ist, wende dich bitte mit allen Support-Anfragen
+          an zugang@konglomerat.org. <br />Unten gibt es eine FAQ Sektion, da
+          lohnt es sich mal reinzuschauen.
         </v-alert>
       </v-col>
     </v-row>
@@ -54,7 +56,7 @@
           <!---
                   <img src="../static/konglo_logo.png" alt="Roseguarden logo" width="120" height="120">
                   ---->
-          <h2 class="">Roseguarden login</h2>
+          <h2 class="">Anmelden</h2>
         </div>
         <v-form v-model="valid_credentials">
           <v-text-field
@@ -115,23 +117,23 @@
         >
       </v-col>
 
-      <v-col cols="3" lg="4" sm="4" />
-      <v-col cols="6" lg="4" sm="4" align="center">
+      <v-col cols="1" />
+      <v-col cols="12">
         <div class="text-center">
-          <h2 class="flex my-4">You don't have an account?</h2>
-          <v-btn dark color="primary" to="/user/register">Register here</v-btn>
+          <h2 class="flex my-4">Noch keinen Account?</h2>
+          <p>
+            Um das neue System zu nutzen, musst du dich zuerst registrieren.
+            <br />Mit deinem Account kannst du dann deine Karte freischalten,
+            den aktuellen Status anschauen und Änderungen vornehmen.
+          </p>
+          <v-btn dark color="primary" to="/user/register">Registrieren</v-btn>
         </div>
       </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="3" lg="4" sm="4" />
+      <v-col cols="1" />
       <v-col cols="12" lg="12" sm="12" xs="12" align="center">
         <v-alert type="error">
-          This is a public server. Please be aware that all data is visible to
-          anybody.
-          <br />
-          It's meant to be only for test purposes. The data can be reset at any
-          time.
+          Wenn du dich hier nicht registrierst, wird deine alten Karte ab
+          xx.xx.xxxx nicht mehr funktionieren!
         </v-alert>
       </v-col>
     </v-row>
