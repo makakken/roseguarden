@@ -7,7 +7,7 @@
         <v-alert type="info">
           Wenn du Bugs findest, poste sie bitte als Issue
           <a
-            href="https://gitlab.com/roseguarden/roseguarden/-/issues"
+            href="https://github.com/konglomerat/roseguarden/issues"
             style="color: white"
             target="_blank"
           >
