@@ -37,8 +37,8 @@
           hide-overlay
           fixed
         >
-        <theme-settings></theme-settings> 
-        </v-navigation-drawer> 
+        <theme-settings></theme-settings>
+        </v-navigation-drawer>
         -->
         <v-footer
           min-height="60px"
@@ -137,6 +137,10 @@ export default {
         label: "Nutzungsbedingungen",
         link: "/termsofuse",
       },
+      {
+        label: "FAQ",
+        link: "/faq",
+      }
     ],
     snackbar: {
       show: false,
