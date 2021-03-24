@@ -48,11 +48,13 @@ class UserList(DataView):
         self.addActionProperty(name='setAdmin',
                                label='Give admin privileges',
                                action='setAdmin',
+                               actionHandler=self.setAdmin,
                                icon='flash_on',
                                color="green")
         self.addActionProperty(name='unsetAdmin',
                                label='Remove admin privileges',
                                action='unsetAdmin',
+                               actionHandler=self.unsetAdmin,
                                icon='flash_off')
 
     def getViewMetaHandler(self, user, workspace):
@@ -95,6 +97,18 @@ class UserList(DataView):
         self.emitSyncCreate(entrykey, "userLockedList")
         self.emitSyncRemove(entrykey, "userList")
         return {"a": 1}
+
+    def unsetAdmin(self, user, workspace, action, entrykey):
+        if user.admin is True:
+            user_to_change = User.query.filter_by(email=entrykey).first()
+            user_to_change.admin = False
+            self.emitSyncRemove(entrykey, "userList")
+
+    def setAdmin(self, user, workspace, action, entrykey):
+        if user.admin is True:
+            user_to_change = User.query.filter_by(email=entrykey).first()
+            user_to_change.admin = True
+        self.emitSyncRemove(entrykey, "userList")
 
     def __repr__(self):
         return '<{} with {} properties>'.format(self.name, len(self.properties))
