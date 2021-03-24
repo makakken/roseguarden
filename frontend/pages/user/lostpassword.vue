@@ -10,7 +10,7 @@
                   <!---
                   <img src="../static/konglo_logo.png" alt="Roseguarden logo" width="120" height="120">
                   ---->
-                  <h2 class="flex my-4 primary--text">Lost password?</h2>
+                  <h2 class="flex my-4 primary--text">Passwort vergessen?</h2>
                 </div>
                 <v-form v-model="valid">
                   <v-text-field
@@ -25,9 +25,9 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="error" @click="cancel">Cancel</v-btn>
+                <v-btn color="error" @click="cancel">Zurück</v-btn>
                 <v-btn color="primary" :disabled="!valid" @click="send"
-                  >Send</v-btn
+                  >Senden</v-btn
                 >
               </v-card-actions>
             </v-card>

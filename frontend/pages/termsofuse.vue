@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-card height="600px">
       <v-card-title>
-        <h3>Terms of use</h3>
+        <h3>Nutzungsbedingungen</h3>
       </v-card-title>
       <v-card-text dense>
         <h4>Last updated on 14.03.2021</h4>

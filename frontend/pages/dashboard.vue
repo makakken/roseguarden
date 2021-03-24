@@ -15,8 +15,10 @@
           </a>
           <br />
           Wenn dir das nichts ist, wende dich bitte mit allen Support-Anfragen
-          an zugang@konglomerat.org. <br />Unten gibt es eine FAQ Sektion, da
-          lohnt es sich mal reinzuschauen.
+          an
+          <a href="mailto:zugang@konglomerat.org">zugang@konglomerat.org</a> .
+          <br />Unten gibt es eine FAQ Sektion, da lohnt es sich mal
+          reinzuschauen.
         </v-alert>
       </v-col>
     </v-row>
@@ -86,7 +88,7 @@
           color="primary"
           href="/user/lostpassword"
           target="_blank"
-          >Lost password?</v-btn
+          >Passwort vergessen?</v-btn
         >
         <v-btn
           dense
@@ -95,7 +97,7 @@
           color="primary"
           href="/user/resendverificationmail"
           target="_blank"
-          >Resend verification request?</v-btn
+          >Verifizierung nochmal senden?</v-btn
         >
       </v-col>
       <v-col
@@ -113,7 +115,7 @@
           width="100%"
           @click="login"
           :disabled="!valid_credentials"
-          >Login</v-btn
+          >Anmelden</v-btn
         >
       </v-col>
 

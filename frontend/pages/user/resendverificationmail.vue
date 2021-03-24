@@ -11,14 +11,14 @@
                   <img src="../static/konglo_logo.png" alt="Roseguarden logo" width="120" height="120">
                   ---->
                   <h2 class="flex my-4 primary--text">
-                    Resend verification request?
+                    Verifizierung nochmal senden?
                   </h2>
                 </div>
                 <v-form v-model="valid">
                   <v-text-field
                     append-icon="person"
                     name="email"
-                    label="Enter your email address"
+                    label="eMail"
                     type="email"
                     :rules="[rules.email, rules.required]"
                     v-model="email"
@@ -27,9 +27,9 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="error" @click="cancel">Cancel</v-btn>
+                <v-btn color="error" @click="cancel">Zurück</v-btn>
                 <v-btn color="primary" :disabled="!valid" @click="send"
-                  >Send</v-btn
+                  >Senden</v-btn
                 >
               </v-card-actions>
             </v-card>

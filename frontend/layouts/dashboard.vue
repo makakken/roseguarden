@@ -118,23 +118,23 @@ export default {
     rightDrawer: false,
     footerlinks: [
       {
-        label: "About",
+        label: "Über uns",
         link: "/about",
       },
       {
-        label: "Contact",
+        label: "Kontakt",
         link: "/contact",
       },
       {
-        label: "Privacy policy",
+        label: "Datenschutz",
         link: "/privacy",
       },
       {
-        label: "Legal notice",
+        label: "Impressum",
         link: "/legal",
       },
       {
-        label: "Terms of use",
+        label: "Nutzungsbedingungen",
         link: "/termsofuse",
       },
     ],

@@ -3,16 +3,14 @@
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
-          <v-flex xs12 sm8 md4 lg4>
+          <v-flex xs12 sm8 md5 lg5>
             <v-card class="elevation-1 pa-3">
               <v-card-text>
                 <div class="layout column align-center">
                   <!---
                   <img src="../static/konglo_logo.png" alt="Roseguarden logo" width="120" height="120">
                   ---->
-                  <h2 class="flex my-4 primary--text">
-                    Register Roseguarden account
-                  </h2>
+                  <h2 class="flex my-4 primary--text">Registrierung</h2>
                 </div>
                 <v-form ref="form" v-model="valid">
                   <v-text-field
@@ -27,7 +25,7 @@
                   <v-text-field
                     append-icon="lock"
                     name="password"
-                    label="Password"
+                    label="Passwort"
                     id="password"
                     type="password"
                     v-model="model.password"
@@ -36,7 +34,7 @@
                   <v-text-field
                     append-icon="lock_open"
                     name="password"
-                    label="Repeat password"
+                    label="Passwort wiederholen"
                     id="password_verification"
                     type="password"
                     v-model="model.password_verification"
@@ -45,7 +43,7 @@
                   <v-text-field
                     append-icon="person"
                     name="login"
-                    label="First name"
+                    label="Vorname"
                     type="text"
                     v-model="model.firstname"
                     :rules="[rules.required]"
@@ -53,7 +51,7 @@
                   <v-text-field
                     append-icon="people"
                     name="login"
-                    label="Last name"
+                    label="Nachname"
                     type="text"
                     v-model="model.lastname"
                     :rules="[rules.required]"
@@ -61,7 +59,7 @@
                   <v-text-field
                     append-icon="home"
                     name="login"
-                    label="Organization"
+                    label="Gruppe (optional)"
                     type="text"
                     v-model="model.organization"
                   ></v-text-field>
@@ -73,15 +71,44 @@
                     style="display: inline-block"
                   >
                     <template v-slot:label>
-                      I have read and accept the &nbsp;
+                      Ich bestätige, dass ich zugangsberechtigtes Mitglied des
+                      Konglomerat e.V. bin oder eine temporäre Nutzung des
+                      #Rosenwerks erworben habe. &nbsp;
                     </template>
                   </v-switch>
-                  <router-link to="/termsofuse" target="_blank">
-                    Terms of use.
-                  </router-link>
+                  <v-switch
+                    dense
+                    v-model="switchMe2"
+                    :rules="[rules.accept]"
+                    style="display: inline-block"
+                  >
+                    <template v-slot:label>
+                      Ich habe die Nutzungsvereinbarung und die
+                      Datenschutzerklärung gelesen und erkläre mich damit
+                      einverstanden.
+                    </template>
+                  </v-switch>
                 </v-form>
               </v-card-text>
               <v-card-actions>
+                <v-btn
+                  dense
+                  text
+                  small
+                  color="primary"
+                  href="/privacy"
+                  target="_blank"
+                  >Datenschutzerklärung</v-btn
+                >
+                <v-btn
+                  dense
+                  text
+                  small
+                  color="primary"
+                  href="/termsofuse"
+                  target="_blank"
+                  >Nutzungsvereinbarung</v-btn
+                >
                 <v-spacer></v-spacer>
                 <v-btn color="error" @click="cancel"> Cancel</v-btn>
                 <v-btn
@@ -109,6 +136,8 @@ export default {
   data: () => ({
     loading: false,
     valid: true,
+    switchMe2: false,
+    switchMe: false,
     model: {
       email: "",
       firstname: "",

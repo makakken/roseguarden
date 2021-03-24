@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-card height="600px">
       <v-card-title>
-        <h3>About</h3>
+        <h3>Über uns</h3>
       </v-card-title>
       <v-card-text dense>
         <p>
