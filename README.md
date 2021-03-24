@@ -1,4 +1,6 @@
-# roseguarden
+# The Konglomerat e.V. - roseguarden
+
+A fork of https://gitlab.com/roseguarden/roseguarden
 
 Roseguarden is an access and management system for spaces.
 
@@ -20,9 +22,9 @@ It's meant to be only for test purposes. The data can be reset at any time.
     * Create a `config.ini` with your settings (see `config.template`) 
     * Run 'flask run'
 
-### By cloning or forking this repository
+### By cloning or forking the roseguarden repository
 
-* Clone or fork this repository
+* Clone or fork https://gitlab.com/roseguarden/roseguarden 
 * Have a look in the `backend` and `frontend` folder for details to setup your development enviroment
 * run `backend` and `frontend` from your development environment (e.g. we use vs code)
     * start the backend with `flask run` out of the `backend` folder
