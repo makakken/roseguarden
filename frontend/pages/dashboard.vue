@@ -64,7 +64,7 @@
           <v-text-field
             append-icon="person"
             name="login"
-            label="Email address"
+            label="Email"
             type="email"
             v-model="model.username"
             :rules="[rules.email, rules.required]"
@@ -72,7 +72,7 @@
           <v-text-field
             append-icon="lock"
             name="password"
-            label="Password"
+            label="Passwort"
             id="password"
             type="password"
             v-model="model.password"
@@ -179,7 +179,7 @@ export default {
     log: "Loading log ...",
     valid_credentials: false,
     rules: {
-      required: (value) => !!value || "Required.",
+      required: (value) => !!value || "Notwendig.",
       email: (v) =>
         !v ||
         /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,5})+$/.test(v) ||

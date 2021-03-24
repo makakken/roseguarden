@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-card>
       <v-card-title>
-        <h3>Access info</h3>
+        <h3>Dein Zugang</h3>
         <v-spacer></v-spacer>
       </v-card-title>
 

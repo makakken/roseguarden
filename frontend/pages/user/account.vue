@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-card>
       <v-card-title>
-        <h3>User info</h3>
+        <h3>Nutzerinformation</h3>
         <v-spacer></v-spacer>
       </v-card-title>
       <v-row dense>
@@ -32,9 +32,9 @@
       <v-row dense>
         <v-col cols="1" />
         <v-col cols="10">
-          <v-subheader>First name</v-subheader>
+          <v-subheader>Vorname</v-subheader>
           <v-text-field
-            label="Your first name"
+            label="Dein Vorname"
             value="Max"
             v-model="accountdata.firstname"
             :loading="loading"
@@ -47,9 +47,9 @@
       <v-row dense>
         <v-col cols="1" />
         <v-col cols="10">
-          <v-subheader>Last name</v-subheader>
+          <v-subheader>Nachname</v-subheader>
           <v-text-field
-            label="Your last name"
+            label="Dein Nachname"
             v-model="accountdata.lastname"
             :loading="loading"
             hide-details
@@ -61,9 +61,9 @@
       <v-row dense>
         <v-col cols="1" />
         <v-col cols="10">
-          <v-subheader>Organization (optional)</v-subheader>
+          <v-subheader>Gruppe (optional)</v-subheader>
           <v-text-field
-            label="No organization"
+            label="Deine Gruppe"
             v-model="accountdata.organization"
             :loading="loading"
             hide-details
@@ -75,9 +75,9 @@
       <v-row dense>
         <v-col cols="1" />
         <v-col cols="10">
-          <v-subheader>Phone (optional)</v-subheader>
+          <v-subheader>Telefon (optional)</v-subheader>
           <v-text-field
-            label="Phone number"
+            label="Telefon"
             v-model="accountdata.phone"
             :loading="loading"
             hide-details
@@ -101,21 +101,20 @@
     <br />
     <v-card>
       <v-card-title>
-        <h3>Change Password</h3>
+        <h3>Passwort ändern</h3>
         <v-spacer></v-spacer>
       </v-card-title>
       <v-form ref="form" v-model="valid_password">
         <v-row dense>
           <v-col cols="1" />
           <v-col cols="10">
-            <v-subheader>Old password</v-subheader>
+            <v-subheader>Altes Passwort</v-subheader>
             <v-text-field
               append-icon="lock_open"
               :type="showOld ? 'text' : 'password'"
               name="oldpassword"
-              label="Type in old password"
+              label="Altes Passwort"
               dense
-              solo
               class="input-group--focused"
               :rules="[rules.required]"
               v-model="oldpassword"
@@ -125,11 +124,11 @@
         <v-row dense>
           <v-col cols="1" />
           <v-col cols="5">
-            <v-subheader>New password</v-subheader>
+            <v-subheader>Neues Passwort</v-subheader>
             <v-text-field
               append-icon="lock"
               name="password"
-              label="Your new password"
+              label="Neues Passwort"
               id="password"
               type="password"
               v-model="password"
@@ -142,11 +141,11 @@
             </v-text-field>
           </v-col>
           <v-col cols="5">
-            <v-subheader>Repeat pin</v-subheader>
+            <v-subheader>Neues Passwort wiederholen</v-subheader>
             <v-text-field
               append-icon="lock_open"
               name="password_verification"
-              label="Repeat your new password"
+              label="Neues Passwort"
               id="password_verification"
               type="password"
               v-model="password_verification"
@@ -172,13 +171,13 @@
     <br />
     <v-card>
       <v-card-title>
-        <h3>Account information</h3>
+        <h3>Kontoinformation</h3>
         <v-spacer></v-spacer>
       </v-card-title>
       <v-row dense>
         <v-col cols="1" />
         <v-col cols="10">
-          <v-subheader>Account created</v-subheader>
+          <v-subheader>Erstell am</v-subheader>
           <v-text-field
             label="Account created"
             v-model="accountdata.creationdate"
@@ -193,7 +192,7 @@
       <v-row dense>
         <v-col cols="1" />
         <v-col cols="10">
-          <v-subheader>Account verified</v-subheader>
+          <v-subheader>eMail geprüft</v-subheader>
           <v-text-field
             label="Account verified"
             v-model="accountdata.verified"
@@ -205,6 +204,7 @@
           ></v-text-field>
         </v-col>
       </v-row>
+      <!--
       <v-row dense>
         <v-col cols="1" />
         <v-col cols="10">
@@ -220,13 +220,14 @@
           ></v-text-field>
         </v-col>
       </v-row>
+      -->
       <br />
     </v-card>
     <br />
 
     <v-card>
       <v-card-title>
-        <h3>Authenticator (card, phone, device)</h3>
+        <h3>Authentifizierer (Karte, Telefon, Gerät)</h3>
         <v-spacer></v-spacer>
       </v-card-title>
       <v-form ref="form" v-model="valid_requestKey">
