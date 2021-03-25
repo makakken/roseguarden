@@ -77,12 +77,12 @@ class ActionManager(object):
 
         logManager.info("ActionManager initialized")
 
-    def createActionLink(self, workspace, action_uri, action_data_dict, redirect_to, once, need_login, expire_days):
+    def createActionLink(self, workspace, action_uri, action_data_dict, redirect_to, once, need_login, expire_hours):
         al = self.actionLink()
         al.hash = ''.join(random.choices(string.ascii_letters + string.digits, k=96))
         al.workspace = workspace.uri
         al.action = action_uri
-        al.expire_on_date = arrow.utcnow().shift(days=expire_days)
+        al.expire_on_date = arrow.utcnow().shift(hours=expire_hours)
         al.action_data_json = action_data_dict
         al.run_only_once = once
 
@@ -190,9 +190,9 @@ class ActionManager(object):
 
                     self.db.session.commit()
                     if state == 'success':
-                        logManager.info('Action {} succed for user: {}', action['action'], user)
+                        pass
                     else:
-                        logManager.error('Action {} failed for user: {}', action['action'], user)
+                        logManager.error('Action {} failed', action['action'])
 
                     response_intersection = response_data.keys() & response
                     if len(response_intersection) != 0:
