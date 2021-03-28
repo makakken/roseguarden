@@ -22,7 +22,7 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/konglo_logo.png' }
     ],
     script: [
-      { src: 'https://cdnjs.cloudflare.com/ajax/libs/echarts/4.0.4/echarts-en.min.js' }
+      {}//src: 'https://cdnjs.cloudflare.com/ajax/libs/echarts/4.0.4/echarts-en.min.js' }
     ]
   },
 
@@ -83,7 +83,7 @@ module.exports = {
   modules: [
     // Simple usage
     '@nuxtjs/proxy',
-    '@nuxtjs/vuetify',
+    ['@nuxtjs/vuetify', { defaultAssets: false, }],
   ],
 
   /*
