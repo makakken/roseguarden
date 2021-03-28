@@ -38,7 +38,7 @@ module.exports = {
     //'~/assets/style/app.styl',
     '~/assets/style/app.sass',
     'vuetify/src/styles/styles.sass',
-
+    '@mdi/font/scss/materialdesignicons.scss',
     'font-awesome/css/font-awesome.css',
     'roboto-fontface/css/roboto/roboto-fontface.css',
     'material-design-icons/iconfont/material-icons.css',
