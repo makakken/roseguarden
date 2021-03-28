@@ -91,33 +91,44 @@
                 </v-form>
               </v-card-text>
               <v-card-actions>
-                <v-btn
-                  dense
-                  text
-                  small
-                  color="primary"
-                  href="/privacy"
-                  target="_blank"
-                  >Datenschutzerklärung</v-btn
-                >
-                <v-btn
-                  dense
-                  text
-                  small
-                  color="primary"
-                  href="/termsofuse"
-                  target="_blank"
-                  >Nutzungsvereinbarung</v-btn
-                >
-                <v-spacer></v-spacer>
-                <v-btn color="error" @click="cancel"> Cancel</v-btn>
-                <v-btn
-                  color="primary"
-                  @click="signup"
-                  :disabled="!valid"
-                  :loading="loading"
-                  >Register</v-btn
-                >
+                <v-row>
+                  <v-col cols="12">
+                    <v-btn
+                      dense
+                      text
+                      small
+                      color="primary"
+                      href="/privacy"
+                      target="_blank"
+                      >Datenschutzerklärung</v-btn
+                    >
+                    <v-btn
+                      dense
+                      text
+                      small
+                      color="primary"
+                      href="/termsofuse"
+                      target="_blank"
+                      >Nutzungsvereinbarung</v-btn
+                    >
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="12">
+                    <v-btn color="error" min-width="100%" @click="cancel">
+                      Cancel</v-btn
+                    >
+                    <v-btn
+                      style="margin-top: 10px"
+                      color="primary"
+                      min-width="100%"
+                      @click="signup"
+                      :disabled="!valid"
+                      :loading="loading"
+                      >Register</v-btn
+                    >
+                  </v-col>
+                </v-row>
               </v-card-actions>
             </v-card>
           </v-flex>
