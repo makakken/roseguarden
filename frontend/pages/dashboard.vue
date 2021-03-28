@@ -60,7 +60,11 @@
                   ---->
           <h2 class="">Anmelden</h2>
         </div>
-        <v-form v-model="valid_credentials">
+        <v-form
+          v-model="valid_credentials"
+          @submit.prevent="login"
+          id="login-form"
+        >
           <v-text-field
             append-icon="person"
             name="login"
@@ -101,18 +105,21 @@
         >
       </v-col>
       <v-col
-        cols="3"
+        cols="12"
         offset="0"
         lg="3"
         offset-lg="0"
         sm="3"
         offset-sm="0"
         xs="3"
-        class="d-flex justify-end"
+        align="center"
+        justify="center"
       >
         <v-btn
           color="primary"
-          width="100%"
+          class="text-center"
+          form="login-form"
+          type="submit"
           @click="login"
           :disabled="!valid_credentials"
           >Anmelden</v-btn
