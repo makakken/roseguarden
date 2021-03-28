@@ -93,7 +93,7 @@
 
 <script>
 import Vue from "vue";
-import EChart from "@/components/chart/echartwrap";
+//import EChart from "@/components/chart/echartwrap";
 import VWidget from "@/components/VWidget";
 import Material from "vuetify/es5/util/colors";
 import BoxChart from "@/components/widgets/chart/BoxChart";
@@ -115,7 +115,6 @@ export default {
   layout: "dashboard",
   components: {
     VWidget,
-    EChart,
     BoxChart,
     codemirror,
   },

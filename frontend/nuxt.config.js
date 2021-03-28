@@ -22,7 +22,7 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/fabba_logo.png' }
     ],
     script: [
-      { src: 'https://cdnjs.cloudflare.com/ajax/libs/echarts/4.0.4/echarts-en.min.js' }
+      {} //src: 'https://cdnjs.cloudflare.com/ajax/libs/echarts/4.0.4/echarts-en.min.js' }
     ]
   },
 
@@ -39,7 +39,8 @@ module.exports = {
     //'~/assets/style/app.styl',
     '~/assets/style/app.sass',
     'vuetify/src/styles/styles.sass',
-
+    'echarts/dist/echarts-en.min.js',
+    '@mdi/font/scss/materialdesignicons.scss',
     'font-awesome/css/font-awesome.css',
     'roboto-fontface/css/roboto/roboto-fontface.css',
     'material-design-icons/iconfont/material-icons.css',
@@ -84,7 +85,7 @@ module.exports = {
   modules: [
     // Simple usage
     '@nuxtjs/proxy',
-    '@nuxtjs/vuetify',
+    ['@nuxtjs/vuetify', { defaultAssets: false, }],
   ],
 
   /*
