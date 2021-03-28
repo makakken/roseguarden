@@ -88,10 +88,10 @@
       </v-row>
       <br />
       <v-row justify="end">
-        <v-col cols="1" class="text-right">
+        <v-col cols="2" md="1" lg="1" class="text-right">
           <v-btn color="primary" @click="cancelData()">Cancel</v-btn>
         </v-col>
-        <v-col cols="1" class="text-right">
+        <v-col cols="2" md="1" lg="1" class="text-right">
           <v-btn color="primary" @click="submitUserInfo()">Submit</v-btn>
         </v-col>
         <v-col cols="1" />
@@ -306,14 +306,12 @@
     <!--
     <v-card>
       <v-card-title>
-        <h3>
-          Pin
-        </h3>
+        <h3>Pin</h3>
         <v-spacer></v-spacer>
       </v-card-title>
       <v-form ref="form" v-model="valid_pin">
         <v-row dense>
-          <v-col cols="1"/>
+          <v-col cols="1" />
           <v-col cols="10">
             <v-alert v-if="accountdata.pinIsLocked" type="error" dense>
               Your pin is locked due to invalid inputs. Please submit a new pin.
@@ -328,44 +326,56 @@
               dense
               solo
               class="input-group--focused"
-              :rules="[rules.required]" 
-            ></v-text-field>        
+              :rules="[rules.required]"
+            ></v-text-field>
           </v-col>
         </v-row>
         <v-row dense>
-          <v-col cols="1"/>
+          <v-col cols="1" />
           <v-col cols="5">
             <v-subheader>New pin</v-subheader>
-            <v-text-field 
-              append-icon="lock" 
-              name="pin" 
-              label="Your new pin" 
-              id="pin" 
+            <v-text-field
+              append-icon="lock"
+              name="pin"
+              label="Your new pin"
+              id="pin"
               type="password"
-              v-model="pin" 
-              :rules="[rules.required, rules.pin_digits, rules.pin_length, pinVerificationRule]" >
-            </v-text-field>             
+              v-model="pin"
+              :rules="[
+                rules.required,
+                rules.pin_digits,
+                rules.pin_length,
+                pinVerificationRule,
+              ]"
+            >
+            </v-text-field>
           </v-col>
           <v-col cols="5">
             <v-subheader>Repeat pin</v-subheader>
-            <v-text-field 
-              append-icon="lock_open" 
-              name="pin_verification" 
-              label="Repeat your new pin" 
-              id="pin_verification" 
+            <v-text-field
+              append-icon="lock_open"
+              name="pin_verification"
+              label="Repeat your new pin"
+              id="pin_verification"
               type="password"
-              v-model="pin_verification" 
-              :rules="[rules.required, pinVerificationRule]">
-            </v-text-field>         
+              v-model="pin_verification"
+              :rules="[rules.required, pinVerificationRule]"
+            >
+            </v-text-field>
           </v-col>
         </v-row>
-        <v-row justify="end">      
+        <v-row justify="end">
           <v-col cols="4" class="text-right">
-            <v-btn color="primary" :disabled="!valid_pin" @click="submitChangePin()">Submit</v-btn>
+            <v-btn
+              color="primary"
+              :disabled="!valid_pin"
+              @click="submitChangePin()"
+              >Submit</v-btn
+            >
           </v-col>
-          <v-col cols="1"/>
+          <v-col cols="1" />
         </v-row>
-        <br>
+        <br />
       </v-form>
     </v-card>    
     -->

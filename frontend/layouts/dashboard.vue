@@ -168,6 +168,17 @@ export default {
     },
   },
   mounted() {
+    switch (this.$vuetify.breakpoint.name) {
+      case "xs":
+      case "sm":
+        this.$store.commit("app/drawer", false);
+        break;
+      case "md":
+      case "lg":
+      case "xl":
+        this.$store.commit("app/drawer", true);
+        break;
+    }
     this.$store.dispatch("actions/startRunner").then((response) => {
       let menuAction = [
         actionBuilder.newProvideMenuAction(),

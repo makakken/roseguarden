@@ -5,6 +5,7 @@
     fixed
     :dark="$vuetify.theme.dark"
     app
+    disable-route-watcher
     v-model="drawer"
     width="260"
   >
@@ -194,6 +195,12 @@ export default {
   methods: {
     click(item) {
       console.log("click", item);
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+        case "sm":
+          this.$store.commit("app/drawer", false);
+          break;
+      }
       /*
         if(item.href) {
           if(item.external) {

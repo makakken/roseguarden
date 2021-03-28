@@ -34,9 +34,9 @@ def generateActionLink(workspace,
                        redirect_to="",
                        once=True,
                        need_login=True,
-                       expire_days=7):
+                       expire_hours=24):
     return actionManager.createActionLink(workspace, action_uri, action_params, redirect_to, once, need_login,
-                                          expire_days)
+                                          expire_hours)
 
 
 def executeActionLink(hash, user):
