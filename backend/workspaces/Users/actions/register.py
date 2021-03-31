@@ -43,7 +43,7 @@ class Register(Action):
             u = userManager.registerUser(userdata)
             link = generateActionLink(workspace, 'verifyUser', {'email': userdata['email']}, "user/login", True, False)
             data = {'username': userdata['firstname'] + ' ' + userdata['lastname'], 'action_link': link}
-            send_mail([userdata['email']], "Verify your account", workspace, 'requestVerification.mail', data)
+            send_mail([userdata['email']], "#Rosenwerk Account verifizieren", workspace, 'requestVerification.mail', data)
             send_message(u, "Welcome", workspace, 'welcome.message', data, 'Roseguarden', False, 'welcome.mail')
             replyActions.append(webclientActions.NotificationAction.generate("User registered", "success"))
             replyActions.append(webclientActions.RouteAction.generate("dashboard", 3))

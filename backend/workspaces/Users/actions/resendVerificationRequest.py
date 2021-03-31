@@ -48,5 +48,5 @@ class ResendVerificationRequest(Action):
             link = generateActionLink(workspace, 'verifyUser', {'email': verifyUser.email}, "user/login", True, False)
             data = {'username': verifyUser.firstname + ' ' + verifyUser.lastname, 'action_link': link}
             print(link)
-            send_mail([verifyUser.email], "Verify your account", workspace, 'requestVerification.mail', data)
+            send_mail([verifyUser.email], "#Rosenwerk Account verifizieren", workspace, 'requestVerification.mail', data)
         return 'success', [notification_action]

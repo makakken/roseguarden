@@ -1,7 +1,9 @@
-Hello {{username}},
-welcome to roseguarden.
-Please complete your registration by following the link and activate your account.
+Hallo {{username}},
+du hast dich erfolgreich für das #Rosenwerk Türschließsystem registriert.
+Jetzt musst du deine Email noch verifizieren, indem du auf den folgenden Link klickst:
 {{activation_link}}
 
-With best regards.
-Your roseguarden team
+Dieser Link läuft in 24 Stunden ab!
+
+Wir sehen uns in der Werkstatt,
+dein Konglomerat

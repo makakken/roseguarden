@@ -1,11 +1,16 @@
 
 <html>
-    Hello {{username}},
-    <br/>
-    welcome to roseguarden.
-    <br/>
-    <br/>
-    With best regards.
-    <br/>
-    Your roseguarden team
+<p>
+  Hello {{username}},
+  willkommen in unserem neuen Schließsystem.
+</p>
+<p>
+  Lass es dir schmecken und melde dich bei <a href="mailto:zugang@konglomerat.org">zugang@konglomerat.org</a>, wenn du irgendwo Hilfe brauchst.
+</p>
+<p>
+  Wir sehen uns in der Werkstatt,
+  <br>
+  dein Konglomerat
+</p>
+
 </html>
