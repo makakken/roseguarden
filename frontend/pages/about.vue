@@ -8,9 +8,13 @@
         <p>
           Ja, es ist endlich soweit! Nach Jahren des Bangens, Hoffens und
           ehrenamtlichen Entwickelns läuft jetzt tatsächlich die neue Version
-          des Konglomerat Schließsystems!! Das Open Source Projekt dahinter
-          heißt Roseguarden und wurde extra aus dem #Rosenwerk für das
-          #Rosenwerk entwickelt.
+          des Konglomerat Schließsystems!!
+          <br />
+          Das Open Source Projekt dahinter heißt
+          <a href="https://gitlab.com/roseguarden/roseguarden" target="_blank">
+            Roseguarden
+          </a>
+          und wurde extra aus dem #Rosenwerk für das #Rosenwerk entwickelt.
         </p>
         <p>
           Warum? Schlüssel sind so ziemlich 80er. Und kommerziell verfügbare
@@ -21,7 +25,6 @@
           Maschinenzugänge einzubauen und diese Anpassbarkeit kriegt man mit den
           fertigen Lösungen nicht.
         </p>
-
         <p>
           Eine ausgiebige Huldigung geht an dieser Stelle raus an die
           Rosenritter-Crew ohne deren Arbeit das Zugangssystem und damit auch
@@ -29,9 +32,13 @@
         </p>
         <v-alert type="info">
           Wir suchen weiterhin ehrenamtliche Unterstützung für die Betreung und
-          Weiterentwicklung des Systems. Wenn du mitmachst, ist dir ewiger
-          Konglo-Dank gewiss. Zu lernen gibt’s für dich sicher auch jede Menge.
-          Melde dich bei Interesse unter zugang@konglomerat.org.
+          Weiterentwicklung des Systems.
+          <br />
+          Wenn du mitmachst, ist dir ewiger Konglo-Dank gewiss. Zu lernen gibt’s
+          für dich sicher auch jede Menge.
+          <br />
+          Melde dich bei Interesse unter
+          <a href="mailto:zugang@konglomerat.org">zugang@konglomerat.org</a>.
         </v-alert>
       </v-card-text>
     </v-card>
@@ -53,21 +60,20 @@ export default {
   layout: "dashboard",
   components: {},
   data: () => ({
-    info: "",
+    info: ""
   }),
   methods: {
-    ok() {},
+    ok() {}
   },
   watch: {
-    info: function (val) {},
+    info: function(val) {}
   },
   computed: {
-    test: function () {},
+    test: function() {}
   },
   created() {},
-  mounted() {},
+  mounted() {}
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

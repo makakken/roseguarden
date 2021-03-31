@@ -2,14 +2,14 @@
   <v-container fluid>
     <v-card>
       <v-card-title>
-        <h3>Dein Zugang</h3>
+        <h3>Deine Zugänge</h3>
         <v-spacer></v-spacer>
       </v-card-title>
 
       <v-row dense>
         <v-col cols="1" />
         <v-col cols="10">
-          <v-alert type="info"> Under construction </v-alert>
+          <v-alert type="info">Aktuell: Under Construction</v-alert>
         </v-col>
       </v-row>
       <!--
@@ -20,7 +20,7 @@
           v-if="loading"
         ></v-progress-linear>
       </v-row>
-      <v-row dense>        
+      <v-row dense>
         <v-col cols="1"/>
         <v-col cols="10">
           <v-subheader>Access group:</v-subheader>
@@ -55,29 +55,29 @@
         <v-col cols="1"/>
         <v-col cols="5">
           <v-subheader>Valid from:</v-subheader>
-          <v-text-field 
-            name="pin" 
-            label="Your new pin" 
-            id="pin" 
+          <v-text-field
+            name="pin"
+            label="Your new pin"
+            id="pin"
             disabled
             hide-details
             solo
             dense
             v-model="pin" >
-          </v-text-field>             
+          </v-text-field>
         </v-col>
         <v-col cols="5">
           <v-subheader>Expires at:</v-subheader>
-          <v-text-field 
-            name="pin_verification" 
-            label="Repeat your new pin" 
-            id="pin_verification" 
+          <v-text-field
+            name="pin_verification"
+            label="Repeat your new pin"
+            id="pin_verification"
             disabled
             hide-details
             solo
             dense
             v-model="pin_verification" >
-          </v-text-field>         
+          </v-text-field>
         </v-col>
       </v-row>
       <v-row dense>
@@ -99,31 +99,31 @@
         <v-col cols="1"/>
         <v-col cols="5">
           <v-subheader>From time:</v-subheader>
-          <v-text-field 
-            name="pin" 
-            label="Your new pin" 
-            id="pin" 
+          <v-text-field
+            name="pin"
+            label="Your new pin"
+            id="pin"
             disabled
             hide-details
             solo
             dense
             v-model="pin" >
-          </v-text-field>             
+          </v-text-field>
         </v-col>
         <v-col cols="5">
           <v-subheader>To time:</v-subheader>
-          <v-text-field 
-            name="pin_verification" 
-            label="Repeat your new pin" 
-            id="pin_verification" 
+          <v-text-field
+            name="pin_verification"
+            label="Repeat your new pin"
+            id="pin_verification"
             disabled
             hide-details
             solo
             dense
             v-model="pin_verification" >
-          </v-text-field>         
+          </v-text-field>
         </v-col>
-      </v-row>      
+      </v-row>
       <v-row dense>
         <v-col cols="1"/>
         <v-col cols="10">

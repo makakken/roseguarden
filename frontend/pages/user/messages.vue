@@ -3,7 +3,7 @@
     <v-flex lg12 sm12 xs12>
       <v-card min-height="100%">
         <v-card-title>
-          <h3>Nachrichten</h3>
+          <h3>Dein Nachrichten-Postfach</h3>
           <v-spacer></v-spacer>
           <v-text-field
             v-model="search"

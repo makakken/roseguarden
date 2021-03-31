@@ -5,9 +5,21 @@
         <h3>Kontakt</h3>
       </v-card-title>
       <v-card-text dense>
-        Für alle Support Fragen zu deinen persönlichen Karten, dem Schließsystem
-        und allem, was damit zusammenhängt melde dich bitte bei 📩
-        <a href="mailto:zugang@konglomerat.org">zugang@konglomerat.org</a>
+        <v-alert type="info">
+          <p>
+            Für Fehler und Optimierungsideen kannst du gern auf
+            <a
+            href="https://github.com/konglomerat/roseguarden/issues"
+            target="_blank"
+            >
+            Github
+            </a>
+            ein Ticket erstellen.
+            <br>
+            Für Support-Anfragen schreib uns einfach eine E-Mail an:
+            <a href="mailto:zugang@konglomerat.org">zugang@konglomerat.org</a> .
+          </p>
+        </v-alert>
       </v-card-text>
     </v-card>
   </v-container>

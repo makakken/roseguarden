@@ -3,22 +3,20 @@
     <v-row dense>
       <v-col cols="12" lg="12" sm="12" xs="12" align="center">
         <h1>Willkommen im Rosengarten des Konglomerat!</h1>
-        <br />
-        <v-alert type="info">
-          Wenn du Bugs findest, poste sie bitte als Issue
-          <a
+        <v-alert type="info" class="mt-10">
+          <p>
+            Für Fehler und Optimierungsideen kannst du gern auf
+            <a
             href="https://github.com/konglomerat/roseguarden/issues"
-            style="color: white"
             target="_blank"
-          >
-            hier.
-          </a>
-          <br />
-          Wenn dir das nichts ist, wende dich bitte mit allen Support-Anfragen
-          an
-          <a href="mailto:zugang@konglomerat.org">zugang@konglomerat.org</a> .
-          <br />Unten gibt es eine FAQ Sektion, da lohnt es sich mal
-          reinzuschauen.
+            >
+            Github
+            </a>
+            ein Ticket erstellen.
+            <br>
+            Für Support-Anfragen schreib uns einfach eine E-Mail an:
+            <a href="mailto:zugang@konglomerat.org">zugang@konglomerat.org</a> .
+          </p>
         </v-alert>
       </v-col>
     </v-row>
@@ -31,12 +29,17 @@
       ></v-progress-circular>
     </v-row>
     <v-row v-else-if="valid && !loading">
-      <v-col cols="3" lg="4" sm="4" />
-      <v-col cols="6" lg="4" sm="4" align="center">
-        <!--
-        <div class="text-xs-center">Welcome {{ firstname }} {{ lastname }}</div>
-        -->
-        <div class="text-xs-center">
+      <v-col cols="1" />
+      <v-col cols="12" align="center">
+        <div class="text-center">
+          <p>
+            Wir sind jetzt in der Minimal-Ausbaustufe, das System wird in seinen Funktionen Stück für Stück erweitert.
+            <br>
+            All deine Account- und Zugangsinfos kannst du über das Menü links einsehen.
+          </p>
+          <p>
+            Bis bald in der Werkstatt!
+          </p>
           <v-btn dark color="primary" @click="onTestLogout()">Logout</v-btn>
         </div>
       </v-col>
@@ -55,9 +58,6 @@
         dense
       >
         <div class="align-center">
-          <!---
-                  <img src="../static/konglo_logo.png" alt="Roseguarden logo" width="120" height="120">
-                  ---->
           <h2 class="">Anmelden</h2>
         </div>
         <v-form
@@ -68,7 +68,7 @@
           <v-text-field
             append-icon="person"
             name="login"
-            label="Email"
+            label="E-Mail"
             type="email"
             v-model="model.username"
             :rules="[rules.email, rules.required]"
@@ -101,7 +101,7 @@
           color="primary"
           href="/user/resendverificationmail"
           target="_blank"
-          >Verifizierung nochmal senden?</v-btn
+          >Verifizierung erneut senden?</v-btn
         >
       </v-col>
       <v-col
@@ -112,7 +112,7 @@
         sm="3"
         offset-sm="0"
         xs="3"
-        align="center"
+        align="right"
         justify="center"
       >
         <v-btn
@@ -132,19 +132,14 @@
           <h2 class="flex my-4">Noch keinen Account?</h2>
           <p>
             Um das neue System zu nutzen, musst du dich zuerst registrieren.
-            <br />Mit deinem Account kannst du dann deine Karte freischalten,
+            <br />
+            Mit deinem Account kannst du dann deine Karte freischalten,
             den aktuellen Status anschauen und Änderungen vornehmen.
           </p>
           <v-btn dark color="primary" to="/user/register">Registrieren</v-btn>
         </div>
       </v-col>
       <v-col cols="1" />
-      <v-col cols="12" lg="12" sm="12" xs="12" align="center">
-        <v-alert type="error">
-          Wenn du dich hier nicht registrierst, wird deine alten Karte ab
-          xx.xx.xxxx nicht mehr funktionieren!
-        </v-alert>
-      </v-col>
     </v-row>
     <br />
   </v-container>
