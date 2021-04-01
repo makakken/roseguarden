@@ -2,22 +2,13 @@
   <v-container fluid>
     <v-card>
       <v-card-title>
-        <h3>Nutzerinformation</h3>
+        <h3>Deine Nutzer:innendaten</h3>
         <v-spacer></v-spacer>
       </v-card-title>
       <v-row dense>
-        <!--
-        <v-progress-linear
-          indeterminate
-          color="primary"
-          v-if="loading"
-        ></v-progress-linear>
-        -->
-      </v-row>
-      <v-row dense>
         <v-col cols="1" />
         <v-col cols="10">
-          <v-subheader>eMail</v-subheader>
+          <v-subheader>E-Mail:</v-subheader>
           <v-text-field
             label="eMail"
             v-model="accountdata.email"
@@ -32,7 +23,7 @@
       <v-row dense>
         <v-col cols="1" />
         <v-col cols="10">
-          <v-subheader>Vorname</v-subheader>
+          <v-subheader>Vorname:</v-subheader>
           <v-text-field
             label="Dein Vorname"
             value="Max"
@@ -47,7 +38,7 @@
       <v-row dense>
         <v-col cols="1" />
         <v-col cols="10">
-          <v-subheader>Nachname</v-subheader>
+          <v-subheader>Nachname:</v-subheader>
           <v-text-field
             label="Dein Nachname"
             v-model="accountdata.lastname"
@@ -61,7 +52,7 @@
       <v-row dense>
         <v-col cols="1" />
         <v-col cols="10">
-          <v-subheader>Gruppe (optional)</v-subheader>
+          <v-subheader>Gruppenzugehörigkeit (nur für Gruppenmitglieder relevant):</v-subheader>
           <v-text-field
             label="Deine Gruppe"
             v-model="accountdata.organization"
@@ -75,9 +66,9 @@
       <v-row dense>
         <v-col cols="1" />
         <v-col cols="10">
-          <v-subheader>Telefon (optional)</v-subheader>
+          <v-subheader>Telefonnummer (optional):</v-subheader>
           <v-text-field
-            label="Telefon"
+            label="Telefonnummer"
             v-model="accountdata.phone"
             :loading="loading"
             hide-details
@@ -88,11 +79,11 @@
       </v-row>
       <br />
       <v-row justify="end">
-        <v-col cols="2" md="1" lg="1" class="text-right">
-          <v-btn color="primary" @click="cancelData()">Cancel</v-btn>
+        <v-col cols="2" class="text-right">
+          <v-btn color="primary" @click="cancelData()">abbrechen</v-btn>
         </v-col>
-        <v-col cols="2" md="1" lg="1" class="text-right">
-          <v-btn color="primary" @click="submitUserInfo()">Submit</v-btn>
+        <v-col cols="2" class="text-right">
+          <v-btn color="primary" @click="submitUserInfo()">Daten ändern</v-btn>
         </v-col>
         <v-col cols="1" />
       </v-row>
@@ -108,7 +99,7 @@
         <v-row dense>
           <v-col cols="1" />
           <v-col cols="10">
-            <v-subheader>Altes Passwort</v-subheader>
+            <v-subheader>Altes Passwort:</v-subheader>
             <v-text-field
               append-icon="lock_open"
               :type="showOld ? 'text' : 'password'"
@@ -124,7 +115,7 @@
         <v-row dense>
           <v-col cols="1" />
           <v-col cols="5">
-            <v-subheader>Neues Passwort</v-subheader>
+            <v-subheader>Neues Passwort:</v-subheader>
             <v-text-field
               append-icon="lock"
               name="password"
@@ -141,11 +132,11 @@
             </v-text-field>
           </v-col>
           <v-col cols="5">
-            <v-subheader>Neues Passwort wiederholen</v-subheader>
+            <v-subheader>Passwort wiederholen:</v-subheader>
             <v-text-field
               append-icon="lock_open"
               name="password_verification"
-              label="Neues Passwort"
+              label="Passwort wiederholen"
               id="password_verification"
               type="password"
               v-model="password_verification"
@@ -161,7 +152,7 @@
             color="primary"
             :disabled="!valid_password"
             @click="submitChangePassword()"
-            >Submit</v-btn
+            >Passwort ändern</v-btn
           >
         </v-col>
         <v-col cols="1" />
@@ -171,15 +162,15 @@
     <br />
     <v-card>
       <v-card-title>
-        <h3>Kontoinformation</h3>
+        <h3>Account Informationen</h3>
         <v-spacer></v-spacer>
       </v-card-title>
       <v-row dense>
         <v-col cols="1" />
         <v-col cols="10">
-          <v-subheader>Erstell am</v-subheader>
+          <v-subheader>Registriert:</v-subheader>
           <v-text-field
-            label="Account created"
+            label="Registriert"
             v-model="accountdata.creationdate"
             :loading="loading"
             hide-details
@@ -192,9 +183,9 @@
       <v-row dense>
         <v-col cols="1" />
         <v-col cols="10">
-          <v-subheader>eMail geprüft</v-subheader>
+          <v-subheader>Verifiziert:</v-subheader>
           <v-text-field
-            label="Account verified"
+            label="Verifiziert"
             v-model="accountdata.verified"
             :loading="loading"
             hide-details
@@ -204,13 +195,12 @@
           ></v-text-field>
         </v-col>
       </v-row>
-      <!--
       <v-row dense>
         <v-col cols="1" />
         <v-col cols="10">
-          <v-subheader>Last login</v-subheader>
+          <v-subheader>Letzte Anmeldung:</v-subheader>
           <v-text-field
-            label="Last login"
+            label="Letzte Anmeldung"
             v-model="accountdata.lastlogindate"
             :loading="loading"
             hide-details
@@ -220,21 +210,20 @@
           ></v-text-field>
         </v-col>
       </v-row>
-      -->
       <br />
     </v-card>
     <br />
 
     <v-card>
       <v-card-title>
-        <h3>Authentifizierer (Karte, Telefon, Gerät)</h3>
+        <h3>Authentifizierer (Karte, Telefon, Gerät):</h3>
         <v-spacer></v-spacer>
       </v-card-title>
       <v-form ref="form" v-model="valid_requestKey">
         <v-row dense>
           <v-col cols="1" />
           <v-col cols="10">
-            <v-subheader>Status</v-subheader>
+            <v-subheader>Status:</v-subheader>
             <v-chip
               smalle
               :color="authenticator_status_color"
@@ -249,9 +238,9 @@
         <v-row v-if="accountdata.authenticator_status == 'Unset'" dense>
           <v-col cols="1" />
           <v-col cols="10">
-            <v-subheader>Assign a authenticator</v-subheader>
+            <v-subheader>Authentifizierer freischalten:</v-subheader>
             <v-text-field
-              label="Enter your assign code"
+              label="Hier deinen Freigabe-Code eingeben"
               v-model="authenticatorCode"
               :rules="[
                 rules.required,
@@ -278,7 +267,7 @@
               color="primary"
               :disabled="!valid_requestKey"
               @click="submitAssignCard()"
-              >Assign</v-btn
+              >Karten-ID zuweisen</v-btn
             >
           </v-col>
           <v-col cols="1" />
@@ -377,7 +366,7 @@
         </v-row>
         <br />
       </v-form>
-    </v-card>    
+    </v-card>
     -->
   </v-container>
 </template>

@@ -1,2 +1,25 @@
-@import '~vuetify/src/styles/styles.sass'
+// libs
+@import "~vuetify/src/styles/styles"
 
+// custom styles
+.v-application
+
+  a
+    color: inherit !important
+
+    &:focus,
+    &:hover
+      text-decoration: none
+
+  .v-alert
+
+    a
+      color: var(--v-primary-lighten5)
+
+      &:focus,
+      &:hover
+        text-decoration: none
+
+
+  .v-btn:not(.v-btn--outlined).primary
+      color: var(--v-accent-base)

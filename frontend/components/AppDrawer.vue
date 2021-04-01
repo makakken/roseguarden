@@ -13,7 +13,7 @@
       <img src="../static/konglo_logo.png" height="36" alt="" />
       <v-toolbar-title href="/" class="ml-0 pl-3">
         <v-btn to="/" text
-          ><span class="hidden-sm-and-down">roseguarden</span>
+          ><span class="hidden-sm-and-down">#Rosenwerk</span>
         </v-btn>
       </v-toolbar-title>
     </v-toolbar>
