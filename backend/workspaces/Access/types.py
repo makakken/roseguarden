@@ -1,7 +1,7 @@
 """
 The roseguarden project
 
-Copyright (C) 2018-2020  Marcus Drobisch,
+Copyright (C) 2018-2021  Marcus Drobisch,
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
@@ -34,10 +34,6 @@ class SpaceAccessType(Enum):
 
 def getAccessSpacesOfNode(node):
     return []
-
-
-def checkUserAccessToSpace(user, space):
-    return False
 
 
 def setDefaultAccessTypeUserProperties(user, access_type):
