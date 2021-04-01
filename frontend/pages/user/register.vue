@@ -7,9 +7,7 @@
             <v-card class="elevation-1 pa-3">
               <v-card-text>
                 <div class="layout column align-center">
-                  <h2 class="flex my-4 primary--text">
-                    Registrieren
-                  </h2>
+                  <h2 class="flex my-4 primary--text">Registrieren</h2>
                   <v-alert type="info" class="mt-10">
                     <p>
                       Bitte achte darauf, dass Name und E-Mail mit deinen
@@ -89,7 +87,7 @@
                         dense
                         v-model="switchMe"
                         :rules="[rules.accept]"
-                        style="display: inline-block; margin: 0; padding: 0;"
+                        style="display: inline-block; margin: 0; padding: 0"
                       >
                       </v-switch>
                     </v-col>
@@ -107,7 +105,7 @@
                         dense
                         v-model="switchMe2"
                         :rules="[rules.accept]"
-                        style="display: inline-block; margin: 0; padding: 0;"
+                        style="display: inline-block; margin: 0; padding: 0"
                       >
                       </v-switch>
                     </v-col>
@@ -132,12 +130,10 @@
                   <v-col cols="12"> </v-col>
                 </v-row>
                 <v-row justify="end">
-                  <v-col cols="3" class="text-right">
-                    <v-btn color="secondary" @click="cancel">
-                      Abbrechen
-                    </v-btn>
+                  <v-col cols="6" md="5" lg="4" class="text-right">
+                    <v-btn color="secondary" @click="cancel"> Abbrechen </v-btn>
                   </v-col>
-                  <v-col cols="3" class="text-right">
+                  <v-col cols="6" md="5" lg="4" class="text-right">
                     <v-btn
                       color="primary"
                       @click="signup"
@@ -177,29 +173,29 @@ export default {
       phone: "",
       terms: "",
       password: "",
-      password_verification: ""
+      password_verification: "",
     },
     rules: {
-      required: v => !!v || "Value is required",
-      accept: v => !!v || "Have to be accepted",
+      required: (v) => !!v || "Value is required",
+      accept: (v) => !!v || "Have to be accepted",
 
       password: [
-        v =>
+        (v) =>
           /(.){7,}\w+/.test(v) || "Password have to have at least 8 characters",
-        v => !!v || "Password is required"
+        (v) => !!v || "Password is required",
       ],
       email: [
-        v => !!v || "E-mail is required",
-        v => /.+@.+\..+/.test(v) || "E-mail must be valid"
-      ]
-    }
+        (v) => !!v || "E-mail is required",
+        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+      ],
+    },
   }),
   computed: {
     passwordVerificationRule() {
       return () =>
         this.model.password === this.model.password_verification ||
         "Password must match";
-    }
+    },
   },
   methods: {
     cancel() {
@@ -211,11 +207,11 @@ export default {
         let registerAction = [actionBuilder.newRegisterUserAction(this.model)];
         this.$store.dispatch("actions/emitActionRequest", registerAction);
       }
-    }
+    },
   },
   mounted() {
     this.$validator.localize("en", this.validations);
-  }
+  },
 };
 </script>
 <style scoped lang="css">

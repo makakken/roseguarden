@@ -3,14 +3,14 @@
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
-          <v-flex xs12 sm8 md5 lg5>
+          <v-flex xs12 sm10 md10 lg6>
             <v-card width="100%" class="pa-3">
               <v-card-text>
                 <div class="layout column align-center">
                   <!---
                   <img src="../static/konglo_logo.png" alt="Roseguarden logo" width="120" height="120">
                   ---->
-                  <h2 class="flex my-4 primary--text">Anmelden</h2>
+                  <h2 class="flex primary--text">Anmelden</h2>
                 </div>
                 <v-form v-model="valid">
                   <v-text-field
@@ -33,25 +33,26 @@
                 </v-form>
               </v-card-text>
               <v-card-actions>
-                <v-btn
-                  dense
-                  text
-                  small
-                  color="primary"
-                  href="/user/lostpassword"
-                  target="_blank"
-                  >Passwort vergessen?</v-btn
-                >
-                <v-btn
-                  dense
-                  text
-                  small
-                  color="primary"
-                  href="/user/resendverificationmail"
-                  target="_blank"
-                  >Verifizierung nochmal senden?</v-btn
-                >
-                <v-spacer></v-spacer>
+                <v-row>
+                  <v-btn
+                    dense
+                    text
+                    small
+                    color="primary"
+                    href="/user/lostpassword"
+                    target="_blank"
+                    >Passwort vergessen?</v-btn
+                  >
+                  <v-btn
+                    dense
+                    text
+                    small
+                    color="primary"
+                    href="/user/resendverificationmail"
+                    target="_blank"
+                    >Verifizierung nochmal senden?</v-btn
+                  >
+                </v-row>
                 <v-btn color="secondary" @click="cancel">Zurück</v-btn>
                 <v-btn
                   color="primary"
@@ -128,7 +129,7 @@ export default {
 #login {
   height: 50%;
   width: 100%;
-  min-width: 600px;
+  min-width: 650px;
   position: absolute;
   top: 0;
   left: 0;
