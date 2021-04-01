@@ -14,7 +14,7 @@
           <a href="https://gitlab.com/roseguarden/roseguarden" target="_blank">
             Roseguarden
           </a>
-          und wurde extra aus dem #Rosenwerk für das #Rosenwerk entwickelt.
+          und wurde aus dem #Rosenwerk für das #Rosenwerk entwickelt.
         </p>
         <p>
           Warum? Schlüssel sind so ziemlich 80er. Und kommerziell verfügbare
@@ -60,19 +60,19 @@ export default {
   layout: "dashboard",
   components: {},
   data: () => ({
-    info: ""
+    info: "",
   }),
   methods: {
-    ok() {}
+    ok() {},
   },
   watch: {
-    info: function(val) {}
+    info: function (val) {},
   },
   computed: {
-    test: function() {}
+    test: function () {},
   },
   created() {},
-  mounted() {}
+  mounted() {},
 };
 </script>
 

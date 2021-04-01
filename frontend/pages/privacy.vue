@@ -2,24 +2,16 @@
   <v-container fluid>
     <v-card>
       <v-card-title>
-        <h3>
-          Datenschutzbestimmung:
-        </h3>
+        <h3>Datenschutzbestimmung:</h3>
       </v-card-title>
       <v-card-text dense>
         <v-simple-table>
           <template v-slot:default>
             <thead>
               <tr>
-                <th class="text-left">
-                  Welche Daten sammelt ihr?
-                </th>
-                <th class="text-left">
-                  Wie lange werden die gespeichert?
-                </th>
-                <th class="text-left">
-                  Wer kann die Daten einsehen?
-                </th>
+                <th class="text-left">Welche Daten sammelt ihr?</th>
+                <th class="text-left">Wie lange werden die gespeichert?</th>
+                <th class="text-left">Wer kann die Daten einsehen?</th>
                 <th class="text-left">
                   Wie kann ich die Daten einsehen / löschen?
                 </th>
@@ -29,9 +21,7 @@
               <tr>
                 <td>
                   <p>
-                    <strong>
-                      Deine Mitgliedsdaten
-                    </strong>
+                    <strong> Deine Mitgliedsdaten </strong>
                     <br />
                     (Name, Email, ggfs. Gruppenzugehörigkeit,Handynummer)
                   </p>
@@ -74,17 +64,13 @@
               <tr>
                 <td>
                   <p>
-                    <strong>
-                      Deine Türöffnungen
-                    </strong>
+                    <strong> Deine Türöffnungen </strong>
                     <br />
                     (Wann hast du welche Tür mit welcher Karte geöffnet)
                   </p>
                 </td>
                 <td>
-                  <p>
-                    3 Tage / 72 Stunden
-                  </p>
+                  <p>3 Tage / 72 Stunden</p>
                 </td>
                 <td>
                   <p>
@@ -113,9 +99,7 @@
           </template>
         </v-simple-table>
 
-        <h3>
-          Was macht ihr mit meinen Daten?
-        </h3>
+        <h3>Was macht ihr mit meinen Daten?</h3>
         <br />
         <p>
           Wir geben sie niemandem weiter und nutzen sie nur dafür, dass unser
@@ -129,9 +113,7 @@
           geht.
         </p>
 
-        <h3>
-          Wer sind die Admins / Stewards, die deine Daten sehen können?
-        </h3>
+        <h3>Wer sind die Admins / Stewards, die deine Daten sehen können?</h3>
         <br />
 
         <p>
@@ -158,9 +140,8 @@
         <p>
           Außerdem gibt es die ehrenamtliche Truppe der
           <strong>Rosenritter</strong>, die die Entwicklung des Systems
-          vorantreibt udn dafür auch Zugang zu allen Daten braucht: Marcus
-          Drobisch, Hannes Korn, Kevin Krechan, Stephan Kropop, Stephan
-          Friedrich,
+          vorantreibt und dafür auch Zugang zu allen Daten braucht: Marcus
+          Drobisch, Stephan Friedrich,
         </p>
         <p>
           Bis Ende Juli 2021 wird das ehrenamtliche Team auch noch von
@@ -190,19 +171,19 @@ export default {
   layout: "dashboard",
   components: {},
   data: () => ({
-    info: ""
+    info: "",
   }),
   methods: {
-    ok() {}
+    ok() {},
   },
   watch: {
-    info: function(val) {}
+    info: function (val) {},
   },
   computed: {
-    test: function() {}
+    test: function () {},
   },
   created() {},
-  mounted() {}
+  mounted() {},
 };
 </script>
 
