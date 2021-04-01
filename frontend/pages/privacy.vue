@@ -141,7 +141,7 @@
           Außerdem gibt es die ehrenamtliche Truppe der
           <strong>Rosenritter</strong>, die die Entwicklung des Systems
           vorantreibt und dafür auch Zugang zu allen Daten braucht: Marcus
-          Drobisch, Stephan Friedrich
+          Drobisch, Stephan Friedrich,
         </p>
         <p>
           Bis Ende Juli 2021 wird das ehrenamtliche Team auch noch von
