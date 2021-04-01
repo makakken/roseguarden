@@ -52,7 +52,7 @@
                   >Verifizierung nochmal senden?</v-btn
                 >
                 <v-spacer></v-spacer>
-                <v-btn color="error" @click="cancel">Zurück</v-btn>
+                <v-btn color="secondary" @click="cancel">Zurück</v-btn>
                 <v-btn
                   color="primary"
                   @click="login"

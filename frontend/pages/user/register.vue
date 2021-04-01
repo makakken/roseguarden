@@ -133,7 +133,7 @@
                 </v-row>
                 <v-row justify="end">
                   <v-col cols="3" class="text-right">
-                    <v-btn color="primary" @click="cancel">
+                    <v-btn color="secondary" @click="cancel">
                       Abbrechen
                     </v-btn>
                   </v-col>

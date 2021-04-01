@@ -29,13 +29,14 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#3adced' },
+  loading: {
+    color: "#5218fa"
+  },
+
   /*
   ** Global CSS
   */
   css: [
-    //'~/assets/style/theme.styl',
-    //'~/assets/style/app.styl',
     '~/assets/style/app.sass',
     'vuetify/src/styles/styles.sass',
     '@mdi/font/scss/materialdesignicons.scss',
@@ -51,6 +52,7 @@ module.exports = {
     //'@/plugins/vuetify',
     '@/plugins/vee-validate',
   ],
+
   router: {
     extendRoutes(routes, resolve) {
       routes.push({
@@ -112,10 +114,11 @@ module.exports = {
       }
     }
   },
+
   vuetify: {
-    //treeShake: true,
-    //customVariables: ['~/assets/style/variables.sass'],
+    customVariables: ['~/assets/style/vueify_custom.sass'],
     theme: {
+
       options: {
         customProperties: true,
         minifyTheme(css) {
@@ -128,20 +131,23 @@ module.exports = {
       dark: false,
       themes: {
         light: {
-          primary: "#cfb578",
-          secondary: colors.grey.darken1,
+          info: "#5218fa",
+          primary: "#7fffd4",
+          secondary: "#ffa07a",
           accent: colors.shades.black,
-          error: colors.red.accent3,
+          error: "#ff5252",
         },
         dark: {
-          primary: "#cfb578",
-          secondary: colors.grey.darken1,
+          info: "#5218fa",
+          primary: "#7fffd4",
+          secondary: "#ffa07a",
           accent: colors.shades.black,
-          error: colors.red.accent3,
+          error: "#ff5252",
         }
       }
     }
   },
+
   proxy: {
     // Simple proxy
     //'/api': 'https://www.roseguarden.fabba.space/api/log',
@@ -149,19 +155,20 @@ module.exports = {
     // With options
     '/api/v1/log': {
       target: 'http://localhost:5000',
-      // target: 'https://www.roseguarden.fabba.space', 
+      // target: 'https://www.roseguarden.fabba.space',
       ws: true,
       secure: true,
       changeOrigin: true
     },
     '/api/v1': {
       target: 'http://localhost:5000',
-      // target: 'https://www.roseguarden.fabba.space', 
+      // target: 'https://www.roseguarden.fabba.space',
       ws: true,
       secure: false,
       changeOrigin: true
     },
   },
+
   env: {
     baseUrl: process.env.BASE_URL || 'http://localhost:3000',
     FRONTENDVERSION: escape(JSON.stringify(require('./package.json').version))
