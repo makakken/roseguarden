@@ -48,8 +48,8 @@
                 target="_blank"
               >
                 diesen Bogen
+                <small>(PDF - 1.6Mb)</small>
               </a>
-              <small>(PDF - 1.6Mb)</small>
               ausfüllen
             </p>
             <br />
