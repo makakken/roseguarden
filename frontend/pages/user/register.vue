@@ -8,14 +8,14 @@
               <v-card-text>
                 <div class="layout column align-center">
                   <h2 class="flex my-4 primary--text">Registrieren</h2>
-                  <v-alert type="info" class="mt-10">
-                    <p>
-                      Bitte achte darauf, dass Name und E-Mail mit deinen
-                      <br />
-                      Konglomerat-Mitgliedsdaten übereinstimmen!
-                    </p>
-                  </v-alert>
                 </div>
+                <v-alert type="info">
+                  <p>
+                    Bitte achte darauf, dass Name und E-Mail mit deinen
+                    <br />
+                    Konglomerat-Mitgliedsdaten übereinstimmen!
+                  </p>
+                </v-alert>
                 <v-form ref="form" v-model="valid">
                   <v-text-field
                     append-icon="email"
