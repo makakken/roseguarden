@@ -82,45 +82,29 @@
                   >
                   </v-text-field>
                   <v-row>
-                    <v-col cols="1">
+                    <v-col>
                       <v-switch
                         dense
                         v-model="switchMe"
                         :rules="[rules.accept]"
-                        style="display: inline-block; margin: 0; padding: 0"
                       >
+                        <template v-slot:label>
+                          <span>Ich bestätige, dass ich zugangsberechtigtes Mitglied des Konglomerat e.V. bin oder eine temporäre Nutzung des #Rosenwerks erworben habe.</span>
+                        </template>
                       </v-switch>
-                    </v-col>
-                    <v-col cols="11">
-                      <p class="v-label theme--light">
-                        Ich bestätige, dass ich zugangsberechtigtes Mitglied des
-                        Konglomerat e.V. bin oder eine temporäre Nutzung des
-                        #Rosenwerks erworben habe.
-                      </p>
                     </v-col>
                   </v-row>
                   <v-row>
-                    <v-col cols="1">
+                    <v-col>
                       <v-switch
                         dense
                         v-model="switchMe2"
                         :rules="[rules.accept]"
-                        style="display: inline-block; margin: 0; padding: 0"
                       >
+                        <template v-slot:label>
+                          <span>Ich habe die <a href="/termsofuse" target="_blank" @click.stop>Nutzungsvereinbarung</a> und die <a href="/privacy" target="_blank" @click.stop>Datenschutzerklärung</a> gelesen und erkläre mich damit einverstanden.</span>
+                        </template>
                       </v-switch>
-                    </v-col>
-                    <v-col cols="11">
-                      <p class="v-label theme--light">
-                        Ich habe die
-                        <a href="/termsofuse" target="_blank">
-                          Nutzungsvereinbarung
-                        </a>
-                        und die
-                        <a href="/privacy" target="_blank">
-                          Datenschutzerklärung
-                        </a>
-                        gelesen und erkläre mich damit einverstanden.
-                      </p>
                     </v-col>
                   </v-row>
                 </v-form>
