@@ -130,12 +130,11 @@
                   <v-col cols="12"> </v-col>
                 </v-row>
                 <v-row justify="end">
-                  <v-col cols="6" md="5" lg="4" class="text-right">
+                  <v-col cols="12" class="text-right">
                     <v-btn color="secondary" @click="cancel"> Abbrechen </v-btn>
-                  </v-col>
-                  <v-col cols="6" md="5" lg="4" class="text-right">
                     <v-btn
                       color="primary"
+                      class="ml-1"
                       @click="signup"
                       :disabled="!valid"
                       :loading="loading"
