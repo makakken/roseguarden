@@ -27,9 +27,17 @@ It's meant to be only for test purposes. The data can be reset at any time.
 * Clone or fork https://gitlab.com/roseguarden/roseguarden 
 * Have a look in the `backend` and `frontend` folder for details to setup your development enviroment
 * run `backend` and `frontend` from your development environment (e.g. we use vs code)
-    * start the backend with `flask run` out of the `backend` folder
+    * start the backend with `flask run` out of the `backend` folder (see more datailed instructions below)
     * start the frontend with `npm run dev` out of the `frontend` folder
 + alternativly you can use the `script/pack.py`-script to build your own package and host it with an HTTP-server
+
+#### Run Backend after fresh clone:
+* `cd backend`
+* `python3 -m venv venv`
+* `. venv/bin/activate`
+* (venv) `pip install Flask`
+* (venv) `pip install -r requirements.txt`
+* (venv) `run flask`
 
 ## News
 
