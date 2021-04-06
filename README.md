@@ -33,7 +33,7 @@ It's meant to be only for test purposes. The data can be reset at any time.
 
 #### Run Backend after fresh clone:
 * `cd backend`
-* `python3 -m venv venv`
+* `python3 -m venv .venv`
 * `. venv/bin/activate`
 * (venv) `pip install Flask`
 * (venv) `pip install -r requirements.txt`
