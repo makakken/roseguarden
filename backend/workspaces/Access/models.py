@@ -22,6 +22,7 @@ __license__ = "GPLv3"
 
 from core import db
 from sqlalchemy_utils import ArrowType
+from workspaces.Access.types import SpaceAccessType
 import arrow
 
 # Define your database models here
@@ -65,7 +66,7 @@ class SpaceAccessGroup(db.Model):
         secondary=association_table_user_accessgroup,
         lazy='subquery',
     )
-    access_type = db.Column(db.String(120), default="No access")
+    access_type = db.Column(db.Enum(SpaceAccessType), default=SpaceAccessType.NO_ACCESS)
     access_need_budget = db.Column(db.Boolean, default=False)
     access_autocharged = db.Column(db.Boolean, default=False)
     access_autocharge_budget_amount = db.Column(db.Boolean, default=False)

@@ -27,6 +27,7 @@ from core.workspaces.dataView import DataView
 from core.users.models import User
 
 from workspaces.Access.models import SpaceAccessGroup, SpaceAccessSpace
+from workspaces.Access.types import SpaceAccessType
 """ A view contaning the list of accessGroups
 """
 
@@ -67,7 +68,7 @@ class AccessGroupsList(DataView):
             entry.id = g.id
             entry.name = g.name
             entry.note = g.note
-            entry.type = g.access_type
+            entry.type = g.access_type.value
             entry.daily_start_time = g.daily_access_start_time.format('HH:mm')
             entry.daily_end_time = g.daily_access_end_time.format('HH:mm')
             entry.spaces = []
@@ -125,7 +126,7 @@ class AccessGroupsList(DataView):
         if hasattr(entry, 'expires_after_days'):
             ag.access_expires_default_days = entry.expires_after_days
         if hasattr(entry, 'type'):
-            ag.access_type = entry.type
+            ag.access_type = SpaceAccessType(entry.type)
         if hasattr(entry, 'budget_needed'):
             ag.access_need_budget = entry.budget_needed
 
