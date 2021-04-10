@@ -32,9 +32,9 @@ class SpaceAccessType(Enum):
     AUTO_CHARGED_WEEKLY_BUDGET = "Auto-charged budget (weekly)"
 
 
-def getAccessSpacesOfNode(node):
-    return []
+def get_access_info_string(user_space_access_group, user_space_access_properties):
+    return user_space_access_group.access_type.value
 
 
-def setDefaultAccessTypeUserProperties(user, access_type):
+def set_default_access_type_user_properties(user, access_type):
     pass

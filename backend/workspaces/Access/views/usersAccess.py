@@ -66,7 +66,7 @@ class AccessGroupsList(DataView):
                 entry.access_last_update = "-"
 
             if u.accessgroup is not None:
-                entry.access_type = u.accessgroup.access_type
+                entry.access_type = u.accessgroup.access_type.value
                 entry.access_group = u.accessgroup.id
             else:
                 entry.access_group = -1
