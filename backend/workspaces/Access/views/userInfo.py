@@ -27,17 +27,6 @@ from core.users.models import User
 from workspaces.Access.types import get_access_info_string
 from workspaces.Access.helpers import get_user_accessable_weekdays_string, get_accessable_spaces_for_user_string
 """ A View contaning the user info
-
-
-Deine Zugangsgruppe: 10er Karten  (info = Alle User mit einer Zehnerkarte) 
-Gültig bis: 30.1.2022
-Zugangstyp: Budget an Tagen
-Verbleibendes Budget: 5 Tage
-Zugang zu folgenden Räumen: Konglomerat, RON
-Zugang an folgenden Tagen: Mo, Di, Mi, Do, Fr, Sa, So.
-Zugang in folgendem Zeitraum: 00:00 bis 23:59
-Letztes Update: 25.03.2020
-
 """
 
 

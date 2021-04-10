@@ -20,8 +20,6 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from enum import Enum
-
 
 def checkUserAccessToSpace(user, space):
     return False
