@@ -34,12 +34,13 @@ association_table_node_spaceaccess_space = db.Table(
 
 class SpaceAccessSpace(db.Model):
     __tablename__ = 'spaceaccess_spaces'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, unique=True)
     name = db.Column(db.String(64), default="")
     description = db.Column(db.String(128), default="")
+    entrance_nodes_id = db.Column(db.ForeignKey("nodes.id"))
     entrance_nodes = db.relationship(
         "Node",
-        backref="spaceaccess_spaces",
+        backref=db.backref("spaceaccess_spaces", cascade="all,delete"),
         secondary=association_table_node_spaceaccess_space,
         lazy='subquery',
     )
@@ -54,12 +55,12 @@ association_table_space_accessgroup = db.Table(
     db.Column('spaceaccess_group_id', db.Integer, db.ForeignKey('spaceaccess_groups.id')))
 
 
-# This is just a test model
 class SpaceAccessGroup(db.Model):
     __tablename__ = 'spaceaccess_groups'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, unique=True)
     name = db.Column(db.String(120), default="")
     note = db.Column(db.String(120), default="")
+    users_id = db.Column(db.ForeignKey("users.id"))
     users = db.relationship(
         "User",
         backref=db.backref("accessgroup", uselist=False),
@@ -77,6 +78,7 @@ class SpaceAccessGroup(db.Model):
     access_expires_as_default = db.Column(db.Boolean, default=False)
     access_expires_default_days = db.Column(db.Integer, default=365)
     group_budget = db.Column(db.Integer, default=0)
+    spaces_id = db.Column(db.ForeignKey("spaceaccess_spaces.id"))
     spaces = db.relationship(
         "SpaceAccessSpace",
         backref=db.backref("access_group"),
