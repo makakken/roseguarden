@@ -65,3 +65,7 @@ def get_user_accessable_weekdays_string(space_access_group):
     if weekday_string == "":
         weekday_string = "None"
     return weekday_string
+
+
+def get_access_info_string(user_space_access_group, user_space_access_properties):
+    return user_space_access_group.access_type.value

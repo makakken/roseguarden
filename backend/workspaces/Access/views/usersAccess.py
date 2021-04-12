@@ -65,9 +65,9 @@ class AccessGroupsList(DataView):
                 entry.access_end_date = "-"
                 entry.access_last_update = "-"
 
-            if u.accessgroup is not None:
-                entry.access_type = u.accessgroup.access_type.value
-                entry.access_group = u.accessgroup.id
+            if u.spaceaccess_accessgroup is not None:
+                entry.access_type = u.spaceaccess_accessgroup.access_type.value
+                entry.access_group = u.spaceaccess_accessgroup.id
             else:
                 entry.access_group = -1
                 entry.access_type = "-"
@@ -93,7 +93,7 @@ class AccessGroupsList(DataView):
             u.access.access_start_date = arrow.get(entry.access_start_date, 'YYYY-MM-DD')
         if hasattr(entry, 'access_group'):
             g = SpaceAccessGroup.query.filter_by(id=entry['access_group']).first()
-            u.accessgroup = g
+            u.spaceaccess_accessgroup = g
         if hasattr(entry, 'access_expire_date'):
             u.access.access_end_date = arrow.get(entry.access_expire_date, 'YYYY-MM-DD')
         self.emitSyncUpdate(key)
