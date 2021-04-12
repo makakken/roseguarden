@@ -27,7 +27,7 @@ from core.users.enum import AuthenticatorSendBy, AuthenticatorType, Authenticato
 
 from workspaces.Access.nodes.common.serverActionRequests import UpdateUserInfoAction, \
     UpdateAssignInfoAction, RequestPinAction, DenyAccessAction, GrandAccessAction
-from workspaces.Access.check import hasUserAccessToSpace
+from workspaces.Access.access import has_user_access_to_space
 
 
 class DoorNoPinTerminal(NodeClass):
@@ -64,7 +64,7 @@ class DoorNoPinTerminal(NodeClass):
             if user is None:
                 return [DenyAccessAction.generate("Access denied", "")]
 
-            (access, _info) = hasUserAccessToSpace(user, node)
+            (access, _info) = has_user_access_to_space(user, node)
             if access is False:
                 return [DenyAccessAction.generate("Access denied", "")]
 
