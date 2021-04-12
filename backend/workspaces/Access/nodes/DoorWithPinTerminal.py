@@ -27,6 +27,7 @@ from core.users.enum import AuthenticatorSendBy, AuthenticatorType, Authenticato
 
 from workspaces.Access.nodes.common.serverActionRequests import UpdateUserInfoAction, \
     UpdateAssignInfoAction, RequestPinAction, DenyAccessAction, GrandAccessAction
+from workspaces.Access.check import hasUserAccessToSpace
 
 
 class DoorWithPinTerminal(NodeClass):
@@ -50,7 +51,7 @@ class DoorWithPinTerminal(NodeClass):
         self.defineActionProperty("requestUserAccess", "auth_key")
         self.defineActionProperty("requestUserAccess", "pin", optional=True)
 
-    def handleNodeActionRequest(self, action, header):
+    def handleNodeActionRequest(self, node, action, header):
         logManager.info("handleNodeActionRequest for {}".format(self.name))
         action_name = action['action']
         if action_name == "requestNodeUpdate":
@@ -76,6 +77,10 @@ class DoorWithPinTerminal(NodeClass):
             if pinValid is False:
                 remaining = userManager.getUserRemainingPinAttempts(user.email)
                 return [DenyAccessAction.generate("Wrong pin", "Remaining attempts: " + str(remaining))]
+
+            access, = hasUserAccessToSpace(user, node)
+            if access is False:
+                return [DenyAccessAction.generate("Access denied", "")]
 
             return [GrandAccessAction.generate(user)]
         elif action_name == "requestAssignCode":

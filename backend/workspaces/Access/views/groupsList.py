@@ -106,6 +106,12 @@ class AccessGroupsList(DataView):
 
         if ag is None:
             raise Exception("Update failed, group not found")
+        if hasattr(entry, 'spaces'):
+            ag.spaces.clear()
+            for n in sas:
+                if n.id in entry['spaces']:
+                    print(n, n.id)
+                    ag.spaces.append(n)
         if hasattr(entry, 'name'):
             ag.name = entry.name
         if hasattr(entry, 'note'):
@@ -114,11 +120,6 @@ class AccessGroupsList(DataView):
             ag.daily_access_start_time = arrow.get(entry.daily_start_time, 'HH:mm')
         if hasattr(entry, 'daily_end_time'):
             ag.daily_access_end_time = arrow.get(entry.daily_end_time, 'HH:mm')
-        if hasattr(entry, 'spaces'):
-            ag.spaces.clear()
-            for n in sas:
-                if n.id in entry['spaces']:
-                    ag.spaces.append(n)
         if hasattr(entry, 'days_mask'):
             ag.day_access_mask = entry.days_mask
         if hasattr(entry, 'expires_as_default'):
@@ -129,7 +130,6 @@ class AccessGroupsList(DataView):
             ag.access_type = SpaceAccessType(entry.type)
         if hasattr(entry, 'budget_needed'):
             ag.access_need_budget = entry.budget_needed
-
         self.emitSyncUpdate(key)
 
     # Handler for a request to update a single view entry

@@ -21,5 +21,14 @@ __credits__ = []
 __license__ = "GPLv3"
 
 
-def checkUserAccessToSpace(user, space):
-    return False
+def hasUserAccessToSpace(user, node):
+    if user.accessgroup is None:
+        return False, "Not in an access group"
+    if len(node.spaceaccess_spaces) == 0:
+        return False, "No spaces mapped to this node"
+    for s in node.spaceaccess_spaces:
+        if s not in user.accessgroup.spaces:
+            return False, "User has no access to the mapped space"
+
+    # if user.accessgroup
+    return True, "Access granted"

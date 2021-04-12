@@ -42,7 +42,7 @@ class NodeTemplate(NodeClass):
         self.defineNodeActionRequest("requestUserInfo")
         self.defineActionProperty("requestUserInfo", "auth_key")
 
-    def handleNodeActionRequest(self, action, header):
+    def handleNodeActionRequest(self, node, action, header):
         logManager.info("handleNodeActionRequest for {}".format(self.name))
         action_name = action['action']
         if action_name == "requestNodeUpdate":

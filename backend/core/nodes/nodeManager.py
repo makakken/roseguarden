@@ -56,8 +56,8 @@ class NodeManager(object):
         if nodeInstance is not None:
             self.nodes[node.fingerprint] = nodeInstance
         else:
-            logManager.error("NodeManager is unable to register node {} [{}] with unknown class_id '{}'".
-                             format(node.name, node.fingerprint, node.class_id))
+            logManager.error("NodeManager is unable to register node {} [{}] with unknown class_id '{}'".format(
+                node.name, node.fingerprint, node.class_id))
 
         node.active = True
         node.status = "Active"
@@ -223,7 +223,7 @@ class NodeManager(object):
 
         reply_actions = []
         for a in actions:
-            action_reply = self.nodes[fingerprint].handleNodeActionRequest(a, header)
+            action_reply = self.nodes[fingerprint].handleNodeActionRequest(n, a, header)
             reply_actions = reply_actions + action_reply
 
         # node is known
