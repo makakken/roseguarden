@@ -23,9 +23,7 @@ __license__ = "GPLv3"
 from core.nodes.nodeClass import NodeClass
 from core.logs import logManager
 from core.users import userManager
-from workspaces.Template.nodes.common.serverActionRequests import UpdateUserInfoAction, \
-    UpdateAssignInfoAction, RequestPinAction, DenyAccessAction, GrandAccessAction
-from core.users.enum import AuthenticatorSendBy, AuthenticatorType, AuthenticatorValidityType
+from workspaces.Template.nodes.common.serverActionRequests import UpdateUserInfoAction
 
 
 class NodeTemplate(NodeClass):

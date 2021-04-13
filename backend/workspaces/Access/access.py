@@ -47,8 +47,7 @@ def do_accesstype_gets_recharge(access_type: SpaceAccessType):
 
 
 def do_accesstype_use_group_budget(access_type: SpaceAccessType):
-    if access_type is SpaceAccessType.GROUP_BUDGET or \
-        access_type is SpaceAccessType.AUTO_RECHARGED_GROUP_BUDGET:
+    if access_type is SpaceAccessType.GROUP_BUDGET or access_type is SpaceAccessType.AUTO_RECHARGED_GROUP_BUDGET:
         return True
     else:
         return False
@@ -134,7 +133,7 @@ def has_user_access_to_space(user, node):
             return False, "User has no access to the mapped space"
 
     # check for granted weekday
-    if (accessgroup.day_access_mask & (1 << arrow.utcnow().date().weekday())) is 0:
+    if (accessgroup.day_access_mask & (1 << arrow.utcnow().date().weekday())) == 0:
         return False, "User has no access on this weekday"
 
     # check for granted daytime
