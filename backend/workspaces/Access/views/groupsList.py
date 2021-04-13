@@ -29,7 +29,8 @@ from core.users.models import User
 from workspaces.Access.models import SpaceAccessGroup, SpaceAccessSpace
 from workspaces.Access.types import SpaceAccessType, SpaceAccessRechargePeriod, SpaceAccessEntryAccounting
 
-from workspaces.Access.access import needs_the_accesstype_a_budget, do_accesstype_use_group_budget, do_accesstype_gets_recharge
+from workspaces.Access.access import (needs_the_accesstype_a_budget, do_accesstype_use_group_budget,
+                                      do_accesstype_gets_recharge)
 """ A view contaning the list of accessGroups
 """
 

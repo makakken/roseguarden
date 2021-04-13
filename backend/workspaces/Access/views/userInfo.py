@@ -25,7 +25,8 @@ from core.workspaces.dataView import DataView
 from core.users.models import User
 
 from workspaces.Access.types import SpaceAccessType
-from workspaces.Access.helpers import get_user_accessable_weekdays_string, get_accessable_spaces_for_user_string, get_access_info_string
+from workspaces.Access.helpers import (get_user_accessable_weekdays_string, get_accessable_spaces_for_user_string,
+                                       get_access_info_string)
 """ A View contaning the user info
 """
 
@@ -56,7 +57,8 @@ class AccessUserInfo(DataView):
         # fill entry
         entry.email = user.email
         entry.access_updated_on_date = user.access.access_last_update_date.format('YYYY-MM-DD')
-        if user.spaceaccess_accessgroup is not None and user.spaceaccess_accessgroup.access_type is not SpaceAccessType.NO_ACCESS:
+        if (user.spaceaccess_accessgroup is not None
+                and user.spaceaccess_accessgroup.access_type is not SpaceAccessType.NO_ACCESS):
             entry.access_group = user.spaceaccess_accessgroup.name
             entry.access_group_info = user.spaceaccess_accessgroup.note
             entry.access_type = user.spaceaccess_accessgroup.access_type.value

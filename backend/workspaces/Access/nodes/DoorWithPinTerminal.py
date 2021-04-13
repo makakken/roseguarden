@@ -27,7 +27,8 @@ from core.users.enum import AuthenticatorSendBy, AuthenticatorType, Authenticato
 
 from workspaces.Access.nodes.common.serverActionRequests import UpdateUserInfoAction, \
     UpdateAssignInfoAction, RequestPinAction, DenyAccessAction, GrandAccessAction
-from workspaces.Access.access import has_user_access_to_space, update_user_access_properties_after_access_granted, is_user_budget_sufficient
+from workspaces.Access.access import (has_user_access_to_space, update_user_access_properties_after_access_granted,
+                                      is_user_budget_sufficient)
 
 
 class DoorWithPinTerminal(NodeClass):
