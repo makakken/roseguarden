@@ -27,7 +27,7 @@ from core.users.enum import AuthenticatorSendBy, AuthenticatorType, Authenticato
 
 from workspaces.Access.nodes.common.serverActionRequests import UpdateUserInfoAction, \
     UpdateAssignInfoAction, RequestPinAction, DenyAccessAction, GrandAccessAction
-from workspaces.Access.check import has_user_access_to_space
+from workspaces.Access.access import has_user_access_to_space, update_user_access_properties_after_access_granted, is_user_budget_sufficient
 
 
 class DoorWithPinTerminal(NodeClass):
@@ -81,6 +81,12 @@ class DoorWithPinTerminal(NodeClass):
             access, = has_user_access_to_space(user, node)
             if access is False:
                 return [DenyAccessAction.generate("Access denied", "")]
+
+            if is_user_budget_sufficient(user) is False:
+                return [DenyAccessAction.generate("Access denied", "Not enough budget")]
+
+            # access gets granted
+            update_user_access_properties_after_access_granted(user)
 
             return [GrandAccessAction.generate(user)]
         elif action_name == "requestAssignCode":

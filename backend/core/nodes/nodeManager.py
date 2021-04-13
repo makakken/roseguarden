@@ -225,6 +225,7 @@ class NodeManager(object):
         for a in actions:
             action_reply = self.nodes[fingerprint].handleNodeActionRequest(n, a, header)
             reply_actions = reply_actions + action_reply
+        self.db.session.commit()
 
         # node is known
         logManager.info("handle request of {} ({})".format(source, fingerprint))

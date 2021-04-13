@@ -27,13 +27,13 @@ from core.users.enum import AuthenticatorSendBy, AuthenticatorType, Authenticato
 
 from workspaces.Access.nodes.common.serverActionRequests import UpdateUserInfoAction, \
     UpdateAssignInfoAction, RequestPinAction, DenyAccessAction, GrandAccessAction
-from workspaces.Access.access import has_user_access_to_space
+from workspaces.Access.access import has_user_access_to_space, update_user_access_properties_after_access_granted, is_user_budget_sufficient
 
 
 class DoorNoPinTerminal(NodeClass):
 
     class_id = "00:01:AB:EF:19:D8:00:11"
-    description = "A door terminal with pin request"
+    description = "A simple door terminal without pin request"
 
     def defineNodeActionRequests(self):
         # general node action request
@@ -68,6 +68,11 @@ class DoorNoPinTerminal(NodeClass):
             if access is False:
                 return [DenyAccessAction.generate("Access denied", "")]
 
+            if is_user_budget_sufficient(user) is False:
+                return [DenyAccessAction.generate("Access denied", "Not enough budget")]
+
+            # access gets granted
+            update_user_access_properties_after_access_granted(user)
             return [GrandAccessAction.generate(user)]
         elif action_name == "requestAssignCode":
             if userManager.checkUserAuthenticatorExists(action['auth_key']) is True:

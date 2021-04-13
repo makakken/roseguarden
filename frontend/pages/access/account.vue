@@ -36,7 +36,7 @@
             prepend-inner-icon="mdi-information-outline"
             :loading="loading"
             hide-details
-            disabled
+            class="gray"
             solo
             dense
           ></v-text-field>
@@ -49,10 +49,11 @@
           <v-text-field
             label="Access info"
             value="Max"
+            class="gray"
             v-model="accountdata.access_type_info"
             :loading="loading"
-            disabled
             hide-details
+            readonly
             solo
             dense
           ></v-text-field>
@@ -144,7 +145,7 @@
             v-model="accountdata.access_to_spaces"
             :loading="loading"
             hide-details
-            disabled
+            class="gray"
             solo
             dense
           ></v-text-field>
@@ -331,4 +332,7 @@ export default {
 </script>
 
 <style scoped>
+.gray >>> .v-input__control input {
+  color: rgba(0, 0, 0, 0.38) !important;
+}
 </style>

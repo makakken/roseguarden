@@ -22,7 +22,7 @@ __license__ = "GPLv3"
 
 from core import db
 from sqlalchemy_utils import ArrowType
-from workspaces.Access.types import SpaceAccessType
+from workspaces.Access.types import SpaceAccessType, SpaceAccessRechargePeriod, SpaceAccessEntryAccounting
 import arrow
 
 
@@ -79,15 +79,19 @@ class SpaceAccessGroup(db.Model):
     name = db.Column(db.String(120), default="")
     note = db.Column(db.String(120), default="")
     access_type = db.Column(db.Enum(SpaceAccessType), default=SpaceAccessType.NO_ACCESS)
+    entry_accounting_type = db.Column(db.Enum(SpaceAccessEntryAccounting), default=SpaceAccessEntryAccounting.DAYS)
     access_need_budget = db.Column(db.Boolean, default=False)
-    access_autocharged = db.Column(db.Boolean, default=False)
-    access_autocharge_budget_amount = db.Column(db.Boolean, default=False)
-    access_autocharge_budget_period = db.Column(db.String(120), default="monthly")
-    access_autocharge_budget_period_count = db.Column(db.Integer, default=1)
-    access_autocharge_budget_cut = db.Column(db.Boolean, default=True)
-    access_autocharge_budget_max = db.Column(db.Integer, default=0)
+    access_gets_recharged = db.Column(db.Boolean, default=False)
+    access_recharge_budget_amount = db.Column(db.Integer, default=15)
+    access_recharge_budget_period = db.Column(db.Enum(SpaceAccessRechargePeriod),
+                                              default=SpaceAccessRechargePeriod.MONTHS)
+    access_recharge_budget_every_periods = db.Column(db.Integer, default=4)
+    access_recharge_budget_get_cutoff = db.Column(db.Boolean, default=True)
+    access_recharge_budget_cutoff_max = db.Column(db.Integer, default=15)
     access_expires_as_default = db.Column(db.Boolean, default=False)
     access_expires_default_days = db.Column(db.Integer, default=365)
+    access_use_group_budget = db.Column(db.Boolean, default=False)
+    last_access_at = db.Column(ArrowType, default=None)
     group_budget = db.Column(db.Integer, default=0)
     day_access_mask = db.Column(db.Integer, default=0)
     daily_access_start_time = db.Column(ArrowType, default=arrow.utcnow)
@@ -104,6 +108,7 @@ class SpaceAccessProperties(db.Model):
     access_start_date = db.Column(ArrowType, default=arrow.utcnow)
     access_expire_date = db.Column(ArrowType, default=arrow.utcnow)
     access_last_update_date = db.Column(ArrowType, default=arrow.utcnow)
+    last_access_at = db.Column(ArrowType, default=None)
     user = db.relationship("User",
                            backref=db.backref("access",
                                               uselist=False,

@@ -24,6 +24,7 @@ from core.workspaces.workspace import Workspace
 from core.workspaces.dataView import DataView
 from core.users.models import User
 
+from workspaces.Access.types import SpaceAccessType
 from workspaces.Access.helpers import get_user_accessable_weekdays_string, get_accessable_spaces_for_user_string, get_access_info_string
 """ A View contaning the user info
 """
@@ -55,7 +56,7 @@ class AccessUserInfo(DataView):
         # fill entry
         entry.email = user.email
         entry.access_updated_on_date = user.access.access_last_update_date.format('YYYY-MM-DD')
-        if user.spaceaccess_accessgroup is not None:
+        if user.spaceaccess_accessgroup is not None and user.spaceaccess_accessgroup.access_type is not SpaceAccessType.NO_ACCESS:
             entry.access_group = user.spaceaccess_accessgroup.name
             entry.access_group_info = user.spaceaccess_accessgroup.note
             entry.access_type = user.spaceaccess_accessgroup.access_type.value
@@ -70,9 +71,14 @@ class AccessUserInfo(DataView):
             entry.access_valid_start_time = user.spaceaccess_accessgroup.daily_access_start_time.format('HH:mm')
             entry.access_valid_end_time = user.spaceaccess_accessgroup.daily_access_end_time.format('HH:mm')
         else:
-            entry.access_group = "No group"
-            entry.access_group_info = "You are not in a access group at the moment"
-            entry.access_type_info = "You don't have any access at the moment"
+            if user.spaceaccess_accessgroup is not None:
+                entry.access_group = user.spaceaccess_accessgroup.name
+                entry.access_group_info = user.spaceaccess_accessgroup.note
+                entry.access_type_info = get_access_info_string(user.spaceaccess_accessgroup, user.access)
+            else:
+                entry.access_group = "No group"
+                entry.access_group_info = "You are not in a access group at the moment"
+                entry.access_type_info = "You don't have access at the moment"
             entry.access_to_spaces = "None"
             entry.access_on_days = "None"
             entry.access_valid_start_time = "-"

@@ -147,7 +147,7 @@ class WorkspaceManager(object):
             try:
                 w.discoverNodeClasses(self.workspaceSource)
             except ModuleNotFoundError:
-                logManager.info(f'No node classes discover for "{w.name}"')
+                logManager.info(f'No node classes discovered for "{w.name}"')
             except Exception as e:
                 traceback.print_exc(file=sys.stdout)
                 logManager.error(
@@ -241,13 +241,10 @@ class WorkspaceManager(object):
                                     name = c.name
                                 workspaceInstance = c(self.app, self.db, name, uri)
                                 workspaceInstance.path = os.path.dirname(workspace_module.__file__)
-                                logManager.info('Workspace discovered : {} [{}] with uri "{}"'.
-                                                format(workspaceInstance.name,
-                                                       c.__module__,
-                                                       workspaceInstance.uri))
+                                logManager.info('Workspace discovered : {} [{}] with uri "{}"'.format(
+                                    workspaceInstance.name, c.__module__, workspaceInstance.uri))
                                 if workspaceInstance.disable is True:
-                                    logManager.info('Workspace {} [{}] is disabled and wont show up.'.
-                                                    format(workspaceInstance.name,
-                                                           c.__module__))
+                                    logManager.info('Workspace {} [{}] is disabled and wont show up.'.format(
+                                        workspaceInstance.name, c.__module__))
                                 else:
                                     self.workspaces.append(workspaceInstance)
