@@ -8,14 +8,14 @@
               <v-card-text>
                 <div class="layout column align-center">
                   <h2 class="flex my-4 primary--text">Registrieren</h2>
-                  <v-alert type="info" class="mt-10">
-                    <p>
-                      Bitte achte darauf, dass Name und E-Mail mit deinen
-                      <br />
-                      Konglomerat-Mitgliedsdaten übereinstimmen!
-                    </p>
-                  </v-alert>
                 </div>
+                <v-alert type="info">
+                  <p>
+                    Bitte achte darauf, dass Name und E-Mail mit deinen
+                    <br />
+                    Konglomerat-Mitgliedsdaten übereinstimmen!
+                  </p>
+                </v-alert>
                 <v-form ref="form" v-model="valid">
                   <v-text-field
                     append-icon="email"
@@ -82,45 +82,29 @@
                   >
                   </v-text-field>
                   <v-row>
-                    <v-col cols="1">
+                    <v-col>
                       <v-switch
                         dense
                         v-model="switchMe"
                         :rules="[rules.accept]"
-                        style="display: inline-block; margin: 0; padding: 0"
                       >
+                        <template v-slot:label>
+                          <span>Ich bestätige, dass ich zugangsberechtigtes Mitglied des Konglomerat e.V. bin oder eine temporäre Nutzung des #Rosenwerks erworben habe.</span>
+                        </template>
                       </v-switch>
-                    </v-col>
-                    <v-col cols="11">
-                      <p class="v-label theme--light">
-                        Ich bestätige, dass ich zugangsberechtigtes Mitglied des
-                        Konglomerat e.V. bin oder eine temporäre Nutzung des
-                        #Rosenwerks erworben habe.
-                      </p>
                     </v-col>
                   </v-row>
                   <v-row>
-                    <v-col cols="1">
+                    <v-col>
                       <v-switch
                         dense
                         v-model="switchMe2"
                         :rules="[rules.accept]"
-                        style="display: inline-block; margin: 0; padding: 0"
                       >
+                        <template v-slot:label>
+                          <span>Ich habe die <a href="/termsofuse" target="_blank" @click.stop>Nutzungsvereinbarung</a> und die <a href="/privacy" target="_blank" @click.stop>Datenschutzerklärung</a> gelesen und erkläre mich damit einverstanden.</span>
+                        </template>
                       </v-switch>
-                    </v-col>
-                    <v-col cols="11">
-                      <p class="v-label theme--light">
-                        Ich habe die
-                        <a href="/termsofuse" target="_blank">
-                          Nutzungsvereinbarung
-                        </a>
-                        und die
-                        <a href="/privacy" target="_blank">
-                          Datenschutzerklärung
-                        </a>
-                        gelesen und erkläre mich damit einverstanden.
-                      </p>
                     </v-col>
                   </v-row>
                 </v-form>
@@ -130,12 +114,11 @@
                   <v-col cols="12"> </v-col>
                 </v-row>
                 <v-row justify="end">
-                  <v-col cols="6" md="5" lg="4" class="text-right">
+                  <v-col cols="12" class="text-right">
                     <v-btn color="secondary" @click="cancel"> Abbrechen </v-btn>
-                  </v-col>
-                  <v-col cols="6" md="5" lg="4" class="text-right">
                     <v-btn
                       color="primary"
+                      class="ml-1"
                       @click="signup"
                       :disabled="!valid"
                       :loading="loading"
