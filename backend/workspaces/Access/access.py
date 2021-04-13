@@ -65,7 +65,7 @@ def update_user_access_properties_after_access_granted(user):
         budget_have_to_decrement = False
         if access_properties.last_access_at is None:
             budget_have_to_decrement = True
-        elif arrow.utcnow() > (access_properties.last_access_at + timedelta(seconds=24)):
+        elif arrow.utcnow() > (access_properties.last_access_at + timedelta(hours=24)):
             budget_have_to_decrement = True
 
         # if budget have to decrement update group or personal budget accordingly
