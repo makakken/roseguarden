@@ -99,7 +99,7 @@ class AccessGroupsList(DataView):
         u = User.query.filter_by(email=key).first()
         u.access.access_last_update_date = arrow.utcnow()
         if hasattr(entry, 'access_budget'):
-            if u.spaceaccess_accessgroup.access_use_group_budget:
+            if u.spaceaccess_accessgroup is not None and u.spaceaccess_accessgroup.access_use_group_budget:
                 u.spaceaccess_accessgroup.group_budget = entry.access_budget
             else:
                 u.access.access_budget = entry.access_budget
