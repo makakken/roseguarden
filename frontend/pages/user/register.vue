@@ -3,7 +3,7 @@
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
-          <v-flex xs12 sm8 md5 lg5>
+          <v-flex xs12 sm10>
             <v-card class="elevation-1 pa-3">
               <v-card-text>
                 <div class="layout column align-center">
@@ -16,71 +16,103 @@
                     Konglomerat-Mitgliedsdaten übereinstimmen!
                   </p>
                 </v-alert>
+                <p>
+                  <small>* Pflichtfelder</small>
+                </p>
                 <v-form ref="form" v-model="valid">
                   <v-text-field
-                    append-icon="email"
-                    name="login"
-                    label="E-Mail:"
-                    required
-                    type="text"
-                    v-model="model.email"
-                    :rules="rules.email"
+                  append-icon="email"
+                  name="login"
+                  label="E-Mail: *"
+                  type="text"
+                  v-model="model.email"
+                  required
+                  :rules="rules.email"
                   >
-                  </v-text-field>
-                  <v-text-field
-                    append-icon="lock"
-                    name="password"
-                    label="Passwort:"
-                    id="password"
-                    type="password"
-                    v-model="model.password"
-                    :rules="rules.password"
-                  >
-                  </v-text-field>
-                  <v-text-field
-                    append-icon="lock_open"
-                    name="password"
-                    label="Passwort wiederholen:"
-                    id="password_verification"
-                    type="password"
-                    v-model="model.password_verification"
-                    :rules="[rules.required, passwordVerificationRule]"
-                  >
-                  </v-text-field>
-                  <v-text-field
-                    append-icon="person"
-                    name="login"
-                    label="Vorname:"
-                    type="text"
-                    v-model="model.firstname"
-                    :rules="[rules.required]"
-                  >
-                  </v-text-field>
-                  <v-text-field
-                    append-icon="people"
-                    name="login"
-                    label="Nachname:"
-                    type="text"
-                    v-model="model.lastname"
-                    :rules="[rules.required]"
-                  >
-                  </v-text-field>
-                  <v-text-field
-                    append-icon="home"
-                    name="login"
-                    label="Gruppenzugehörigkeit (nur für Gruppenmitglieder relevant):"
-                    type="text"
-                    v-model="model.organization"
-                  >
-                  </v-text-field>
-                  <v-text-field
-                    append-icon="phone"
-                    label="Telefonnummer (optional):"
-                    name="phone"
-                    v-model="model.phone"
-                    type="text"
-                  >
-                  </v-text-field>
+                </v-text-field>
+                  <v-row>
+                    <v-col sm=12 md=6>
+                      <v-text-field
+                      append-icon="lock"
+                      name="password"
+                      label="Passwort: *"
+                      id="password"
+                      type="password"
+                      v-model="model.password"
+                      required
+                      :rules="rules.password"
+                      >
+                    </v-text-field>
+                    </v-col>
+                    <v-col sm=12 md=6>
+                      <v-text-field
+                        append-icon="lock_open"
+                        name="password"
+                        label="Passwort wiederholen: *"
+                        id="password_verification"
+                        type="password"
+                        v-model="model.password_verification"
+                        required
+                        :rules="[rules.required, passwordVerificationRule]"
+                      >
+                    </v-text-field>
+                    </v-col>
+                  </v-row>
+
+                  <v-row>
+                    <v-col sm=12 md=6>
+                      <v-text-field
+                        append-icon="person"
+                        name="login"
+                        label="Vorname: *"
+                        type="text"
+                        v-model="model.firstname"
+                        required
+                        :rules="[rules.required]"
+                      >
+                      </v-text-field>
+                    </v-col>
+                    <v-col sm=12 md=6>
+                      <v-text-field
+                        append-icon="people"
+                        name="login"
+                        label="Nachname: *"
+                        type="text"
+                        v-model="model.lastname"
+                        required
+                        :rules="[rules.required]"
+                      >
+                      </v-text-field>
+                    </v-col>
+                  </v-row>
+
+                  <v-row>
+                    <v-col sm=12 md=6>
+                      <v-text-field
+                        append-icon="home"
+                        name="login"
+                        label="Gruppenzugehörigkeit:"
+                        hint="(nur für Gruppenmitglieder relevant)"
+                        persistent-hint
+                        type="text"
+                        v-model="model.organization"
+                      >
+                      </v-text-field>
+                    </v-col>
+                    <v-col sm=12 md=6>
+                      <v-text-field
+                        append-icon="phone"
+                        label="Telefonnummer:"
+                        hint="(optional)"
+                        persistent-hint
+                        name="phone"
+                        v-model="model.phone"
+                        type="text"
+                      >
+                      </v-text-field>
+                    </v-col>
+                  </v-row>
+
                   <v-row>
                     <v-col>
                       <v-switch
@@ -89,7 +121,9 @@
                         :rules="[rules.accept]"
                       >
                         <template v-slot:label>
-                          <span>Ich bestätige, dass ich zugangsberechtigtes Mitglied des Konglomerat e.V. bin oder eine temporäre Nutzung des #Rosenwerks erworben habe.</span>
+                          <span>
+                            * Ich bestätige, dass ich zugangsberechtigtes Mitglied des Konglomerat e.V. bin oder eine temporäre Nutzung des #Rosenwerks erworben habe.
+                          </span>
                         </template>
                       </v-switch>
                     </v-col>
@@ -102,7 +136,9 @@
                         :rules="[rules.accept]"
                       >
                         <template v-slot:label>
-                          <span>Ich habe die <a href="/termsofuse" target="_blank" @click.stop>Nutzungsvereinbarung</a> und die <a href="/privacy" target="_blank" @click.stop>Datenschutzerklärung</a> gelesen und erkläre mich damit einverstanden.</span>
+                          <span>
+                            * Ich habe die <a href="/termsofuse" target="_blank" @click.stop>Nutzungsvereinbarung</a> und die <a href="/privacy" target="_blank" @click.stop>Datenschutzerklärung</a> gelesen und erkläre mich damit einverstanden.
+                          </span>
                         </template>
                       </v-switch>
                     </v-col>

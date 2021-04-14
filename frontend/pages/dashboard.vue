@@ -5,12 +5,12 @@
         <h1>Willkommen im Rosengarten des Konglomerat!</h1>
         <v-alert type="info" class="mt-10">
           <p>
-            Für Fehler und Optimierungsideen kannst du gern auf
+            Für Fehler und Optimierungsideen kannst du gern
             <a
-            href="https://github.com/konglomerat/roseguarden/issues"
+            href="https://gitreports.com/issue/konglomerat/roseguarden"
             target="_blank"
             >
-            Github
+            Hier
             </a>
             ein Ticket erstellen.
             <br>
