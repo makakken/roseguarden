@@ -24,6 +24,7 @@ from core import db
 from sqlalchemy_utils import ArrowType
 from workspaces.Access.types import SpaceAccessType, SpaceAccessRechargePeriod, SpaceAccessEntryAccounting
 import arrow
+from datetime import time
 
 
 # Define your database models here
@@ -93,9 +94,9 @@ class SpaceAccessGroup(db.Model):
     access_use_group_budget = db.Column(db.Boolean, default=False)
     last_access_at = db.Column(ArrowType, default=None)
     group_budget = db.Column(db.Integer, default=0)
-    day_access_mask = db.Column(db.Integer, default=0)
-    daily_access_start_time = db.Column(ArrowType, default=arrow.utcnow)
-    daily_access_end_time = db.Column(ArrowType, default=arrow.utcnow)
+    day_access_mask = db.Column(db.Integer, default=127)
+    daily_access_start_time = db.Column(ArrowType, default=arrow.get('00:00', 'HH:mm'))
+    daily_access_end_time = db.Column(ArrowType, default=arrow.get('23:59', 'HH:mm'))
 
 
 class SpaceAccessProperties(db.Model):
