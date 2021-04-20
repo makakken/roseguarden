@@ -24,7 +24,6 @@ from core import db
 from sqlalchemy_utils import ArrowType
 from workspaces.Access.types import SpaceAccessType, SpaceAccessRechargePeriod, SpaceAccessEntryAccounting
 import arrow
-from datetime import time
 
 
 # Define your database models here
