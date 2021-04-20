@@ -96,6 +96,16 @@ export function newAssignUserAuthenticatorAction(workspace, userId, authenticato
     return { ...action, options };
 }
 
+export function newAssignUserAuthenticatorWithRawKeysAction(workspace, userId, privateKey, publicKey, options = {}) {
+    let action = newBaseAction();
+    action.action = 'assignUserAuthenticatorWithRawKeys';
+    action.workspace = workspace;
+    action.version = 1.0;
+    action.userId = userId;
+    action.authenticatorPrivateKey = privateKey;
+    action.authenticatorPublicKey = publicKey;
+    return { ...action, options };
+}
 
 export function newUnassignUserAuthenticatorAction(workspace, userId, options = {}) {
     let action = newBaseAction();
