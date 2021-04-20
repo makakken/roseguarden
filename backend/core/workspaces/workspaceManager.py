@@ -26,6 +26,7 @@ import traceback
 import os
 import pkgutil
 from core.workspaces.workspace import Workspace
+from core.workspaces.commands import roseguarden_cli
 from core.workspaces.workspaceHooks import WorkspaceHooks
 from core.logs import logManager
 
@@ -44,6 +45,8 @@ class WorkspaceManager(object):
             self.registerWorkspacePlugins()
             self.registerWorkspacePermissions()
             logManager.info("Workspaces initialized")
+            self.register_command_line_client()
+            logManager.info("Command line client initialized")
 
     def getWorkspace(self, name):
         for w in self.workspaces:
@@ -98,6 +101,9 @@ class WorkspaceManager(object):
                     self.db.session.delete(permission)
                     self.db.session.commit()
 
+    def register_command_line_client(self):
+        self.app.cli.add_command(roseguarden_cli)
+
     def registerWorkspacePlugins(self):
         """Recursively walk the supplied package to retrieve components for all plugins (workspaces)
         """
@@ -107,6 +113,13 @@ class WorkspaceManager(object):
 
         for w in self.workspaces:
             logManager.info(f'Workspace: "{w.name}"')
+
+            # try to discover commands
+            try:
+                w.discoverCommands(self.workspaceSource)
+            except Exception as e:
+                traceback.print_exc(file=sys.stdout)
+                logManager.error(f'Workspace "{w.name}" unable to discover commands  ({str(type(e).__name__)}:{e})')
 
             # try to register permissions
             try:
