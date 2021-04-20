@@ -21,6 +21,7 @@ __credits__ = []
 __license__ = "GPLv3"
 
 from core.users.models import User
+from core.users.enum import UserAuthenticatorStatus
 from core.workspaces.models import Permission, PermissionGroup
 from core.messages import send_message
 from core.jobs import jobManager
@@ -28,9 +29,8 @@ from core.workspaces import workspaceManager
 from core.actions.models import ActionLink
 import arrow
 
-from workspaces.Access.models import SpaceAccessGroup, SpaceAccessSpace
+from workspaces.Access.models import SpaceAccessGroup, SpaceAccessSpace, AccessgroupSpaceMap, SpaceNodeMap
 from workspaces.Access.types import SpaceAccessType
-
 from core.workspaces.workspaceHooks import WorkspaceHooks
 from core.nodes import nodeManager
 from core.nodes.models import Node
@@ -47,8 +47,10 @@ def create_devEnv(app, db, clean=True):
     print("Create dev enviroment")
     if clean is True:
         PermissionGroup.query.delete()
+        AccessgroupSpaceMap.query.delete()
         SpaceAccessGroup.query.delete()
         SpaceAccessSpace.query.delete()
+        SpaceNodeMap.query.delete()
         ActionLink.query.delete()
 
     pAll = Permission.query.all()
@@ -99,6 +101,8 @@ def create_devEnv(app, db, clean=True):
         a.organization = "Konglomerat"
         a.account_verified = True
         a.pin = "123456"
+        a.setAuthenticatorHash(b'$2b$12$zOn/sn5hpG02xpwvj74zruGHBGYCDgayBacy9Q9zBgM6.OEExh5Zm')
+        a.authenticator_status = UserAuthenticatorStatus.VALID
         workspaceManager.triggerWorkspaceHooks(WorkspaceHooks.CREATEUSER, user=a)
         db.session.add(a)
         data = {'username': a.firstname + " " + a.lastname}
@@ -121,14 +125,15 @@ def create_devEnv(app, db, clean=True):
     if n is None:
         nodeManager.create_node_from_identification(node_ident, node_fingerprint, node_authentification)
         nodeManager.authorizeNode(node_fingerprint)
+        n = Node.query.filter_by(fingerprint=node_fingerprint).first()
 
     sas = SpaceAccessSpace(name="Garage workshop")
     sas.description = "The garage workshop"
-    sas.entrance_node = [n]
+    sas.entrance_nodes = [n]
     db.session.add(sas)
 
     ag = SpaceAccessGroup(name="Friends (full access)")
-    ag.spaces.append(sas)
+    ag.spaces = [sas]
 
     s = User.query.filter_by(email='super@fabba.space').first()
     if s is not None:

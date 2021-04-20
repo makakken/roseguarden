@@ -90,6 +90,9 @@ dist
 
 app.db
 test.db
+backup.db
+roseGuarden.db
+roseGuardenV2.db
 jobs.sqlite
 
 # IDE

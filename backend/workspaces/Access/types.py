@@ -26,15 +26,17 @@ from enum import Enum
 class SpaceAccessType(Enum):
     NO_ACCESS = "No access"
     UNLIMITED = "Unlimited"
-    USER_BUDGET = "User Budget (days)"
-    GROUP_BUDGET = "Group Budget (days)"
-    AUTO_CHARGED_MONTHLY_BUDGET = "Auto-charged budget (monthly)"
-    AUTO_CHARGED_WEEKLY_BUDGET = "Auto-charged budget (weekly)"
+    USER_BUDGET = "User Budget"
+    GROUP_BUDGET = "Group Budget"
+    AUTO_RECHARGED_USER_BUDGET = "Auto-recharged user budget"
+    AUTO_RECHARGED_GROUP_BUDGET = "Auto-recharged group budget"
 
 
-def get_access_info_string(user_space_access_group, user_space_access_properties):
-    return user_space_access_group.access_type.value
+class SpaceAccessRechargePeriod(Enum):
+    WEEKS = "Weeks"
+    MONTHS = "Months"
 
 
-def set_default_access_type_user_properties(user, access_type):
-    pass
+class SpaceAccessEntryAccounting(Enum):
+    DAYS = "days"
+    TIMES = "times"
