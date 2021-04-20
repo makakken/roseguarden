@@ -97,21 +97,23 @@ class AccessGroupsList(DataView):
     def updateViewEntryHandler(self, user, workspace, key, entry):
         print("Handle updateViewEntryHandler request for " + self.uri)
         u = User.query.filter_by(email=key).first()
-        u.access.access_last_update_date = arrow.utcnow()
+        if u.access is not None:
+            u.access.access_last_update_date = arrow.utcnow()
+            if hasattr(entry, 'access_start_date'):
+                u.access.access_start_date = arrow.get(entry.access_start_date, 'YYYY-MM-DD')
+            if hasattr(entry, 'access_end_date'):
+                if entry.access_end_date is not None:
+                    u.access.access_expires = True
+                    u.access.access_expire_date = arrow.get(entry.access_end_date, 'YYYY-MM-DD')
+
         if hasattr(entry, 'access_budget'):
             if u.spaceaccess_accessgroup is not None and u.spaceaccess_accessgroup.access_use_group_budget:
                 u.spaceaccess_accessgroup.group_budget = entry.access_budget
             else:
                 u.access.access_budget = entry.access_budget
-        if hasattr(entry, 'access_start_date'):
-            u.access.access_start_date = arrow.get(entry.access_start_date, 'YYYY-MM-DD')
         if hasattr(entry, 'access_group'):
             g = SpaceAccessGroup.query.filter_by(id=entry['access_group']).first()
             u.spaceaccess_accessgroup = g
-        if hasattr(entry, 'access_end_date'):
-            if entry.access_end_date is not None:
-                u.access.access_expires = True
-                u.access.access_expire_date = arrow.get(entry.access_end_date, 'YYYY-MM-DD')
         self.emitSyncUpdate(key)
 
     # Handler for a request to update a single view entry

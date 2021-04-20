@@ -112,6 +112,10 @@ def is_user_budget_sufficient(user):
 
 
 def has_user_access_to_space(user, node):
+
+    if user.access is None:
+        return False, "No access properties found for user"
+
     # check for users access start date
     if arrow.utcnow().date() < user.access.access_start_date.date():
         return False, "Access not started yet"

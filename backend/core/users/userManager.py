@@ -22,6 +22,7 @@ __license__ = "GPLv3"
 
 import secrets
 import datetime
+import hashlib
 import arrow
 from flask_jwt_extended import create_access_token, create_refresh_token
 
@@ -47,6 +48,7 @@ class UserManager(object):
         from core.users.models import User, Authenticator
         self.user = User
         self.authenticator_request = Authenticator
+        self.user_authenticator_cache = {}
 
     def removeUser(self, email):
         u = self.user.query.filter_by(email=email).first()
@@ -107,9 +109,19 @@ class UserManager(object):
         return code
 
     def getUserByAuthenticator(self, authenticator_key):
+        h = hashlib.sha512(authenticator_key.encode("utf8"))
+        secret_hash = str(h.hexdigest())
+
+        if secret_hash in self.user_authenticator_cache:
+            user_mail = self.user_authenticator_cache[secret_hash]
+            u = self.user.query.filter_by(email=user_mail).first()
+            if u is not None and u.checkAuthenticator(authenticator_key) is True:
+                return u
+
         all_user = self.user.query.all()
         for u in all_user:
             if u.checkAuthenticator(authenticator_key) is True:
+                self.user_authenticator_cache[secret_hash] = u.email
                 return u
         return None
 
