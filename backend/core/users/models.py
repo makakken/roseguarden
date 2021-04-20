@@ -35,6 +35,7 @@ class User(db.Model):
     _password_hash = db.Column(db.Binary(128), nullable=False)
     _pin_hash = db.Column(db.Binary(128))
     _salt = db.Column(db.String(128))
+    authenticator_public_key = db.Column(db.String(64), default="")
     authenticator_status = db.Column(db.Enum(UserAuthenticatorStatus), default=UserAuthenticatorStatus.UNSET)
     authenticator_changed_date = db.Column(ArrowType, default=arrow.utcnow)
     email = db.Column(db.String(120), index=True, unique=True)

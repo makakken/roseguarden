@@ -112,10 +112,10 @@ def configure_app(app, config, test):
 
     if test:
         app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(
-            basedir, 'app.db')
+            basedir, 'test.db')
     else:
         app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(
-            basedir, 'test.db')
+            basedir, 'app.db')
 
     # Enable csrf double submit protection. See this for a thorough
     # explanation: http://www.redotheweb.com/2015/11/09/api-security.html

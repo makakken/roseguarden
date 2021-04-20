@@ -73,6 +73,8 @@ class UserInfo(DataView):
 
     # Handler for a request to update a single view entry
     def updateViewEntryHandler(self, user, workspace, key, entry):
+        if user.email != entry.email:
+            raise Exception("Update denied")
         user.firstname = entry.firstname
         user.lastname = entry.lastname
         user.organization = entry.organization

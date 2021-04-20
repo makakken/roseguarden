@@ -76,5 +76,5 @@ class NodeClass(object):
     def defineSettings(self):
         pass
 
-    def handleNodeActionRequest(self, action, header):
+    def handleNodeActionRequest(self, node, action, header):
         pass

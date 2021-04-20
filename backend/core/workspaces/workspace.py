@@ -213,6 +213,16 @@ class Workspace(object):
                         if dataViewInstance.entrykey is None:
                             raise LookupError("DataView {} dont define a key".format(dataViewInstance.name))
 
+    def discoverCommands(self, workspaceSource):
+
+        command_source_path = workspaceSource + '.' + self.name + '.' + 'commands'
+        # print("Discover actions for", self.uri, "from", actionsSource)
+        try:
+            command_source = __import__(command_source_path, fromlist=['blah'])
+            self.app.register_blueprint(command_source.bp, cli_group=self.uri)
+        except ModuleNotFoundError:
+            logManager.info(f'No commands found for for workspace "{self.name}"')
+
     def discoverActions(self, workspaceSource):
 
         # create manager wide generic handlers for the view

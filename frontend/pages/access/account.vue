@@ -7,13 +7,6 @@
       </v-card-title>
 
       <v-row dense>
-        <v-col cols="1" />
-        <v-col cols="10">
-          <v-alert type="info">Aktuell: Under Construction</v-alert>
-        </v-col>
-      </v-row>
-      <!--
-      <v-row dense>
         <v-progress-linear
           indeterminate
           color="primary"
@@ -21,12 +14,12 @@
         ></v-progress-linear>
       </v-row>
       <v-row dense>
-        <v-col cols="1"/>
-        <v-col cols="10">
+        <v-col cols="1" />
+        <v-col cols="3">
           <v-subheader>Access group:</v-subheader>
           <v-text-field
-            label="eMail"
-            v-model="accountdata.email"
+            label="Access group"
+            v-model="accountdata.access_group"
             :loading="loading"
             hide-details
             disabled
@@ -34,59 +27,75 @@
             dense
           ></v-text-field>
         </v-col>
+        <v-col cols="7">
+          <v-subheader />
+          <v-text-field
+            label="Group desciption"
+            v-model="accountdata.access_group_info"
+            prepend-inner-icon="mdi-information-outline"
+            :loading="loading"
+            hide-details
+            class="gray"
+            solo
+            dense
+          ></v-text-field>
+        </v-col>
       </v-row>
       <v-row dense>
-        <v-col cols="1"/>
+        <v-col cols="1" />
         <v-col cols="10">
           <v-subheader>Access info:</v-subheader>
           <v-text-field
-            label="Your first name"
+            label="Access info"
             value="Max"
-            v-model="accountdata.firstname"
+            class="gray"
+            v-model="accountdata.access_type_info"
             :loading="loading"
-            disabled
             hide-details
+            readonly
             solo
             dense
           ></v-text-field>
         </v-col>
       </v-row>
       <v-row dense>
-        <v-col cols="1"/>
+        <v-col cols="1" />
         <v-col cols="5">
           <v-subheader>Valid from:</v-subheader>
           <v-text-field
             name="pin"
-            label="Your new pin"
+            label="Valid from"
             id="pin"
             disabled
             hide-details
             solo
             dense
-            v-model="pin" >
+            v-model="accountdata.access_valid_start_date"
+          >
           </v-text-field>
         </v-col>
         <v-col cols="5">
           <v-subheader>Expires at:</v-subheader>
           <v-text-field
             name="pin_verification"
-            label="Repeat your new pin"
+            label="Expires at"
             id="pin_verification"
             disabled
             hide-details
             solo
             dense
-            v-model="pin_verification" >
+            v-model="accountdata.access_valid_end_date"
+          >
           </v-text-field>
         </v-col>
       </v-row>
       <v-row dense>
-        <v-col cols="1"/>
+        <v-col cols="1" />
         <v-col cols="10">
           <v-subheader>On following weekdays</v-subheader>
           <v-text-field
-            label="Your last name"
-            v-model="accountdata.lastname"
+            label="Weekdays"
+            v-model="accountdata.access_on_days"
             :loading="loading"
             disabled
             hide-details
@@ -96,41 +105,58 @@
         </v-col>
       </v-row>
       <v-row dense>
-        <v-col cols="1"/>
+        <v-col cols="1" />
         <v-col cols="5">
-          <v-subheader>From time:</v-subheader>
+          <v-subheader>Opening at:</v-subheader>
           <v-text-field
             name="pin"
-            label="Your new pin"
+            label="Opening at"
             id="pin"
             disabled
             hide-details
             solo
             dense
-            v-model="pin" >
+            v-model="accountdata.access_valid_start_time"
+          >
           </v-text-field>
         </v-col>
         <v-col cols="5">
-          <v-subheader>To time:</v-subheader>
+          <v-subheader>Closing at:</v-subheader>
           <v-text-field
             name="pin_verification"
-            label="Repeat your new pin"
+            label="Closing at"
             id="pin_verification"
             disabled
             hide-details
             solo
             dense
-            v-model="pin_verification" >
+            v-model="accountdata.access_valid_end_time"
+          >
           </v-text-field>
         </v-col>
       </v-row>
       <v-row dense>
-        <v-col cols="1"/>
+        <v-col cols="1" />
         <v-col cols="10">
-          <v-subheader>Access to spaces:</v-subheader>
+          <v-subheader>To following spaces:</v-subheader>
           <v-text-field
-            label="No organization"
-            v-model="accountdata.organization"
+            label="No spaces"
+            v-model="accountdata.access_to_spaces"
+            :loading="loading"
+            hide-details
+            class="gray"
+            solo
+            dense
+          ></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row dense>
+        <v-col cols="1" />
+        <v-col cols="10">
+          <v-subheader>Last updated at:</v-subheader>
+          <v-text-field
+            label="Last updated"
+            v-model="accountdata.access_updated_on_date"
             :loading="loading"
             hide-details
             disabled
@@ -139,21 +165,6 @@
           ></v-text-field>
         </v-col>
       </v-row>
-      <v-row dense>
-        <v-col cols="1"/>
-        <v-col cols="10">
-          <v-subheader>Last updated at:</v-subheader>
-          <v-text-field
-            label="13.06.2020"
-            v-model="accountdata.phone"
-            :loading="loading"
-            hide-details
-            solo
-            dense
-          ></v-text-field>
-        </v-col>
-      </v-row>
-      -->
       <br />
     </v-card>
     <br />
@@ -164,7 +175,7 @@
 import Vue from "vue";
 import * as actionBuilder from "@/api/actionBuilder";
 import { createHelpers } from "vuex-map-fields";
-
+import * as viewParser from "@/api/viewParser";
 import { mapState } from "vuex";
 
 // The getter and mutation types are provided to the vue module
@@ -299,11 +310,13 @@ export default {
   watch: {
     viewStates(newValue, oldValue) {
       console.log("change on viewStates detected with", newValue, oldValue);
-      if (this.viewStates["account/userInfo"] === "ready") {
-        this.accountdata = Object.assign(
-          {},
-          this.getAccountData("account/userInfo")
+      if (this.viewStates["access/userInfo"] === "ready") {
+        let data = viewParser.parseEntries(
+          "access/userInfo",
+          this.viewDictionary
         );
+        console.log(data);
+        this.accountdata = Object.assign({}, data);
         this.loading = false;
       } else {
         this.loading = true;
@@ -311,11 +324,14 @@ export default {
     },
   },
   mounted() {
-    let getViewAction = [actionBuilder.newGetViewAction("account", "userInfo")];
+    let getViewAction = [actionBuilder.newGetViewAction("access", "userInfo")];
     this.$store.dispatch("actions/emitActionRequest", getViewAction);
   },
 };
 </script>
 
 <style scoped>
+.gray >>> .v-input__control input {
+  color: rgba(0, 0, 0, 0.38) !important;
+}
 </style>

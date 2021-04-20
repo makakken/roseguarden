@@ -6,6 +6,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+client
+
 # Runtime data
 pids
 *.pid
@@ -88,6 +90,9 @@ dist
 
 app.db
 test.db
+backup.db
+roseGuarden.db
+roseGuardenV2.db
 jobs.sqlite
 
 # IDE
