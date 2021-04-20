@@ -122,6 +122,7 @@ class Authenticator(db.Model):
     __tablename__ = 'authenticator_requests'
     id = db.Column(db.Integer, primary_key=True)
     _authenticator_hash = db.Column(db.Binary(128))
+    authenticator_public_key = db.Column(db.String(64), default="")
     authenticator_type = db.Column(db.Enum(AuthenticatorType), default=AuthenticatorType.USER)
     code = db.Column(db.String(128), default="")
     usage_limit = db.Column(db.Integer, default=1)
