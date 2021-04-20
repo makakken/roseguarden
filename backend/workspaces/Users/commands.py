@@ -45,7 +45,7 @@ def users():
 @users.command('restore')
 @click.argument('db_file')
 def create(db_file):
-    """ Restore user from an backup sqlite database 
+    """ Restore user from an backup sqlite database
     """
     users = {}
     print(db_file)

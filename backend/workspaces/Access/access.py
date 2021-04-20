@@ -20,7 +20,7 @@ __contact__ = "roseguarden@fabba.space"
 __credits__ = []
 __license__ = "GPLv3"
 
-from datetime import time, timedelta
+from datetime import timedelta
 import arrow
 
 from workspaces.Access.types import SpaceAccessType

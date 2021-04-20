@@ -29,7 +29,6 @@ from core.workspaces import viewHandler
 from core.workspaces.dataView import DataView
 from core.workspaces.page import Page
 from core.workspaces.permission import Permission
-from core.workspaces.commands import roseguarden_cli
 from core.jobs.job import Job
 from core.jobs import jobManager
 from core.nodes import nodeManager
