@@ -12,7 +12,7 @@ def set_up_and_tear_down_database():
     All lines before the yield statement will be executed before the tests
     and each line after the yield statement will be called at the end of the tests
     """
-    app = create_app(config_file="config_test.ini", test=True)
+    app, _ = create_app(config_file="config_test.ini", test=True)
     app_context = app.app_context()
     app_context.push()
     create_testEnv(app, db)
