@@ -89,6 +89,7 @@ dist
 .serverless
 
 app.db
+app.db-journal
 test.db
 backup.db
 roseGuarden.db
