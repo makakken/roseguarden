@@ -21,6 +21,8 @@ __credits__ = []
 __license__ = "GPLv3"
 
 import smtplib
+import imaplib
+import time
 from email.mime.text import MIMEText
 from jinja2 import Template
 from core.jobs.job import Job
@@ -70,6 +72,12 @@ class MailFromFileTemplateJob(Job):
             print(sender, recipients, host, port, username, password)
             s.send_message(msg)
             s.quit()
+
+            text = msg.as_string()
+            imap = imaplib.IMAP4_SSL(host, port)
+            imap.login(username, password)
+            imap.append('INBOX.Sent', '\\Seen', imaplib.Time2Internaldate(time.time()), text.encode('utf8'))
+            imap.logout()
         except Exception as e:
             print(e)
             raise e
