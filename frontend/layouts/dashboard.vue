@@ -140,6 +140,10 @@ export default {
       {
         label: "FAQ",
         link: "/faq",
+      },
+      {
+        label: "Tutorial",
+        link: "/card-usage",
       }
     ],
     snackbar: {
