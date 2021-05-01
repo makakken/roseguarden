@@ -2,11 +2,53 @@
   <v-container fluid>
     <v-card>
       <v-card-title>
-        <h3>
+        <h2>
           Kartenbenutzung:
-        </h3>
+        </h2>
       </v-card-title>
       <v-card-text dense>
+        <p>
+          Bitte habt Geduld mit dem Schließsystem.
+          <br />
+          Wie unten gezeigt, gibt es jetzt ein direktes Feedback am Display des
+          Schließsystem's.
+        </p>
+        <p>
+          <strong>
+            Hinweis:
+          </strong>
+          <br />
+          Das Abfragen der Zugangsberechtigung kann ca.
+          <strong>10 - 30sec.</strong> dauern.
+          <br />
+          Falls ihr keinen Zugang bekommt, liegt dass warscheinlich an einer
+          fehlenden Berechtigung.
+        </p>
+        <p>
+          Die Abfrage der Zugangsberechtigung sollte nicht länger als
+          <strong>1 Minute</strong> dauern.
+          <br />
+          Wartet ihr schon länger, legt die Schlüsselkarte erneut an den Sensor.
+          <br />
+          Hilft das nicht, könnt ihr erst einmal nur eine Support-E-Mail an
+          <a href="mailto:zugang@konglomerat.org">zugang@konglomerat.org</a>
+          schreiben.
+        </p>
+
+        <p>
+          Weiter Hilfe bekommt ihr auch im
+          <nuxt-link to="/faq">FAQ</nuxt-link>
+        </p>
+
+        <br />
+        <h2>
+          Türöffnung's Schritte
+        </h2>
+        <p>
+          <br />
+          Hier eine bebilderte Beschreibung, wie ihr das Schließsystem vor Ort
+          nutzt.
+        </p>
 
         <v-container class="lighten-5">
           <v-row class="xs-12">
@@ -173,10 +215,9 @@
                     <li>
                       Die Schlüsselkarte hat
                       <strong>
-                        keine
-                        Zugangsberechtigung
+                        keine Zugangsberechtigung
                       </strong>
-                       vom System erhalten.
+                      vom System erhalten.
                     </li>
                   </ol>
                 </template>
@@ -193,7 +234,8 @@
                       Die verwendete Schlüsselkarte wurde erkannt.
                     </li>
                     <li>
-                      Das Schließsystem "klackt", und <strong>öffnet</strong> die Tür.
+                      Das Schließsystem "klackt", und
+                      <strong>öffnet</strong> die Tür.
                     </li>
                   </ol>
                 </template>
