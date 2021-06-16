@@ -8,7 +8,7 @@
           </h3>
           <v-spacer></v-spacer>  
           <v-text-field
-            v-model="search"
+            v-model="userSearch"
             append-icon="search"
             label="Search"
             single-line
@@ -56,7 +56,7 @@
           </h3>
           <v-spacer></v-spacer>  
           <v-text-field
-            v-model="search"
+            v-model="authenticatorSearch"
             append-icon="search"
             label="Search"
             single-line
