@@ -1,37 +1,23 @@
 import json
+from tests.requests.requests import ServerRequest
+from tests.requests.serverActions import LoginAction
 
 
 def test_login(base_setup):
 
     app, app_context, db, client = base_setup
     # make login request
-    jwt = {
-        'actions': [{
-            'action': 'login',
-            'password': 'test1234',
-            'username': 'roseguarden@fabba.space',
-            'version': 1,
-            'workspace': 'users'
-        }],
-        'data':
-        None,
-        'head': {
-            'msgId': 1,
-            'requestType': '',
-            'session': 'bK0GIzkTfybtIjWPZGWt_x05f0HHB2_0sfcJYEshvLE',
-            'source': 'webclient',
-            'target': 'webserver',
-            'version': '1.0'
-        }
-    }
-    login_request = client.post('http://127.0.0.1:5000/api/v1', json=jwt)
+    request = ServerRequest([LoginAction(username='roseguarden@fabba.space', password='test1234')]).to_json()
+    login_request = client.post('http://127.0.0.1:5000/api/v1', json=json.loads(request))
     assert login_request.status_code == 200
     resp = json.loads(login_request.get_data())
-    notify_action = next(item for item in resp['actions'] if item["action"] == "notify")
+    notify_action = next((item for item in resp['actions'] if item["action"] == "notify"), None)
+    assert notify_action != None
     assert notify_action['messagetype'] == 'success'
     print(resp)
     resp = login_request.response[0]
     print(resp)
+
     # print(login_request.status_code, login_request.reason, login_request.content)
     # print('----')
     # print(login_request.cookies)
