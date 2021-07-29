@@ -35,8 +35,9 @@ def high_user_count(base_setup):
 def test_get_user_by_authenticator_performance(high_user_count):
     before = time.time()
     # search for an nonexisitng authenticator
-    userManager.getUserByAuthenticator("111.111.111.111.111")
+    userManager.getUserByAuthenticator("111.111.111.111.111", "")
     after = time.time()
     elapsed_in_seconds = after - before
     print(elapsed_in_seconds)
-    assert elapsed_in_seconds < 1.0
+    # getUserByAuthenticator have to run in 3 seconds
+    assert elapsed_in_seconds < 2.0

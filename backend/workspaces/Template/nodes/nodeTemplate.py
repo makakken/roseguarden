@@ -43,10 +43,15 @@ class NodeTemplate(NodeClass):
     def handleNodeActionRequest(self, node, action, header):
         logManager.info("handleNodeActionRequest for {}".format(self.name))
         action_name = action['action']
+        public_key = ""
+        if 'public_key' in action['auth_key']:
+            public_key = action['auth_key']
+
         if action_name == "requestNodeUpdate":
             return [{}]
         elif action_name == "requestUserInfo":
-            node_action = UpdateUserInfoAction.generate(userManager.getUserByAuthenticator(action['auth_key']))
+            node_action = UpdateUserInfoAction.generate(
+                userManager.getUserByAuthenticator(action['auth_key'], public_key))
             return [node_action]
         else:
             return [{}]

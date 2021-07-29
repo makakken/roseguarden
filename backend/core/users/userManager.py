@@ -27,6 +27,7 @@ import arrow
 from flask_jwt_extended import create_access_token, create_refresh_token
 
 from core.logs import logManager
+from core.common.crc import crc16
 from core.workspaces.workspaceHooks import WorkspaceHooks
 
 
@@ -85,7 +86,7 @@ class UserManager(object):
         return access_token
 
     def createUserAuthenticatorRequest(self,
-                                       authenticator_key,
+                                       authenticator_private_key,
                                        authenticator_type,
                                        validity_type,
                                        code_send_by,
@@ -103,34 +104,34 @@ class UserManager(object):
         a.code = code
         a.code_send_by = code_send_by
         a.code_send_to = code_send_to
-        a.authenticator = authenticator_key
+        a.authenticator = authenticator_private_key
         self.db.session.add(a)
         self.db.session.commit()
         return code
 
-    def getUserByAuthenticator(self, authenticator_key):
-        h = hashlib.sha512(authenticator_key.encode("utf8"))
+    def getUserByAuthenticator(self, authenticator_private_key, authenticator_public_key):
+        h = hashlib.sha512(authenticator_private_key.encode("utf8"))
         secret_hash = str(h.hexdigest())
 
         if secret_hash in self.user_authenticator_cache:
             user_mail = self.user_authenticator_cache[secret_hash]
             u = self.user.query.filter_by(email=user_mail).first()
-            if u is not None and u.checkAuthenticator(authenticator_key) is True:
+            if u is not None and u.checkAuthenticator(authenticator_private_key) is True:
                 return u
 
         all_user = self.user.query.all()
         for u in all_user:
-            if u.checkAuthenticator(authenticator_key) is True:
+            if u.checkAuthenticator(authenticator_private_key) is True:
                 self.user_authenticator_cache[secret_hash] = u.email
                 return u
         return None
 
-    def checkUserAuthenticatorExists(self, authenticator_key):
-        all_user = self.user.query.all()
-        for u in all_user:
-            if u.checkAuthenticator(authenticator_key) is True:
-                return True
-        return False
+    def checkUserAuthenticatorExists(self, authenticator_private_key, authenticator_public_key):
+        user = self.getUserByAuthenticator(authenticator_private_key, authenticator_public_key)
+        if user is None:
+            return False
+        else:
+            return True
 
     def getUser(self, email):
         return self.user.query.filter_by(email=email).first()

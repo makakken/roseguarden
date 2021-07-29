@@ -55,13 +55,18 @@ class DoorNoPinTerminal(NodeClass):
     def handleNodeActionRequest(self, node, action, header):
         logManager.info("handleNodeActionRequest for {}".format(self.name))
         action_name = action['action']
+        public_key = ""
+        if 'public_key' in action['auth_key']:
+            public_key = action['auth_key']
+
         if action_name == "requestNodeUpdate":
             return [{}]
         elif action_name == "requestUserInfo":
-            node_action = UpdateUserInfoAction.generate(userManager.getUserByAuthenticator(action['auth_key']))
+            node_action = UpdateUserInfoAction.generate(
+                userManager.getUserByAuthenticator(action['auth_key'], public_key))
             return [node_action]
         elif action_name == "requestUserAccess":
-            user = userManager.getUserByAuthenticator(action['auth_key'])
+            user = userManager.getUserByAuthenticator(action['auth_key'], public_key)
             if user is None:
                 return [DenyAccessAction.generate("Access denied", "")]
 
@@ -76,7 +81,11 @@ class DoorNoPinTerminal(NodeClass):
             update_user_access_properties_after_access_granted(user)
             return [GrandAccessAction.generate(user)]
         elif action_name == "requestAssignCode":
-            if userManager.checkUserAuthenticatorExists(action['auth_key']) is True:
+            public_key = ""
+            if 'public_key' in action['auth_key']:
+                public_key = action['auth_key']
+
+            if userManager.checkUserAuthenticatorExists(action['auth_key'], public_key) is True:
                 node_action = UpdateAssignInfoAction.generate("", False)
             else:
                 code = userManager.createUserAuthenticatorRequest(action['auth_key'], AuthenticatorType.USER,
