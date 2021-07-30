@@ -118,7 +118,9 @@ class UserManager(object):
             if u is not None and u.checkAuthenticator(authenticator_key) is True:
                 return u
 
-        all_user = self.user.query.all()
+        # all_user = self.user.query.all()
+        all_user = self.query.filter_by(authenticator_hash=authenticator_key).first()
+        
         for u in all_user:
             if u.checkAuthenticator(authenticator_key) is True:
                 self.user_authenticator_cache[secret_hash] = u.email
@@ -126,7 +128,9 @@ class UserManager(object):
         return None
 
     def checkUserAuthenticatorExists(self, authenticator_key):
-        all_user = self.user.query.all()
+        # all_user = self.user.query.all()
+        all_user = self.query.filter_by(authenticator_hash=authenticator_key).first()
+        
         for u in all_user:
             if u.checkAuthenticator(authenticator_key) is True:
                 return True
