@@ -11,6 +11,7 @@
             label="Suche"
             single-line
             hide-details
+            class="d-none"
           ></v-text-field>
           <v-spacer></v-spacer>
 

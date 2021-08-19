@@ -104,6 +104,7 @@ jobs.sqlite
 sw.*
 
 # virtual environment
+venv
 .venv
 .tox
 .toxbase
