@@ -117,7 +117,7 @@ class UserManager(object):
             u = self.user.query.filter_by(email=user_mail).first()
             if u is not None and u.checkAuthenticator(authenticator_key) is True:
                 return u
-
+ 
         all_user = self.user.query.all()
         for u in all_user:
             if u.checkAuthenticator(authenticator_key) is True:
