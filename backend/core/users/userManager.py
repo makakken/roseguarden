@@ -27,7 +27,7 @@ import arrow
 from flask_jwt_extended import create_access_token, create_refresh_token
 
 from core.logs import logManager
-from core.common.crc import crc16
+from core.common.checksum import crc16
 from core.workspaces.workspaceHooks import WorkspaceHooks
 
 
