@@ -29,6 +29,7 @@ from core.actions.models import ActionLink
 import arrow
 
 from workspaces.Access.models import SpaceAccessGroup, SpaceAccessSpace
+from workspaces.Access.types import SpaceAccessType
 
 from core.workspaces.workspaceHooks import WorkspaceHooks
 from core.nodes import nodeManager
@@ -136,7 +137,7 @@ def create_testEnv(app, db, clean=True):
         ag.users.append(a)
 
     ag.note = "Friends with full access"
-    ag.access_type = 'Unlimited'
+    ag.access_type = SpaceAccessType.UNLIMITED
     ag.daily_access_start_time = arrow.get('00:00', 'HH:mm')
     ag.daily_access_end_time = arrow.get('23:59', 'HH:mm')
     ag.door_access_mask = 3

@@ -22,13 +22,30 @@ __license__ = "GPLv3"
 
 from core import db
 from sqlalchemy_utils import ArrowType
+from workspaces.Access.types import SpaceAccessType, SpaceAccessRechargePeriod, SpaceAccessEntryAccounting
 import arrow
 
-# Define your database models here
 
-association_table_node_spaceaccess_space = db.Table(
-    'spaceaccess_space_node_map', db.Column('nodes_id', db.Integer, db.ForeignKey('nodes.id')),
-    db.Column('spaceaccess_space_id', db.Integer, db.ForeignKey('spaceaccess_spaces.id')))
+# Define your database models here
+class SpaceNodeMap(db.Model):
+    __tablename__ = 'spaceaccess_space_node_map'
+    id = db.Column(db.Integer, primary_key=True)
+    node_id = db.Column(db.Integer(), db.ForeignKey('nodes.id'))
+    space_id = db.Column(db.Integer(), db.ForeignKey('spaceaccess_spaces.id'))
+
+
+class AccessgroupSpaceMap(db.Model):
+    __tablename__ = 'spaceaccess_accessgroup_space_map'
+    id = db.Column(db.Integer, primary_key=True)
+    space_id = db.Column(db.Integer(), db.ForeignKey('spaceaccess_spaces.id'))
+    group_id = db.Column(db.Integer(), db.ForeignKey('spaceaccess_groups.id'))
+
+
+class AccessgroupUserMap(db.Model):
+    __tablename__ = 'spaceaccess_accessgroup_user_map'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
+    group_id = db.Column(db.Integer(), db.ForeignKey('spaceaccess_groups.id'))
 
 
 class SpaceAccessSpace(db.Model):
@@ -38,53 +55,47 @@ class SpaceAccessSpace(db.Model):
     description = db.Column(db.String(128), default="")
     entrance_nodes = db.relationship(
         "Node",
-        backref="spaceaccess_spaces",
-        secondary=association_table_node_spaceaccess_space,
+        backref=db.backref("spaceaccess_spaces", lazy=True),
+        secondary=SpaceNodeMap.__tablename__,
         lazy='subquery',
     )
 
 
-association_table_user_accessgroup = db.Table(
-    'accessgroup_user_map', db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
-    db.Column('spaceaccess_group_id', db.Integer, db.ForeignKey('spaceaccess_groups.id')))
-
-association_table_space_accessgroup = db.Table(
-    'accessgroup_space_map', db.Column('spaceaccess_space_id', db.Integer, db.ForeignKey('spaceaccess_spaces.id')),
-    db.Column('spaceaccess_group_id', db.Integer, db.ForeignKey('spaceaccess_groups.id')))
-
-
-# This is just a test model
 class SpaceAccessGroup(db.Model):
     __tablename__ = 'spaceaccess_groups'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), default="")
-    note = db.Column(db.String(120), default="")
     users = db.relationship(
         "User",
-        backref=db.backref("accessgroup", uselist=False),
-        secondary=association_table_user_accessgroup,
+        backref=db.backref("spaceaccess_accessgroup", uselist=False, lazy=True),
+        secondary=AccessgroupUserMap.__tablename__,
         lazy='subquery',
     )
-    access_type = db.Column(db.String(120), default="No access")
-    access_need_budget = db.Column(db.Boolean, default=False)
-    access_autocharged = db.Column(db.Boolean, default=False)
-    access_autocharge_budget_amount = db.Column(db.Boolean, default=False)
-    access_autocharge_budget_period = db.Column(db.String(120), default="monthly")
-    access_autocharge_budget_period_count = db.Column(db.Integer, default=1)
-    access_autocharge_budget_cut = db.Column(db.Boolean, default=True)
-    access_autocharge_budget_max = db.Column(db.Integer, default=0)
-    access_expires_as_default = db.Column(db.Boolean, default=False)
-    access_expires_default_days = db.Column(db.Integer, default=365)
-    group_budget = db.Column(db.Integer, default=0)
     spaces = db.relationship(
         "SpaceAccessSpace",
-        backref=db.backref("access_group"),
-        secondary=association_table_space_accessgroup,
+        backref=db.backref("spaceaccess_accessgroup", lazy=True),
+        secondary=AccessgroupSpaceMap.__tablename__,
         lazy='subquery',
     )
-    day_access_mask = db.Column(db.Integer, default=0)
-    daily_access_start_time = db.Column(ArrowType, default=arrow.utcnow)
-    daily_access_end_time = db.Column(ArrowType, default=arrow.utcnow)
+    name = db.Column(db.String(120), default="")
+    note = db.Column(db.String(120), default="")
+    access_type = db.Column(db.Enum(SpaceAccessType), default=SpaceAccessType.NO_ACCESS)
+    entry_accounting_type = db.Column(db.Enum(SpaceAccessEntryAccounting), default=SpaceAccessEntryAccounting.DAYS)
+    access_need_budget = db.Column(db.Boolean, default=False)
+    access_gets_recharged = db.Column(db.Boolean, default=False)
+    access_recharge_budget_amount = db.Column(db.Integer, default=15)
+    access_recharge_budget_period = db.Column(db.Enum(SpaceAccessRechargePeriod),
+                                              default=SpaceAccessRechargePeriod.MONTHS)
+    access_recharge_budget_every_periods = db.Column(db.Integer, default=4)
+    access_recharge_budget_get_cutoff = db.Column(db.Boolean, default=True)
+    access_recharge_budget_cutoff_max = db.Column(db.Integer, default=15)
+    access_expires_as_default = db.Column(db.Boolean, default=False)
+    access_expires_default_days = db.Column(db.Integer, default=365)
+    access_use_group_budget = db.Column(db.Boolean, default=False)
+    last_access_at = db.Column(ArrowType, default=None)
+    group_budget = db.Column(db.Integer, default=0)
+    day_access_mask = db.Column(db.Integer, default=127)
+    daily_access_start_time = db.Column(ArrowType, default=arrow.get('00:00', 'HH:mm'))
+    daily_access_end_time = db.Column(ArrowType, default=arrow.get('23:59', 'HH:mm'))
 
 
 class SpaceAccessProperties(db.Model):
@@ -97,6 +108,7 @@ class SpaceAccessProperties(db.Model):
     access_start_date = db.Column(ArrowType, default=arrow.utcnow)
     access_expire_date = db.Column(ArrowType, default=arrow.utcnow)
     access_last_update_date = db.Column(ArrowType, default=arrow.utcnow)
+    last_access_at = db.Column(ArrowType, default=None)
     user = db.relationship("User",
                            backref=db.backref("access",
                                               uselist=False,

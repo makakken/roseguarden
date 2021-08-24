@@ -21,6 +21,8 @@ __credits__ = []
 __license__ = "GPLv3"
 
 import smtplib
+import imaplib
+import time
 from email.mime.text import MIMEText
 from jinja2 import Template
 from core.jobs.job import Job
@@ -67,9 +69,23 @@ class MailFromFileTemplateJob(Job):
             password = config.get('password')
             s = smtplib.SMTP_SSL(host, port)
             s.login(username, password)
-            print(sender, recipients, host, port, username, password)
             s.send_message(msg)
             s.quit()
+
+            save_sent_mails = config.get('save_sent_mails')
+            if save_sent_mails:
+                text = msg.as_string()
+                imap_port = config.get('imap_port')
+                imap_sent_folder = config.get('imap_sent_folder')
+                try:
+                    imap = imaplib.IMAP4_SSL(host, imap_port)
+                    imap.login(username, password)
+                    imap.append(imap_sent_folder, '\\Seen', imaplib.Time2Internaldate(time.time()),
+                                text.encode('utf8'))
+                    imap.logout()
+                except Exception as e:
+                    print("Unable to copy email to send folder:", e)
+                    raise e
         except Exception as e:
             print(e)
             raise e

@@ -7,13 +7,13 @@
           <p>
             Für Fehler und Optimierungsideen kannst du gern
             <a
-            href="https://gitreports.com/issue/konglomerat/roseguarden"
-            target="_blank"
+              href="https://gitreports.com/issue/konglomerat/roseguarden"
+              target="_blank"
             >
-            Hier
+              Hier
             </a>
             ein Ticket erstellen.
-            <br>
+            <br />
             Für Support-Anfragen schreib uns einfach eine E-Mail an:
             <a href="mailto:zugang@konglomerat.org">zugang@konglomerat.org</a> .
           </p>
@@ -33,13 +33,13 @@
       <v-col cols="12" align="center">
         <div class="text-center">
           <p>
-            Wir sind jetzt in der Minimal-Ausbaustufe, das System wird in seinen Funktionen Stück für Stück erweitert.
-            <br>
-            All deine Account- und Zugangsinfos kannst du über das Menü links einsehen.
+            Wir sind jetzt in der Minimal-Ausbaustufe, das System wird in seinen
+            Funktionen Stück für Stück erweitert.
+            <br />
+            All deine Account- und Zugangsinfos kannst du über das Menü links
+            einsehen.
           </p>
-          <p>
-            Bis bald in der Werkstatt!
-          </p>
+          <p>Bis bald in der Werkstatt!</p>
           <v-btn dark color="primary" @click="onTestLogout()">Logout</v-btn>
         </div>
       </v-col>
@@ -89,7 +89,7 @@
           dense
           text
           small
-          color="primary"
+          color="info"
           href="/user/lostpassword"
           target="_blank"
           >Passwort vergessen?</v-btn
@@ -98,7 +98,7 @@
           dense
           text
           small
-          color="primary"
+          color="info"
           href="/user/resendverificationmail"
           target="_blank"
           >Verifizierung erneut senden?</v-btn
@@ -133,8 +133,8 @@
           <p>
             Um das neue System zu nutzen, musst du dich zuerst registrieren.
             <br />
-            Mit deinem Account kannst du dann deine Karte freischalten,
-            den aktuellen Status anschauen und Änderungen vornehmen.
+            Mit deinem Account kannst du dann deine Karte freischalten, den
+            aktuellen Status anschauen und Änderungen vornehmen.
           </p>
           <v-btn dark color="primary" to="/user/register">Registrieren</v-btn>
         </div>

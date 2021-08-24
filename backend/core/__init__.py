@@ -28,6 +28,7 @@ from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
+from sqlalchemy_utils import database_exists
 
 from config import configure_app, load_config
 
@@ -100,6 +101,7 @@ def create_app(minimal=False, config_file="config.ini", test=False):
     from api import api_bp  # noqa: F401, F811
     app.register_blueprint(api_bp)
 
+    is_database_new = not database_exists(app.config['SQLALCHEMY_DATABASE_URI'])
     db.init_app(app)
 
     with app.app_context():
@@ -116,7 +118,10 @@ def create_app(minimal=False, config_file="config.ini", test=False):
         actionManager.init_manager(app, db, userManager, menuBuilder, workspaceManager, nodeManager, config)
         fileManager.init_manager(app, db, workspaceManager, config)
 
-    return app
+    with app.app_context():
+        nodeManager.init_nodes()
+
+    return app, is_database_new
 
 
 # declare app routes

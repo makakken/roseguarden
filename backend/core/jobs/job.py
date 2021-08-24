@@ -58,7 +58,7 @@ class Job(object):
         from core import create_app, db
         from core.jobs.models import JobExecute
 
-        self.app = create_app(True)
+        self.app, _ = create_app(True)
         self.db = db
         self.app.app_context().push()
         triggered = datetime.now()
