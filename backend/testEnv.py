@@ -73,6 +73,8 @@ def create_testEnv(app, db, clean=True):
         u.organization = "Konglomerat"
         u.account_verified = True
         u.pin = "123456"
+        u.authenticator = "111.222.333.000"
+        u.authenticator_public_key = ""
         workspaceManager.triggerWorkspaceHooks(WorkspaceHooks.CREATEUSER, user=u)
         db.session.add(u)
         data = {'username': u.firstname + " " + u.lastname}
