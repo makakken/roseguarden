@@ -95,7 +95,7 @@ class AuthenticatorList(DataView):
     def lockHandler(self, user, workspace, action, entrykey):
         user = User.query.filter_by(email=entrykey).first()
         user.authenticator_status = UserAuthenticatorStatus.LOCKED
-        user.resetAuthenticator()
+        user.resetAuthenticatorHash()
         self.emitSyncCreate(entrykey, "userAuthenticatorList")
 
     # Handler for a request to create a new view entry
