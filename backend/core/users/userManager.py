@@ -27,7 +27,7 @@ import arrow
 from flask_jwt_extended import create_access_token, create_refresh_token
 
 from core.logs import logManager
-from core.common.checksum import crc16
+from core.common.checksum import crc8
 from core.workspaces.workspaceHooks import WorkspaceHooks
 
 
@@ -85,17 +85,24 @@ class UserManager(object):
         create_refresh_token(identity=username)
         return access_token
 
+    def getAuthenticatorPublicKeyOrDefault(self, authenticator_private_key, authenticator_public_key):
+        # for empty public keys use the default scenario to create one out of the private key
+        if authenticator_public_key is None or authenticator_public_key == "":
+            key = "SERVERGENERATED:CRC8:" + str(crc8(bytearray(authenticator_private_key.encode())))
+            return key
+        else:
+            return authenticator_public_key
+
     def createUserAuthenticatorRequest(self,
                                        authenticator_private_key,
+                                       authenticator_public_key,
                                        authenticator_type,
                                        validity_type,
                                        code_send_by,
                                        code_send_to,
                                        expire_days=3):
         token = secrets.token_hex(6)
-        print(token)
         code = ':'.join(a + b for a, b in zip(token[::2], token[1::2])).upper()
-        print(code)
         a = self.authenticator_request()
         a.authenticator_type = authenticator_type
         a.validity_type = validity_type
@@ -105,6 +112,8 @@ class UserManager(object):
         a.code_send_by = code_send_by
         a.code_send_to = code_send_to
         a.authenticator = authenticator_private_key
+        a.authenticator_public_key = self.getAuthenticatorPublicKeyOrDefault(authenticator_private_key,
+                                                                             authenticator_public_key)
         self.db.session.add(a)
         self.db.session.commit()
         return code
@@ -116,13 +125,23 @@ class UserManager(object):
         if secret_hash in self.user_authenticator_cache:
             user_mail = self.user_authenticator_cache[secret_hash]
             u = self.user.query.filter_by(email=user_mail).first()
-            if u is not None and u.checkAuthenticator(authenticator_private_key) is True:
-                return u
+            if u is not None:
+                if u.checkAuthenticator(authenticator_private_key) is True:
+                    return u
 
-        all_user = self.user.query.all()
-        for u in all_user:
+        public_key = self.getAuthenticatorPublicKeyOrDefault(authenticator_private_key, authenticator_public_key)
+
+        user_list = self.user.query.filter(self.user.authenticator_public_key == public_key).all()
+        if len(user_list) == 0:
+            user_list = self.user.query.filter((self.user.authenticator_public_key == "") | 
+                                               (self.user.authenticator_public_key is None)).all()
+
+        for u in user_list:
             if u.checkAuthenticator(authenticator_private_key) is True:
                 self.user_authenticator_cache[secret_hash] = u.email
+                if u.authenticator_public_key == "" or u.authenticator_public_key is None:
+                    u.authenticator_public_key = self.getAuthenticatorPublicKeyOrDefault(authenticator_private_key,
+                                                                                         u.authenticator_public_key)
                 return u
         return None
 

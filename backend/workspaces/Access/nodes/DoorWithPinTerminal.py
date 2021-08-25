@@ -99,7 +99,7 @@ class DoorWithPinTerminal(NodeClass):
             if userManager.checkUserAuthenticatorExists(action['auth_key'], public_key) is True:
                 node_action = UpdateAssignInfoAction.generate("", False)
             else:
-                code = userManager.createUserAuthenticatorRequest(action['auth_key'], AuthenticatorType.USER,
+                code = userManager.createUserAuthenticatorRequest(action['auth_key'], public_key, AuthenticatorType.USER,
                                                                   AuthenticatorValidityType.ONCE,
                                                                   AuthenticatorSendBy.NODE, self.identity['nodename'])
                 node_action = UpdateAssignInfoAction.generate(code, True)

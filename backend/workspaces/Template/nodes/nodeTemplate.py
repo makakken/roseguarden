@@ -44,8 +44,8 @@ class NodeTemplate(NodeClass):
         logManager.info("handleNodeActionRequest for {}".format(self.name))
         action_name = action['action']
         public_key = ""
-        if 'public_key' in action['auth_key']:
-            public_key = action['auth_key']
+        if 'public_key' in action:
+            public_key = action['public_key']
 
         if action_name == "requestNodeUpdate":
             return [{}]

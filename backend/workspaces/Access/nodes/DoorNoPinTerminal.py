@@ -81,14 +81,10 @@ class DoorNoPinTerminal(NodeClass):
             update_user_access_properties_after_access_granted(user)
             return [GrandAccessAction.generate(user)]
         elif action_name == "requestAssignCode":
-            public_key = ""
-            if 'public_key' in action['auth_key']:
-                public_key = action['auth_key']
-
             if userManager.checkUserAuthenticatorExists(action['auth_key'], public_key) is True:
                 node_action = UpdateAssignInfoAction.generate("", False)
             else:
-                code = userManager.createUserAuthenticatorRequest(action['auth_key'], AuthenticatorType.USER,
+                code = userManager.createUserAuthenticatorRequest(action['auth_key'], public_key, AuthenticatorType.USER,
                                                                   AuthenticatorValidityType.ONCE,
                                                                   AuthenticatorSendBy.NODE, self.identity['nodename'])
                 node_action = UpdateAssignInfoAction.generate(code, True)
