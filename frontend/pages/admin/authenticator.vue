@@ -39,7 +39,7 @@
             <div align="center">
               <v-tooltip v-if="item.public_key" bottom>
                 <template v-slot:activator="{ on }">
-                  <v-btn color="grey darken-2" fab  dark v-on="on" x-small>
+                  <v-btn :color="item.public_key.startsWith('SERVERGENERATED') ? 'warning': 'grey darken-3'" fab  dark v-on="on" x-small>
                     <v-icon>fingerprint</v-icon> 
                   </v-btn>
                 </template>              
