@@ -46,13 +46,13 @@ def test_get_user_by_authenticator_performance_for_not_exisiting_authenticator(h
 
     before = time.time()
     # search for an nonexisitng authenticator
-    u = userManager.getUserByAuthenticator("99.99.99.99.99", "")
+    u = userManager.get_user_by_authenticator("99.99.99.99.99", "")
     after = time.time()
     # no user should be found
     assert u is None
     elapsed_in_seconds = after - before
     print(elapsed_in_seconds)
-    # getUserByAuthenticator have to run in 2 seconds
+    # get_user_by_authenticator have to run in 2 seconds
     assert elapsed_in_seconds <= 2.0
 
 
@@ -65,11 +65,11 @@ def test_get_user_by_authenticator_performance(high_user_count):
 
     before = time.time()
     # search for an exisitng authenticator
-    u = userManager.getUserByAuthenticator("0.0.0.0.29", "")
+    u = userManager.get_user_by_authenticator("0.0.0.0.29", "")
     after = time.time()
     # no user should be found
     assert u is not None
     elapsed_in_seconds = after - before
     print(elapsed_in_seconds)
-    # getUserByAuthenticator have to run in 2 seconds
+    # get_user_by_authenticator have to run in 2 seconds
     assert elapsed_in_seconds <= 2.0

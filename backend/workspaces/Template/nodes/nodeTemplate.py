@@ -51,7 +51,7 @@ class NodeTemplate(NodeClass):
             return [{}]
         elif action_name == "requestUserInfo":
             node_action = UpdateUserInfoAction.generate(
-                userManager.getUserByAuthenticator(action['auth_key'], public_key))
+                userManager.get_user_by_authenticator(action['auth_key'], public_key))
             return [node_action]
         else:
             return [{}]

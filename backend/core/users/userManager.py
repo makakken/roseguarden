@@ -118,10 +118,12 @@ class UserManager(object):
         self.db.session.commit()
         return code
 
-    def getUserByAuthenticator(self, authenticator_private_key, authenticator_public_key):
+    def get_user_by_authenticator(self, authenticator_private_key, authenticator_public_key):
+        # the hash are stored sha512-encrypted in the volatile cache (stored in the volatile memory / RAM)
         h = hashlib.sha512(authenticator_private_key.encode("utf8"))
         secret_hash = str(h.hexdigest())
 
+        # check if the hash is in the volatile volatile cache
         if secret_hash in self.user_authenticator_cache:
             user_mail = self.user_authenticator_cache[secret_hash]
             u = self.user.query.filter_by(email=user_mail).first()
@@ -129,24 +131,40 @@ class UserManager(object):
                 if u.checkAuthenticator(authenticator_private_key) is True:
                     return u
 
+        # get the public key from the private key. This will generate a public key
+        # with a default algorithm (setuped) if needed.
         public_key = self.getAuthenticatorPublicKeyOrDefault(authenticator_private_key, authenticator_public_key)
 
+        # get all users with the corresponding public key
         user_list = self.user.query.filter(self.user.authenticator_public_key == public_key).all()
+
+        # if no user with the given public key found,
+        # get all users with no or empty public key
         if len(user_list) == 0:
             user_list = self.user.query.filter((self.user.authenticator_public_key == "") | 
                                                (self.user.authenticator_public_key is None)).all()
 
+        # iterate through the users list, contains one of the following:
+        #  - a list of all users with the corresponding public key
+        #  - (if not found) a list of all users without / empty public key
         for u in user_list:
+            # save the time consuming authenticator check for users in volatile cache
+            if u.email in self.user_authenticator_cache.values():
+                continue
+            # check the private key against the users authenticator
             if u.checkAuthenticator(authenticator_private_key) is True:
+                # if found store the key in the volatile cache
                 self.user_authenticator_cache[secret_hash] = u.email
+                # if the public key is empty set a default public key out of the private key
                 if u.authenticator_public_key == "" or u.authenticator_public_key is None:
                     u.authenticator_public_key = self.getAuthenticatorPublicKeyOrDefault(authenticator_private_key,
                                                                                          u.authenticator_public_key)
                 return u
+        # no user found for the given private key
         return None
 
     def checkUserAuthenticatorExists(self, authenticator_private_key, authenticator_public_key):
-        user = self.getUserByAuthenticator(authenticator_private_key, authenticator_public_key)
+        user = self.get_user_by_authenticator(authenticator_private_key, authenticator_public_key)
         if user is None:
             return False
         else:

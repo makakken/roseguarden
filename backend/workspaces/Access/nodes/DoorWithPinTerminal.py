@@ -63,10 +63,10 @@ class DoorWithPinTerminal(NodeClass):
             return [{}]
         elif action_name == "requestUserInfo":
             node_action = UpdateUserInfoAction.generate(
-                userManager.getUserByAuthenticator(action['auth_key'], public_key))
+                userManager.get_user_by_authenticator(action['auth_key'], public_key))
             return [node_action]
         elif action_name == "requestUserAccess":
-            user = userManager.getUserByAuthenticator(action['auth_key'], public_key)
+            user = userManager.get_user_by_authenticator(action['auth_key'], public_key)
             if user is None:
                 return [DenyAccessAction.generate("Access denied", "")]
 

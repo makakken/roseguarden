@@ -14,7 +14,7 @@ def test_public_authenticator_gets_set_to_default(base_setup):
 
     Uses the "roseguarden@fabba.space" user from the devEnv.py base environemnt.
     """
-    u = userManager.getUserByAuthenticator("111.222.333.000", "")
+    u = userManager.get_user_by_authenticator("111.222.333.000", "")
     assert u is not None
     assert u.authenticator_public_key != ""
 
