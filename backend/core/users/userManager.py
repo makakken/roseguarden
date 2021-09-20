@@ -127,7 +127,6 @@ class UserManager(object):
         if secret_hash in self.user_authenticator_cache:
             user_mail = self.user_authenticator_cache[secret_hash]
             u = self.user.query.filter_by(email=user_mail).first()
-
             if u is not None:
                 if u.checkAuthenticator(authenticator_private_key) is True:
                     return u
