@@ -21,6 +21,7 @@ __credits__ = []
 __license__ = "GPLv3"
 
 from core.users.models import User
+from core.users.enum import UserAuthenticatorStatus
 from core.workspaces.models import Permission, PermissionGroup
 from core.messages import send_message
 from core.jobs import jobManager
@@ -72,6 +73,8 @@ def create_testEnv(app, db, clean=True):
         u.organization = "Konglomerat"
         u.account_verified = True
         u.pin = "123456"
+        u.authenticator = "111.222.333.000"
+        u.authenticator_public_key = ""
         workspaceManager.triggerWorkspaceHooks(WorkspaceHooks.CREATEUSER, user=u)
         db.session.add(u)
         data = {'username': u.firstname + " " + u.lastname}
@@ -100,6 +103,9 @@ def create_testEnv(app, db, clean=True):
         a.account_verified = True
         a.pin = "123456"
         workspaceManager.triggerWorkspaceHooks(WorkspaceHooks.CREATEUSER, user=a)
+        a.authenticator = "112.123.23.1.91"
+        a.authenticator_status = UserAuthenticatorStatus.VALID
+
         db.session.add(a)
         data = {'username': a.firstname + " " + a.lastname}
         send_message(a, "Welcome", usersWorkspace, 'welcome.message', data, 'Roseguarden')
