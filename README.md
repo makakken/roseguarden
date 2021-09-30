@@ -31,6 +31,13 @@ It's meant to be only for test purposes. The data can be reset at any time.
     * start the frontend with `npm run dev` out of the `frontend` folder
 + alternativly you can use the `script/pack.py`-script to build your own package and host it with an HTTP-server
 
+### By using Docker for Development
+* cd into `/roseguarden/frontend` Folder and run `docker run -it -v roseguard_node_modules:/usr/src/service/node_modules -v ${PWD}/package.json:/usr/src/service/package.json -w /usr/src/service node:16 npm install`
+* cd back into `/roseguarden` and run docker-compose up
+* frontend is now listening on localhost:3000, backend on localhost:5000
+
+:boom: **Note:** the first command is caching an `npm install` into a named docker volume, which is then used in docker-compose. If you change anything in package.json rerun the first command to update dependencies.
+
 #### Run Backend after fresh clone:
 * `cd backend`
 * `python3 -m venv .venv`
