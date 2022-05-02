@@ -24,20 +24,21 @@ from core.workspaces.workspace import Workspace
 from core.workspaces.dataView import DataView
 from core.workspaces.models import Permission, PermissionGroup
 from core.users.models import User
+
 """ A view contaning a list of permission groups
 """
 
 
 class PermissionGroupsList(DataView):
 
-    uri = 'groupsList'
+    uri = "groupsList"
     requireLogin = True
 
     def defineProperties(self):
-        self.addIntegerProperty(name='id', label='ID', isKey=True)
-        self.addStringProperty(name='name', label='Name')
-        self.addStringProperty(name='description', label='Description')
-        self.addMultiSelectProperty(name='permissions', label='Permission keys', selectables=[])
+        self.addIntegerProperty(name="id", label="ID", isKey=True)
+        self.addStringProperty(name="name", label="Name")
+        self.addStringProperty(name="description", label="Description")
+        self.addMultiSelectProperty(name="permissions", label="Permission keys", selectables=[])
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
         print("getDataViewHandler for PermissionGroupsList")
@@ -60,12 +61,12 @@ class PermissionGroupsList(DataView):
         return entrylist
 
     def __repr__(self):
-        return '<{} with {} properties>'.format(self.name, len(self.properties))
+        return "<{} with {} properties>".format(self.name, len(self.properties))
 
     # Handler for a request to create a new view entry
     def createViewEntryHandler(self, user, workspace, entry):
         pg = PermissionGroup()
-        if hasattr(entry, 'name'):
+        if hasattr(entry, "name"):
             pg.name = entry.name
         else:
             pg.name = "New group"
@@ -85,13 +86,13 @@ class PermissionGroupsList(DataView):
         print("Handle updateViewEntryHandler request for " + self.uri)
         all_permissions = Permission.query.all()
         pg = PermissionGroup.query.filter_by(id=key).first()
-        if hasattr(entry, 'name'):
+        if hasattr(entry, "name"):
             pg.name = entry.name
-        if hasattr(entry, 'description'):
+        if hasattr(entry, "description"):
             pg.description = entry.description
-        if hasattr(entry, 'permissions'):
+        if hasattr(entry, "permissions"):
             pg.permissions.clear()
             for p in all_permissions:
-                if p.id in entry['permissions']:
+                if p.id in entry["permissions"]:
                     pg.permissions.append(p)
         self.emitSyncUpdate(key)

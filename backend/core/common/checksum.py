@@ -3,7 +3,7 @@ def mod4bit(data: bytearray, start_value=0xAAAA):
     # Iterate bytes in data
     for byte in data:
         byte_sum += byte
-    return (((byte_sum) % 16))
+    return (byte_sum) % 16
 
 
 def crc8(data: bytearray, initial_value=0xFF, polynom=0x07, xor_output=0x00):

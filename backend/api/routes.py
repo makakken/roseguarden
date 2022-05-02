@@ -34,7 +34,7 @@ import datetime
 # e.g. '/login/refresh'
 
 
-@api_bp.route('/api/v1', methods=["POST", "GET"])
+@api_bp.route("/api/v1", methods=["POST", "GET"])
 @jwt_optional
 def api_v1():
     print("call on api version v1")
@@ -42,8 +42,8 @@ def api_v1():
     pprint(request.json, depth=2, indent=2)
     a = get_raw_jwt()
     expire_date = None
-    if 'exp' in a:
-        expire_date = datetime.datetime.fromtimestamp(a['exp'])
+    if "exp" in a:
+        expire_date = datetime.datetime.fromtimestamp(a["exp"])
     reply = actionManager.handleActionRequest(get_jwt_identity(), expire_date, request.json)
     print("Send reply:")
     pprint(reply, depth=2, indent=2)

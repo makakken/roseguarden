@@ -22,41 +22,49 @@ __license__ = "GPLv3"
 
 
 class BaseAction(object):
-    action = 'undefined'
-    target = 'undefined'
-    source = 'server'
-    version = '1.0.0'
+    action = "undefined"
+    target = "undefined"
+    source = "server"
+    version = "1.0.0"
 
-    def __init__(self, ):
+    def __init__(
+        self,
+    ):
         print("Instance of BaseAction created")
 
-    def execute(self, ):
+    def execute(
+        self,
+    ):
         print("Execute not defined")
 
     @classmethod
     def generate(cls, delay=0.0):
         action = {}
-        action['action'] = cls.action
-        action['target'] = cls.target
-        action['version'] = cls.version
-        action['source'] = cls.source
-        action['delay'] = delay
+        action["action"] = cls.action
+        action["target"] = cls.target
+        action["version"] = cls.version
+        action["source"] = cls.source
+        action["delay"] = delay
         return action
 
 
 class BaseNodeAction(object):
-    action = 'undefined'
-    version = '1.0.0'
+    action = "undefined"
+    version = "1.0.0"
 
-    def __init__(self, ):
+    def __init__(
+        self,
+    ):
         print("Instance of BaseAction created")
 
-    def execute(self, ):
+    def execute(
+        self,
+    ):
         print("Execute not defined")
 
     @classmethod
     def generate(cls):
         action = {}
-        action['action'] = cls.action
-        action['version'] = cls.version
+        action["action"] = cls.action
+        action["version"] = cls.version
         return action

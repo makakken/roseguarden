@@ -24,6 +24,6 @@ from core.menus import menus_bp
 from flask import make_response
 
 
-@menus_bp.route('/api/v1/menu', methods=["GET"])
+@menus_bp.route("/api/v1/menu", methods=["GET"])
 def menus():
     return make_response("not implemented yet", 200)

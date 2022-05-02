@@ -23,10 +23,10 @@ __license__ = "GPLv3"
 import json
 
 
-class LoginAction():
+class LoginAction:
     def __init__(self, username, password):
-        self.action = 'login'
-        self.workspace = 'users'
+        self.action = "login"
+        self.workspace = "users"
         self.username = username
         self.password = password
         self.version = 1

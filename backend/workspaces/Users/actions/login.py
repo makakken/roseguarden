@@ -29,24 +29,26 @@ import arrow
 class Login(Action):
     def __init__(self, app):
         # logManager.info("Login of type Action created")
-        super().__init__(app, uri='login')
+        super().__init__(app, uri="login")
 
     def handle(self, action, user, workspace, actionManager):
         logManager.info("Execute login action")
         replyActions = []
-        user = (actionManager.userManager.getUser(action['username']))
+        user = actionManager.userManager.getUser(action["username"])
 
         if user is not None:
             if user.account_verified is False:
                 replyActions.append(
-                    webclientActions.NotificationAction.generate("Your account need to be verified before login.",
-                                                                 "warning"))
-                return 'success', replyActions
-            if user.checkPassword(action['password']):
+                    webclientActions.NotificationAction.generate(
+                        "Your account need to be verified before login.", "warning"
+                    )
+                )
+                return "success", replyActions
+            if user.checkPassword(action["password"]):
                 userManager = actionManager.userManager
                 menuBuilder = actionManager.menuBuilder
                 # update serverside jwt token
-                access_token = userManager.updateAccessToken(action['username'])
+                access_token = userManager.updateAccessToken(action["username"])
                 # update menu
                 menu = menuBuilder.buildMenu(user)
                 # build up
@@ -54,23 +56,27 @@ class Login(Action):
                 replyActions.append(webclientActions.UpdateMenuAction.generate(menu))
                 replyActions.append(webclientActions.NotificationAction.generate("Login successful.", "success"))
 
-                if 'options' in action and 'redirect' in action['options']:
-                    if action['options']['redirect'] != "":
-                        replyActions.append(webclientActions.RouteAction.generate(action['options']['redirect'], 2))
+                if "options" in action and "redirect" in action["options"]:
+                    if action["options"]["redirect"] != "":
+                        replyActions.append(webclientActions.RouteAction.generate(action["options"]["redirect"], 2))
                     else:
                         replyActions.append(webclientActions.RouteAction.generate("dashboard", 2))
 
                 replyActions.append(
-                    webclientActions.UpdateUserInfoAction.generate(user.firstname, user.lastname, user.email))
+                    webclientActions.UpdateUserInfoAction.generate(user.firstname, user.lastname, user.email)
+                )
                 user.sessionValid = True
                 user.last_login_date = arrow.utcnow()
                 # actionManager.db.session.commit()
             else:
                 replyActions.append(
-                    webclientActions.NotificationAction.generate("Login failed, username or password is wrong.",
-                                                                 "error"))
+                    webclientActions.NotificationAction.generate(
+                        "Login failed, username or password is wrong.", "error"
+                    )
+                )
         else:
             replyActions.append(
-                webclientActions.NotificationAction.generate("Login failed, username or password is wrong.", "error"))
+                webclientActions.NotificationAction.generate("Login failed, username or password is wrong.", "error")
+            )
 
-        return 'success', replyActions
+        return "success", replyActions

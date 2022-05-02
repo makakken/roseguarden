@@ -21,11 +21,12 @@ __credits__ = []
 __license__ = "GPLv3"
 
 from core.workspaces.workspace import Workspace
+
 """This workspace is a Template
 """
 
 
 class Template(Workspace):
     disable = False  # IMPORTANT: set this to False to enable the workspace.
-    uri = 'template'
-    description = 'A template workspace'
+    uri = "template"
+    description = "A template workspace"

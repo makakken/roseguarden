@@ -22,8 +22,8 @@ __license__ = "GPLv3"
 
 
 class Permission(object):
-    """Base class to create and handle permissions in the workspaces
-    """
+    """Base class to create and handle permissions in the workspaces"""
+
     def __init__(self):
-        if not hasattr(self, 'name'):
+        if not hasattr(self, "name"):
             self.name = self.__class__.__name__

@@ -23,12 +23,14 @@ __license__ = "GPLv3"
 from core import db
 
 association_table_user_permissiongroup = db.Table(
-    'permissiongroup_user_map', db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
-    db.Column('permissiongroup_id', db.Integer, db.ForeignKey('permissiongroups.id')))
+    "permissiongroup_user_map",
+    db.Column("user_id", db.Integer, db.ForeignKey("users.id")),
+    db.Column("permissiongroup_id", db.Integer, db.ForeignKey("permissiongroups.id")),
+)
 
 
 class PermissionGroup(db.Model):
-    __tablename__ = 'permissiongroups'
+    __tablename__ = "permissiongroups"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), default="")
     ldap_group = db.Column(db.String(64), default="")
@@ -38,24 +40,25 @@ class PermissionGroup(db.Model):
         "User",
         backref="permission_groups",
         secondary=association_table_user_permissiongroup,
-        lazy='subquery',
+        lazy="subquery",
     )
 
 
 association_table_permission_permissiongroup = db.Table(
-    'permission_permissiongroup_map', db.Column('permissiongroup_id', db.Integer,
-                                                db.ForeignKey('permissiongroups.id')),
-    db.Column('permission_id', db.Integer, db.ForeignKey('permissions.id')))
+    "permission_permissiongroup_map",
+    db.Column("permissiongroup_id", db.Integer, db.ForeignKey("permissiongroups.id")),
+    db.Column("permission_id", db.Integer, db.ForeignKey("permissions.id")),
+)
 
 
 class Permission(db.Model):
-    __tablename__ = 'permissions'
+    __tablename__ = "permissions"
     id = db.Column(db.Integer, primary_key=True)
     groups = db.relationship(
         "PermissionGroup",
         backref="permissions",
         secondary=association_table_permission_permissiongroup,
-        lazy='subquery',
+        lazy="subquery",
     )
     name = db.Column(db.String(64), default="")
     description = db.Column(db.String(128), default="")

@@ -29,8 +29,8 @@ class ResetLoginAction(BaseAction):
 
 
 class UpdateSessionTokenAction(BaseAction):
-    action = 'updateToken'
-    target = 'webclient'
+    action = "updateToken"
+    target = "webclient"
 
     def __init__(self, app):
         pass
@@ -38,13 +38,13 @@ class UpdateSessionTokenAction(BaseAction):
     @classmethod
     def generate(cls, token, delay=0.0):
         action = super(UpdateSessionTokenAction, cls).generate(delay)
-        action['token'] = token
+        action["token"] = token
         return action
 
 
 class RouteAction(BaseAction):
-    action = 'route'
-    target = 'webclient'
+    action = "route"
+    target = "webclient"
 
     def __init__(self, app):
         pass
@@ -52,13 +52,13 @@ class RouteAction(BaseAction):
     @classmethod
     def generate(cls, route, delay=0.0):
         action = super(RouteAction, cls).generate(delay)
-        action['route'] = route
+        action["route"] = route
         return action
 
 
 class NotificationAction(BaseAction):
-    action = 'notify'
-    target = 'webclient'
+    action = "notify"
+    target = "webclient"
 
     def __init__(self, app):
         pass
@@ -66,14 +66,14 @@ class NotificationAction(BaseAction):
     @classmethod
     def generate(cls, message, messagetype, delay=0.0):
         action = super(NotificationAction, cls).generate(delay)
-        action['message'] = message
-        action['messagetype'] = messagetype
+        action["message"] = message
+        action["messagetype"] = messagetype
         return action
 
 
 class LoadViewAction(BaseAction):
-    action = 'loadView'
-    target = 'webclient'
+    action = "loadView"
+    target = "webclient"
 
     def __init__(self, app):
         pass
@@ -81,17 +81,17 @@ class LoadViewAction(BaseAction):
     @classmethod
     def generate(cls, uri, properties, entries, metadata={}, delay=0.0):
         action = super(LoadViewAction, cls).generate(delay)
-        action['viewname'] = uri
-        action['viewdata'] = {}
-        action['viewdata']['properties'] = properties
-        action['viewdata']['entries'] = entries
-        action['viewdata']['metadata'] = entries
+        action["viewname"] = uri
+        action["viewdata"] = {}
+        action["viewdata"]["properties"] = properties
+        action["viewdata"]["entries"] = entries
+        action["viewdata"]["metadata"] = entries
         return action
 
 
 class ResetUserInfoAction(BaseAction):
-    action = 'resetUserInfo'
-    target = 'webclient'
+    action = "resetUserInfo"
+    target = "webclient"
 
     def __init__(self, app):
         pass
@@ -103,8 +103,8 @@ class ResetUserInfoAction(BaseAction):
 
 
 class UpdateUserInfoAction(BaseAction):
-    action = 'updateUserInfo'
-    target = 'webclient'
+    action = "updateUserInfo"
+    target = "webclient"
 
     def __init__(self, app):
         pass
@@ -112,15 +112,15 @@ class UpdateUserInfoAction(BaseAction):
     @classmethod
     def generate(cls, first_name, last_name, email, delay=0.0):
         action = super(UpdateUserInfoAction, cls).generate(delay)
-        action['firstname'] = first_name
-        action['lastname'] = last_name
-        action['mail'] = email
+        action["firstname"] = first_name
+        action["lastname"] = last_name
+        action["mail"] = email
         return action
 
 
 class UpdateMenuAction(BaseAction):
-    action = 'updateMenu'
-    target = 'webclient'
+    action = "updateMenu"
+    target = "webclient"
 
     def __init__(self, app):
         pass
@@ -128,13 +128,13 @@ class UpdateMenuAction(BaseAction):
     @classmethod
     def generate(cls, menu, delay=0.0):
         action = super(UpdateMenuAction, cls).generate(delay)
-        action['data'] = menu
+        action["data"] = menu
         return action
 
 
 class UpdateActionlinkStatusAction(BaseAction):
-    action = 'updateActionlinkStatus'
-    target = 'webclient'
+    action = "updateActionlinkStatus"
+    target = "webclient"
 
     def __init__(self, app):
         pass
@@ -142,6 +142,6 @@ class UpdateActionlinkStatusAction(BaseAction):
     @classmethod
     def generate(cls, status, message, delay=0.0):
         action = super(UpdateActionlinkStatusAction, cls).generate(delay)
-        action['status'] = status
-        action['message'] = message
+        action["status"] = status
+        action["message"] = message
         return action

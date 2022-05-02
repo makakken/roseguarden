@@ -14,22 +14,23 @@ def high_user_count(base_setup):
     app, app_context, db, client = base_setup
     all_user = User.query.all()
     for x in range(30):
-        email = f'test{x}@fabba.space'
+        email = f"test{x}@fabba.space"
         # check if user already exist in the db
         user_list = []
         if len([u for u in all_user if u.email == email]) == 0:
             authenticator_private_key = f"0.0.0.0.{x}"
             authenticator_public_key = ""
 
-            u = User(email=email, password='test1234', isAdmin=False)
+            u = User(email=email, password="test1234", isAdmin=False)
             u.firstname = "Test"
             u.lastname = "User"
             u.organization = "Konglomerat"
             u.account_verified = True
             u.pin = "123456"
             u.authenticator = authenticator_private_key
-            u.authenticator_public_key = userManager.getAuthenticatorPublicKeyOrDefault(authenticator_private_key, 
-                                                                                        authenticator_public_key)
+            u.authenticator_public_key = userManager.getAuthenticatorPublicKeyOrDefault(
+                authenticator_private_key, authenticator_public_key
+            )
             u.authenticator_status = UserAuthenticatorStatus.VALID
             workspaceManager.triggerWorkspaceHooks(WorkspaceHooks.CREATEUSER, user=u)
             user_list.append(u)

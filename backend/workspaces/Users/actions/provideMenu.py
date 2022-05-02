@@ -28,7 +28,7 @@ from core.actions import webclientActions
 class ProvideMenu(Action):
     def __init__(self, app):
         # logManager.info("ProvideMenu of type Action created")
-        super().__init__(app, uri='menu')
+        super().__init__(app, uri="menu")
 
     def handle(self, action, user, workspace, actionManager):
         # userManager = actionManager.userManager
@@ -36,4 +36,4 @@ class ProvideMenu(Action):
         logManager.info("Execute registration action")
         menu = menuBuilder.buildMenu(user)
         updateMenu_action = webclientActions.UpdateMenuAction.generate(menu)
-        return 'success', [updateMenu_action]
+        return "success", [updateMenu_action]

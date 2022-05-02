@@ -25,24 +25,25 @@ from core.workspaces.dataView import DataView
 from core.workspaces.models import Permission, PermissionGroup
 from core.users.models import User
 from core.nodes import nodeManager
+
 """ A view contaning a list of permission groups
 """
 
 
 class NodeClasses(DataView):
 
-    uri = 'nodeClasses'
+    uri = "nodeClasses"
     requireLogin = True
 
     #    def __init__(self):
     #        super().__init__(name='PermissionList', uri ='permissionList')
 
     def defineProperties(self):
-        self.addIntegerProperty(name='id', label='ID', isKey=True)
-        self.addStringProperty(name='name', label='Class name')
-        self.addStringProperty(name='classid', label='Class id')
-        self.addStringProperty(name='workspace', label='Workspace')
-        self.addStringProperty(name='description', label='Description')
+        self.addIntegerProperty(name="id", label="ID", isKey=True)
+        self.addStringProperty(name="name", label="Class name")
+        self.addStringProperty(name="classid", label="Class id")
+        self.addStringProperty(name="workspace", label="Workspace")
+        self.addStringProperty(name="description", label="Description")
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
         print("getDataViewHandler for NodeClasses")
@@ -55,8 +56,8 @@ class NodeClasses(DataView):
 
             # fill entry
             entry.id = k
-            entry.workspace = k.split('/')[0]
-            entry.name = k.split('/')[1]
+            entry.workspace = k.split("/")[0]
+            entry.name = k.split("/")[1]
             entry.classid = c.class_id
             entry.description = c.description
 
@@ -64,12 +65,12 @@ class NodeClasses(DataView):
         return entrylist
 
     def __repr__(self):
-        return '<{} with {} properties>'.format(self.name, len(self.properties))
+        return "<{} with {} properties>".format(self.name, len(self.properties))
 
     # Handler for a request to create a new view entry
     def createViewEntryHandler(self, user, workspace, entry):
         pg = PermissionGroup()
-        if hasattr(entry, 'name'):
+        if hasattr(entry, "name"):
             pg.name = entry.name
         else:
             pg.name = "New group"
@@ -89,13 +90,13 @@ class NodeClasses(DataView):
         print("Handle updateViewEntryHandler request for " + self.uri)
         all_permissions = Permission.query.all()
         pg = PermissionGroup.query.filter_by(id=key).first()
-        if hasattr(entry, 'name'):
+        if hasattr(entry, "name"):
             pg.name = entry.name
-        if hasattr(entry, 'description'):
+        if hasattr(entry, "description"):
             pg.description = entry.description
-        if hasattr(entry, 'permissions'):
+        if hasattr(entry, "permissions"):
             pg.permissions.clear()
             for p in all_permissions:
-                if p.id in entry['permissions']:
+                if p.id in entry["permissions"]:
                     pg.permissions.append(p)
         self.emitSyncUpdate(key)

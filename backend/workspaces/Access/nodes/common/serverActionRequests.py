@@ -24,27 +24,29 @@ from core.actions.actionGenerator import BaseNodeAction
 
 
 class RequestPinAction(BaseNodeAction):
-    action = 'requestPin'
+    action = "requestPin"
 
     @classmethod
-    def generate(cls, ):
+    def generate(
+        cls,
+    ):
         action = super(RequestPinAction, cls).generate()
         return action
 
 
 class DenyAccessAction(BaseNodeAction):
-    action = 'denyAccess'
+    action = "denyAccess"
 
     @classmethod
     def generate(cls, message, info, request_pin=False):
         action = super(DenyAccessAction, cls).generate()
-        action['message'] = message
-        action['info'] = info
+        action["message"] = message
+        action["info"] = info
         return action
 
 
 class GrandAccessAction(BaseNodeAction):
-    action = 'grandAccess'
+    action = "grandAccess"
 
     @classmethod
     def generate(cls, user):
@@ -54,35 +56,35 @@ class GrandAccessAction(BaseNodeAction):
         else:
             # add personal information
             info = "{} {}\n".format(user.firstname, user.lastname)
-            action['message'] = "Welcome"
-            action['info'] = info
+            action["message"] = "Welcome"
+            action["info"] = info
         return action
 
 
 class UpdateUserInfoAction(BaseNodeAction):
-    action = 'updateUserInfo'
+    action = "updateUserInfo"
 
     @classmethod
     def generate(cls, user):
         action = super(UpdateUserInfoAction, cls).generate()
         if user is None:
-            action['exist'] = False
-            action['info'] = "Not found."
+            action["exist"] = False
+            action["info"] = "Not found."
         else:
             # add personal information
             info = "{} {}\n".format(user.firstname, user.lastname)
             info = info + "{}\n".format(user.email)
-            action['info'] = info
-            action['exist'] = True
+            action["info"] = info
+            action["exist"] = True
         return action
 
 
 class UpdateAssignInfoAction(BaseNodeAction):
-    action = 'updateAssignInfo'
+    action = "updateAssignInfo"
 
     @classmethod
     def generate(cls, assign_key, assign_is_valid):
         action = super(UpdateAssignInfoAction, cls).generate()
-        action['code'] = assign_key
-        action['valid'] = assign_is_valid
+        action["code"] = assign_key
+        action["valid"] = assign_is_valid
         return action

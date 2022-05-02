@@ -26,23 +26,23 @@ from flask import redirect, url_for, send_from_directory
 
 
 # index route
-@app_bp.route('/')
+@app_bp.route("/")
 def index():
-    return send_from_directory('../client', 'index.html')
+    return send_from_directory("../client", "index.html")
     # return render_template("index.html")
 
 
-@app_bp.route('/<path:path>')
+@app_bp.route("/<path:path>")
 def static_proxy(path):
     # send_static_file will guess the correct MIME type
-    if (os.path.isdir("./client/" + path)):
-        return send_from_directory('../client/' + path, 'index.html')
-    if (os.path.isfile("./client/" + path)):
+    if os.path.isdir("./client/" + path):
+        return send_from_directory("../client/" + path, "index.html")
+    if os.path.isfile("./client/" + path):
         return app_bp.send_static_file(path)
     else:
-        return send_from_directory('../client/section', 'index.html')
+        return send_from_directory("../client/section", "index.html")
 
 
 @app_bp.errorhandler(404)
 def page_not_found(e):
-    return redirect(url_for('index'))
+    return redirect(url_for("index"))

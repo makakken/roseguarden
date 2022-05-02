@@ -7,6 +7,6 @@ def test_verification_check(base_setup):
 
     Uses the "unverified@fabba.space" user from the testEnv.py base environemnt.
     """
-    u = userManager.getUser('unverified@fabba.space')
+    u = userManager.getUser("unverified@fabba.space")
     access, message = has_user_access_to_space(u, None)
     assert access is False

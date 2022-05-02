@@ -42,11 +42,10 @@ def users():
     pass
 
 
-@users.command('restore')
-@click.argument('db_file')
+@users.command("restore")
+@click.argument("db_file")
 def create(db_file):
-    """ Restore user from an backup sqlite database
-    """
+    """Restore user from an backup sqlite database"""
     users = {}
     print(db_file)
 
@@ -54,7 +53,9 @@ def create(db_file):
         print("Database file dont exist")
         exit(1)
 
-    with sqlite3.connect(db_file, ) as connection:
+    with sqlite3.connect(
+        db_file,
+    ) as connection:
         c = connection.cursor()
         c.execute("SELECT * FROM users")
 
@@ -64,9 +65,9 @@ def create(db_file):
 
         for row in rows:
             user_dict = dict(zip(columns, row))
-            key = user_dict['email'].strip().lower()
+            key = user_dict["email"].strip().lower()
             # print(key)
-            users[user_dict['email'].strip().lower()] = user_dict
+            users[user_dict["email"].strip().lower()] = user_dict
 
     user_blacklist = []
     all_user = User.query.all()
@@ -78,25 +79,25 @@ def create(db_file):
     for key, u in users.items():
         if key not in user_blacklist:
             new = User(key, "-")
-            new._password_hash = u['_password_hash']
-            new._authenticator_hash = u['_authenticator_hash']
-            new.firstname = u['firstname'].strip()
-            new.lastname = u['lastname'].strip()
-            new.admin = u['admin']
-            new.phone = u['phone'].strip()
-            new.organization = u['organization'].strip()
-            new.authenticator_status = u['authenticator_status']
-            new.authenticator_changed_date = u['authenticator_changed_date']
+            new._password_hash = u["_password_hash"]
+            new._authenticator_hash = u["_authenticator_hash"]
+            new.firstname = u["firstname"].strip()
+            new.lastname = u["lastname"].strip()
+            new.admin = u["admin"]
+            new.phone = u["phone"].strip()
+            new.organization = u["organization"].strip()
+            new.authenticator_status = u["authenticator_status"]
+            new.authenticator_changed_date = u["authenticator_changed_date"]
 
-            new.account_created_date = u['account_created_date']
-            new.last_login_date = u['last_login_date']
+            new.account_created_date = u["account_created_date"]
+            new.last_login_date = u["last_login_date"]
 
-            new.account_verified = u['account_verified']
-            new.account_locked = u['account_locked']
-            new.pinIsLocked = u['pinIsLocked']
-            new.failedPinAttempts = u['failedPinAttempts']
-            new.failedLoginAttempts = u['failedLoginAttempts']
-            new.budget = u['budget']
+            new.account_verified = u["account_verified"]
+            new.account_locked = u["account_locked"]
+            new.pinIsLocked = u["pinIsLocked"]
+            new.failedPinAttempts = u["failedPinAttempts"]
+            new.failedLoginAttempts = u["failedLoginAttempts"]
+            new.budget = u["budget"]
 
             workspaceManager.triggerWorkspaceHooks(WorkspaceHooks.CREATEUSER, user=new)
 

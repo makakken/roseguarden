@@ -82,9 +82,9 @@ def load_config(file):
 
     cfg_parser = configparser.ConfigParser()
     # add default sections
-    cfg_parser.add_section('LDAP')
-    cfg_parser.add_section('MAIL')
-    cfg_parser.add_section('SYSTEM')
+    cfg_parser.add_section("LDAP")
+    cfg_parser.add_section("MAIL")
+    cfg_parser.add_section("SYSTEM")
     # read and overwrite
     cfg_parser.read(file)
     data = json.loads(json.dumps(cfg_parser._sections))
@@ -94,46 +94,48 @@ def load_config(file):
 
 def configure_app(app, config, test):
     # Configure application to store JWTs in cookies
-    app.config['JWT_TOKEN_LOCATION'] = ['headers']
-    app.config['CORS_HEADERS'] = 'Content-Type'
-    app.config['CORS_SUPPORTS_CREDENTIALS'] = True
+    app.config["JWT_TOKEN_LOCATION"] = ["headers"]
+    app.config["CORS_HEADERS"] = "Content-Type"
+    app.config["CORS_SUPPORTS_CREDENTIALS"] = True
 
     # Only allow JWT cookies to be sent over https. In production, this
     # should likely be True
-    app.config['JWT_COOKIE_SECURE'] = False
+    app.config["JWT_COOKIE_SECURE"] = False
 
     # Set the cookie paths, so that you are only sending your access token
     # cookie to the access endpoints, and only sending your refresh token
     # to the refresh endpoint. Technically this is optional, but it is in
     # your best interest to not send additional cookies in the request if
     # they aren't needed.
-    app.config['JWT_ACCESS_COOKIE_PATH'] = '/api/v1/'
-    app.config['JWT_REFRESH_COOKIE_PATH'] = '/api/v1/'
+    app.config["JWT_ACCESS_COOKIE_PATH"] = "/api/v1/"
+    app.config["JWT_REFRESH_COOKIE_PATH"] = "/api/v1/"
 
     if test:
-        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(
-            basedir, 'test.db')
+        app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL") or "sqlite:///" + os.path.join(
+            basedir, "test.db"
+        )
     else:
-        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(
-            basedir, 'app.db')
+        app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL") or "sqlite:///" + os.path.join(
+            basedir, "app.db"
+        )
 
     # Enable csrf double submit protection. See this for a thorough
     # explanation: http://www.redotheweb.com/2015/11/09/api-security.html
-    app.config['JWT_COOKIE_CSRF_PROTECT'] = False
+    app.config["JWT_COOKIE_CSRF_PROTECT"] = False
 
     # Set the secret key to sign the JWTs with
-    app.config['JWT_SECRET_KEY'] = 'super-secret'  # Change this!
+    app.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
 
-    app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+    app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
 
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-    app.config['MAIL_SERVER'] = config['MAIL'].get('server', 'server')
-    app.config['MAIL_PORT'] = config['MAIL'].get('port', 465)
-    app.config['MAIL_USERNAME'] = config['MAIL'].get('username', 'username')
-    app.config['MAIL_PASSWORD'] = config['MAIL'].get('password', 'password')
-    app.config['MAIL_USE_TLS'] = config['MAIL'].get('tls', False)
-    app.config['MAIL_USE_SSL'] = config['MAIL'].get('ssl', True)
-    app.config['MAIL_SENDER'] = config['MAIL'].get('sender', 'test@test.com')
+    app.config["MAIL_SERVER"] = config["MAIL"].get("server", "server")
+    app.config["MAIL_PORT"] = config["MAIL"].get("port", 465)
+    app.config["MAIL_USERNAME"] = config["MAIL"].get("username", "username")
+    app.config["MAIL_PASSWORD"] = config["MAIL"].get("password", "password")
+    app.config["MAIL_USE_TLS"] = config["MAIL"].get("tls", False)
+    app.config["MAIL_USE_SSL"] = config["MAIL"].get("ssl", True)
+    app.config["MAIL_SENDER"] = config["MAIL"].get("sender", "test@test.com")
 
     # app.config.from_pyfile('config.cfg', silent=True) # instance-folders configuration

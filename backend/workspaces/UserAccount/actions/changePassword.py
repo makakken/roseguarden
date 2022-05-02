@@ -28,19 +28,20 @@ from core.actions import webclientActions
 class ChangePassword(Action):
     def __init__(self, app):
         # logManager.info("ProvideMenu of type Action created")
-        super().__init__(app, uri='changePassword')
+        super().__init__(app, uri="changePassword")
 
     def handle(self, action, user, workspace, actionManager):
         logManager.info("Execute change password action")
         if user is not None:
-            if user.checkPassword(action['oldpassword']):
-                user.password = action['newpassword']
+            if user.checkPassword(action["oldpassword"]):
+                user.password = action["newpassword"]
                 notification_action = webclientActions.NotificationAction.generate("Password changed", "success")
             else:
                 notification_action = webclientActions.NotificationAction.generate("Wrong current password!", "error")
 
         else:
-            notification_action = webclientActions.NotificationAction.generate("Internal error (user not found)",
-                                                                               "error")
+            notification_action = webclientActions.NotificationAction.generate(
+                "Internal error (user not found)", "error"
+            )
 
-        return 'success', [notification_action]
+        return "success", [notification_action]

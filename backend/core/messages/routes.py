@@ -26,14 +26,14 @@ from flask_jwt_extended import jwt_optional
 from jinja2 import Template
 
 
-@messages_bp.route('/api/v1/message/<int:id>', methods=['GET'])
+@messages_bp.route("/api/v1/message/<int:id>", methods=["GET"])
 @jwt_optional
 def message(id):
 
     message = messageManager.message.query.filter_by(id=id).first()
 
     # Get File Content in String
-    jinja2_template_string = open(message.template_path, 'r').read()
+    jinja2_template_string = open(message.template_path, "r").read()
 
     # Create Template Object
     template = Template(jinja2_template_string)

@@ -23,21 +23,21 @@ __license__ = "GPLv3"
 import json
 
 
-class RegisterNodeStartup():
+class RegisterNodeStartup:
     def __init__(self, action_id=1):
-        self.action = 'registerNodeStartup'
+        self.action = "registerNodeStartup"
         self.actionid = action_id
-        self.version = '1.0.0'
+        self.version = "1.0.0"
 
     def to_json(self):
         return json.dumps(self, default=lambda o: o.__dict__)
 
 
-class RequestUserAccess():
+class RequestUserAccess:
     def __init__(self, auth_key, action_id=1):
-        self.action = 'requestUserAccess'
+        self.action = "requestUserAccess"
         self.actionid = action_id
-        self.version = '1.0.0'
+        self.version = "1.0.0"
         self.auth_key = auth_key
 
     def to_json(self):

@@ -21,16 +21,17 @@ __credits__ = []
 __license__ = "GPLv3"
 
 from core.workspaces.page import Page
+
 """ The log page
 """
 
 
 class PermissionList(Page):
-    title = 'Permission list'  # Shown label of the page in the menu
-    group = 'Admin'  # groupname multiple pages
-    icon = 'verified_user'  # icon (in typeset of material design icons)
-    route = '/permission/list'  # routing
-    builder = 'frontend'  # page get build by the client (frontend)
+    title = "Permission list"  # Shown label of the page in the menu
+    group = "Admin"  # groupname multiple pages
+    icon = "verified_user"  # icon (in typeset of material design icons)
+    route = "/permission/list"  # routing
+    builder = "frontend"  # page get build by the client (frontend)
     rank = 1.1  # ranks (double) the page higher values are at the top of the menu
     # groups will be ranked by the sum of the rank-values of their entries
     requireLogin = True  # login is required to view the page

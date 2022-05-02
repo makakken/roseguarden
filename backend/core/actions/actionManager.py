@@ -33,9 +33,11 @@ import string
 
 
 class ActionManager(object):
-    """ The ActionManager ...
-    """
-    def __init__(self, ):
+    """The ActionManager ..."""
+
+    def __init__(
+        self,
+    ):
         # preparation to instanciate
         self.actionsMap = {}
 
@@ -73,13 +75,14 @@ class ActionManager(object):
         self.mapActions(app)
 
         from core.actions.models import ActionLink
+
         self.actionLink = ActionLink
 
         logManager.info("ActionManager initialized")
 
     def createActionLink(self, workspace, action_uri, action_data_dict, redirect_to, once, need_login, expire_hours):
         al = self.actionLink()
-        al.hash = ''.join(random.choices(string.ascii_letters + string.digits, k=96))
+        al.hash = "".join(random.choices(string.ascii_letters + string.digits, k=96))
         al.workspace = workspace.uri
         al.action = action_uri
         al.expire_on_date = arrow.utcnow().shift(hours=expire_hours)
@@ -93,8 +96,8 @@ class ActionManager(object):
 
         al.need_login = need_login
         self.db.session.add(al)
-        base_url = self.config['SYSTEM'].get('base_url', '')
-        return '/'.join([base_url, 'actionlink', al.hash])
+        base_url = self.config["SYSTEM"].get("base_url", "")
+        return "/".join([base_url, "actionlink", al.hash])
 
     def executeActionLink(self, hash, user):
         response_actions = []
@@ -105,15 +108,18 @@ class ActionManager(object):
             raise ExpiredError
         try:
             if str(al.workspace) in self.actionsMap:
-                print('action workspace found')
+                print("action workspace found")
                 if al.action in self.actionsMap[al.workspace]:
-                    print('action', al.action, 'found in workspace')
+                    print("action", al.action, "found in workspace")
                     if user is None and al.need_login is True:
                         response_actions.append(
-                            webclientActions.NotificationAction.generate("Login needed you will be redirected.",
-                                                                         "success"))
+                            webclientActions.NotificationAction.generate(
+                                "Login needed you will be redirected.", "success"
+                            )
+                        )
                         response_actions.append(
-                            webclientActions.RouteAction.generate("user/login?redirect=actionlink/" + hash, 3))
+                            webclientActions.RouteAction.generate("user/login?redirect=actionlink/" + hash, 3)
+                        )
                         return response_actions
                     if al.redirect_to != "":
                         response_actions.append(webclientActions.RouteAction.generate(al.redirect_to, 2))
@@ -121,16 +127,17 @@ class ActionManager(object):
                     print(user, workspace)
                     param = al.action_data_json
                     state, actions = self.actionsMap[al.workspace][al.action].handle(
-                        ObjDict(param), user, workspace, self)
-                    if state == 'success':
-                        logManager.info('Actionlink succed with {} for user: {}', actions, user)
+                        ObjDict(param), user, workspace, self
+                    )
+                    if state == "success":
+                        logManager.info("Actionlink succed with {} for user: {}", actions, user)
                     else:
-                        logManager.error('Actionlink failed with {} for user: {}', actions, user)
-                        raise Exception(str('Action failed with {} for user: {}', actions, user))
+                        logManager.error("Actionlink failed with {} for user: {}", actions, user)
+                        raise Exception(str("Action failed with {} for user: {}", actions, user))
                     response_actions = response_actions + actions
                     return response_actions
                 else:
-                    logManager.error('action ' + al.action + ' not found in ' + al.workspace)
+                    logManager.error("action " + al.action + " not found in " + al.workspace)
                     raise Exception(str('action workspace: "' + al.workspace + '" not found'))
             else:
                 logManager.error('action workspace: "' + al.workspace + '"not found')
@@ -147,33 +154,34 @@ class ActionManager(object):
 
     def buildActionReply(self, actions, response={}):
         reply = {}
-        reply['head'] = {}
-        reply['head']['version'] = version
-        reply['actions'] = actions
-        reply['response'] = response
+        reply["head"] = {}
+        reply["head"]["version"] = version
+        reply["actions"] = actions
+        reply["response"] = response
         return reply
 
     def handleActionRequest(self, identity, expire_date, request):
-        actions = request['actions']
+        actions = request["actions"]
         response_actions = []
         response_data = {}
         user = None
-        print('identity = ', identity)
+        print("identity = ", identity)
         for action in actions:
-            if action['workspace'] in self.actionsMap:
-                print('action workspace found')
-                if action['action'] in self.actionsMap[action['workspace']]:
-                    print('action', action['action'], 'found in workspace')
-                    user = (self.userManager.getUser(identity))
-                    workspace = self.workspacesMap[action['workspace']]
+            if action["workspace"] in self.actionsMap:
+                print("action workspace found")
+                if action["action"] in self.actionsMap[action["workspace"]]:
+                    print("action", action["action"], "found in workspace")
+                    user = self.userManager.getUser(identity)
+                    workspace = self.workspacesMap[action["workspace"]]
                     try:
-                        handle_result = self.actionsMap[action['workspace']][action['action']].handle(
-                            ObjDict(action), user, workspace, self)
+                        handle_result = self.actionsMap[action["workspace"]][action["action"]].handle(
+                            ObjDict(action), user, workspace, self
+                        )
                     except RequireLoginError:
-                        route_action = webclientActions.RouteAction.generate('dashboard', delay=0)
-                        notification_action = webclientActions.NotificationAction.generate("Login required",
-                                                                                           "error",
-                                                                                           delay=2)
+                        route_action = webclientActions.RouteAction.generate("dashboard", delay=0)
+                        notification_action = webclientActions.NotificationAction.generate(
+                            "Login required", "error", delay=2
+                        )
                         response_actions = [route_action, notification_action]
                         return self.buildActionReply(response_actions, response_data)
 
@@ -189,27 +197,30 @@ class ActionManager(object):
                         state, actions, response = "error", [], {}
 
                     self.db.session.commit()
-                    if state == 'success':
+                    if state == "success":
                         pass
                     else:
-                        logManager.error('Action {} failed', action['action'])
+                        logManager.error("Action {} failed", action["action"])
 
                     response_intersection = response_data.keys() & response
                     if len(response_intersection) != 0:
-                        logManager.warning('Action response data for {} overrided the following properties',
-                                           action['action'], response_intersection)
+                        logManager.warning(
+                            "Action response data for {} overrided the following properties",
+                            action["action"],
+                            response_intersection,
+                        )
                     response_data = {**response_data, **response}
                     response_actions = response_actions + actions
 
                 else:
-                    logManager.error('action ' + action['action'] + ' not found in ' + action['workspace'])
+                    logManager.error("action " + action["action"] + " not found in " + action["workspace"])
             else:
-                logManager.error('action workspace: "' + action['workspace'] + ' "not found')
+                logManager.error('action workspace: "' + action["workspace"] + ' "not found')
 
         if expire_date is not None and identity is not None:
             difference = expire_date - datetime.datetime.now()
             remaining_minutes = difference.seconds / 60
-            session_expiration_minutes = self.config['SYSTEM'].get('session_expiration_minutes', 15)
+            session_expiration_minutes = self.config["SYSTEM"].get("session_expiration_minutes", 15)
             if remaining_minutes < session_expiration_minutes * 0.5:
                 access_token = self.userManager.updateAccessToken(identity)
                 response_actions.insert(0, webclientActions.UpdateSessionTokenAction.generate(access_token))

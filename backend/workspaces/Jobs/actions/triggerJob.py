@@ -30,7 +30,7 @@ from core.jobs import trigger_job
 class TriggerJob(Action):
     def __init__(self, app):
         # logManager.info("ProvideMenu of type Action created")
-        super().__init__(app, uri='triggerJob')
+        super().__init__(app, uri="triggerJob")
 
     def handle(self, action, user, workspace, actionManager):
         logManager.info("Trigger job")
@@ -38,4 +38,4 @@ class TriggerJob(Action):
         job_execution_id = trigger_job(action.jobId, {}, user)
         notification_action = webclientActions.NotificationAction.generate("Action triggered", "info")
         response_actions.append(notification_action)
-        return 'success', response_actions, {"job_execution_id": job_execution_id}
+        return "success", response_actions, {"job_execution_id": job_execution_id}

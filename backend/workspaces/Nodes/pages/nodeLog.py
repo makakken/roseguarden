@@ -21,16 +21,17 @@ __credits__ = []
 __license__ = "GPLv3"
 
 from core.workspaces.page import Page
+
 """ The log page
 """
 
 
 class NodesLog(Page):
-    title = 'Nodes log'  # Shown label of the page in the menu
-    group = 'Nodes'  # groupname multiple pages
-    icon = 'description'  # icon (in typeset of material design icons)
-    route = '/nodes/log'  # routing
-    builder = 'frontend'  # page get build by the client (frontend)
+    title = "Nodes log"  # Shown label of the page in the menu
+    group = "Nodes"  # groupname multiple pages
+    icon = "description"  # icon (in typeset of material design icons)
+    route = "/nodes/log"  # routing
+    builder = "frontend"  # page get build by the client (frontend)
     rank = 1.2  # ranks (double) the page higher values are at the top of the menu
     # groups will be ranked by the sum of the rank-values of their entries
     requireLogin = True  # login is required to view the page

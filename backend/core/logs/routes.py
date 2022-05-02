@@ -23,7 +23,7 @@ __license__ = "GPLv3"
 from core.logs import logs_bp, logManager
 
 
-@logs_bp.route('/api/v1/log', methods=["GET"])
+@logs_bp.route("/api/v1/log", methods=["GET"])
 def log():
     log_string = ""
     for e in logManager.logQueue:

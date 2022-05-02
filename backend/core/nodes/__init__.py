@@ -26,6 +26,6 @@ from .nodeManager import NodeManager
 
 nodeManager = NodeManager()
 
-nodes_bp = Blueprint('nodes', __name__)
+nodes_bp = Blueprint("nodes", __name__)
 
 from core.nodes import routes  # noqa: F401

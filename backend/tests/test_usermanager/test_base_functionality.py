@@ -17,4 +17,3 @@ def test_public_authenticator_gets_set_to_default(base_setup):
     u = userManager.get_user_by_authenticator("111.222.333.000", "")
     assert u is not None
     assert u.authenticator_public_key != ""
-

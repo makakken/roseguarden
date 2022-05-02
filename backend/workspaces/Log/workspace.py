@@ -21,10 +21,11 @@ __credits__ = []
 __license__ = "GPLv3"
 
 from core.workspaces.workspace import Workspace
+
 """This plugin for the administration of the permissions
 """
 
 
 class Log(Workspace):
-    uri = 'admin'
-    description = 'Administration workspace'
+    uri = "admin"
+    description = "Administration workspace"

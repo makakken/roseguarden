@@ -27,14 +27,15 @@ from core.actions import webclientActions
 class ProvideUserInfo(Action):
     def __init__(self, app):
         # logManager.info("ProvideMenu of type Action created")
-        super().__init__(app, uri='userInfo')
+        super().__init__(app, uri="userInfo")
 
     def handle(self, action, user, workspace, actionManager):
         # userManager = actionManager.userManager
         if user is None:
             updateUserInfo_action = webclientActions.ResetUserInfoAction.generate()
-            return 'success', [updateUserInfo_action]
+            return "success", [updateUserInfo_action]
         else:
-            updateUserInfo_action = webclientActions.UpdateUserInfoAction.generate(user.firstname, user.lastname,
-                                                                                   user.email)
-            return 'success', [updateUserInfo_action]
+            updateUserInfo_action = webclientActions.UpdateUserInfoAction.generate(
+                user.firstname, user.lastname, user.email
+            )
+            return "success", [updateUserInfo_action]

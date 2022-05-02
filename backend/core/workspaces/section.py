@@ -22,7 +22,7 @@ __license__ = "GPLv3"
 
 
 class Section(object):
-    """Base class to create and handle sections in the workspaces
-    """
+    """Base class to create and handle sections in the workspaces"""
+
     def __init__(self, name):
-        self.name = 'UNNAMED'
+        self.name = "UNNAMED"
