@@ -15,12 +15,12 @@ damit [Nutzen].
 
 ## Akzeptanzkriterien
 
-* [Beispiel: Wenn sich der Benutzer registriert hat, wird ihm eine E-Mail zur verifizierung gesendet]
+* [Beispiel: Wenn sich der Benutzer registriert hat, wird ihm eine E-Mail zur Verifizierung gesendet]
 * [...]
 
 ## Optional: Technische Bemerkungen
 
-* <Beispiel Links / URL]
+* [Beispiel Links]
 * [zu unterstützenden Browser]
 * [zu unterstützenden Device]
 
