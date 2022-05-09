@@ -2,7 +2,7 @@
 name: Feature
 about: Hilfe zum erstellen eines Feature-Tickets
 title: "[FEATURE] kurze Ziel Beschreibung"
-labels: external request <to be reviewed>, feature
+labels: external request <to be reviewed>
 assignees: ''
 
 ---

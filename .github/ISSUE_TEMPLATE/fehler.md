@@ -2,7 +2,7 @@
 name: Fehler
 about: Hilfe zum erstellen eines Fehler-Tickets
 title: "[FEHLER] kurze Fehler Beschreibung"
-labels: bug, external request <to be reviewed>
+labels: "bug \U0001F41B, external request <to be reviewed>"
 assignees: ''
 
 ---
