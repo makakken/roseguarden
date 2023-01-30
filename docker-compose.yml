@@ -4,19 +4,24 @@ services:
     backend:
         build: ./backend
         ports:
-            - "5000:5000"
+            - "8002:5000"
         volumes:
             - ./backend:/backend
     frontend:
-        image: node:16
+        build: ./frontend
         volumes:
-            - ./frontend:/usr/src/service/
-            - roseguard_node_modules:/usr/src/service/node_modules
-        working_dir: /usr/src/service
-        command: bash -c "npm run dev"
+            - ./frontend/api:/usr/src/nuxt-app/api
+            - ./frontend/assets:/usr/src/nuxt-app/assets
+            - ./frontend/components:/usr/src/nuxt-app/components
+            - ./frontend/layouts:/usr/src/nuxt-app/layouts
+            - ./frontend/middleware:/usr/src/nuxt-app/middleware
+            - ./frontend/pages:/usr/src/nuxt-app/pages
+            - ./frontend/plugins:/usr/src/nuxt-app/plugins
+            - ./frontend/static:/usr/src/nuxt-app/static
+            - ./frontend/store:/usr/src/nuxt-app/store
+            - ./frontend/util:/usr/src/nuxt-app/util
+            - ./frontend/package-lock.json:/usr/src/nuxt-app/package-lock.json
+            - ./frontend/package.json:/usr/src/nuxt-app/package.json
         ports:
             - "3000:3333"
-volumes:
-    roseguard_node_modules:
-        external: true
 

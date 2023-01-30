@@ -88,9 +88,20 @@
         if(now == true) {
           timeout = 0;
         }
+
+        let token = $cookies.get("user_jwt");
+        let options = {};
+        if (token !== null) {
+          options = {
+            headers: { 'X-CSRF-TOKEN': token, 'Authorization': 'Bearer ' + token },
+            withCredentials: true,
+            responseType: "text"
+          };
+        }
+
         let setTimeoutObject = setTimeout(() => {
           axios
-            .get("/api/v1/log", { responseType: "text" })
+            .get("/api/v1/log", options)
             .then(r => r.data)
             .then(log => {
               this.log = log;
