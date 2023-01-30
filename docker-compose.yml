@@ -1,0 +1,22 @@
+# Dockerfile for development purpose only!
+version: '3'
+services:
+    backend:
+        build: ./backend
+        ports:
+            - "5000:5000"
+        volumes:
+            - ./backend:/backend
+    frontend:
+        image: node:16
+        volumes:
+            - ./frontend:/usr/src/service/
+            - roseguard_node_modules:/usr/src/service/node_modules
+        working_dir: /usr/src/service
+        command: bash -c "npm run dev"
+        ports:
+            - "3000:3333"
+volumes:
+    roseguard_node_modules:
+        external: true
+
