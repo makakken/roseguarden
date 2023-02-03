@@ -193,16 +193,11 @@ class NodeManager(object):
                     actions_string = actions_string + ", "
                 actions_string = actions_string + i["action"]
 
-        # create node log
-        lg = self.nodeLog()
-        lg.request_source = header["source"]
-        lg.node_uptime = header["uptime"]
-        lg.node_logcounter = header["logcounter"]
-        lg.node_errorcounter = header["errorcounter"]
-        lg.request_actions = actions_string
-        lg.request_date = arrow.utcnow()
-        self.db.session.add(lg)
-        self.db.session.commit()
+        # Node data
+        # header["source"]
+        # header["uptime"]
+        # header["logcounter"]
+        # header["errorcounter"]
 
         # check
         n = self.node.query.filter_by(fingerprint=fingerprint).first()
