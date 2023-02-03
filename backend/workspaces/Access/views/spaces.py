@@ -31,7 +31,6 @@ from core.users.models import User
 
 
 class SpacesList(DataView):
-
     uri = "spacesList"
     requireLogin = True
 
@@ -46,7 +45,6 @@ class SpacesList(DataView):
         entrylist = []
         all_spaces = SpaceAccessSpace.query.all()
         for s in all_spaces:
-
             # get new empty entry
             entry = self.createEntry()
 

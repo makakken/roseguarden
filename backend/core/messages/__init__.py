@@ -37,7 +37,14 @@ def send_mail(recipients, subject, workspace, mail_template, data):
 
 
 def send_message(
-    recipient_user, subject, workspace, message_template, data, sender="System", mail=False, mail_template=None
+    recipient_user,
+    subject,
+    workspace,
+    message_template,
+    data,
+    sender="System",
+    mail=False,
+    mail_template=None,
 ):
     if workspace is not None:
         template_path = os.path.join(workspace.path, "templates", message_template)

@@ -29,10 +29,22 @@ actionManager = ActionManager()
 
 
 def generateActionLink(
-    workspace, action_uri, action_params, redirect_to="", once=True, need_login=True, expire_hours=24
+    workspace,
+    action_uri,
+    action_params,
+    redirect_to="",
+    once=True,
+    need_login=True,
+    expire_hours=24,
 ):
     return actionManager.createActionLink(
-        workspace, action_uri, action_params, redirect_to, once, need_login, expire_hours
+        workspace,
+        action_uri,
+        action_params,
+        redirect_to,
+        once,
+        need_login,
+        expire_hours,
     )
 
 

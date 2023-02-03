@@ -23,7 +23,11 @@ __license__ = "GPLv3"
 from core.nodes.nodeClass import NodeClass
 from core.logs import logManager
 from core.users import userManager
-from core.users.enum import AuthenticatorSendBy, AuthenticatorType, AuthenticatorValidityType
+from core.users.enum import (
+    AuthenticatorSendBy,
+    AuthenticatorType,
+    AuthenticatorValidityType,
+)
 
 from workspaces.Access.nodes.common.serverActionRequests import (
     UpdateUserInfoAction,
@@ -40,7 +44,6 @@ from workspaces.Access.access import (
 
 
 class DoorWithPinTerminal(NodeClass):
-
     class_id = "00:61:AB:EF:19:D8:00:13"
     description = "A Door terminal with pin request"
 

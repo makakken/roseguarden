@@ -25,7 +25,13 @@ from core.logs import logManager
 from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
-from apscheduler.events import EVENT_ALL, SchedulerEvent, JobEvent, JobExecutionEvent, JobSubmissionEvent
+from apscheduler.events import (
+    EVENT_ALL,
+    SchedulerEvent,
+    JobEvent,
+    JobExecutionEvent,
+    JobSubmissionEvent,
+)
 from cron_descriptor import ExpressionDescriptor, Options, CasingTypeEnum
 from core.common.objDict import ObjDict
 
@@ -198,7 +204,10 @@ class JobManager(object):
             if je is not None:
                 job_ececution_id = je.id
 
-            kwargs = {"job_id": str(jobkey) + str(self.job_counter), "job_execution_id": job_ececution_id}
+            kwargs = {
+                "job_id": str(jobkey) + str(self.job_counter),
+                "job_execution_id": job_ececution_id,
+            }
             kwargs = {**kwargs, **args}
             self.scheduler.add_job(
                 jobInstance.start_job,

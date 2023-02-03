@@ -17,7 +17,15 @@ class ServerRequest:
 
 
 class NodeRequest:
-    def __init__(self, fingerprint, authentification, actions=[], uptime=1, logcounter=0, errorcounter=0):
+    def __init__(
+        self,
+        fingerprint,
+        authentification,
+        actions=[],
+        uptime=1,
+        logcounter=0,
+        errorcounter=0,
+    ):
         self.header = {}
         self.header["source"] = "Test node"
         self.header["version"] = "1.0.0"

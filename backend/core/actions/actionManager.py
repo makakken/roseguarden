@@ -80,7 +80,16 @@ class ActionManager(object):
 
         logManager.info("ActionManager initialized")
 
-    def createActionLink(self, workspace, action_uri, action_data_dict, redirect_to, once, need_login, expire_hours):
+    def createActionLink(
+        self,
+        workspace,
+        action_uri,
+        action_data_dict,
+        redirect_to,
+        once,
+        need_login,
+        expire_hours,
+    ):
         al = self.actionLink()
         al.hash = "".join(random.choices(string.ascii_letters + string.digits, k=96))
         al.workspace = workspace.uri
@@ -190,7 +199,11 @@ class ActionManager(object):
                     if handle_result_len == 1:
                         state, actions, response = handle_result, [], {}
                     elif handle_result_len == 2:
-                        state, actions, response = handle_result[0], handle_result[1], {}
+                        state, actions, response = (
+                            handle_result[0],
+                            handle_result[1],
+                            {},
+                        )
                     elif handle_result_len == 3:
                         state, actions, response = handle_result
                     else:

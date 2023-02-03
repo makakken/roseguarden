@@ -1,13 +1,1 @@
-{
-	"folders": [
-		{
-			"path": "frontend"
-		},
-		{
-			"path": "backend"
-		},
-		{
-			"path": "docs"
-		}
-	]
-}
+{"folders": [{"path": "frontend"}, {"path": "backend"}, {"path": "docs"}]}

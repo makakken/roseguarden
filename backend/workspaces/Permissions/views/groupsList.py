@@ -30,7 +30,6 @@ from core.users.models import User
 
 
 class PermissionGroupsList(DataView):
-
     uri = "groupsList"
     requireLogin = True
 
@@ -45,7 +44,6 @@ class PermissionGroupsList(DataView):
         entrylist = []
         all_groups = PermissionGroup.query.all()
         for p in all_groups:
-
             # get new empty entry
             entry = self.createEntry()
 

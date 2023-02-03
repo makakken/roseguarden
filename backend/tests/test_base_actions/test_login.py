@@ -4,7 +4,6 @@ from tests.requests.serverActions import LoginAction
 
 
 def test_login(base_setup):
-
     app, app_context, db, client = base_setup
     # make login request
     request = ServerRequest([LoginAction(username="roseguarden@fabba.space", password="test1234")]).to_json()

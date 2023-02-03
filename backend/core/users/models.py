@@ -21,7 +21,12 @@ __credits__ = []
 __license__ = "GPLv3"
 
 from core import db, bcrypt
-from core.users.enum import AuthenticatorSendBy, AuthenticatorType, AuthenticatorValidityType, UserAuthenticatorStatus
+from core.users.enum import (
+    AuthenticatorSendBy,
+    AuthenticatorType,
+    AuthenticatorValidityType,
+    UserAuthenticatorStatus,
+)
 from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
 from sqlalchemy_utils import ArrowType
 import arrow

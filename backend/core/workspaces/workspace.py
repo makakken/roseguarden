@@ -64,13 +64,21 @@ class Workspace(object):
         key = self.name + "_" + name
         if caption is None:
             caption = name
-        self.sections[key] = {"caption": caption, "page": page, "permission": permission}
+        self.sections[key] = {
+            "caption": caption,
+            "page": page,
+            "permission": permission,
+        }
 
     def addPage(self, name, callback, caption=None, permission=None):
         key = self.name + "_" + name
         if caption is None:
             caption = name
-        self.pages[key] = {"caption": caption, "callback": callback, "permission": permission}
+        self.pages[key] = {
+            "caption": caption,
+            "callback": callback,
+            "permission": permission,
+        }
 
     def addDataView(self, dataView):
         key = dataView.name
@@ -88,7 +96,7 @@ class Workspace(object):
             if not ispkg:
                 job_module = __import__(jobname, fromlist=["blah"])
                 clsmembers = inspect.getmembers(job_module, inspect.isclass)
-                for (_, c) in clsmembers:
+                for _, c in clsmembers:
                     # Check for DataView classes
                     if issubclass(c, Job) & (c is not Job):
                         if c.disable is False:
@@ -103,7 +111,7 @@ class Workspace(object):
             if not ispkg:
                 permission_module = __import__(permissionname, fromlist=["blah"])
                 clsmembers = inspect.getmembers(permission_module, inspect.isclass)
-                for (_, c) in clsmembers:
+                for _, c in clsmembers:
                     # Check for Permission classes
                     if issubclass(c, Permission) & (c is not Permission):
                         permissionInstance = c()
@@ -139,7 +147,7 @@ class Workspace(object):
             if not ispkg:
                 node_module = __import__(nodename, fromlist=["blah"])
                 clsmembers = inspect.getmembers(node_module, inspect.isclass)
-                for (_, c) in clsmembers:
+                for _, c in clsmembers:
                     # Check for DataView classes
                     if issubclass(c, NodeClass) & (c is not NodeClass):
                         if c.disable is False:
@@ -174,7 +182,7 @@ class Workspace(object):
             if not ispkg:
                 page_module = __import__(pagename, fromlist=["blah"])
                 clsmembers = inspect.getmembers(page_module, inspect.isclass)
-                for (_, c) in clsmembers:
+                for _, c in clsmembers:
                     # Check for DataView classes
                     if issubclass(c, Page) & (c is not Page):
                         pageInstance = c()
@@ -192,7 +200,7 @@ class Workspace(object):
             if not ispkg:
                 action_module = __import__(actionname, fromlist=["blah"])
                 clsmembers = inspect.getmembers(action_module, inspect.isclass)
-                for (_, c) in clsmembers:
+                for _, c in clsmembers:
                     # Check for DataView classes
                     if issubclass(c, DataView) & (c is not DataView):
                         if hasattr(c, "name"):
@@ -214,7 +222,6 @@ class Workspace(object):
                             raise LookupError("DataView {} dont define a key".format(dataViewInstance.name))
 
     def discoverCommands(self, workspaceSource):
-
         command_source_path = workspaceSource + "." + self.name + "." + "commands"
         # print("Discover actions for", self.uri, "from", actionsSource)
         try:
@@ -224,7 +231,6 @@ class Workspace(object):
             logManager.info(f'No commands found for for workspace "{self.name}"')
 
     def discoverActions(self, workspaceSource):
-
         # create manager wide generic handlers for the view
         self.getViewActionHandler = viewHandler.GetViewActionHandler(self.app, self.db)
         self.createViewEntryActionHandler = viewHandler.CreateViewEntryActionHandler(self.app, self.db)
@@ -252,7 +258,7 @@ class Workspace(object):
             if not ispkg:
                 action_module = __import__(actionname, fromlist=["blah"])
                 clsmembers = inspect.getmembers(action_module, inspect.isclass)
-                for (_, c) in clsmembers:
+                for _, c in clsmembers:
                     # Check for Action classes
                     if issubclass(c, Action) & (c is not Action):
                         actionInstance = c(self.app)

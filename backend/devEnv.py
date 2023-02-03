@@ -29,7 +29,12 @@ from core.workspaces import workspaceManager
 from core.actions.models import ActionLink
 import arrow
 
-from workspaces.Access.models import SpaceAccessGroup, SpaceAccessSpace, AccessgroupSpaceMap, SpaceNodeMap
+from workspaces.Access.models import (
+    SpaceAccessGroup,
+    SpaceAccessSpace,
+    AccessgroupSpaceMap,
+    SpaceNodeMap,
+)
 from workspaces.Access.types import SpaceAccessType
 from core.workspaces.workspaceHooks import WorkspaceHooks
 from core.nodes import nodeManager

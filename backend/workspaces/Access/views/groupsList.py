@@ -27,7 +27,11 @@ from core.workspaces.dataView import DataView
 from core.users.models import User
 
 from workspaces.Access.models import SpaceAccessGroup, SpaceAccessSpace
-from workspaces.Access.types import SpaceAccessType, SpaceAccessRechargePeriod, SpaceAccessEntryAccounting
+from workspaces.Access.types import (
+    SpaceAccessType,
+    SpaceAccessRechargePeriod,
+    SpaceAccessEntryAccounting,
+)
 
 from workspaces.Access.access import (
     needs_the_accesstype_a_budget,
@@ -40,7 +44,6 @@ from workspaces.Access.access import (
 
 
 class AccessGroupsList(DataView):
-
     uri = "accessGroupsList"
     requireLogin = True
 
@@ -48,7 +51,11 @@ class AccessGroupsList(DataView):
         self.addIntegerProperty(name="id", label="ID", isKey=True)
         self.addStringProperty(name="name", label="Name")
         self.addStringProperty(name="note", label="Note")
-        self.addSelectProperty(name="type", label="Access type", selectables=[e.value for e in SpaceAccessType])
+        self.addSelectProperty(
+            name="type",
+            label="Access type",
+            selectables=[e.value for e in SpaceAccessType],
+        )
         self.addTimeProperty(name="daily_start_time", label="Daily start time")
         self.addTimeProperty(name="daily_end_time", label="Daily end time")
         self.addMultiSelectProperty(name="spaces", label="Space keys", selectables=[])
@@ -66,7 +73,9 @@ class AccessGroupsList(DataView):
             selectables=[e.value for e in SpaceAccessRechargePeriod],
         )
         self.addSelectProperty(
-            name="entry_accounting", label="Account entry by", selectables=[e.value for e in SpaceAccessEntryAccounting]
+            name="entry_accounting",
+            label="Account entry by",
+            selectables=[e.value for e in SpaceAccessEntryAccounting],
         )
         self.addIntegerProperty(name="recharge_budget_every_periods", label="Recharge every")
         self.addBooleanProperty(name="recharge_budget_gets_cutoff", label="Recharge gets cut")
@@ -77,7 +86,6 @@ class AccessGroupsList(DataView):
         entrylist = []
         all_groups = SpaceAccessGroup.query.all()
         for g in all_groups:
-
             # get new empty entry
             entry = self.createEntry()
 

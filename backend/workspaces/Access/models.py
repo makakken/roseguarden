@@ -22,7 +22,11 @@ __license__ = "GPLv3"
 
 from core import db
 from sqlalchemy_utils import ArrowType
-from workspaces.Access.types import SpaceAccessType, SpaceAccessRechargePeriod, SpaceAccessEntryAccounting
+from workspaces.Access.types import (
+    SpaceAccessType,
+    SpaceAccessRechargePeriod,
+    SpaceAccessEntryAccounting,
+)
 import arrow
 
 
@@ -111,5 +115,6 @@ class SpaceAccessProperties(db.Model):
     access_last_update_date = db.Column(ArrowType, default=arrow.utcnow)
     last_access_at = db.Column(ArrowType, default=None)
     user = db.relationship(
-        "User", backref=db.backref("access", uselist=False, cascade="save-update, merge, delete, delete-orphan")
+        "User",
+        backref=db.backref("access", uselist=False, cascade="save-update, merge, delete, delete-orphan"),
     )

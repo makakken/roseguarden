@@ -5,7 +5,13 @@ import requests
 # make login request
 json_data = {
     "actions": [
-        {"action": "login", "password": "test", "username": "test@fabba.space", "version": 1, "workspace": "users"}
+        {
+            "action": "login",
+            "password": "test",
+            "username": "test@fabba.space",
+            "version": 1,
+            "workspace": "users",
+        }
     ],
     "data": None,
     "head": {

@@ -53,8 +53,17 @@ class LostPassword(Action):
             resetUser.password_reset_expired_date = arrow.utcnow().shift(hours=2)
             resetUser.password_reset_hash = key
             link = ref + "/user/resetpassword" + "?key=" + key
-            data = {"username": resetUser.firstname + " " + resetUser.lastname, "reset_link": link}
+            data = {
+                "username": resetUser.firstname + " " + resetUser.lastname,
+                "reset_link": link,
+            }
             print(key)
-            send_mail([resetUser.email], "Reset your password", workspace, "lostPassword.mail", data)
+            send_mail(
+                [resetUser.email],
+                "Reset your password",
+                workspace,
+                "lostPassword.mail",
+                data,
+            )
 
         return "success", [notification_action]

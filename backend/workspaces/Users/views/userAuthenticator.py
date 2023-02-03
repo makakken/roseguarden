@@ -32,7 +32,6 @@ from core.common.deface import deface_string_end
 
 
 class AuthenticatorList(DataView):
-
     uri = "userAuthenticatorList"
     requireLogin = True
 
@@ -48,7 +47,11 @@ class AuthenticatorList(DataView):
         self.addStringProperty(name="public_key", label="Public key")
         self.addDatetimeProperty(name="change_date", label="Last change")
         self.addActionProperty(
-            name="lock", label="Lock auth.", action="lock", actionHandler=self.lockHandler, icon="lock"
+            name="lock",
+            label="Lock auth.",
+            action="lock",
+            actionHandler=self.lockHandler,
+            icon="lock",
         )
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
@@ -56,7 +59,6 @@ class AuthenticatorList(DataView):
         entrylist = []
         all_user = User.query.all()
         for u in all_user:
-
             # get new empty entry
             entry = self.createEntry()
 

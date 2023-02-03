@@ -79,7 +79,6 @@ class WorkspaceManager(object):
         logManager.info("")
         all_permissions = {}
         for ws in self.workspaces:
-
             workspace_permissions = ws.permissions
             if workspace_permissions is not None:
                 all_permissions = {**all_permissions, **workspace_permissions}
@@ -231,7 +230,7 @@ class WorkspaceManager(object):
                         workspace_module = __import__(workspacename, fromlist=["blah"])
                         clsmembers = inspect.getmembers(workspace_module, inspect.isclass)
 
-                        for (_, c) in clsmembers:
+                        for _, c in clsmembers:
                             # Check for workspace classes
                             if issubclass(c, Workspace) & (c is not Workspace):
                                 workspaceCounter += 1
@@ -256,7 +255,9 @@ class WorkspaceManager(object):
                                 workspaceInstance.path = os.path.dirname(workspace_module.__file__)
                                 logManager.info(
                                     'Workspace discovered : {} [{}] with uri "{}"'.format(
-                                        workspaceInstance.name, c.__module__, workspaceInstance.uri
+                                        workspaceInstance.name,
+                                        c.__module__,
+                                        workspaceInstance.uri,
                                     )
                                 )
                                 if workspaceInstance.disable is True:

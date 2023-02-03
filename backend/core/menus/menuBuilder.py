@@ -72,7 +72,15 @@ class MenuBuilder(object):
         print("buildUserMenu")
         menu = self.buildGuestMenu()
         menu.append(self.makeHeader("User"))
-        menu.append(self.makeEntry(title="Account", group="user", name="Account", icon="face", path="/user/account"))
+        menu.append(
+            self.makeEntry(
+                title="Account",
+                group="user",
+                name="Account",
+                icon="face",
+                path="/user/account",
+            )
+        )
         menu.append(self.makeDivider())
         return menu
 
@@ -81,7 +89,15 @@ class MenuBuilder(object):
         menu = self.buildUserMenu(user)
         menu.append(self.makeHeader("Admin"))
         menu.append(self.makeEntry("Users", "admin", "Users", "supervisor_account", "/admin/users"))
-        menu.append(self.makeEntry("Permissions", "admin", "Permissions", "verified_user", "/admin/permissions"))
+        menu.append(
+            self.makeEntry(
+                "Permissions",
+                "admin",
+                "Permissions",
+                "verified_user",
+                "/admin/permissions",
+            )
+        )
         # menu.append(self.makeEntry('Access cards'   , 'admin', 'Cards'       , 'credit_card', '/admin/cards'))
         # menu.append(self.makeEntry('Space access'   , 'admin', 'Access'      , 'lock', '/admin/access'))
         # menu.append(self.makeEntry('Nodes'          , 'admin', 'Nodes'       , 'adjust', '/admin/nodes'))
@@ -145,7 +161,15 @@ class MenuBuilder(object):
                 menu.append(self.makeHeader(str(group)))
                 for p in pagelist:
                     print(p)
-                    menu.append(self.makeEntry(title=p.title, group=p.group, name=p.name, icon=p.icon, path=p.route))
+                    menu.append(
+                        self.makeEntry(
+                            title=p.title,
+                            group=p.group,
+                            name=p.name,
+                            icon=p.icon,
+                            path=p.route,
+                        )
+                    )
                 menu.append(self.makeDivider())
         if len(menu) > 0:
             menu.pop()

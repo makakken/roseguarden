@@ -32,7 +32,6 @@ from workspaces.Access.models import SpaceAccessGroup
 
 
 class AccessGroupsList(DataView):
-
     uri = "accessUserList"
     requireLogin = True
 

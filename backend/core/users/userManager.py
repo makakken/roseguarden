@@ -65,7 +65,11 @@ class UserManager(object):
         if self.checkUserExist(userdata["email"]):
             return None
         else:
-            u = self.user(email=userdata["email"].strip().lower(), password=userdata["password"], isAdmin=False)
+            u = self.user(
+                email=userdata["email"].strip().lower(),
+                password=userdata["password"],
+                isAdmin=False,
+            )
             if "firstname" in userdata:
                 u.firstname = userdata["firstname"]
             if "lastname" in userdata:

@@ -30,7 +30,6 @@ from core.users.models import User
 
 
 class JobList(DataView):
-
     uri = "jobList"
     requireLogin = True
 
@@ -51,7 +50,6 @@ class JobList(DataView):
         entrylist = []
         all_jobs = jobManager.get_jobs()
         for key, j in all_jobs.items():
-
             # get new empty entry
             entry = self.createEntry()
 

@@ -29,7 +29,6 @@ from core.users.models import User
 
 
 class UserInfo(DataView):
-
     uri = "userInfo"
     requireLogin = True
 
@@ -46,7 +45,6 @@ class UserInfo(DataView):
         self.addDatetimeProperty(name="lastlogindate")
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
-
         userInfo = []
         # get new empty entry
         entry = self.createEntry()

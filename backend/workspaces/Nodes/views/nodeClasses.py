@@ -31,7 +31,6 @@ from core.nodes import nodeManager
 
 
 class NodeClasses(DataView):
-
     uri = "nodeClasses"
     requireLogin = True
 
@@ -50,7 +49,6 @@ class NodeClasses(DataView):
         entrylist = []
         node_classes = nodeManager.get_node_classes()
         for k, c in node_classes.items():
-
             # get new empty entry
             entry = self.createEntry()
 

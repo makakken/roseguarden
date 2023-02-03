@@ -44,7 +44,10 @@ class UnassignUserAuthentictor(Action):
             return (
                 "success",
                 [notification_action],
-                {"succeed": False, "message": "You have to be logged in to do this action."},
+                {
+                    "succeed": False,
+                    "message": "You have to be logged in to do this action.",
+                },
             )
 
         logManager.info("Request for authenticator unassign for {} by {}".format(action.userId, user.email))
@@ -56,7 +59,10 @@ class UnassignUserAuthentictor(Action):
             return (
                 "success",
                 [notification_action],
-                {"succeed": False, "message": "Failed to unassign authenticator to user."},
+                {
+                    "succeed": False,
+                    "message": "Failed to unassign authenticator to user.",
+                },
             )
 
         # other user can only set authenticator if not already set
@@ -74,4 +80,8 @@ class UnassignUserAuthentictor(Action):
         user_to_unassign.resetAuthenticatorHash()
         user_to_unassign.authenticator_status = UserAuthenticatorStatus.UNSET
 
-        return "success", [notification_action], {"succeed": True, "message": "Assign successful"}
+        return (
+            "success",
+            [notification_action],
+            {"succeed": True, "message": "Assign successful"},
+        )

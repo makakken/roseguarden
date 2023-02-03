@@ -27,7 +27,6 @@ from workspaces.Template.nodes.common.serverActionRequests import UpdateUserInfo
 
 
 class NodeTemplate(NodeClass):
-
     class_id = "00:01:02:03:04:05:06:07"
     description = "A template node class"
 
