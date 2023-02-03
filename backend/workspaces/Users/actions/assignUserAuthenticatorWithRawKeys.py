@@ -25,7 +25,7 @@ from core.users.enum import UserAuthenticatorStatus
 from core.actions.action import Action
 from core.logs import logManager
 from core.actions import webclientActions
-
+from core import userManager
 
 class AssignUserAuthentictorWithRawKeys(Action):
     def __init__(self, app):
@@ -80,7 +80,7 @@ class AssignUserAuthentictorWithRawKeys(Action):
             )
 
         user_to_assign.authenticator = action.authenticatorPrivateKey
-        user_to_assign.authenticator_public_key = action.authenticatorPublicKey
+        user_to_assign.authenticator_public_key = userManager.getAuthenticatorPublicKeyOrDefault(action.authenticatorPrivateKey, action.authenticatorPublicKey)
         user_to_assign.authenticator_status = UserAuthenticatorStatus.VALID
 
         return "success", [notification_action], {"succeed": True, "message": "Assign successful"}
