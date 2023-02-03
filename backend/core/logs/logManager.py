@@ -42,11 +42,19 @@ class LogManager(object):
             except Exception:
                 s = msg.format(*args)
             indents = s.replace("\n", "\n" + " " * 29)
-            self.logQueue.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + " [INFO] : " + indents)
+            self.logQueue.append(
+                datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                + " [INFO] : "
+                + indents
+            )
         else:
             s = str(msg)
             indents = s.replace("\n", "\n" + " " * 29)
-            self.logQueue.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + " [INFO] : " + indents)
+            self.logQueue.append(
+                datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                + " [INFO] : "
+                + indents
+            )
         try:
             self.app.logger.info(msg, *args, **kwargs)
             indents = s.replace("\n", "\n" + " " * 14)
@@ -63,11 +71,17 @@ class LogManager(object):
                 s = msg % args
             except Exception:
                 s = msg.format(*args)
-            self.logQueue.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + " [INFO] : " + s)
-            self.logQueue.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + " [WARN] : " + s)
+            self.logQueue.append(
+                datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + " [INFO] : " + s
+            )
+            self.logQueue.append(
+                datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + " [WARN] : " + s
+            )
         else:
             s = str(msg)
-            self.logQueue.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + " [WARN] : " + s)
+            self.logQueue.append(
+                datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + " [WARN] : " + s
+            )
 
         try:
             self.app.logger.info(msg, *args, **kwargs)
@@ -85,10 +99,14 @@ class LogManager(object):
                 print("%", s)
             except Exception:
                 s = msg.format(*args)
-            self.logQueue.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + " [FAIL] : " + s)
+            self.logQueue.append(
+                datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + " [FAIL] : " + s
+            )
         else:
             s = str(msg)
-            self.logQueue.append(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + " [FAIL] : " + s)
+            self.logQueue.append(
+                datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + " [FAIL] : " + s
+            )
 
         try:
             self.app.logger.error(msg, *args, **kwargs)
