@@ -2,6 +2,7 @@
 base_url="http://localhost:3000"
 session_expiration_minutes=30
 file_storage_path="your/file/storage/path"
+database_path = "/var/roseguarden/app.db"
 
 [MAIL]
 sender="mailer@yourdomain.org"

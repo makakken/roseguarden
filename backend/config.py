@@ -110,13 +110,17 @@ def configure_app(app, config, test):
     app.config["JWT_ACCESS_COOKIE_PATH"] = "/api/v1/"
     app.config["JWT_REFRESH_COOKIE_PATH"] = "/api/v1/"
 
+    database_path = config["SYSTEM"].get("database_path", None)
+    if database_path is not None:
+        database_path = "sqlite://" + database_path
+
     if test:
-        app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL") or "sqlite:///" + os.path.join(
-            basedir, "test.db"
+        app.config["SQLALCHEMY_DATABASE_URI"] = (
+            database_path or os.environ.get("DATABASE_URL") or "sqlite:///" + os.path.join(basedir, "test.db")
         )
     else:
-        app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL") or "sqlite:///" + os.path.join(
-            basedir, "app.db"
+        app.config["SQLALCHEMY_DATABASE_URI"] = (
+            database_path or os.environ.get("DATABASE_URL") or "sqlite:///" + os.path.join(basedir, "app.db")
         )
 
     # Enable csrf double submit protection. See this for a thorough

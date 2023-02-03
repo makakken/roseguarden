@@ -153,7 +153,7 @@ class UserManager(object):
                 (self.user.authenticator_public_key == "") | (self.user.authenticator_public_key is None)
             ).all()
         else:
-            logManager.info(f"Public key {public_key} found to preselect authenticators users : {str(user_list)}")
+            logManager.info(f"Public key {public_key} found to preselect authenticators for users : {str(user_list)}")
 
         # iterate through the users list, contains one of the following:
         #  - a list of all users with the corresponding public key
