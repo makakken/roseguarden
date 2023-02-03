@@ -64,7 +64,6 @@ class DoorWithPinTerminal(NodeClass):
         self.defineActionProperty("requestUserAccess", "pin", optional=True)
 
     def handleNodeActionRequest(self, node, action, header):
-        logManager.info("handleNodeActionRequest for {}".format(self.name))
         action_name = action["action"]
         public_key = ""
         if "public_key" in action:

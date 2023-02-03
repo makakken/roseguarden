@@ -40,7 +40,6 @@ class NodeTemplate(NodeClass):
         self.defineActionProperty("requestUserInfo", "auth_key")
 
     def handleNodeActionRequest(self, node, action, header):
-        logManager.info("handleNodeActionRequest for {}".format(self.name))
         action_name = action["action"]
         public_key = ""
         if "public_key" in action:

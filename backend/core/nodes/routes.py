@@ -34,7 +34,6 @@ import json
 def nodes():
     reply_dict = {}
     s = json.dumps(request.json, indent=4)
-    logManager.info("node request from: {}:\n{}".format(request.remote_addr, s))
     if request.method == "OPTIONS":
         return make_response("", 200)
 

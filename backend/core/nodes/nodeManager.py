@@ -234,8 +234,6 @@ class NodeManager(object):
             reply_actions = reply_actions + action_reply
         self.db.session.commit()
 
-        # node is known
-        logManager.info("handle request of {} ({})".format(source, fingerprint))
         return self.buildActionReply(reply_actions)
 
     def init_manager(self, app, db, workspaceManager):
