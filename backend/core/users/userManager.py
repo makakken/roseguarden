@@ -134,7 +134,7 @@ class UserManager(object):
         if secret_hash in self.user_authenticator_cache:
             user_mail = self.user_authenticator_cache[secret_hash]
             u = self.user.query.filter_by(email=user_mail).first()
-            logManager.info(f"Cashed secret hash {secret_hash} found, to get authenticator for : {str(u)}")
+            logManager.info(f"Cashed secret hash {secret_hash:.10s}.. found, to get authenticator for : {str(u)}")
             if u is not None:
                 if u.checkAuthenticator(authenticator_private_key) is True:
                     return u
