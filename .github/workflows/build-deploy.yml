@@ -1,0 +1,46 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Node.js CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repo 🚧
+        uses: actions/checkout@v3
+      - name: Use Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+      - run: cd ./frontend && npm ci
+      - run: cd ./frontend && npm run build --if-present
+      - run: mkdir ./backend/client
+      - run: cp -r ./frontend/dist/* ./backend/client/
+      - name: rsync deployment 🚀
+        uses: burnett01/rsync-deployments@5.2.1
+        with:
+          switches: -avzr --delete --exclude="config.ini"
+          path: backend/
+          remote_path: roseguarden/
+          remote_host: 185.170.113.111
+          remote_user: roseguardenadmin
+          remote_port: 10123
+          remote_key: ${{ secrets.DEPLOY_KEY }}
+      - name: pip install on server 🦾
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: 185.170.113.111
+          username: roseguardenadmin
+          key: ${{ secrets.DEPLOY_KEY }}
+          port: 10123
+          script: cd roseguarden-testdeploy/ && pip install -r requirements.txt
