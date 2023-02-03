@@ -273,8 +273,6 @@ class GetViewActionHandler(Action):
         # logManager.info("Instance of GetViewActionHandler created")
 
     def handle(self, action, user, workspace, actionManager):
-        logManager.info("Execute get view action for", action["view"])
-
         viewname = action["view"]
         print(workspace.dataViews)
         if viewname in workspace.dataViews:

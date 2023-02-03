@@ -178,7 +178,6 @@ class NodeManager(object):
         return None
 
     def handle_node_request(self, request):
-        logManager.info("Handle node action request")
         header = request["header"]
         source = header["source"]
         fingerprint = header["fingerprint"]
