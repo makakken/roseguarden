@@ -112,7 +112,7 @@ def configure_app(app, config, test):
 
     database_path = config["SYSTEM"].get("database_path", None)
     if database_path is not None:
-        database_path = "sqlite://" + database_path
+        database_path = "sqlite:///" + database_path
 
     if test:
         app.config["SQLALCHEMY_DATABASE_URI"] = (
