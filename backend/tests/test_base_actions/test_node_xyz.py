@@ -24,7 +24,5 @@ json_data = {
     },
 }
 
-node_request = requests.post(
-    "https://roseguarden.fabba.space/api/v1/nodes", json=json_data
-)
+node_request = requests.post("https://roseguarden.fabba.space/api/v1/nodes", json=json_data)
 print(node_request.status_code, node_request.reason, node_request.content)

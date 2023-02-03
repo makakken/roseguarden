@@ -34,9 +34,7 @@ class Job(object):
     local = True  # only runable by the same workspace
     strict = True  # strict argument parsing
     requireAdmin = False  # admin is required to view the page
-    requirePermission = (
-        None  # a permission is required in the meaning of one of the following
-    )
+    requirePermission = None  # a permission is required in the meaning of one of the following
 
     # Repetetive members
     cron = False  # see https://apscheduler.readthedocs.io/en/stable/modules/triggers/cron.html for the encoding
@@ -94,9 +92,7 @@ class Job(object):
         je.lifetime = delta.total_seconds()
         self.db.session.commit()
 
-    def addArgument(
-        self, name, typestring, label="", description="", optional=False, group=None
-    ):
+    def addArgument(self, name, typestring, label="", description="", optional=False, group=None):
         p = {
             "name": name,
             "type": typestring,
@@ -109,57 +105,39 @@ class Job(object):
         else:
             self.parameters.append(p)
 
-    def addDictArgument(
-        self, name, label="", description="", optional=False, group=None
-    ):
+    def addDictArgument(self, name, label="", description="", optional=False, group=None):
         logManager.info("Add dict type argument to job {}".format(self.name))
         self.addArgument(name, "dict", label, description, optional, group)
 
-    def addListArgument(
-        self, name, label="", description="", optional=False, group=None
-    ):
+    def addListArgument(self, name, label="", description="", optional=False, group=None):
         logManager.info("Add list type argument to job {}".format(self.name))
         self.addArgument(name, "list", label, description, optional, group)
 
-    def addStringArgument(
-        self, name, label="", description="", optional=False, group=None
-    ):
+    def addStringArgument(self, name, label="", description="", optional=False, group=None):
         logManager.info("Add string type argument to job {}".format(self.name))
         self.addArgument(name, "string", label, description, optional, group)
 
-    def addDoubleArgument(
-        self, name, label="", description="", optional=False, group=None
-    ):
+    def addDoubleArgument(self, name, label="", description="", optional=False, group=None):
         logManager.info("Add double type argument to job {}".format(self.name))
         self.addArgument(name, "double", label, description, optional, group)
 
-    def addIntegerArgument(
-        self, name, label="", description="", optional=False, group=None
-    ):
+    def addIntegerArgument(self, name, label="", description="", optional=False, group=None):
         logManager.info("Add integer type argument for job {}".format(self.name))
         self.addArgument(name, "integer", label, description, optional, group)
 
-    def addDatetimeArgument(
-        self, name, label="", description="", optional=False, group=None
-    ):
+    def addDatetimeArgument(self, name, label="", description="", optional=False, group=None):
         logManager.info("Add datetime type argument for job {}".format(self.name))
         self.addArgument(name, "datetime", label, description, optional, group)
 
-    def addTimeArgument(
-        self, name, label="", description="", optional=False, group=None
-    ):
+    def addTimeArgument(self, name, label="", description="", optional=False, group=None):
         logManager.info("Add time type argument for job {}".format(self.name))
         self.addArgument(name, "time", label, description, optional, group)
 
-    def addDateArgument(
-        self, name, label="", description="", optional=False, group=None
-    ):
+    def addDateArgument(self, name, label="", description="", optional=False, group=None):
         logManager.info("Add date tyme argument for job {}".format(self.name))
         self.addArgument(name, "date", label, description, optional, group)
 
-    def addBooleanArgument(
-        self, name, label="", description="", optional=False, group=None
-    ):
+    def addBooleanArgument(self, name, label="", description="", optional=False, group=None):
         logManager.info("Add boolean type argument for job {}".format(self.name))
         self.addArgument(name, "boolean", label, description, optional, group)
 

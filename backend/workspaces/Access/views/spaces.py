@@ -38,9 +38,7 @@ class SpacesList(DataView):
         self.addIntegerProperty(name="id", label="ID", isKey=True)
         self.addStringProperty(name="name", label="Name")
         self.addStringProperty(name="description", label="Description")
-        self.addMultiSelectProperty(
-            name="entrance_nodes", label="Entrance node keys", selectables=[]
-        )
+        self.addMultiSelectProperty(name="entrance_nodes", label="Entrance node keys", selectables=[])
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
         print("getDataViewHandler for SpacesList")

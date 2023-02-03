@@ -85,10 +85,7 @@ def get_access_info_string(user_space_access_group, user_space_access_properties
             f"{user_space_access_group.entry_accounting_type.value} "
             f"within your group '{user_space_access_group.name}'"
         )
-    if (
-        user_space_access_group.access_type
-        is SpaceAccessType.AUTO_RECHARGED_USER_BUDGET
-    ):
+    if user_space_access_group.access_type is SpaceAccessType.AUTO_RECHARGED_USER_BUDGET:
         return (
             f"You have a personal access budget of {user_space_access_properties.access_budget} "
             f"{user_space_access_group.entry_accounting_type.value} "
@@ -97,10 +94,7 @@ def get_access_info_string(user_space_access_group, user_space_access_properties
             f"every {user_space_access_group.access_recharge_budget_every_periods} "
             f"{user_space_access_group.access_recharge_budget_period.value.lower()}"
         )
-    if (
-        user_space_access_group.access_type
-        is SpaceAccessType.AUTO_RECHARGED_GROUP_BUDGET
-    ):
+    if user_space_access_group.access_type is SpaceAccessType.AUTO_RECHARGED_GROUP_BUDGET:
         return (
             f"You have an access budget of {user_space_access_group.group_budget} "
             f"{user_space_access_group.entry_accounting_type.value} "

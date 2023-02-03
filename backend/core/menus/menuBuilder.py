@@ -64,9 +64,7 @@ class MenuBuilder(object):
         print("buildGuestMenu")
         menu = []
         menu.append(self.makeHeader("Roseguarden"))
-        menu.append(
-            self.makeEntry("Home", "app", "Dashboard", "dashboard", "/dashboard")
-        )
+        menu.append(self.makeEntry("Home", "app", "Dashboard", "dashboard", "/dashboard"))
         menu.append(self.makeDivider())
         return menu
 
@@ -90,11 +88,7 @@ class MenuBuilder(object):
         print("buildAdminMenu")
         menu = self.buildUserMenu(user)
         menu.append(self.makeHeader("Admin"))
-        menu.append(
-            self.makeEntry(
-                "Users", "admin", "Users", "supervisor_account", "/admin/users"
-            )
-        )
+        menu.append(self.makeEntry("Users", "admin", "Users", "supervisor_account", "/admin/users"))
         menu.append(
             self.makeEntry(
                 "Permissions",
@@ -132,9 +126,7 @@ class MenuBuilder(object):
                     if page.requirePermission is None:
                         return True
                     else:
-                        return self.checkUserPermissions(
-                            user, page.requirePermission, workspace
-                        )
+                        return self.checkUserPermissions(user, page.requirePermission, workspace)
         return False
 
     def buildMenu(self, user):
@@ -160,9 +152,7 @@ class MenuBuilder(object):
                     if self.hasPermission(user, p, w):
                         menu_groups["_" + str(p.name)] = p.rank, [p]
 
-        sorted_menu_groups = sorted(
-            menu_groups.items(), key=lambda x: x[1], reverse=True
-        )
+        sorted_menu_groups = sorted(menu_groups.items(), key=lambda x: x[1], reverse=True)
 
         menu = []
         for key, element in enumerate(sorted_menu_groups):

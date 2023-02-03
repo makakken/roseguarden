@@ -29,9 +29,7 @@ class DataView(object):
 
     disable = False
     requireLogin = True
-    requirePermission = (
-        None  # a permission is required in the meaning of one of the following
-    )
+    requirePermission = None  # a permission is required in the meaning of one of the following
 
     def __init__(self, name=None, uri=None):
         self.description = "UNKNOWN"
@@ -426,33 +424,25 @@ class DataView(object):
         self.properties.append(prop)
 
     def emitUpdate(self, key, property, value):
-        self.dataUpdates.append(
-            {"key": key, "property": property, "value": value, "view": self.uri}
-        )
+        self.dataUpdates.append({"key": key, "property": property, "value": value, "view": self.uri})
 
     def emitSyncUpdate(self, key, view=None, workspace=None):
         if view is None:
             view = self.uri
 
-        self.dataSyncs.append(
-            {"type": "update", "key": key, "view": view, "workspace": workspace}
-        )
+        self.dataSyncs.append({"type": "update", "key": key, "view": view, "workspace": workspace})
 
     def emitSyncRemove(self, key, view=None, workspace=None):
         if view is None:
             view = self.uri
 
-        self.dataSyncs.append(
-            {"type": "remove", "key": key, "view": view, "workspace": workspace}
-        )
+        self.dataSyncs.append({"type": "remove", "key": key, "view": view, "workspace": workspace})
 
     def emitSyncCreate(self, key, view=None, workspace=None):
         if view is None:
             view = self.name
 
-        self.dataSyncs.append(
-            {"type": "create", "key": key, "view": view, "workspace": workspace}
-        )
+        self.dataSyncs.append({"type": "create", "key": key, "view": view, "workspace": workspace})
 
     # Handler for getting the freshly build view
     def getViewHandler(self, user, workspace, query=None):
@@ -477,13 +467,9 @@ class DataView(object):
     # Handler for view actions
     def executeViewActionHandler(self, user, workspace, action):
         try:
-            return self.dataAction[action.viewAction](
-                user, workspace, action, action.entry[self.entrykey]
-            )
+            return self.dataAction[action.viewAction](user, workspace, action, action.entry[self.entrykey])
         except Exception:
-            return self.dataAction[action.viewAction](
-                user, workspace, action.entry[self.entrykey]
-            )
+            return self.dataAction[action.viewAction](user, workspace, action.entry[self.entrykey])
 
     def defineProperties(self):
         pass

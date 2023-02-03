@@ -87,9 +87,7 @@ class NodeManager(object):
     def get_node_classes(self):
         return self.node_classes
 
-    def buildActionReply(
-        self, actions, target="node", source="server", version="1.0.0"
-    ):
+    def buildActionReply(self, actions, target="node", source="server", version="1.0.0"):
         reply = {}
         reply["header"] = {}
         reply["header"]["version"] = version
@@ -130,14 +128,11 @@ class NodeManager(object):
 
         if node_class_key is None:
             raise AuthorizationError(
-                "Authorization failed, no match found for registered node classes with class_id: "
-                + node.class_id
+                "Authorization failed, no match found for registered node classes with class_id: " + node.class_id
             )
 
         if node.checkAuthentification(authentification_plain) is False:
-            raise AuthorizationError(
-                "Authorization failed, authentification secret mismatch."
-            )
+            raise AuthorizationError("Authorization failed, authentification secret mismatch.")
 
         node.authorized = True
         node.authorization_status = "Ok"
@@ -146,9 +141,7 @@ class NodeManager(object):
 
         self.db.session.commit()
 
-    def create_node_from_identification(
-        self, ident_action, fingerprint, authentification_plain
-    ):
+    def create_node_from_identification(self, ident_action, fingerprint, authentification_plain):
         # make copy of the ident action and remove action specific entries
         ident_copy = ident_action.copy()
         if "version" in ident_copy:
@@ -215,14 +208,10 @@ class NodeManager(object):
         # check
         n = self.node.query.filter_by(fingerprint=fingerprint).first()
         if n is None:
-            logManager.info(
-                "request of unknown node {} ({})".format(source, fingerprint)
-            )
+            logManager.info("request of unknown node {} ({})".format(source, fingerprint))
             ident_action = self.check_for_identification_sync(actions)
             if ident_action is not None:
-                self.create_node_from_identification(
-                    ident_action, fingerprint, authentification
-                )
+                self.create_node_from_identification(ident_action, fingerprint, authentification)
             else:
                 syncIdentAction = nodeclientActions.SendIdentificationAction.generate()
                 return self.buildActionReply([syncIdentAction])

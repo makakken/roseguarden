@@ -35,13 +35,9 @@ class ChangePassword(Action):
         if user is not None:
             if user.checkPassword(action["oldpassword"]):
                 user.password = action["newpassword"]
-                notification_action = webclientActions.NotificationAction.generate(
-                    "Password changed", "success"
-                )
+                notification_action = webclientActions.NotificationAction.generate("Password changed", "success")
             else:
-                notification_action = webclientActions.NotificationAction.generate(
-                    "Wrong current password!", "error"
-                )
+                notification_action = webclientActions.NotificationAction.generate("Wrong current password!", "error")
 
         else:
             notification_action = webclientActions.NotificationAction.generate(

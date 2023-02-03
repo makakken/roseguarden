@@ -152,11 +152,7 @@ class JobManager(object):
             options.use_24hour_time_format = True
             options.casing_type = CasingTypeEnum.LowerCase
             descripter = ExpressionDescriptor(cron_string, options)
-            logManager.info(
-                "Register repetitive job '{}' triggered {}".format(
-                    jobkey, descripter.get_description()
-                )
-            )
+            logManager.info("Register repetitive job '{}' triggered {}".format(jobkey, descripter.get_description()))
             self.scheduler.add_job(
                 jobInstance.start_job,
                 kwargs=({"job_id": str(jobkey)}),

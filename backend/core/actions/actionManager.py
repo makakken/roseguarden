@@ -63,9 +63,7 @@ class ActionManager(object):
 
         pprint(self.workspacesMap, indent=2)
 
-    def init_manager(
-        self, app, db, userManager, menuBuilder, workspaceManager, nodeManager, config
-    ):
+    def init_manager(self, app, db, userManager, menuBuilder, workspaceManager, nodeManager, config):
         self.app = app
         self.db = db
         self.config = config
@@ -129,15 +127,11 @@ class ActionManager(object):
                             )
                         )
                         response_actions.append(
-                            webclientActions.RouteAction.generate(
-                                "user/login?redirect=actionlink/" + hash, 3
-                            )
+                            webclientActions.RouteAction.generate("user/login?redirect=actionlink/" + hash, 3)
                         )
                         return response_actions
                     if al.redirect_to != "":
-                        response_actions.append(
-                            webclientActions.RouteAction.generate(al.redirect_to, 2)
-                        )
+                        response_actions.append(webclientActions.RouteAction.generate(al.redirect_to, 2))
                     workspace = self.workspacesMap[al.workspace]
                     print(user, workspace)
                     param = al.action_data_json
@@ -145,30 +139,18 @@ class ActionManager(object):
                         ObjDict(param), user, workspace, self
                     )
                     if state == "success":
-                        logManager.info(
-                            "Actionlink succed with {} for user: {}", actions, user
-                        )
+                        logManager.info("Actionlink succed with {} for user: {}", actions, user)
                     else:
-                        logManager.error(
-                            "Actionlink failed with {} for user: {}", actions, user
-                        )
-                        raise Exception(
-                            str("Action failed with {} for user: {}", actions, user)
-                        )
+                        logManager.error("Actionlink failed with {} for user: {}", actions, user)
+                        raise Exception(str("Action failed with {} for user: {}", actions, user))
                     response_actions = response_actions + actions
                     return response_actions
                 else:
-                    logManager.error(
-                        "action " + al.action + " not found in " + al.workspace
-                    )
-                    raise Exception(
-                        str('action workspace: "' + al.workspace + '" not found')
-                    )
+                    logManager.error("action " + al.action + " not found in " + al.workspace)
+                    raise Exception(str('action workspace: "' + al.workspace + '" not found'))
             else:
                 logManager.error('action workspace: "' + al.workspace + '"not found')
-                raise Exception(
-                    str('action workspace: "' + al.workspace + '"not found')
-                )
+                raise Exception(str('action workspace: "' + al.workspace + '"not found'))
 
         except Exception as e:
             raise e
@@ -176,9 +158,7 @@ class ActionManager(object):
             if al.run_only_once is True:
                 self.db.session.delete(al)
 
-    def createDataViewActionLink(
-        self, entrykey, workspace, data_view_uri, action_property, action=None
-    ):
+    def createDataViewActionLink(self, entrykey, workspace, data_view_uri, action_property, action=None):
         raise NotImplementedError
 
     def buildActionReply(self, actions, response={}):
@@ -203,17 +183,13 @@ class ActionManager(object):
                     user = self.userManager.getUser(identity)
                     workspace = self.workspacesMap[action["workspace"]]
                     try:
-                        handle_result = self.actionsMap[action["workspace"]][
-                            action["action"]
-                        ].handle(ObjDict(action), user, workspace, self)
-                    except RequireLoginError:
-                        route_action = webclientActions.RouteAction.generate(
-                            "dashboard", delay=0
+                        handle_result = self.actionsMap[action["workspace"]][action["action"]].handle(
+                            ObjDict(action), user, workspace, self
                         )
-                        notification_action = (
-                            webclientActions.NotificationAction.generate(
-                                "Login required", "error", delay=2
-                            )
+                    except RequireLoginError:
+                        route_action = webclientActions.RouteAction.generate("dashboard", delay=0)
+                        notification_action = webclientActions.NotificationAction.generate(
+                            "Login required", "error", delay=2
                         )
                         response_actions = [route_action, notification_action]
                         return self.buildActionReply(response_actions, response_data)
@@ -250,27 +226,16 @@ class ActionManager(object):
                     response_actions = response_actions + actions
 
                 else:
-                    logManager.error(
-                        "action "
-                        + action["action"]
-                        + " not found in "
-                        + action["workspace"]
-                    )
+                    logManager.error("action " + action["action"] + " not found in " + action["workspace"])
             else:
-                logManager.error(
-                    'action workspace: "' + action["workspace"] + ' "not found'
-                )
+                logManager.error('action workspace: "' + action["workspace"] + ' "not found')
 
         if expire_date is not None and identity is not None:
             difference = expire_date - datetime.datetime.now()
             remaining_minutes = difference.seconds / 60
-            session_expiration_minutes = self.config["SYSTEM"].get(
-                "session_expiration_minutes", 15
-            )
+            session_expiration_minutes = self.config["SYSTEM"].get("session_expiration_minutes", 15)
             if remaining_minutes < session_expiration_minutes * 0.5:
                 access_token = self.userManager.updateAccessToken(identity)
-                response_actions.insert(
-                    0, webclientActions.UpdateSessionTokenAction.generate(access_token)
-                )
+                response_actions.insert(0, webclientActions.UpdateSessionTokenAction.generate(access_token))
 
         return self.buildActionReply(response_actions, response_data)

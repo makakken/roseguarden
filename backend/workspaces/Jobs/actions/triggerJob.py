@@ -36,8 +36,6 @@ class TriggerJob(Action):
         logManager.info("Trigger job")
         response_actions = []
         job_execution_id = trigger_job(action.jobId, {}, user)
-        notification_action = webclientActions.NotificationAction.generate(
-            "Action triggered", "info"
-        )
+        notification_action = webclientActions.NotificationAction.generate("Action triggered", "info")
         response_actions.append(notification_action)
         return "success", response_actions, {"job_execution_id": job_execution_id}

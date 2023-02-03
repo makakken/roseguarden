@@ -37,17 +37,13 @@ class MailFromFileTemplateJob(Job):
             label="Recipients",
             description="List of recipients email adresses",
         )
-        self.addStringArgument(
-            "subject", label="Subject", description="Subject of the mail"
-        )
+        self.addStringArgument("subject", label="Subject", description="Subject of the mail")
         self.addStringArgument(
             "template_path",
             label="Template path",
             description="File path to the template",
         )
-        self.addDictArgument(
-            "data", label="Template data", description="Data for the template"
-        )
+        self.addDictArgument("data", label="Template data", description="Data for the template")
 
     def run(self, **kwargs):
         config = kwargs["mail_config"]

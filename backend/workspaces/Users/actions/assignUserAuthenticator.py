@@ -33,9 +33,7 @@ class AssignUserAuthentictor(Action):
 
     def handle(self, action, user, workspace, actionManager):
         user_to_assign = User.query.filter_by(email=action.userId).first()
-        authenticator = Authenticator.query.filter_by(
-            code=action.authenticatorCode
-        ).first()
+        authenticator = Authenticator.query.filter_by(code=action.authenticatorCode).first()
         notification_action = webclientActions.NotificationAction.generate(
             "Assign authenticator was succesful.", "success"
         )
@@ -53,11 +51,7 @@ class AssignUserAuthentictor(Action):
                 },
             )
 
-        logManager.info(
-            "Request for authenticator assign for {} by {}".format(
-                action.userId, user.email
-            )
-        )
+        logManager.info("Request for authenticator assign for {} by {}".format(action.userId, user.email))
 
         if user_to_assign is None:
             notification_action = webclientActions.NotificationAction.generate(
@@ -73,11 +67,7 @@ class AssignUserAuthentictor(Action):
             )
 
         # there is no authenticator for the given authenticator code
-        if (
-            authenticator is None
-            or action.authenticatorCode == ""
-            or action.authenticatorCode is None
-        ):
+        if authenticator is None or action.authenticatorCode == "" or action.authenticatorCode is None:
             notification_action = webclientActions.NotificationAction.generate(
                 "Failed to assign authenticator to user.", "error"
             )

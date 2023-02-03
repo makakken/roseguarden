@@ -57,9 +57,7 @@ class UserManager(object):
     def removeUser(self, email):
         u = self.user.query.filter_by(email=email).first()
         if u is not None:
-            self.workspaceManager.triggerWorkspaceHooks(
-                WorkspaceHooks.REMOVEUSER, user=u
-            )
+            self.workspaceManager.triggerWorkspaceHooks(WorkspaceHooks.REMOVEUSER, user=u)
             self.db.session.delete(u)
             self.db.session.commit()
 
@@ -79,9 +77,7 @@ class UserManager(object):
             if "organization" in userdata:
                 u.organization = userdata["organization"]
 
-            self.workspaceManager.triggerWorkspaceHooks(
-                WorkspaceHooks.CREATEUSER, user=u
-            )
+            self.workspaceManager.triggerWorkspaceHooks(WorkspaceHooks.CREATEUSER, user=u)
             self.db.session.add(u)
             self.db.session.commit()
             return u
@@ -90,17 +86,13 @@ class UserManager(object):
         user.password = newpassword
 
     def updateAccessToken(self, username):
-        session_expiration_minutes = self.config["SYSTEM"].get(
-            "session_expiration_minutes", 15
-        )
+        session_expiration_minutes = self.config["SYSTEM"].get("session_expiration_minutes", 15)
         exp_delta = datetime.timedelta(minutes=session_expiration_minutes)
         access_token = create_access_token(identity=username, expires_delta=exp_delta)
         create_refresh_token(identity=username)
         return access_token
 
-    def getAuthenticatorPublicKeyOrDefault(
-        self, authenticator_private_key, authenticator_public_key
-    ):
+    def getAuthenticatorPublicKeyOrDefault(self, authenticator_private_key, authenticator_public_key):
         # for empty public keys use the default scenario to create one out of the private key
         if authenticator_public_key is None or authenticator_public_key == "":
             crc16_hash = crc16(bytearray(authenticator_private_key.encode()))
@@ -137,9 +129,7 @@ class UserManager(object):
         self.db.session.commit()
         return code
 
-    def get_user_by_authenticator(
-        self, authenticator_private_key, authenticator_public_key
-    ):
+    def get_user_by_authenticator(self, authenticator_private_key, authenticator_public_key):
         # the hash are stored sha512-encrypted in the volatile cache (stored in the volatile memory / RAM)
         h = hashlib.sha512(authenticator_private_key.encode("utf8"))
         secret_hash = str(h.hexdigest())
@@ -154,21 +144,16 @@ class UserManager(object):
 
         # get the public key from the private key. This will generate a public key
         # with a default algorithm (setuped) if needed.
-        public_key = self.getAuthenticatorPublicKeyOrDefault(
-            authenticator_private_key, authenticator_public_key
-        )
+        public_key = self.getAuthenticatorPublicKeyOrDefault(authenticator_private_key, authenticator_public_key)
 
         # get all users with the corresponding public key
-        user_list = self.user.query.filter(
-            self.user.authenticator_public_key == public_key
-        ).all()
+        user_list = self.user.query.filter(self.user.authenticator_public_key == public_key).all()
 
         # if no user with the given public key found,
         # get all users with no or empty public key
         if len(user_list) == 0:
             user_list = self.user.query.filter(
-                (self.user.authenticator_public_key == "")
-                | (self.user.authenticator_public_key is None)
+                (self.user.authenticator_public_key == "") | (self.user.authenticator_public_key is None)
             ).all()
 
         # iterate through the users list, contains one of the following:
@@ -183,25 +168,16 @@ class UserManager(object):
                 # if found store the key in the volatile cache
                 self.user_authenticator_cache[secret_hash] = u.email
                 # if the public key is empty set a default public key out of the private key
-                if (
-                    u.authenticator_public_key == ""
-                    or u.authenticator_public_key is None
-                ):
-                    u.authenticator_public_key = (
-                        self.getAuthenticatorPublicKeyOrDefault(
-                            authenticator_private_key, u.authenticator_public_key
-                        )
+                if u.authenticator_public_key == "" or u.authenticator_public_key is None:
+                    u.authenticator_public_key = self.getAuthenticatorPublicKeyOrDefault(
+                        authenticator_private_key, u.authenticator_public_key
                     )
                 return u
         # no user found for the given private key
         return None
 
-    def checkUserAuthenticatorExists(
-        self, authenticator_private_key, authenticator_public_key
-    ):
-        user = self.get_user_by_authenticator(
-            authenticator_private_key, authenticator_public_key
-        )
+    def checkUserAuthenticatorExists(self, authenticator_private_key, authenticator_public_key):
+        user = self.get_user_by_authenticator(authenticator_private_key, authenticator_public_key)
         if user is None:
             return False
         else:

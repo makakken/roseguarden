@@ -37,9 +37,7 @@ class ChangePin(Action):
                 user.pin = action["pin"]
                 user.pinIsLocked = False
                 user.failedPinAttempts = 0
-                notification_action = webclientActions.NotificationAction.generate(
-                    "Pin changed", "success"
-                )
+                notification_action = webclientActions.NotificationAction.generate("Pin changed", "success")
             else:
                 notification_action = webclientActions.NotificationAction.generate(
                     "Pin unchanged. Password is invalid", "error"

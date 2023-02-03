@@ -59,48 +59,29 @@ class AccessUserInfo(DataView):
         entry = self.createEntry()
         # fill entry
         entry.email = user.email
-        entry.access_updated_on_date = user.access.access_last_update_date.format(
-            "YYYY-MM-DD"
-        )
+        entry.access_updated_on_date = user.access.access_last_update_date.format("YYYY-MM-DD")
         if (
             user.spaceaccess_accessgroup is not None
-            and user.spaceaccess_accessgroup.access_type
-            is not SpaceAccessType.NO_ACCESS
+            and user.spaceaccess_accessgroup.access_type is not SpaceAccessType.NO_ACCESS
         ):
             entry.access_group = user.spaceaccess_accessgroup.name
             entry.access_group_info = user.spaceaccess_accessgroup.note
             entry.access_type = user.spaceaccess_accessgroup.access_type.value
-            entry.access_type_info = get_access_info_string(
-                user.spaceaccess_accessgroup, user.access
-            )
-            entry.access_valid_start_date = user.access.access_start_date.format(
-                "YYYY-MM-DD"
-            )
-            entry.access_on_days = get_user_accessable_weekdays_string(
-                user.spaceaccess_accessgroup
-            )
+            entry.access_type_info = get_access_info_string(user.spaceaccess_accessgroup, user.access)
+            entry.access_valid_start_date = user.access.access_start_date.format("YYYY-MM-DD")
+            entry.access_on_days = get_user_accessable_weekdays_string(user.spaceaccess_accessgroup)
             if user.access.access_expires is False:
                 entry.access_valid_end_date = "Never"
             else:
-                entry.access_valid_end_date = user.access.access_expire_date.format(
-                    "YYYY-MM-DD"
-                )
-            entry.access_to_spaces = get_accessable_spaces_for_user_string(
-                user.spaceaccess_accessgroup
-            )
-            entry.access_valid_start_time = (
-                user.spaceaccess_accessgroup.daily_access_start_time.format("HH:mm")
-            )
-            entry.access_valid_end_time = (
-                user.spaceaccess_accessgroup.daily_access_end_time.format("HH:mm")
-            )
+                entry.access_valid_end_date = user.access.access_expire_date.format("YYYY-MM-DD")
+            entry.access_to_spaces = get_accessable_spaces_for_user_string(user.spaceaccess_accessgroup)
+            entry.access_valid_start_time = user.spaceaccess_accessgroup.daily_access_start_time.format("HH:mm")
+            entry.access_valid_end_time = user.spaceaccess_accessgroup.daily_access_end_time.format("HH:mm")
         else:
             if user.spaceaccess_accessgroup is not None:
                 entry.access_group = user.spaceaccess_accessgroup.name
                 entry.access_group_info = user.spaceaccess_accessgroup.note
-                entry.access_type_info = get_access_info_string(
-                    user.spaceaccess_accessgroup, user.access
-                )
+                entry.access_type_info = get_access_info_string(user.spaceaccess_accessgroup, user.access)
             else:
                 entry.access_group = "No group"
                 entry.access_group_info = "You are not in a access group at the moment"

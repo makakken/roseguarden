@@ -54,9 +54,7 @@ def send_message(
         if workspace is not None and mail_template_path is not None:
             template_path = os.path.join(workspace.path, "templates", mail_template)
 
-    messageManager.add_message(
-        recipient_user, subject, template_path, data, sender, mail, mail_template_path
-    )
+    messageManager.add_message(recipient_user, subject, template_path, data, sender, mail, mail_template_path)
 
 
 from core.messages import routes  # noqa: F401

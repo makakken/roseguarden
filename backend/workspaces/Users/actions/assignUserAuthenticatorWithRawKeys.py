@@ -49,11 +49,7 @@ class AssignUserAuthentictorWithRawKeys(Action):
                 },
             )
 
-        logManager.info(
-            "Request for authenticator assign for {} by {}".format(
-                action.userId, user.email
-            )
-        )
+        logManager.info("Request for authenticator assign for {} by {}".format(action.userId, user.email))
 
         if user_to_assign is None:
             notification_action = webclientActions.NotificationAction.generate(

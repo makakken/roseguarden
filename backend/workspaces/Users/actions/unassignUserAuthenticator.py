@@ -50,11 +50,7 @@ class UnassignUserAuthentictor(Action):
                 },
             )
 
-        logManager.info(
-            "Request for authenticator unassign for {} by {}".format(
-                action.userId, user.email
-            )
-        )
+        logManager.info("Request for authenticator unassign for {} by {}".format(action.userId, user.email))
 
         if user_to_unassign is None:
             notification_action = webclientActions.NotificationAction.generate(
@@ -71,10 +67,7 @@ class UnassignUserAuthentictor(Action):
 
         # other user can only set authenticator if not already set
         if user.email != user_to_unassign.email:
-            if (
-                user_to_unassign.authenticator_status
-                is not UserAuthenticatorStatus.UNSET
-            ):
+            if user_to_unassign.authenticator_status is not UserAuthenticatorStatus.UNSET:
                 notification_action = webclientActions.NotificationAction.generate(
                     "Failed to unassign authenticator to user", "error"
                 )

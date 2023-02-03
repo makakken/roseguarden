@@ -28,9 +28,7 @@ import enum
 association_table_user_filepermissiongroup = db.Table(
     "filepermissiongroup_user_map",
     db.Column("user_id", db.Integer, db.ForeignKey("users.id")),
-    db.Column(
-        "filepermissiongroup_id", db.Integer, db.ForeignKey("filepermissiongroups.id")
-    ),
+    db.Column("filepermissiongroup_id", db.Integer, db.ForeignKey("filepermissiongroups.id")),
 )
 
 
@@ -53,9 +51,7 @@ class FilePermissionGroup(db.Model):
 
 association_table_filepermission_filepermissiongroup = db.Table(
     "filepermission_filepermissiongroup_map",
-    db.Column(
-        "filepermissiongroup_id", db.Integer, db.ForeignKey("filepermissiongroups.id")
-    ),
+    db.Column("filepermissiongroup_id", db.Integer, db.ForeignKey("filepermissiongroups.id")),
     db.Column("filepermission_id", db.Integer, db.ForeignKey("filepermissions.id")),
 )
 
@@ -125,9 +121,7 @@ class GeneratedFile(db.Model):
     expire_on_date = db.Column(ArrowType, default=arrow.utcnow)
     size_in_bytes = db.Column(db.Integer, default=0)
     filestorage_id = db.Column(db.Integer, db.ForeignKey("filestorage.id"))
-    filestorage = db.relationship(
-        "FileStorage", backref=db.backref("generatedfiles", uselist=True)
-    )
+    filestorage = db.relationship("FileStorage", backref=db.backref("generatedfiles", uselist=True))
 
     def __repr__(self):
         return "<GeneratedFile {} of type:{}>".format(self.path, self.generated_on_date)
@@ -142,9 +136,7 @@ class UploadedFile(db.Model):
     expire_on_date = db.Column(ArrowType, default=arrow.utcnow)
     size_in_bytes = db.Column(db.Integer, default=0)
     filestorage_id = db.Column(db.Integer, db.ForeignKey("filestorage.id"))
-    filestorage = db.relationship(
-        "FileStorage", backref=db.backref("uploadedfiles", uselist=True)
-    )
+    filestorage = db.relationship("FileStorage", backref=db.backref("uploadedfiles", uselist=True))
 
     def __repr__(self):
         return "<UploadedFile {} of type:{}>".format(self.path, self.generated_on_date)

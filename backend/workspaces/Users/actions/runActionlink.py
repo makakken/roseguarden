@@ -37,24 +37,14 @@ class RunActionlink(Action):
         logManager.info("Execute actionlink")
         response_actions = []
         try:
-            response_actions.append(
-                webclientActions.UpdateActionlinkStatusAction.generate(
-                    "success", "Action succeed"
-                )
-            )
+            response_actions.append(webclientActions.UpdateActionlinkStatusAction.generate("success", "Action succeed"))
             response_actions = response_actions + executeActionLink(action.hash, user)
         except (ExpiredError, NotFoundError):
             response_actions = [
-                webclientActions.UpdateActionlinkStatusAction.generate(
-                    "error", "Action not found or expired"
-                )
+                webclientActions.UpdateActionlinkStatusAction.generate("error", "Action not found or expired")
             ]
         except Exception as e:
             logManager.error("Execute actionlink failed: {}".format(str(e)))
-            response_actions = [
-                webclientActions.UpdateActionlinkStatusAction.generate(
-                    "error", "Action failed"
-                )
-            ]
+            response_actions = [webclientActions.UpdateActionlinkStatusAction.generate("error", "Action failed")]
 
         return "success", response_actions

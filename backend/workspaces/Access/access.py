@@ -47,10 +47,7 @@ def do_accesstype_gets_recharge(access_type: SpaceAccessType):
 
 
 def do_accesstype_use_group_budget(access_type: SpaceAccessType):
-    if (
-        access_type is SpaceAccessType.GROUP_BUDGET
-        or access_type is SpaceAccessType.AUTO_RECHARGED_GROUP_BUDGET
-    ):
+    if access_type is SpaceAccessType.GROUP_BUDGET or access_type is SpaceAccessType.AUTO_RECHARGED_GROUP_BUDGET:
         return True
     else:
         return False
@@ -60,9 +57,7 @@ def update_user_access_properties_after_access_granted(user):
     access_group = user.spaceaccess_accessgroup
     access_properties = user.access
     if access_group is None:
-        raise Exception(
-            "Unable to update access property for unassigned space access group"
-        )
+        raise Exception("Unable to update access property for unassigned space access group")
 
     # check if user needs budget to access
     if access_group.access_need_budget:
@@ -128,10 +123,7 @@ def has_user_access_to_space(user, node):
         return False, "Access not started yet"
 
     # check for users access expiration
-    if (
-        user.access.access_expires
-        and arrow.utcnow().date() > user.access.access_expire_date.date()
-    ):
+    if user.access.access_expires and arrow.utcnow().date() > user.access.access_expire_date.date():
         return False, "Access expired"
 
     # check for accessgroup assigned to user

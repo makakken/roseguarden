@@ -74,9 +74,7 @@ class AuthenticatorList(DataView):
                 entry.validity = "Expires"
             if ar.validity_type == AuthenticatorValidityType.LIMITED_USAGE:
                 entry.validity = str(ar.usage_limit) + " times"
-            entry.code_send = (
-                str(ar.code_send_by.value) + " (" + str(ar.code_send_to) + ")"
-            )
+            entry.code_send = str(ar.code_send_by.value) + " (" + str(ar.code_send_to) + ")"
             entry.creation_date = ar.creation_date.format()
             entry.expiration_date = ar.expiration_date.format()
 

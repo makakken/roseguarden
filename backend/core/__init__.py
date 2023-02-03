@@ -125,9 +125,7 @@ def create_app(minimal=False, config_file="config.ini", test=False):
         nodeManager.init_manager(app, db, workspaceManager)
         messageManager.init_manager(app, db, workspaceManager, config)
         menuBuilder.init_builder(app, db, userManager, workspaceManager)
-        actionManager.init_manager(
-            app, db, userManager, menuBuilder, workspaceManager, nodeManager, config
-        )
+        actionManager.init_manager(app, db, userManager, menuBuilder, workspaceManager, nodeManager, config)
         fileManager.init_manager(app, db, workspaceManager, config)
 
     with app.app_context():

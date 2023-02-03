@@ -117,9 +117,7 @@ class NodeList(DataView):
     def requestAuthorization(self, user, workspace, action, entrykey):
         n = Node.query.filter_by(id=entrykey).first()
         try:
-            nodeManager.handle_authorization_request(
-                n, action["entry"]["authentification"]
-            )
+            nodeManager.handle_authorization_request(n, action["entry"]["authentification"])
         except AuthorizationError as e:
             return {"succeed": False, "message": str(e)}
 

@@ -39,9 +39,7 @@ class UserList(DataView):
         self.addMailProperty(name="email", label="eMail", isKey=True)
         self.addStringProperty(name="name", label="Name")
         self.addStringProperty(name="organization", label="Organization")
-        self.addSelectProperty(
-            name="verified", selectables=["Yes", "No"], label="Verified"
-        )
+        self.addSelectProperty(name="verified", selectables=["Yes", "No"], label="Verified")
         self.addActionProperty(
             name="verify",
             label="Verify user",

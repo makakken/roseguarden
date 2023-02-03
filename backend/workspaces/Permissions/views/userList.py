@@ -41,9 +41,7 @@ class PermissionUserList(DataView):
         self.addStringProperty(name="name", label="Name")
         self.addStringProperty(name="email", label="eMail")
         self.addStringProperty(name="roles", label="Roles")
-        self.addMultiSelectProperty(
-            name="rolesSelection", label="Role keys", selectables=[]
-        )
+        self.addMultiSelectProperty(name="rolesSelection", label="Role keys", selectables=[])
         self.addBooleanProperty(name="admin", label="Admin")
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):

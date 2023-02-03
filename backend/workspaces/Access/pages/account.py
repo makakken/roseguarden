@@ -35,8 +35,6 @@ class AccountAccess(Page):
     rank = 5.1  # ranks (double) the page higher values are at the top of the menu
     # groups will be ranked by the sum of the rank-values of their entries
     requireLogin = True  # login is required to view the page
-    requirePermission = (
-        None  # No permission is rewuired to view the page, the value have to be defined
-    )
+    requirePermission = None  # No permission is rewuired to view the page, the value have to be defined
     # can be None, Permission or a list of Permissions
     requireAdmin = False  # login dont need admin privileges

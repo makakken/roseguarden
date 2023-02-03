@@ -37,9 +37,7 @@ class PermissionGroupsList(DataView):
         self.addIntegerProperty(name="id", label="ID", isKey=True)
         self.addStringProperty(name="name", label="Name")
         self.addStringProperty(name="description", label="Description")
-        self.addMultiSelectProperty(
-            name="permissions", label="Permission keys", selectables=[]
-        )
+        self.addMultiSelectProperty(name="permissions", label="Permission keys", selectables=[])
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
         print("getDataViewHandler for PermissionGroupsList")

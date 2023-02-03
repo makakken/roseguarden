@@ -38,11 +38,7 @@ class Register(Action):
         replyActions = []
         userdata = action["userdata"]
         if userManager.checkUserExist(userdata["email"]):
-            replyActions.append(
-                webclientActions.NotificationAction.generate(
-                    "User already exist", "error"
-                )
-            )
+            replyActions.append(webclientActions.NotificationAction.generate("User already exist", "error"))
         else:
             u = userManager.registerUser(userdata)
             link = generateActionLink(
@@ -74,11 +70,7 @@ class Register(Action):
                 False,
                 "welcome.mail",
             )
-            replyActions.append(
-                webclientActions.NotificationAction.generate(
-                    "User registered", "success"
-                )
-            )
+            replyActions.append(webclientActions.NotificationAction.generate("User registered", "success"))
             replyActions.append(webclientActions.RouteAction.generate("dashboard", 3))
 
         return "success", replyActions

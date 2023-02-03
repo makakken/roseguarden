@@ -40,16 +40,12 @@ class AccessGroupsList(DataView):
         self.addStringProperty(name="name", label="User name")
         self.addIntegerProperty(name="access_group", label="Access group")
         self.addIntegerProperty(name="access_type", label="Access type")
-        self.addBooleanProperty(
-            name="use_group_budget", label="Group budget", hide=True
-        )
+        self.addBooleanProperty(name="use_group_budget", label="Group budget", hide=True)
         self.addBooleanProperty(name="budget_needed", label="Needs budget", hide=True)
         self.addIntegerProperty(name="access_budget", label="Budget")
         self.addDateProperty(name="access_start_date", label="Valid from")
         self.addDateProperty(name="access_end_date", label="Expires at")
-        self.addDateProperty(
-            name="access_last_update", label="Last updated", readOnly=True
-        )
+        self.addDateProperty(name="access_last_update", label="Last updated", readOnly=True)
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
         print("getDataViewHandler for AccessUserList")
@@ -63,18 +59,12 @@ class AccessGroupsList(DataView):
             entry.name = "{0} {1}".format(u.firstname, u.lastname)
             if u.access is not None:
                 entry.access_budget = u.access.access_budget
-                entry.access_start_date = u.access.access_start_date.format(
-                    "YYYY-MM-DD"
-                )
+                entry.access_start_date = u.access.access_start_date.format("YYYY-MM-DD")
                 if u.access.access_expires:
-                    entry.access_end_date = u.access.access_expire_date.format(
-                        "YYYY-MM-DD"
-                    )
+                    entry.access_end_date = u.access.access_expire_date.format("YYYY-MM-DD")
                 else:
                     entry.access_end_date = None
-                entry.access_last_update = u.access.access_last_update_date.format(
-                    "YYYY-MM-DD"
-                )
+                entry.access_last_update = u.access.access_last_update_date.format("YYYY-MM-DD")
             else:
                 entry.access_start_date = "-"
                 entry.access_end_date = "-"
@@ -84,9 +74,7 @@ class AccessGroupsList(DataView):
                 entry.access_type = u.spaceaccess_accessgroup.access_type.value
                 entry.access_group = u.spaceaccess_accessgroup.id
                 entry.budget_needed = u.spaceaccess_accessgroup.access_need_budget
-                entry.use_group_budget = (
-                    u.spaceaccess_accessgroup.access_use_group_budget
-                )
+                entry.use_group_budget = u.spaceaccess_accessgroup.access_use_group_budget
                 if entry.use_group_budget:
                     entry.access_budget = u.spaceaccess_accessgroup.group_budget
             else:
@@ -112,21 +100,14 @@ class AccessGroupsList(DataView):
         if u.access is not None:
             u.access.access_last_update_date = arrow.utcnow()
             if hasattr(entry, "access_start_date"):
-                u.access.access_start_date = arrow.get(
-                    entry.access_start_date, "YYYY-MM-DD"
-                )
+                u.access.access_start_date = arrow.get(entry.access_start_date, "YYYY-MM-DD")
             if hasattr(entry, "access_end_date"):
                 if entry.access_end_date is not None:
                     u.access.access_expires = True
-                    u.access.access_expire_date = arrow.get(
-                        entry.access_end_date, "YYYY-MM-DD"
-                    )
+                    u.access.access_expire_date = arrow.get(entry.access_end_date, "YYYY-MM-DD")
 
         if hasattr(entry, "access_budget"):
-            if (
-                u.spaceaccess_accessgroup is not None
-                and u.spaceaccess_accessgroup.access_use_group_budget
-            ):
+            if u.spaceaccess_accessgroup is not None and u.spaceaccess_accessgroup.access_use_group_budget:
                 u.spaceaccess_accessgroup.group_budget = entry.access_budget
             else:
                 u.access.access_budget = entry.access_budget

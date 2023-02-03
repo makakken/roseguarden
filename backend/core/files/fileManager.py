@@ -49,17 +49,13 @@ class FileManager(object):
 
         if "file_storage_path" in config["SYSTEM"]:
             if os.path.exists(config["SYSTEM"]["file_storage_path"]):
-                upload_dir_path = os.path.join(
-                    config["SYSTEM"]["file_storage_path"], "uploads"
-                )
+                upload_dir_path = os.path.join(config["SYSTEM"]["file_storage_path"], "uploads")
                 if not os.path.exists(upload_dir_path):
                     os.mkdir(upload_dir_path)
                 self.upload_dir_path = upload_dir_path
             else:
                 logManager.error("FileManager 'file_storage_path' don't exist")
         else:
-            logManager.error(
-                "FileManager attribute 'file_storage_path' not defined in config"
-            )
+            logManager.error("FileManager attribute 'file_storage_path' not defined in config")
 
         logManager.info("FileManager initialized")
