@@ -151,6 +151,8 @@ class UserManager(object):
             user_list = self.user.query.filter(
                 (self.user.authenticator_public_key == "") | (self.user.authenticator_public_key is None)
             ).all()
+        else:
+            logManager.info(f"Public key {public_key} found to select user : {str(user_list)}")
 
         # iterate through the users list, contains one of the following:
         #  - a list of all users with the corresponding public key
@@ -165,9 +167,7 @@ class UserManager(object):
                 self.user_authenticator_cache[secret_hash] = u.email
                 # if the public key is empty set a default public key out of the private key
                 if u.authenticator_public_key == "" or u.authenticator_public_key is None:
-                    u.authenticator_public_key = self.getAuthenticatorPublicKeyOrDefault(
-                        authenticator_private_key, u.authenticator_public_key
-                    )
+                    u.authenticator_public_key = public_key
                 return u
         # no user found for the given private key
         return None
