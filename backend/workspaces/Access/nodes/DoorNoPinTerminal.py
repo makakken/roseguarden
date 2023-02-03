@@ -23,7 +23,11 @@ __license__ = "GPLv3"
 from core.nodes.nodeClass import NodeClass
 from core.logs import logManager
 from core.users import userManager
-from core.users.enum import AuthenticatorSendBy, AuthenticatorType, AuthenticatorValidityType
+from core.users.enum import (
+    AuthenticatorSendBy,
+    AuthenticatorType,
+    AuthenticatorValidityType,
+)
 
 from workspaces.Access.nodes.common.serverActionRequests import (
     UpdateUserInfoAction,
@@ -39,7 +43,6 @@ from workspaces.Access.access import (
 
 
 class DoorNoPinTerminal(NodeClass):
-
     class_id = "00:01:AB:EF:19:D8:00:11"
     description = "A simple door terminal without pin request"
 
@@ -89,7 +92,10 @@ class DoorNoPinTerminal(NodeClass):
             update_user_access_properties_after_access_granted(user)
             return [GrandAccessAction.generate(user)]
         elif action_name == "requestAssignCode":
-            if userManager.checkUserAuthenticatorExists(action["auth_key"], public_key) is True:
+            if (
+                userManager.checkUserAuthenticatorExists(action["auth_key"], public_key)
+                is True
+            ):
                 node_action = UpdateAssignInfoAction.generate("", False)
             else:
                 code = userManager.createUserAuthenticatorRequest(

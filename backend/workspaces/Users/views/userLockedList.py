@@ -30,7 +30,6 @@ from core.users import userManager
 
 
 class UserLockedList(DataView):
-
     uri = "userLockedList"
     requireLogin = True
 
@@ -46,7 +45,11 @@ class UserLockedList(DataView):
             icon="undo",
         )
         self.addActionProperty(
-            name="remove", label="Remove user", action="remove", actionHandler=self.removeHandler, icon="clear"
+            name="remove",
+            label="Remove user",
+            action="remove",
+            actionHandler=self.removeHandler,
+            icon="clear",
         )
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):

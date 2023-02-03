@@ -29,7 +29,6 @@ from core.users.models import User
 
 
 class UserList(DataView):
-
     uri = "userList"
     requireLogin = True
 
@@ -40,12 +39,23 @@ class UserList(DataView):
         self.addMailProperty(name="email", label="eMail", isKey=True)
         self.addStringProperty(name="name", label="Name")
         self.addStringProperty(name="organization", label="Organization")
-        self.addSelectProperty(name="verified", selectables=["Yes", "No"], label="Verified")
-        self.addActionProperty(
-            name="verify", label="Verify user", action="verify", actionHandler=self.verify, icon="check", color="orange"
+        self.addSelectProperty(
+            name="verified", selectables=["Yes", "No"], label="Verified"
         )
         self.addActionProperty(
-            name="lock", label="Lock user", action="lock", actionHandler=self.lockHandler, icon="clear"
+            name="verify",
+            label="Verify user",
+            action="verify",
+            actionHandler=self.verify,
+            icon="check",
+            color="orange",
+        )
+        self.addActionProperty(
+            name="lock",
+            label="Lock user",
+            action="lock",
+            actionHandler=self.lockHandler,
+            icon="clear",
         )
         self.addActionProperty(
             name="setAdmin",
@@ -73,7 +83,6 @@ class UserList(DataView):
         userlist = []
         all_user = User.query.filter_by(account_locked=False).all()
         for u in all_user:
-
             assert isinstance(u, User)
             # get new empty entry
             entry = self.createEntry()

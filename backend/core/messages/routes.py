@@ -29,7 +29,6 @@ from jinja2 import Template
 @messages_bp.route("/api/v1/message/<int:id>", methods=["GET"])
 @jwt_optional
 def message(id):
-
     message = messageManager.message.query.filter_by(id=id).first()
 
     # Get File Content in String

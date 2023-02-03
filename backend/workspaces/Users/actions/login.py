@@ -52,18 +52,32 @@ class Login(Action):
                 # update menu
                 menu = menuBuilder.buildMenu(user)
                 # build up
-                replyActions.append(webclientActions.UpdateSessionTokenAction.generate(access_token))
+                replyActions.append(
+                    webclientActions.UpdateSessionTokenAction.generate(access_token)
+                )
                 replyActions.append(webclientActions.UpdateMenuAction.generate(menu))
-                replyActions.append(webclientActions.NotificationAction.generate("Login successful.", "success"))
+                replyActions.append(
+                    webclientActions.NotificationAction.generate(
+                        "Login successful.", "success"
+                    )
+                )
 
                 if "options" in action and "redirect" in action["options"]:
                     if action["options"]["redirect"] != "":
-                        replyActions.append(webclientActions.RouteAction.generate(action["options"]["redirect"], 2))
+                        replyActions.append(
+                            webclientActions.RouteAction.generate(
+                                action["options"]["redirect"], 2
+                            )
+                        )
                     else:
-                        replyActions.append(webclientActions.RouteAction.generate("dashboard", 2))
+                        replyActions.append(
+                            webclientActions.RouteAction.generate("dashboard", 2)
+                        )
 
                 replyActions.append(
-                    webclientActions.UpdateUserInfoAction.generate(user.firstname, user.lastname, user.email)
+                    webclientActions.UpdateUserInfoAction.generate(
+                        user.firstname, user.lastname, user.email
+                    )
                 )
                 user.sessionValid = True
                 user.last_login_date = arrow.utcnow()
@@ -76,7 +90,9 @@ class Login(Action):
                 )
         else:
             replyActions.append(
-                webclientActions.NotificationAction.generate("Login failed, username or password is wrong.", "error")
+                webclientActions.NotificationAction.generate(
+                    "Login failed, username or password is wrong.", "error"
+                )
             )
 
         return "success", replyActions

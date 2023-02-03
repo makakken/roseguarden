@@ -64,7 +64,9 @@ class MenuBuilder(object):
         print("buildGuestMenu")
         menu = []
         menu.append(self.makeHeader("Roseguarden"))
-        menu.append(self.makeEntry("Home", "app", "Dashboard", "dashboard", "/dashboard"))
+        menu.append(
+            self.makeEntry("Home", "app", "Dashboard", "dashboard", "/dashboard")
+        )
         menu.append(self.makeDivider())
         return menu
 
@@ -72,7 +74,15 @@ class MenuBuilder(object):
         print("buildUserMenu")
         menu = self.buildGuestMenu()
         menu.append(self.makeHeader("User"))
-        menu.append(self.makeEntry(title="Account", group="user", name="Account", icon="face", path="/user/account"))
+        menu.append(
+            self.makeEntry(
+                title="Account",
+                group="user",
+                name="Account",
+                icon="face",
+                path="/user/account",
+            )
+        )
         menu.append(self.makeDivider())
         return menu
 
@@ -80,8 +90,20 @@ class MenuBuilder(object):
         print("buildAdminMenu")
         menu = self.buildUserMenu(user)
         menu.append(self.makeHeader("Admin"))
-        menu.append(self.makeEntry("Users", "admin", "Users", "supervisor_account", "/admin/users"))
-        menu.append(self.makeEntry("Permissions", "admin", "Permissions", "verified_user", "/admin/permissions"))
+        menu.append(
+            self.makeEntry(
+                "Users", "admin", "Users", "supervisor_account", "/admin/users"
+            )
+        )
+        menu.append(
+            self.makeEntry(
+                "Permissions",
+                "admin",
+                "Permissions",
+                "verified_user",
+                "/admin/permissions",
+            )
+        )
         # menu.append(self.makeEntry('Access cards'   , 'admin', 'Cards'       , 'credit_card', '/admin/cards'))
         # menu.append(self.makeEntry('Space access'   , 'admin', 'Access'      , 'lock', '/admin/access'))
         # menu.append(self.makeEntry('Nodes'          , 'admin', 'Nodes'       , 'adjust', '/admin/nodes'))
@@ -110,7 +132,9 @@ class MenuBuilder(object):
                     if page.requirePermission is None:
                         return True
                     else:
-                        return self.checkUserPermissions(user, page.requirePermission, workspace)
+                        return self.checkUserPermissions(
+                            user, page.requirePermission, workspace
+                        )
         return False
 
     def buildMenu(self, user):
@@ -136,7 +160,9 @@ class MenuBuilder(object):
                     if self.hasPermission(user, p, w):
                         menu_groups["_" + str(p.name)] = p.rank, [p]
 
-        sorted_menu_groups = sorted(menu_groups.items(), key=lambda x: x[1], reverse=True)
+        sorted_menu_groups = sorted(
+            menu_groups.items(), key=lambda x: x[1], reverse=True
+        )
 
         menu = []
         for key, element in enumerate(sorted_menu_groups):
@@ -145,7 +171,15 @@ class MenuBuilder(object):
                 menu.append(self.makeHeader(str(group)))
                 for p in pagelist:
                     print(p)
-                    menu.append(self.makeEntry(title=p.title, group=p.group, name=p.name, icon=p.icon, path=p.route))
+                    menu.append(
+                        self.makeEntry(
+                            title=p.title,
+                            group=p.group,
+                            name=p.name,
+                            icon=p.icon,
+                            path=p.route,
+                        )
+                    )
                 menu.append(self.makeDivider())
         if len(menu) > 0:
             menu.pop()

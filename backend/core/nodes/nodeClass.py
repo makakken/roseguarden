@@ -35,7 +35,9 @@ class NodeClass(object):
 
     disable = False  # enable or disable detection
     name = None  # overwrites the name (default = self.__class__.__name__)
-    class_id = ""  # the nodes class identifier to map hardware nodes with the node class
+    class_id = (
+        ""  # the nodes class identifier to map hardware nodes with the node class
+    )
     description = "UNKNOWN"
     version = "1.0"  # version of the node this class should handle
 
@@ -52,7 +54,9 @@ class NodeClass(object):
         self.app = app
         self.db = db
 
-    def defineActionProperty(self, actionname, property_name, optional=False, description=""):
+    def defineActionProperty(
+        self, actionname, property_name, optional=False, description=""
+    ):
         self.actions[actionname]["properties"].append(property_name)
         self.actions[actionname]["optional"] = optional
 
@@ -64,7 +68,9 @@ class NodeClass(object):
     def check_actions_available(self, action_names_list):
         for n in action_names_list:
             if n not in self.actions:
-                raise RequestError("Action " + str(n) + " not available for this node class")
+                raise RequestError(
+                    "Action " + str(n) + " not available for this node class"
+                )
         return True
 
     def defineNodeActionRequests(self):

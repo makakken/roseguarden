@@ -78,7 +78,9 @@ def create_testEnv(app, db, clean=True):
         workspaceManager.triggerWorkspaceHooks(WorkspaceHooks.CREATEUSER, user=u)
         db.session.add(u)
         data = {"username": u.firstname + " " + u.lastname}
-        send_message(u, "Welcome", usersWorkspace, "welcome.message", data, "Roseguarden")
+        send_message(
+            u, "Welcome", usersWorkspace, "welcome.message", data, "Roseguarden"
+        )
 
     s = User.query.filter_by(email="super@fabba.space").first()
     if s is None:
@@ -92,7 +94,9 @@ def create_testEnv(app, db, clean=True):
         workspaceManager.triggerWorkspaceHooks(WorkspaceHooks.CREATEUSER, user=s)
         db.session.add(s)
         data = {"username": s.firstname + " " + s.lastname}
-        send_message(s, "Welcome", usersWorkspace, "welcome.message", data, "Roseguarden")
+        send_message(
+            s, "Welcome", usersWorkspace, "welcome.message", data, "Roseguarden"
+        )
 
     a = User.query.filter_by(email="admin@fabba.space").first()
     if a is None:
@@ -108,7 +112,9 @@ def create_testEnv(app, db, clean=True):
 
         db.session.add(a)
         data = {"username": a.firstname + " " + a.lastname}
-        send_message(a, "Welcome", usersWorkspace, "welcome.message", data, "Roseguarden")
+        send_message(
+            a, "Welcome", usersWorkspace, "welcome.message", data, "Roseguarden"
+        )
 
     uva = User.query.filter_by(email="unverified@fabba.space").first()
     if uva is None:
@@ -121,7 +127,9 @@ def create_testEnv(app, db, clean=True):
         workspaceManager.triggerWorkspaceHooks(WorkspaceHooks.CREATEUSER, user=uva)
         db.session.add(uva)
         data = {"username": uva.firstname + " " + uva.lastname}
-        send_message(uva, "Welcome", usersWorkspace, "welcome.message", data, "Roseguarden")
+        send_message(
+            uva, "Welcome", usersWorkspace, "welcome.message", data, "Roseguarden"
+        )
 
     node_ident = {
         "nodename": "Door 1",
@@ -138,7 +146,9 @@ def create_testEnv(app, db, clean=True):
 
     n = Node.query.filter_by(fingerprint=node_fingerprint).first()
     if n is None:
-        nodeManager.create_node_from_identification(node_ident, node_fingerprint, node_authentification)
+        nodeManager.create_node_from_identification(
+            node_ident, node_fingerprint, node_authentification
+        )
         nodeManager.authorizeNode(node_fingerprint)
 
     sas = SpaceAccessSpace(name="Garage workshop")

@@ -62,7 +62,9 @@ class WorkspaceManager(object):
                 if hook == WorkspaceHooks.REMOVEUSER:
                     w.removeUserHook(**kwargs)
             except Exception as e:
-                logManager.error("Failed to run hook {} on {} with {}".format(hook, w.name, e))
+                logManager.error(
+                    "Failed to run hook {} on {} with {}".format(hook, w.name, e)
+                )
 
     def reloadWorkspaces(self):
         """Reset the list of all plugins and initiate the walk over the main
@@ -79,11 +81,12 @@ class WorkspaceManager(object):
         logManager.info("")
         all_permissions = {}
         for ws in self.workspaces:
-
             workspace_permissions = ws.permissions
             if workspace_permissions is not None:
                 all_permissions = {**all_permissions, **workspace_permissions}
-            logManager.info(f"Register permissions for {ws.name}-workspace : {workspace_permissions}")
+            logManager.info(
+                f"Register permissions for {ws.name}-workspace : {workspace_permissions}"
+            )
 
         logManager.info(f"Delete orphaned permissions for {ws.name}-workspace")
 
@@ -118,42 +121,54 @@ class WorkspaceManager(object):
                 w.discoverCommands(self.workspaceSource)
             except Exception as e:
                 traceback.print_exc(file=sys.stdout)
-                logManager.error(f'Workspace "{w.name}" unable to discover commands  ({str(type(e).__name__)}:{e})')
+                logManager.error(
+                    f'Workspace "{w.name}" unable to discover commands  ({str(type(e).__name__)}:{e})'
+                )
 
             # try to register permissions
             try:
                 w.discoverPermissions(self.workspaceSource)
             except Exception as e:
                 traceback.print_exc(file=sys.stdout)
-                logManager.error(f'Workspace "{w.name}" unable to discover permissions  ({str(type(e).__name__)}:{e})')
+                logManager.error(
+                    f'Workspace "{w.name}" unable to discover permissions  ({str(type(e).__name__)}:{e})'
+                )
 
             # try to register dataViews
             try:
                 w.discoverDataViews(self.workspaceSource)
             except Exception as e:
                 traceback.print_exc(file=sys.stdout)
-                logManager.error(f'Workspace "{w.name}" unable to discover dataviews  ({str(type(e).__name__)}:{e})')
+                logManager.error(
+                    f'Workspace "{w.name}" unable to discover dataviews  ({str(type(e).__name__)}:{e})'
+                )
 
             # try to register jobs
             try:
                 w.discoverJobs(self.workspaceSource)
             except Exception as e:
                 traceback.print_exc(file=sys.stdout)
-                logManager.error(f'Workspace "{w.name}" unable to discover jobs  ({str(type(e).__name__)}:{e})')
+                logManager.error(
+                    f'Workspace "{w.name}" unable to discover jobs  ({str(type(e).__name__)}:{e})'
+                )
 
             # try to register actions
             try:
                 w.discoverActions(self.workspaceSource)
             except Exception as e:
                 traceback.print_exc(file=sys.stdout)
-                logManager.error(f'Workspace "{w.name}" unable to discover actions  ({str(type(e).__name__)}:{e})')
+                logManager.error(
+                    f'Workspace "{w.name}" unable to discover actions  ({str(type(e).__name__)}:{e})'
+                )
 
             # try to register sections
             try:
                 w.discoverSections(self.workspaceSource)
             except Exception as e:
                 traceback.print_exc(file=sys.stdout)
-                logManager.error(f'Workspace "{w.name}" unable to discover sections  ({str(type(e).__name__)}:{e})')
+                logManager.error(
+                    f'Workspace "{w.name}" unable to discover sections  ({str(type(e).__name__)}:{e})'
+                )
 
             # try to register node classes
             try:
@@ -162,14 +177,18 @@ class WorkspaceManager(object):
                 logManager.info(f'No node classes discovered for "{w.name}"')
             except Exception as e:
                 traceback.print_exc(file=sys.stdout)
-                logManager.error(f'Workspace "{w.name}" unable to discover node classes  ({str(type(e).__name__)}:{e})')
+                logManager.error(
+                    f'Workspace "{w.name}" unable to discover node classes  ({str(type(e).__name__)}:{e})'
+                )
 
             # try to register permissions
             try:
                 w.discoverPages(self.workspaceSource)
             except Exception as e:
                 traceback.print_exc(file=sys.stdout)
-                logManager.error(f'Workspace "{w.name}" unable to discover pages  ({str(type(e).__name__)}:{e})')
+                logManager.error(
+                    f'Workspace "{w.name}" unable to discover pages  ({str(type(e).__name__)}:{e})'
+                )
 
             logManager.info("")
 
@@ -190,7 +209,11 @@ class WorkspaceManager(object):
 
         for pkg_path in all_current_paths:
             # Walk through all sub directories
-            child_pkgs = [p for p in os.listdir(pkg_path) if os.path.isdir(os.path.join(pkg_path, p))]
+            child_pkgs = [
+                p
+                for p in os.listdir(pkg_path)
+                if os.path.isdir(os.path.join(pkg_path, p))
+            ]
 
             for child_pkg in child_pkgs:
                 try:
@@ -218,20 +241,28 @@ class WorkspaceManager(object):
 
         for pkg_path in all_current_paths:
             # Walk through all sub directories
-            child_pkgs = [p for p in os.listdir(pkg_path) if os.path.isdir(os.path.join(pkg_path, p))]
+            child_pkgs = [
+                p
+                for p in os.listdir(pkg_path)
+                if os.path.isdir(os.path.join(pkg_path, p))
+            ]
 
             # Every sub directory contains one workspace
             for child_pkg in child_pkgs:
-                imported_package = __import__(source + "." + child_pkg, fromlist=["blah"])
+                imported_package = __import__(
+                    source + "." + child_pkg, fromlist=["blah"]
+                )
                 for _, workspacename, ispkg in pkgutil.iter_modules(
                     imported_package.__path__, imported_package.__name__ + "."
                 ):
                     workspaceCounter = 0
                     if not ispkg:
                         workspace_module = __import__(workspacename, fromlist=["blah"])
-                        clsmembers = inspect.getmembers(workspace_module, inspect.isclass)
+                        clsmembers = inspect.getmembers(
+                            workspace_module, inspect.isclass
+                        )
 
-                        for (_, c) in clsmembers:
+                        for _, c in clsmembers:
                             # Check for workspace classes
                             if issubclass(c, Workspace) & (c is not Workspace):
                                 workspaceCounter += 1
@@ -253,10 +284,14 @@ class WorkspaceManager(object):
                                 if hasattr(c, "name"):
                                     name = c.name
                                 workspaceInstance = c(self.app, self.db, name, uri)
-                                workspaceInstance.path = os.path.dirname(workspace_module.__file__)
+                                workspaceInstance.path = os.path.dirname(
+                                    workspace_module.__file__
+                                )
                                 logManager.info(
                                     'Workspace discovered : {} [{}] with uri "{}"'.format(
-                                        workspaceInstance.name, c.__module__, workspaceInstance.uri
+                                        workspaceInstance.name,
+                                        c.__module__,
+                                        workspaceInstance.uri,
                                     )
                                 )
                                 if workspaceInstance.disable is True:

@@ -29,7 +29,9 @@ class DataView(object):
 
     disable = False
     requireLogin = True
-    requirePermission = None  # a permission is required in the meaning of one of the following
+    requirePermission = (
+        None  # a permission is required in the meaning of one of the following
+    )
 
     def __init__(self, name=None, uri=None):
         self.description = "UNKNOWN"
@@ -115,7 +117,14 @@ class DataView(object):
         return properties
 
     def addMailProperty(
-        self, name, label="", group=None, updateHandler=None, isKey=False, readOnly=True, description=""
+        self,
+        name,
+        label="",
+        group=None,
+        updateHandler=None,
+        isKey=False,
+        readOnly=True,
+        description="",
     ):
         prop = {"name": name, "label": label, "type": "email"}
         if isKey is True:
@@ -136,7 +145,15 @@ class DataView(object):
         self.entryPropList[name] = None
 
     def addStringProperty(
-        self, name, label="", group=None, updateHandler=None, isKey=False, readOnly=True, description="", hide=False
+        self,
+        name,
+        label="",
+        group=None,
+        updateHandler=None,
+        isKey=False,
+        readOnly=True,
+        description="",
+        hide=False,
     ):
         prop = {"name": name, "label": label, "type": "string"}
         if isKey is True:
@@ -157,7 +174,14 @@ class DataView(object):
         self.entryPropList[name] = None
 
     def addDoubleProperty(
-        self, name, label="", group=None, updateHandler=None, isKey=False, readOnly=True, description=""
+        self,
+        name,
+        label="",
+        group=None,
+        updateHandler=None,
+        isKey=False,
+        readOnly=True,
+        description="",
     ):
         prop = {"name": name, "label": label, "type": "double"}
         if isKey is True:
@@ -177,7 +201,15 @@ class DataView(object):
         self.entryPropList[name] = None
 
     def addIntegerProperty(
-        self, name, label="", group=None, updateHandler=None, isKey=False, readOnly=True, description="", hide=False
+        self,
+        name,
+        label="",
+        group=None,
+        updateHandler=None,
+        isKey=False,
+        readOnly=True,
+        description="",
+        hide=False,
     ):
         prop = {"name": name, "label": label, "type": "integer"}
         if isKey is True:
@@ -198,7 +230,14 @@ class DataView(object):
         self.entryPropList[name] = None
 
     def addDatetimeProperty(
-        self, name, label="", group=None, updateHandler=None, isKey=False, readOnly=True, description=""
+        self,
+        name,
+        label="",
+        group=None,
+        updateHandler=None,
+        isKey=False,
+        readOnly=True,
+        description="",
     ):
         prop = {"name": name, "label": label, "type": "datetime"}
         if isKey is True:
@@ -218,7 +257,14 @@ class DataView(object):
         self.entryPropList[name] = None
 
     def addTimeProperty(
-        self, name, label="", group=None, updateHandler=None, isKey=False, readOnly=True, description=""
+        self,
+        name,
+        label="",
+        group=None,
+        updateHandler=None,
+        isKey=False,
+        readOnly=True,
+        description="",
     ):
         prop = {"name": name, "label": label, "type": "time"}
         if isKey is True:
@@ -238,7 +284,14 @@ class DataView(object):
         self.entryPropList[name] = None
 
     def addDateProperty(
-        self, name, label="", group=None, updateHandler=None, isKey=False, readOnly=True, description=""
+        self,
+        name,
+        label="",
+        group=None,
+        updateHandler=None,
+        isKey=False,
+        readOnly=True,
+        description="",
     ):
         prop = {"name": name, "label": label, "type": "date"}
         if isKey is True:
@@ -258,7 +311,15 @@ class DataView(object):
         self.entryPropList[name] = None
 
     def addBooleanProperty(
-        self, name, label="", group=None, updateHandler=None, isKey=False, readOnly=True, description="", hide=False
+        self,
+        name,
+        label="",
+        group=None,
+        updateHandler=None,
+        isKey=False,
+        readOnly=True,
+        description="",
+        hide=False,
     ):
         prop = {"name": name, "label": label, "type": "boolean"}
         if isKey is True:
@@ -279,7 +340,15 @@ class DataView(object):
         self.entryPropList[name] = None
 
     def addSelectProperty(
-        self, name, selectables, label="", group=None, updateHandler=None, isKey=False, readOnly=True, description=""
+        self,
+        name,
+        selectables,
+        label="",
+        group=None,
+        updateHandler=None,
+        isKey=False,
+        readOnly=True,
+        description="",
     ):
         prop = {"name": name, "label": label, "type": "select"}
         if isKey is True:
@@ -300,7 +369,15 @@ class DataView(object):
         self.entryPropList[name] = None
 
     def addMultiSelectProperty(
-        self, name, selectables, label="", group=None, updateHandler=None, isKey=False, readOnly=True, description=""
+        self,
+        name,
+        selectables,
+        label="",
+        group=None,
+        updateHandler=None,
+        isKey=False,
+        readOnly=True,
+        description="",
     ):
         prop = {"name": name, "label": label, "type": "multiselect"}
         if isKey is True:
@@ -321,7 +398,16 @@ class DataView(object):
         self.entryPropList[name] = None
 
     def addActionProperty(
-        self, name, label, action, icon, actionHandler=None, isKey=False, readOnly=True, color="red", description=""
+        self,
+        name,
+        label,
+        action,
+        icon,
+        actionHandler=None,
+        isKey=False,
+        readOnly=True,
+        color="red",
+        description="",
     ):
         prop = {"name": name, "label": label, "type": "action"}
         prop["isKey"] = False
@@ -340,25 +426,33 @@ class DataView(object):
         self.properties.append(prop)
 
     def emitUpdate(self, key, property, value):
-        self.dataUpdates.append({"key": key, "property": property, "value": value, "view": self.uri})
+        self.dataUpdates.append(
+            {"key": key, "property": property, "value": value, "view": self.uri}
+        )
 
     def emitSyncUpdate(self, key, view=None, workspace=None):
         if view is None:
             view = self.uri
 
-        self.dataSyncs.append({"type": "update", "key": key, "view": view, "workspace": workspace})
+        self.dataSyncs.append(
+            {"type": "update", "key": key, "view": view, "workspace": workspace}
+        )
 
     def emitSyncRemove(self, key, view=None, workspace=None):
         if view is None:
             view = self.uri
 
-        self.dataSyncs.append({"type": "remove", "key": key, "view": view, "workspace": workspace})
+        self.dataSyncs.append(
+            {"type": "remove", "key": key, "view": view, "workspace": workspace}
+        )
 
     def emitSyncCreate(self, key, view=None, workspace=None):
         if view is None:
             view = self.name
 
-        self.dataSyncs.append({"type": "create", "key": key, "view": view, "workspace": workspace})
+        self.dataSyncs.append(
+            {"type": "create", "key": key, "view": view, "workspace": workspace}
+        )
 
     # Handler for getting the freshly build view
     def getViewHandler(self, user, workspace, query=None):
@@ -383,9 +477,13 @@ class DataView(object):
     # Handler for view actions
     def executeViewActionHandler(self, user, workspace, action):
         try:
-            return self.dataAction[action.viewAction](user, workspace, action, action.entry[self.entrykey])
+            return self.dataAction[action.viewAction](
+                user, workspace, action, action.entry[self.entrykey]
+            )
         except Exception:
-            return self.dataAction[action.viewAction](user, workspace, action.entry[self.entrykey])
+            return self.dataAction[action.viewAction](
+                user, workspace, action.entry[self.entrykey]
+            )
 
     def defineProperties(self):
         pass

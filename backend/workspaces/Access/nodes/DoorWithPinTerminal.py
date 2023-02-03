@@ -23,7 +23,11 @@ __license__ = "GPLv3"
 from core.nodes.nodeClass import NodeClass
 from core.logs import logManager
 from core.users import userManager
-from core.users.enum import AuthenticatorSendBy, AuthenticatorType, AuthenticatorValidityType
+from core.users.enum import (
+    AuthenticatorSendBy,
+    AuthenticatorType,
+    AuthenticatorValidityType,
+)
 
 from workspaces.Access.nodes.common.serverActionRequests import (
     UpdateUserInfoAction,
@@ -40,7 +44,6 @@ from workspaces.Access.access import (
 
 
 class DoorWithPinTerminal(NodeClass):
-
     class_id = "00:61:AB:EF:19:D8:00:13"
     description = "A Door terminal with pin request"
 
@@ -91,7 +94,11 @@ class DoorWithPinTerminal(NodeClass):
 
             if pinValid is False:
                 remaining = userManager.getUserRemainingPinAttempts(user.email)
-                return [DenyAccessAction.generate("Wrong pin", "Remaining attempts: " + str(remaining))]
+                return [
+                    DenyAccessAction.generate(
+                        "Wrong pin", "Remaining attempts: " + str(remaining)
+                    )
+                ]
 
             (access,) = has_user_access_to_space(user, node)
             if access is False:
@@ -105,7 +112,10 @@ class DoorWithPinTerminal(NodeClass):
 
             return [GrandAccessAction.generate(user)]
         elif action_name == "requestAssignCode":
-            if userManager.checkUserAuthenticatorExists(action["auth_key"], public_key) is True:
+            if (
+                userManager.checkUserAuthenticatorExists(action["auth_key"], public_key)
+                is True
+            ):
                 node_action = UpdateAssignInfoAction.generate("", False)
             else:
                 code = userManager.createUserAuthenticatorRequest(

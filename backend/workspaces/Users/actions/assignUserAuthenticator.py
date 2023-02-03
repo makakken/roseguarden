@@ -33,7 +33,9 @@ class AssignUserAuthentictor(Action):
 
     def handle(self, action, user, workspace, actionManager):
         user_to_assign = User.query.filter_by(email=action.userId).first()
-        authenticator = Authenticator.query.filter_by(code=action.authenticatorCode).first()
+        authenticator = Authenticator.query.filter_by(
+            code=action.authenticatorCode
+        ).first()
         notification_action = webclientActions.NotificationAction.generate(
             "Assign authenticator was succesful.", "success"
         )
@@ -45,10 +47,17 @@ class AssignUserAuthentictor(Action):
             return (
                 "success",
                 [notification_action],
-                {"succeed": False, "message": "You have to be logged in to do this action."},
+                {
+                    "succeed": False,
+                    "message": "You have to be logged in to do this action.",
+                },
             )
 
-        logManager.info("Request for authenticator assign for {} by {}".format(action.userId, user.email))
+        logManager.info(
+            "Request for authenticator assign for {} by {}".format(
+                action.userId, user.email
+            )
+        )
 
         if user_to_assign is None:
             notification_action = webclientActions.NotificationAction.generate(
@@ -57,18 +66,28 @@ class AssignUserAuthentictor(Action):
             return (
                 "success",
                 [notification_action],
-                {"succeed": False, "message": "Failed to assign authenticator to user."},
+                {
+                    "succeed": False,
+                    "message": "Failed to assign authenticator to user.",
+                },
             )
 
         # there is no authenticator for the given authenticator code
-        if authenticator is None or action.authenticatorCode == "" or action.authenticatorCode is None:
+        if (
+            authenticator is None
+            or action.authenticatorCode == ""
+            or action.authenticatorCode is None
+        ):
             notification_action = webclientActions.NotificationAction.generate(
                 "Failed to assign authenticator to user.", "error"
             )
             return (
                 "success",
                 [notification_action],
-                {"succeed": False, "message": "Failed to assign authenticator to user."},
+                {
+                    "succeed": False,
+                    "message": "Failed to assign authenticator to user.",
+                },
             )
 
         # other user can only set authenticator if not already set
@@ -80,11 +99,18 @@ class AssignUserAuthentictor(Action):
                 return (
                     "success",
                     [notification_action],
-                    {"succeed": False, "message": "Failed to assign authenticator to user."},
+                    {
+                        "succeed": False,
+                        "message": "Failed to assign authenticator to user.",
+                    },
                 )
 
         user_to_assign.setAuthenticatorHash(authenticator.authenticator)
         user_to_assign.authenticator_public_key = authenticator.authenticator_public_key
         user_to_assign.authenticator_status = UserAuthenticatorStatus.VALID
 
-        return "success", [notification_action], {"succeed": True, "message": "Assign successful"}
+        return (
+            "success",
+            [notification_action],
+            {"succeed": True, "message": "Assign successful"},
+        )

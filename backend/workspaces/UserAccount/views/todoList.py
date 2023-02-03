@@ -31,7 +31,6 @@ from workspaces.UserAccount.models import Todo
 
 
 class TodoList(DataView):
-
     disable = True
     uri = "todoList"
     requireLogin = True

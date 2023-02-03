@@ -29,7 +29,6 @@ from core.users.models import User
 
 
 class UserInfo(DataView):
-
     uri = "userInfo"
     requireLogin = True
 
@@ -41,12 +40,13 @@ class UserInfo(DataView):
         self.addStringProperty(name="phone")
         self.addStringProperty(name="pinIsLocked")
         self.addStringProperty(name="authenticator_status")
-        self.addSelectProperty(name="verified", selectables=["Yes", "No"], label="Verified")
+        self.addSelectProperty(
+            name="verified", selectables=["Yes", "No"], label="Verified"
+        )
         self.addDatetimeProperty(name="creationdate")
         self.addDatetimeProperty(name="lastlogindate")
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
-
         userInfo = []
         # get new empty entry
         entry = self.createEntry()

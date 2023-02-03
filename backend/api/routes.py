@@ -44,7 +44,9 @@ def api_v1():
     expire_date = None
     if "exp" in a:
         expire_date = datetime.datetime.fromtimestamp(a["exp"])
-    reply = actionManager.handleActionRequest(get_jwt_identity(), expire_date, request.json)
+    reply = actionManager.handleActionRequest(
+        get_jwt_identity(), expire_date, request.json
+    )
     print("Send reply:")
     pprint(reply, depth=2, indent=2)
     reply = json.dumps(reply)

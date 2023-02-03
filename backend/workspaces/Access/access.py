@@ -47,7 +47,10 @@ def do_accesstype_gets_recharge(access_type: SpaceAccessType):
 
 
 def do_accesstype_use_group_budget(access_type: SpaceAccessType):
-    if access_type is SpaceAccessType.GROUP_BUDGET or access_type is SpaceAccessType.AUTO_RECHARGED_GROUP_BUDGET:
+    if (
+        access_type is SpaceAccessType.GROUP_BUDGET
+        or access_type is SpaceAccessType.AUTO_RECHARGED_GROUP_BUDGET
+    ):
         return True
     else:
         return False
@@ -57,7 +60,9 @@ def update_user_access_properties_after_access_granted(user):
     access_group = user.spaceaccess_accessgroup
     access_properties = user.access
     if access_group is None:
-        raise Exception("Unable to update access property for unassigned space access group")
+        raise Exception(
+            "Unable to update access property for unassigned space access group"
+        )
 
     # check if user needs budget to access
     if access_group.access_need_budget:
@@ -112,7 +117,6 @@ def is_user_budget_sufficient(user):
 
 
 def has_user_access_to_space(user, node):
-
     if user.account_verified is False:
         return False, "User account not verified"
 
@@ -124,7 +128,10 @@ def has_user_access_to_space(user, node):
         return False, "Access not started yet"
 
     # check for users access expiration
-    if user.access.access_expires and arrow.utcnow().date() > user.access.access_expire_date.date():
+    if (
+        user.access.access_expires
+        and arrow.utcnow().date() > user.access.access_expire_date.date()
+    ):
         return False, "Access expired"
 
     # check for accessgroup assigned to user
@@ -145,8 +152,14 @@ def has_user_access_to_space(user, node):
 
     # check for granted daytime
     if not is_time_between(
-        time(accessgroup.daily_access_start_time.hour, accessgroup.daily_access_start_time.minute),
-        time(accessgroup.daily_access_end_time.hour, accessgroup.daily_access_end_time.minute),
+        time(
+            accessgroup.daily_access_start_time.hour,
+            accessgroup.daily_access_start_time.minute,
+        ),
+        time(
+            accessgroup.daily_access_end_time.hour,
+            accessgroup.daily_access_end_time.minute,
+        ),
     ):
         return False, "User has no access in this time range"
 

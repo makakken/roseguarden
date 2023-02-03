@@ -30,7 +30,6 @@ from core.messages.models import Message
 
 
 class UserMessages(DataView):
-
     uri = "userMessages"
     requireLogin = True
 
@@ -41,7 +40,11 @@ class UserMessages(DataView):
         self.addDatetimeProperty(name="datetime", label="Date")
         self.addBooleanProperty(name="read", label="Read")
         self.addActionProperty(
-            name="getMesasge", label="Get message", action="getMesasge", actionHandler=self.getMesasge, icon="clear"
+            name="getMesasge",
+            label="Get message",
+            action="getMesasge",
+            actionHandler=self.getMesasge,
+            icon="clear",
         )
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):

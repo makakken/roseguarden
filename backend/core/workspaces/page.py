@@ -33,7 +33,9 @@ class Page(object):
     # groups will be ranked by the sum of the rank-values of their entries
     requireLogin = True  # login is required to view the page
     requireAdmin = True  # admin is required to view the page
-    requirePermission = None  # a permission is required in the meaning of one of the following
+    requirePermission = (
+        None  # a permission is required in the meaning of one of the following
+    )
 
     disable = False
 

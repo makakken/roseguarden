@@ -30,7 +30,6 @@ from core.users.models import User
 
 
 class PermissionGroupsList(DataView):
-
     uri = "groupsList"
     requireLogin = True
 
@@ -38,14 +37,15 @@ class PermissionGroupsList(DataView):
         self.addIntegerProperty(name="id", label="ID", isKey=True)
         self.addStringProperty(name="name", label="Name")
         self.addStringProperty(name="description", label="Description")
-        self.addMultiSelectProperty(name="permissions", label="Permission keys", selectables=[])
+        self.addMultiSelectProperty(
+            name="permissions", label="Permission keys", selectables=[]
+        )
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
         print("getDataViewHandler for PermissionGroupsList")
         entrylist = []
         all_groups = PermissionGroup.query.all()
         for p in all_groups:
-
             # get new empty entry
             entry = self.createEntry()
 

@@ -30,7 +30,6 @@ from core.users.models import User
 
 
 class PermissionUserList(DataView):
-
     uri = "userList"
     requireLogin = True
 
@@ -42,7 +41,9 @@ class PermissionUserList(DataView):
         self.addStringProperty(name="name", label="Name")
         self.addStringProperty(name="email", label="eMail")
         self.addStringProperty(name="roles", label="Roles")
-        self.addMultiSelectProperty(name="rolesSelection", label="Role keys", selectables=[])
+        self.addMultiSelectProperty(
+            name="rolesSelection", label="Role keys", selectables=[]
+        )
         self.addBooleanProperty(name="admin", label="Admin")
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
@@ -50,7 +51,6 @@ class PermissionUserList(DataView):
         entrylist = []
         all_users = User.query.all()
         for u in all_users:
-
             # get new empty entry
             entry = self.createEntry()
 

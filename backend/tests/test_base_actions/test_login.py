@@ -4,14 +4,19 @@ from tests.requests.serverActions import LoginAction
 
 
 def test_login(base_setup):
-
     app, app_context, db, client = base_setup
     # make login request
-    request = ServerRequest([LoginAction(username="roseguarden@fabba.space", password="test1234")]).to_json()
-    login_request = client.post("http://127.0.0.1:5000/api/v1", json=json.loads(request))
+    request = ServerRequest(
+        [LoginAction(username="roseguarden@fabba.space", password="test1234")]
+    ).to_json()
+    login_request = client.post(
+        "http://127.0.0.1:5000/api/v1", json=json.loads(request)
+    )
     assert login_request.status_code == 200
     resp = json.loads(login_request.get_data())
-    notify_action = next((item for item in resp["actions"] if item["action"] == "notify"), None)
+    notify_action = next(
+        (item for item in resp["actions"] if item["action"] == "notify"), None
+    )
     assert notify_action != None
     assert notify_action["messagetype"] == "success"
     print(resp)

@@ -39,7 +39,9 @@ def upload_request():
     for f in request.files.values():
         print(secure_filename(f.filename))
         if fileManager.upload_dir_path is not None:
-            f.save(os.path.join(fileManager.upload_dir_path, secure_filename(f.filename)))
+            f.save(
+                os.path.join(fileManager.upload_dir_path, secure_filename(f.filename))
+            )
         else:
             return "file uploaded failed", 500
 

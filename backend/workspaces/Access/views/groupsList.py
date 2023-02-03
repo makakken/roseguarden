@@ -27,7 +27,11 @@ from core.workspaces.dataView import DataView
 from core.users.models import User
 
 from workspaces.Access.models import SpaceAccessGroup, SpaceAccessSpace
-from workspaces.Access.types import SpaceAccessType, SpaceAccessRechargePeriod, SpaceAccessEntryAccounting
+from workspaces.Access.types import (
+    SpaceAccessType,
+    SpaceAccessRechargePeriod,
+    SpaceAccessEntryAccounting,
+)
 
 from workspaces.Access.access import (
     needs_the_accesstype_a_budget,
@@ -40,7 +44,6 @@ from workspaces.Access.access import (
 
 
 class AccessGroupsList(DataView):
-
     uri = "accessGroupsList"
     requireLogin = True
 
@@ -48,13 +51,19 @@ class AccessGroupsList(DataView):
         self.addIntegerProperty(name="id", label="ID", isKey=True)
         self.addStringProperty(name="name", label="Name")
         self.addStringProperty(name="note", label="Note")
-        self.addSelectProperty(name="type", label="Access type", selectables=[e.value for e in SpaceAccessType])
+        self.addSelectProperty(
+            name="type",
+            label="Access type",
+            selectables=[e.value for e in SpaceAccessType],
+        )
         self.addTimeProperty(name="daily_start_time", label="Daily start time")
         self.addTimeProperty(name="daily_end_time", label="Daily end time")
         self.addMultiSelectProperty(name="spaces", label="Space keys", selectables=[])
         self.addIntegerProperty(name="days_mask", label="Accessable days")
         self.addBooleanProperty(name="expires_as_default", label="Expires (as default)")
-        self.addIntegerProperty(name="expires_after_days_default", label="Expires (days default)")
+        self.addIntegerProperty(
+            name="expires_after_days_default", label="Expires (days default)"
+        )
         self.addBooleanProperty(name="budget_needed", label="Need budget")
         self.addBooleanProperty(name="use_group_budget", label="Accounts group budget")
         self.addIntegerProperty(name="group_budget", label="Group budget")
@@ -66,18 +75,25 @@ class AccessGroupsList(DataView):
             selectables=[e.value for e in SpaceAccessRechargePeriod],
         )
         self.addSelectProperty(
-            name="entry_accounting", label="Account entry by", selectables=[e.value for e in SpaceAccessEntryAccounting]
+            name="entry_accounting",
+            label="Account entry by",
+            selectables=[e.value for e in SpaceAccessEntryAccounting],
         )
-        self.addIntegerProperty(name="recharge_budget_every_periods", label="Recharge every")
-        self.addBooleanProperty(name="recharge_budget_gets_cutoff", label="Recharge gets cut")
-        self.addIntegerProperty(name="recharge_budget_cutoff_max", label="Expires (days default)")
+        self.addIntegerProperty(
+            name="recharge_budget_every_periods", label="Recharge every"
+        )
+        self.addBooleanProperty(
+            name="recharge_budget_gets_cutoff", label="Recharge gets cut"
+        )
+        self.addIntegerProperty(
+            name="recharge_budget_cutoff_max", label="Expires (days default)"
+        )
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
         print("getDataViewHandler for AccessGroupsList")
         entrylist = []
         all_groups = SpaceAccessGroup.query.all()
         for g in all_groups:
-
             # get new empty entry
             entry = self.createEntry()
 
@@ -162,9 +178,13 @@ class AccessGroupsList(DataView):
         if hasattr(entry, "recharge_budget_amount"):
             ag.access_recharge_budget_amount = entry.recharge_budget_amount
         if hasattr(entry, "recharge_budget_period"):
-            ag.access_recharge_budget_period = SpaceAccessRechargePeriod(entry.recharge_budget_period)
+            ag.access_recharge_budget_period = SpaceAccessRechargePeriod(
+                entry.recharge_budget_period
+            )
         if hasattr(entry, "recharge_budget_every_periods"):
-            ag.access_recharge_budget_every_periods = entry.recharge_budget_every_periods
+            ag.access_recharge_budget_every_periods = (
+                entry.recharge_budget_every_periods
+            )
         if hasattr(entry, "recharge_budget_gets_cutoff"):
             ag.access_recharge_budget_get_cutoff = entry.recharge_budget_gets_cutoff
         if hasattr(entry, "recharge_budget_cutoff_max"):

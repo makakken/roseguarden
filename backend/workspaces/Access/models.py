@@ -22,7 +22,11 @@ __license__ = "GPLv3"
 
 from core import db
 from sqlalchemy_utils import ArrowType
-from workspaces.Access.types import SpaceAccessType, SpaceAccessRechargePeriod, SpaceAccessEntryAccounting
+from workspaces.Access.types import (
+    SpaceAccessType,
+    SpaceAccessRechargePeriod,
+    SpaceAccessEntryAccounting,
+)
 import arrow
 
 
@@ -79,7 +83,9 @@ class SpaceAccessGroup(db.Model):
     name = db.Column(db.String(120), default="")
     note = db.Column(db.String(120), default="")
     access_type = db.Column(db.Enum(SpaceAccessType), default=SpaceAccessType.NO_ACCESS)
-    entry_accounting_type = db.Column(db.Enum(SpaceAccessEntryAccounting), default=SpaceAccessEntryAccounting.DAYS)
+    entry_accounting_type = db.Column(
+        db.Enum(SpaceAccessEntryAccounting), default=SpaceAccessEntryAccounting.DAYS
+    )
     access_need_budget = db.Column(db.Boolean, default=False)
     access_gets_recharged = db.Column(db.Boolean, default=False)
     access_recharge_budget_amount = db.Column(db.Integer, default=15)
@@ -111,5 +117,8 @@ class SpaceAccessProperties(db.Model):
     access_last_update_date = db.Column(ArrowType, default=arrow.utcnow)
     last_access_at = db.Column(ArrowType, default=None)
     user = db.relationship(
-        "User", backref=db.backref("access", uselist=False, cascade="save-update, merge, delete, delete-orphan")
+        "User",
+        backref=db.backref(
+            "access", uselist=False, cascade="save-update, merge, delete, delete-orphan"
+        ),
     )

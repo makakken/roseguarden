@@ -60,11 +60,15 @@ class Node(db.Model):
 
     @authentification.setter
     def authentification(self, plaintext_authentification):
-        self._authentification_hash = bcrypt.generate_password_hash(plaintext_authentification)
+        self._authentification_hash = bcrypt.generate_password_hash(
+            plaintext_authentification
+        )
 
     @hybrid_method
     def checkAuthentification(self, plaintext_authentification):
-        return bcrypt.check_password_hash(self.authentification, plaintext_authentification)
+        return bcrypt.check_password_hash(
+            self.authentification, plaintext_authentification
+        )
 
 
 class NodeSettings(db.Model):

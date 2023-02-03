@@ -38,7 +38,9 @@ def high_user_count(base_setup):
     db.session.commit()
 
 
-def test_get_user_by_authenticator_performance_for_not_exisiting_authenticator(high_user_count):
+def test_get_user_by_authenticator_performance_for_not_exisiting_authenticator(
+    high_user_count,
+):
     """Check the performance for a not exisiting authenticator
 
     The test try to get a the user for the a authenticator that is not available.

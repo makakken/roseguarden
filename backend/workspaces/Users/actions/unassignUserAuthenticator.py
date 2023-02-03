@@ -44,10 +44,17 @@ class UnassignUserAuthentictor(Action):
             return (
                 "success",
                 [notification_action],
-                {"succeed": False, "message": "You have to be logged in to do this action."},
+                {
+                    "succeed": False,
+                    "message": "You have to be logged in to do this action.",
+                },
             )
 
-        logManager.info("Request for authenticator unassign for {} by {}".format(action.userId, user.email))
+        logManager.info(
+            "Request for authenticator unassign for {} by {}".format(
+                action.userId, user.email
+            )
+        )
 
         if user_to_unassign is None:
             notification_action = webclientActions.NotificationAction.generate(
@@ -56,12 +63,18 @@ class UnassignUserAuthentictor(Action):
             return (
                 "success",
                 [notification_action],
-                {"succeed": False, "message": "Failed to unassign authenticator to user."},
+                {
+                    "succeed": False,
+                    "message": "Failed to unassign authenticator to user.",
+                },
             )
 
         # other user can only set authenticator if not already set
         if user.email != user_to_unassign.email:
-            if user_to_unassign.authenticator_status is not UserAuthenticatorStatus.UNSET:
+            if (
+                user_to_unassign.authenticator_status
+                is not UserAuthenticatorStatus.UNSET
+            ):
                 notification_action = webclientActions.NotificationAction.generate(
                     "Failed to unassign authenticator to user", "error"
                 )
@@ -74,4 +87,8 @@ class UnassignUserAuthentictor(Action):
         user_to_unassign.resetAuthenticatorHash()
         user_to_unassign.authenticator_status = UserAuthenticatorStatus.UNSET
 
-        return "success", [notification_action], {"succeed": True, "message": "Assign successful"}
+        return (
+            "success",
+            [notification_action],
+            {"succeed": True, "message": "Assign successful"},
+        )

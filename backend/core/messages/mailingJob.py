@@ -29,14 +29,25 @@ from core.jobs.job import Job
 
 
 class MailFromFileTemplateJob(Job):
-
     description = "Send a mail from a local template file with data"
 
     def defineArguments(self):
-        self.addListArgument("recipients", label="Recipients", description="List of recipients email adresses")
-        self.addStringArgument("subject", label="Subject", description="Subject of the mail")
-        self.addStringArgument("template_path", label="Template path", description="File path to the template")
-        self.addDictArgument("data", label="Template data", description="Data for the template")
+        self.addListArgument(
+            "recipients",
+            label="Recipients",
+            description="List of recipients email adresses",
+        )
+        self.addStringArgument(
+            "subject", label="Subject", description="Subject of the mail"
+        )
+        self.addStringArgument(
+            "template_path",
+            label="Template path",
+            description="File path to the template",
+        )
+        self.addDictArgument(
+            "data", label="Template data", description="Data for the template"
+        )
 
     def run(self, **kwargs):
         config = kwargs["mail_config"]
@@ -80,7 +91,12 @@ class MailFromFileTemplateJob(Job):
                 try:
                     imap = imaplib.IMAP4_SSL(host, imap_port)
                     imap.login(username, password)
-                    imap.append(imap_sent_folder, "\\Seen", imaplib.Time2Internaldate(time.time()), text.encode("utf8"))
+                    imap.append(
+                        imap_sent_folder,
+                        "\\Seen",
+                        imaplib.Time2Internaldate(time.time()),
+                        text.encode("utf8"),
+                    )
                     imap.logout()
                 except Exception as e:
                     print("Unable to copy email to send folder:", e)

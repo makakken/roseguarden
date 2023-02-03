@@ -43,10 +43,17 @@ class AssignUserAuthentictorWithRawKeys(Action):
             return (
                 "success",
                 [notification_action],
-                {"succeed": False, "message": "You have to be logged in to do this action."},
+                {
+                    "succeed": False,
+                    "message": "You have to be logged in to do this action.",
+                },
             )
 
-        logManager.info("Request for authenticator assign for {} by {}".format(action.userId, user.email))
+        logManager.info(
+            "Request for authenticator assign for {} by {}".format(
+                action.userId, user.email
+            )
+        )
 
         if user_to_assign is None:
             notification_action = webclientActions.NotificationAction.generate(
@@ -55,7 +62,10 @@ class AssignUserAuthentictorWithRawKeys(Action):
             return (
                 "success",
                 [notification_action],
-                {"succeed": False, "message": "Failed to assign authenticator to user."},
+                {
+                    "succeed": False,
+                    "message": "Failed to assign authenticator to user.",
+                },
             )
 
         # other user can only set authenticator if not already set
@@ -67,7 +77,10 @@ class AssignUserAuthentictorWithRawKeys(Action):
                 return (
                     "success",
                     [notification_action],
-                    {"succeed": False, "message": "Failed to assign authenticator to user."},
+                    {
+                        "succeed": False,
+                        "message": "Failed to assign authenticator to user.",
+                    },
                 )
         if action.authenticatorPrivateKey == "":
             notification_action = webclientActions.NotificationAction.generate(
@@ -76,11 +89,18 @@ class AssignUserAuthentictorWithRawKeys(Action):
             return (
                 "success",
                 [notification_action],
-                {"succeed": False, "message": "Failed to assign authenticator to user."},
+                {
+                    "succeed": False,
+                    "message": "Failed to assign authenticator to user.",
+                },
             )
 
         user_to_assign.authenticator = action.authenticatorPrivateKey
         user_to_assign.authenticator_public_key = action.authenticatorPublicKey
         user_to_assign.authenticator_status = UserAuthenticatorStatus.VALID
 
-        return "success", [notification_action], {"succeed": True, "message": "Assign successful"}
+        return (
+            "success",
+            [notification_action],
+            {"succeed": True, "message": "Assign successful"},
+        )

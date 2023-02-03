@@ -21,7 +21,12 @@ __credits__ = []
 __license__ = "GPLv3"
 
 from core import db, bcrypt
-from core.users.enum import AuthenticatorSendBy, AuthenticatorType, AuthenticatorValidityType, UserAuthenticatorStatus
+from core.users.enum import (
+    AuthenticatorSendBy,
+    AuthenticatorType,
+    AuthenticatorValidityType,
+    UserAuthenticatorStatus,
+)
 from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
 from sqlalchemy_utils import ArrowType
 import arrow
@@ -36,7 +41,9 @@ class User(db.Model):
     _pin_hash = db.Column(db.Binary(128))
     _salt = db.Column(db.String(128))
     authenticator_public_key = db.Column(db.String(64), default="")
-    authenticator_status = db.Column(db.Enum(UserAuthenticatorStatus), default=UserAuthenticatorStatus.UNSET)
+    authenticator_status = db.Column(
+        db.Enum(UserAuthenticatorStatus), default=UserAuthenticatorStatus.UNSET
+    )
     authenticator_changed_date = db.Column(ArrowType, default=arrow.utcnow)
     email = db.Column(db.String(120), index=True, unique=True)
     firstname = db.Column(db.String(64), default="")
@@ -100,7 +107,9 @@ class User(db.Model):
 
     @authenticator.setter
     def authenticator(self, plaintext_authenticator):
-        self._authenticator_hash = bcrypt.generate_password_hash(plaintext_authenticator)
+        self._authenticator_hash = bcrypt.generate_password_hash(
+            plaintext_authenticator
+        )
 
     @hybrid_method
     def resetAuthenticatorHash(self):
@@ -115,7 +124,9 @@ class User(db.Model):
         if self.authenticator is None or self.authenticator == "":
             return False
         else:
-            return bcrypt.check_password_hash(self.authenticator, plaintext_authenticator)
+            return bcrypt.check_password_hash(
+                self.authenticator, plaintext_authenticator
+            )
 
 
 class Authenticator(db.Model):
@@ -123,13 +134,19 @@ class Authenticator(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     _authenticator_hash = db.Column(db.Binary(128))
     authenticator_public_key = db.Column(db.String(64), default="")
-    authenticator_type = db.Column(db.Enum(AuthenticatorType), default=AuthenticatorType.USER)
+    authenticator_type = db.Column(
+        db.Enum(AuthenticatorType), default=AuthenticatorType.USER
+    )
     code = db.Column(db.String(128), default="")
     usage_limit = db.Column(db.Integer, default=1)
-    validity_type = db.Column(db.Enum(AuthenticatorValidityType), default=AuthenticatorValidityType.ONCE)
+    validity_type = db.Column(
+        db.Enum(AuthenticatorValidityType), default=AuthenticatorValidityType.ONCE
+    )
     creation_date = db.Column(ArrowType, default=arrow.utcnow)
     expiration_date = db.Column(ArrowType, default=arrow.utcnow)
-    code_send_by = db.Column(db.Enum(AuthenticatorSendBy), default=AuthenticatorSendBy.MAIL)
+    code_send_by = db.Column(
+        db.Enum(AuthenticatorSendBy), default=AuthenticatorSendBy.MAIL
+    )
     code_send_to = db.Column(db.String(128), default="")
 
     @hybrid_property
@@ -138,7 +155,9 @@ class Authenticator(db.Model):
 
     @authenticator.setter
     def authenticator(self, plaintext_authenticator):
-        self._authenticator_hash = bcrypt.generate_password_hash(plaintext_authenticator)
+        self._authenticator_hash = bcrypt.generate_password_hash(
+            plaintext_authenticator
+        )
 
     @hybrid_method
     def checkAuthenticator(self, plaintext_authenticator):
