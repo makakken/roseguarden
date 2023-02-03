@@ -27,7 +27,7 @@ import arrow
 from flask_jwt_extended import create_access_token, create_refresh_token
 
 from core.logs import logManager
-from core.common.checksum import crc8
+from core.common.checksum import crc16
 from core.workspaces.workspaceHooks import WorkspaceHooks
 
 
@@ -88,10 +88,11 @@ class UserManager(object):
     def getAuthenticatorPublicKeyOrDefault(self, authenticator_private_key, authenticator_public_key):
         # for empty public keys use the default scenario to create one out of the private key
         if authenticator_public_key is None or authenticator_public_key == "":
-            key = "SERVERGENERATED:CRC8:" + str(crc8(bytearray(authenticator_private_key.encode())))
+            crc16_hash = crc16(bytearray(authenticator_private_key.encode()))
+            key = "SERVER:CRC16:" + f"{crc16_hash:08X}"
             return key
         else:
-            return authenticator_public_key
+            return "READER:" + authenticator_public_key
 
     def createUserAuthenticatorRequest(self,
                                        authenticator_private_key,
