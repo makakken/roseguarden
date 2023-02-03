@@ -34,9 +34,7 @@ from core.workspaces.workspaceHooks import WorkspaceHooks
 class UserManager(object):
     """The UserManager ..."""
 
-    def __init__(
-        self,
-    ):
+    def __init__(self,):
         # preparation to instanciate
         pass
 
@@ -52,6 +50,7 @@ class UserManager(object):
 
         self.user = User
         self.authenticator_request = Authenticator
+        self.user_authenticator_cache = {}
 
     def removeUser(self, email):
         u = self.user.query.filter_by(email=email).first()
@@ -64,11 +63,7 @@ class UserManager(object):
         if self.checkUserExist(userdata["email"]):
             return None
         else:
-            u = self.user(
-                email=userdata["email"].strip().lower(),
-                password=userdata["password"],
-                isAdmin=False,
-            )
+            u = self.user(email=userdata["email"].strip().lower(), password=userdata["password"], isAdmin=False)
             if "firstname" in userdata:
                 u.firstname = userdata["firstname"]
             if "lastname" in userdata:
@@ -133,6 +128,17 @@ class UserManager(object):
         h = hashlib.sha512(authenticator_private_key.encode("utf8"))
         secret_hash = str(h.hexdigest())
 
+        # check if the hash is in the volatile cache
+        # the caching is add to even reduce the last bcrypt
+        # the cache is stored in RAM and will be reset after app-restart
+        if secret_hash in self.user_authenticator_cache:
+            user_mail = self.user_authenticator_cache[secret_hash]
+            u = self.user.query.filter_by(email=user_mail).first()
+            logManager.info(f"Cashed secret hash {secret_hash} found, to get authenticator for : {str(u)}")
+            if u is not None:
+                if u.checkAuthenticator(authenticator_private_key) is True:
+                    return u
+
         # get the public key from the private key. This will generate a public key
         # with a default algorithm (setuped) if needed.
         public_key = self.getAuthenticatorPublicKeyOrDefault(authenticator_private_key, authenticator_public_key)
@@ -147,7 +153,7 @@ class UserManager(object):
                 (self.user.authenticator_public_key == "") | (self.user.authenticator_public_key is None)
             ).all()
         else:
-            logManager.info(f"Public key {public_key} found to preselect authteticators for users : {str(user_list)}")
+            logManager.info(f"Public key {public_key} found to preselect authenticators users : {str(user_list)}")
 
         # iterate through the users list, contains one of the following:
         #  - a list of all users with the corresponding public key
@@ -155,8 +161,13 @@ class UserManager(object):
         for u in user_list:
             logManager.info(f"Check {authenticator_private_key} to match for user {str(u)}")
 
+            # save the time consuming authenticator check for users in volatile cache
+            if u.email in self.user_authenticator_cache.values():
+                continue
             # check the private key against the users authenticator
             if u.checkAuthenticator(authenticator_private_key) is True:
+                # if found store the key in the volatile cache
+                self.user_authenticator_cache[secret_hash] = u.email
                 # if the public key is empty set a default public key out of the private key
                 if u.authenticator_public_key == "" or u.authenticator_public_key is None:
                     u.authenticator_public_key = public_key

@@ -79,6 +79,11 @@ class AuthenticatorList(DataView):
             entry.verified = u.account_verified
             entry.locked = u.account_locked
 
+            if u.email in userManager.user_authenticator_cache.values():
+                entry.cashed = "Yes"
+            else:
+                entry.cashed = "No"
+
             if u.account_verified:
                 entry.status = "Verified"
                 if u.account_locked:
