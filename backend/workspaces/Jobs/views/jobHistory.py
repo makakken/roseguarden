@@ -30,7 +30,6 @@ from core.jobs.models import JobExecute
 
 
 class JobHistory(DataView):
-
     uri = "jobHistory"
     requireLogin = True
 
@@ -52,7 +51,6 @@ class JobHistory(DataView):
         entrylist = []
         all_jobs = JobExecute.query.order_by(JobExecute.id.desc()).all()
         for j in all_jobs:
-
             # get new empty entry
             entry = self.createEntry()
 

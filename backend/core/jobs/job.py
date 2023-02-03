@@ -93,7 +93,13 @@ class Job(object):
         self.db.session.commit()
 
     def addArgument(self, name, typestring, label="", description="", optional=False, group=None):
-        p = {"name": name, "type": typestring, "label": label, "optional": optional, "group": group}
+        p = {
+            "name": name,
+            "type": typestring,
+            "label": label,
+            "optional": optional,
+            "group": group,
+        }
         if self.parameters is None:
             self.parameters = [p]
         else:

@@ -9,7 +9,8 @@ def zipdir(path, ziph):
         for file in files:
             ziph.write(os.path.join(root, file))
 
-with zipfile.ZipFile('roseguarden.zip', 'w', zipfile.ZIP_DEFLATED) as zip_rel:
-    zipdir('roseguarden', zip_rel)
+
+with zipfile.ZipFile("roseguarden.zip", "w", zipfile.ZIP_DEFLATED) as zip_rel:
+    zipdir("roseguarden", zip_rel)
 
 print("finished")

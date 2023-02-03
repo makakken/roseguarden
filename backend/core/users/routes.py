@@ -43,7 +43,6 @@ def activate():
 # as well
 @auth_bp.route("/login", methods=["POST"])
 def login():
-
     # not used add the moment
     pprint(request.json, indent=4)
     return jsonify({"login": False}), 401

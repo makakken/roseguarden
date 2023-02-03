@@ -74,7 +74,8 @@ class RemoveViewEntryActionHandler(Action):
                     return "success", responseActions
                 except Exception as e:
                     notification_action = webclientActions.NotificationAction.generate(
-                        "RemoveViewEntry '" + str(action["view"]) + "' failed with: " + str(e), "error"
+                        "RemoveViewEntry '" + str(action["view"]) + "' failed with: " + str(e),
+                        "error",
                     )
                     responseActions = [notification_action]
                     logManager.error(str(type(e).__name__) + "in ExecuteViewActionsActionHandler " + action["view"])
@@ -120,7 +121,8 @@ class CreateViewEntryActionHandler(Action):
                     return "success", responseActions
                 except Exception as e:
                     notification_action = webclientActions.NotificationAction.generate(
-                        "CreateViewEntry '" + str(action["view"]) + "' failed with: " + str(e), "error"
+                        "CreateViewEntry '" + str(action["view"]) + "' failed with: " + str(e),
+                        "error",
                     )
                     responseActions = [notification_action]
                     logManager.error(str(type(e).__name__) + "in ExecuteViewActionsActionHandler " + action["view"])
@@ -160,7 +162,10 @@ class UpdateViewEntryActionHandler(Action):
                         view.dataSyncs = []
                         dictionary = action["entry"]
                         view.updateViewEntryHandler(
-                            user, workspace, action["entry"][str(view.entrykey)], ObjDict(dictionary)
+                            user,
+                            workspace,
+                            action["entry"][str(view.entrykey)],
+                            ObjDict(dictionary),
                         )
                         self.db.session.commit()
                         for v in view.dataSyncs:
@@ -179,7 +184,8 @@ class UpdateViewEntryActionHandler(Action):
                     return "success", responseActions
                 except Exception as e:
                     notification_action = webclientActions.NotificationAction.generate(
-                        "UpdateViewEntry '" + str(action["view"]) + "' failed with: " + str(e), "error"
+                        "UpdateViewEntry '" + str(action["view"]) + "' failed with: " + str(e),
+                        "error",
                     )
                     responseActions = [notification_action]
                     logManager.error(str(type(e).__name__) + "in ExecuteViewActionsActionHandler " + action["view"])
@@ -200,7 +206,13 @@ class ExecuteViewActionsActionHandler(Action):
         logManager.info("Execute action '{}' on view '{}'", action["viewAction"], action["view"])
         viewname = action["view"]
         if viewname in workspace.dataViews:
-            print("found view", viewname, "in", workspace.name, workspace.dataViews[viewname])
+            print(
+                "found view",
+                viewname,
+                "in",
+                workspace.name,
+                workspace.dataViews[viewname],
+            )
             view = workspace.dataViews[viewname]
 
             # check if login required for this view
@@ -230,10 +242,14 @@ class ExecuteViewActionsActionHandler(Action):
 
                 except Exception as e:
                     notification_action = webclientActions.NotificationAction.generate(
-                        "Action '" + str(action["viewAction"]) + "' failed with: ", "error"
+                        "Action '" + str(action["viewAction"]) + "' failed with: ",
+                        "error",
                     )
                     response_actions = [notification_action]
-                    logManager.error(str(type(e).__name__) + "in ExecuteViewActionsActionHandler", action["view"])
+                    logManager.error(
+                        str(type(e).__name__) + "in ExecuteViewActionsActionHandler",
+                        action["view"],
+                    )
                     traceback.print_exc(file=sys.stdout)
                 # entries = view.getViewHandler(user, workspace)
                 # properties = view.getProperties()
@@ -262,7 +278,13 @@ class GetViewActionHandler(Action):
         viewname = action["view"]
         print(workspace.dataViews)
         if viewname in workspace.dataViews:
-            print("found view", viewname, "in", workspace.name, workspace.dataViews[viewname])
+            print(
+                "found view",
+                viewname,
+                "in",
+                workspace.name,
+                workspace.dataViews[viewname],
+            )
             view = workspace.dataViews[viewname]
 
             # check if login required for this view

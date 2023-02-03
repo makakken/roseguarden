@@ -40,7 +40,14 @@ class MessageManager(object):
         self.workspaceManager = None
 
     def add_message(
-        self, recipient_user, subject, message_template_path, data, sender, mail=True, mail_template_path=None
+        self,
+        recipient_user,
+        subject,
+        message_template_path,
+        data,
+        sender,
+        mail=True,
+        mail_template_path=None,
     ):
         if mail is True and mail_template_path is not None:
             user_mail = recipient_user.email

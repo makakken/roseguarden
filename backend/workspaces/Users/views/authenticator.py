@@ -31,7 +31,6 @@ from core.users.models import Authenticator, User
 
 
 class AuthenticatorList(DataView):
-
     uri = "authenticatorList"
     requireLogin = True
 
@@ -59,7 +58,6 @@ class AuthenticatorList(DataView):
         entrylist = []
         all_authenticators = Authenticator.query.all()
         for ar in all_authenticators:
-
             # get new empty entry
             entry = self.createEntry()
 

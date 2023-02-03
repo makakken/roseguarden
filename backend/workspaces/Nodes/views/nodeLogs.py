@@ -30,7 +30,6 @@ from core.users.models import User
 
 
 class NodeLogs(DataView):
-
     uri = "nodeLogs"
     requireLogin = True
 
@@ -51,7 +50,6 @@ class NodeLogs(DataView):
         entrylist = []
         all_logs = NodeLog.query.all()
         for lg in all_logs:
-
             # get new empty entry
             entry = self.createEntry()
 

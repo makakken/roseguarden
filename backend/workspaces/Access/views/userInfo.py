@@ -36,7 +36,6 @@ from workspaces.Access.helpers import (
 
 
 class AccessUserInfo(DataView):
-
     uri = "userInfo"
     requireLogin = True
 

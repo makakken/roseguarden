@@ -33,7 +33,6 @@ from core.nodes import nodeManager
 
 
 class NodeList(DataView):
-
     uri = "nodeList"
     requireLogin = True
 
@@ -49,10 +48,19 @@ class NodeList(DataView):
         self.addStringProperty(name="workspace", label="Workspace")
         self.addDateProperty(name="last_request_datetime", label="Last request")
         self.addActionProperty(
-            name="revoke", label="Revoke", action="revoke", actionHandler=self.revoke, color="orange", icon="block"
+            name="revoke",
+            label="Revoke",
+            action="revoke",
+            actionHandler=self.revoke,
+            color="orange",
+            icon="block",
         )
         self.addActionProperty(
-            name="remove", label="Remove", action="remove", actionHandler=self.removeViewEntryHandler, icon="clear"
+            name="remove",
+            label="Remove",
+            action="remove",
+            actionHandler=self.removeViewEntryHandler,
+            icon="clear",
         )
         self.addActionProperty(
             name="requestAuthorization",
@@ -74,7 +82,6 @@ class NodeList(DataView):
         entrylist = []
         all_nodes = Node.query.all()
         for n in all_nodes:
-
             # get new empty entry
             entry = self.createEntry()
 
