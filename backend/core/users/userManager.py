@@ -134,6 +134,7 @@ class UserManager(object):
         if secret_hash in self.user_authenticator_cache:
             user_mail = self.user_authenticator_cache[secret_hash]
             u = self.user.query.filter_by(email=user_mail).first()
+            logManager.info(f"Cashed secret hash {secret_hash} found, to get authenticator for : {str(u)}")
             if u is not None:
                 if u.checkAuthenticator(authenticator_private_key) is True:
                     return u
@@ -152,7 +153,7 @@ class UserManager(object):
                 (self.user.authenticator_public_key == "") | (self.user.authenticator_public_key is None)
             ).all()
         else:
-            logManager.info(f"Public key {public_key} found to select user : {str(user_list)}")
+            logManager.info(f"Public key {public_key} found to preselect authteticators for users : {str(user_list)}")
 
         # iterate through the users list, contains one of the following:
         #  - a list of all users with the corresponding public key
