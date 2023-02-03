@@ -52,7 +52,6 @@ class UserManager(object):
 
         self.user = User
         self.authenticator_request = Authenticator
-        self.user_authenticator_cache = {}
 
     def removeUser(self, email):
         u = self.user.query.filter_by(email=email).first()
@@ -134,15 +133,6 @@ class UserManager(object):
         h = hashlib.sha512(authenticator_private_key.encode("utf8"))
         secret_hash = str(h.hexdigest())
 
-        # check if the hash is in the volatile volatile cache
-        if secret_hash in self.user_authenticator_cache:
-            user_mail = self.user_authenticator_cache[secret_hash]
-            u = self.user.query.filter_by(email=user_mail).first()
-            logManager.info(f"Cashed secret hash {secret_hash} found, to get authenticator for : {str(u)}")
-            if u is not None:
-                if u.checkAuthenticator(authenticator_private_key) is True:
-                    return u
-
         # get the public key from the private key. This will generate a public key
         # with a default algorithm (setuped) if needed.
         public_key = self.getAuthenticatorPublicKeyOrDefault(authenticator_private_key, authenticator_public_key)
@@ -165,13 +155,8 @@ class UserManager(object):
         for u in user_list:
             logManager.info(f"Check {authenticator_private_key} to match for user {str(u)}")
 
-            # save the time consuming authenticator check for users in volatile cache
-            if u.email in self.user_authenticator_cache.values():
-                continue
             # check the private key against the users authenticator
             if u.checkAuthenticator(authenticator_private_key) is True:
-                # if found store the key in the volatile cache
-                self.user_authenticator_cache[secret_hash] = u.email
                 # if the public key is empty set a default public key out of the private key
                 if u.authenticator_public_key == "" or u.authenticator_public_key is None:
                     u.authenticator_public_key = public_key
