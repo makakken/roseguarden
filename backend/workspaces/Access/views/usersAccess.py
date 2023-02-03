@@ -26,26 +26,27 @@ from core.users.models import User
 import arrow
 
 from workspaces.Access.models import SpaceAccessGroup
+
 """ A view contaning the list of accessGroups
 """
 
 
 class AccessGroupsList(DataView):
 
-    uri = 'accessUserList'
+    uri = "accessUserList"
     requireLogin = True
 
     def defineProperties(self):
-        self.addMailProperty(name='email', label='User email', isKey=True)
-        self.addStringProperty(name='name', label='User name')
+        self.addMailProperty(name="email", label="User email", isKey=True)
+        self.addStringProperty(name="name", label="User name")
         self.addIntegerProperty(name="access_group", label="Access group")
         self.addIntegerProperty(name="access_type", label="Access type")
-        self.addBooleanProperty(name='use_group_budget', label='Group budget', hide=True)
-        self.addBooleanProperty(name='budget_needed', label='Needs budget', hide=True)
-        self.addIntegerProperty(name='access_budget', label='Budget')
-        self.addDateProperty(name='access_start_date', label='Valid from')
-        self.addDateProperty(name='access_end_date', label='Expires at')
-        self.addDateProperty(name='access_last_update', label='Last updated', readOnly=True)
+        self.addBooleanProperty(name="use_group_budget", label="Group budget", hide=True)
+        self.addBooleanProperty(name="budget_needed", label="Needs budget", hide=True)
+        self.addIntegerProperty(name="access_budget", label="Budget")
+        self.addDateProperty(name="access_start_date", label="Valid from")
+        self.addDateProperty(name="access_end_date", label="Expires at")
+        self.addDateProperty(name="access_last_update", label="Last updated", readOnly=True)
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
         print("getDataViewHandler for AccessUserList")
@@ -59,12 +60,12 @@ class AccessGroupsList(DataView):
             entry.name = "{0} {1}".format(u.firstname, u.lastname)
             if u.access is not None:
                 entry.access_budget = u.access.access_budget
-                entry.access_start_date = u.access.access_start_date.format('YYYY-MM-DD')
+                entry.access_start_date = u.access.access_start_date.format("YYYY-MM-DD")
                 if u.access.access_expires:
-                    entry.access_end_date = u.access.access_expire_date.format('YYYY-MM-DD')
+                    entry.access_end_date = u.access.access_expire_date.format("YYYY-MM-DD")
                 else:
                     entry.access_end_date = None
-                entry.access_last_update = u.access.access_last_update_date.format('YYYY-MM-DD')
+                entry.access_last_update = u.access.access_last_update_date.format("YYYY-MM-DD")
             else:
                 entry.access_start_date = "-"
                 entry.access_end_date = "-"
@@ -87,7 +88,7 @@ class AccessGroupsList(DataView):
         return userlist
 
     def __repr__(self):
-        return '<{} with {} properties>'.format(self.name, len(self.properties))
+        return "<{} with {} properties>".format(self.name, len(self.properties))
 
     # Handler for a request to create a new view entry
     def createViewEntryHandler(self, user, workspace, entry):
@@ -99,20 +100,20 @@ class AccessGroupsList(DataView):
         u = User.query.filter_by(email=key).first()
         if u.access is not None:
             u.access.access_last_update_date = arrow.utcnow()
-            if hasattr(entry, 'access_start_date'):
-                u.access.access_start_date = arrow.get(entry.access_start_date, 'YYYY-MM-DD')
-            if hasattr(entry, 'access_end_date'):
+            if hasattr(entry, "access_start_date"):
+                u.access.access_start_date = arrow.get(entry.access_start_date, "YYYY-MM-DD")
+            if hasattr(entry, "access_end_date"):
                 if entry.access_end_date is not None:
                     u.access.access_expires = True
-                    u.access.access_expire_date = arrow.get(entry.access_end_date, 'YYYY-MM-DD')
+                    u.access.access_expire_date = arrow.get(entry.access_end_date, "YYYY-MM-DD")
 
-        if hasattr(entry, 'access_budget'):
+        if hasattr(entry, "access_budget"):
             if u.spaceaccess_accessgroup is not None and u.spaceaccess_accessgroup.access_use_group_budget:
                 u.spaceaccess_accessgroup.group_budget = entry.access_budget
             else:
                 u.access.access_budget = entry.access_budget
-        if hasattr(entry, 'access_group'):
-            g = SpaceAccessGroup.query.filter_by(id=entry['access_group']).first()
+        if hasattr(entry, "access_group"):
+            g = SpaceAccessGroup.query.filter_by(id=entry["access_group"]).first()
             u.spaceaccess_accessgroup = g
         self.emitSyncUpdate(key)
 

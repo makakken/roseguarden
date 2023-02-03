@@ -33,5 +33,5 @@ with app.app_context():
     if is_database_new:
         create_devEnv(app, db)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run()

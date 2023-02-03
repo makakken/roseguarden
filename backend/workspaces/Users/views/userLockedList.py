@@ -24,29 +24,30 @@ from core.workspaces.workspace import Workspace
 from core.workspaces.dataView import DataView
 from core.users.models import User
 from core.users import userManager
+
 """ A view contaning a list of all users locked
 """
 
 
 class UserLockedList(DataView):
 
-    uri = 'userLockedList'
+    uri = "userLockedList"
     requireLogin = True
 
     def defineProperties(self):
-        self.addMailProperty(name='email', label='eMail', isKey=True)
-        self.addStringProperty(name='name', label='Name')
-        self.addActionProperty(name='unlock',
-                               label='Unlock user',
-                               action='unlock',
-                               actionHandler=self.unlockHandler,
-                               color='green',
-                               icon='undo')
-        self.addActionProperty(name='remove',
-                               label='Remove user',
-                               action='remove',
-                               actionHandler=self.removeHandler,
-                               icon='clear')
+        self.addMailProperty(name="email", label="eMail", isKey=True)
+        self.addStringProperty(name="name", label="Name")
+        self.addActionProperty(
+            name="unlock",
+            label="Unlock user",
+            action="unlock",
+            actionHandler=self.unlockHandler,
+            color="green",
+            icon="undo",
+        )
+        self.addActionProperty(
+            name="remove", label="Remove user", action="remove", actionHandler=self.removeHandler, icon="clear"
+        )
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
         print("getDataViewHandler for UserView")
@@ -79,7 +80,7 @@ class UserLockedList(DataView):
         self.emitSyncRemove(entrykey, "userLockedList")
 
     def __repr__(self):
-        return '<{} with {} properties>'.format(self.name, len(self.properties))
+        return "<{} with {} properties>".format(self.name, len(self.properties))
 
     # Handler for a request to create a new view entry
     def createViewEntryHandler(self, user, workspace, entry):

@@ -24,8 +24,8 @@ from core.actions.actionGenerator import BaseNodeAction
 
 
 class SendIdentificationAction(BaseNodeAction):
-    action = 'sendIdentification'
-    target = 'node'
+    action = "sendIdentification"
+    target = "node"
 
     def __init__(self, app):
         pass

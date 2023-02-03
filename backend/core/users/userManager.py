@@ -32,9 +32,11 @@ from core.workspaces.workspaceHooks import WorkspaceHooks
 
 
 class UserManager(object):
-    """ The UserManager ...
-    """
-    def __init__(self, ):
+    """The UserManager ..."""
+
+    def __init__(
+        self,
+    ):
         # preparation to instanciate
         pass
 
@@ -47,6 +49,7 @@ class UserManager(object):
         logManager.info("UserManager initialized")
 
         from core.users.models import User, Authenticator
+
         self.user = User
         self.authenticator_request = Authenticator
         self.user_authenticator_cache = {}
@@ -59,16 +62,16 @@ class UserManager(object):
             self.db.session.commit()
 
     def registerUser(self, userdata):
-        if self.checkUserExist(userdata['email']):
+        if self.checkUserExist(userdata["email"]):
             return None
         else:
-            u = self.user(email=userdata['email'].strip().lower(), password=userdata['password'], isAdmin=False)
-            if 'firstname' in userdata:
-                u.firstname = userdata['firstname']
-            if 'lastname' in userdata:
-                u.lastname = userdata['lastname']
-            if 'organization' in userdata:
-                u.organization = userdata['organization']
+            u = self.user(email=userdata["email"].strip().lower(), password=userdata["password"], isAdmin=False)
+            if "firstname" in userdata:
+                u.firstname = userdata["firstname"]
+            if "lastname" in userdata:
+                u.lastname = userdata["lastname"]
+            if "organization" in userdata:
+                u.organization = userdata["organization"]
 
             self.workspaceManager.triggerWorkspaceHooks(WorkspaceHooks.CREATEUSER, user=u)
             self.db.session.add(u)
@@ -79,7 +82,7 @@ class UserManager(object):
         user.password = newpassword
 
     def updateAccessToken(self, username):
-        session_expiration_minutes = self.config['SYSTEM'].get('session_expiration_minutes', 15)
+        session_expiration_minutes = self.config["SYSTEM"].get("session_expiration_minutes", 15)
         exp_delta = datetime.timedelta(minutes=session_expiration_minutes)
         access_token = create_access_token(identity=username, expires_delta=exp_delta)
         create_refresh_token(identity=username)
@@ -94,16 +97,18 @@ class UserManager(object):
         else:
             return "READER:" + authenticator_public_key
 
-    def createUserAuthenticatorRequest(self,
-                                       authenticator_private_key,
-                                       authenticator_public_key,
-                                       authenticator_type,
-                                       validity_type,
-                                       code_send_by,
-                                       code_send_to,
-                                       expire_days=3):
+    def createUserAuthenticatorRequest(
+        self,
+        authenticator_private_key,
+        authenticator_public_key,
+        authenticator_type,
+        validity_type,
+        code_send_by,
+        code_send_to,
+        expire_days=3,
+    ):
         token = secrets.token_hex(6)
-        code = ':'.join(a + b for a, b in zip(token[::2], token[1::2])).upper()
+        code = ":".join(a + b for a, b in zip(token[::2], token[1::2])).upper()
         a = self.authenticator_request()
         a.authenticator_type = authenticator_type
         a.validity_type = validity_type
@@ -113,8 +118,9 @@ class UserManager(object):
         a.code_send_by = code_send_by
         a.code_send_to = code_send_to
         a.authenticator = authenticator_private_key
-        a.authenticator_public_key = self.getAuthenticatorPublicKeyOrDefault(authenticator_private_key,
-                                                                             authenticator_public_key)
+        a.authenticator_public_key = self.getAuthenticatorPublicKeyOrDefault(
+            authenticator_private_key, authenticator_public_key
+        )
         self.db.session.add(a)
         self.db.session.commit()
         return code
@@ -142,8 +148,9 @@ class UserManager(object):
         # if no user with the given public key found,
         # get all users with no or empty public key
         if len(user_list) == 0:
-            user_list = self.user.query.filter((self.user.authenticator_public_key == "")
-                                               | (self.user.authenticator_public_key is None)).all()
+            user_list = self.user.query.filter(
+                (self.user.authenticator_public_key == "") | (self.user.authenticator_public_key is None)
+            ).all()
 
         # iterate through the users list, contains one of the following:
         #  - a list of all users with the corresponding public key
@@ -159,7 +166,8 @@ class UserManager(object):
                 # if the public key is empty set a default public key out of the private key
                 if u.authenticator_public_key == "" or u.authenticator_public_key is None:
                     u.authenticator_public_key = self.getAuthenticatorPublicKeyOrDefault(
-                        authenticator_private_key, u.authenticator_public_key)
+                        authenticator_private_key, u.authenticator_public_key
+                    )
                 return u
         # no user found for the given private key
         return None

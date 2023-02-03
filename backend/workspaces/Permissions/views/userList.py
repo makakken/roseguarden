@@ -24,25 +24,26 @@ from core.workspaces.workspace import Workspace
 from core.workspaces.dataView import DataView
 from core.workspaces.models import PermissionGroup
 from core.users.models import User
+
 """ A view contaning a list of permission groups
 """
 
 
 class PermissionUserList(DataView):
 
-    uri = 'userList'
+    uri = "userList"
     requireLogin = True
 
     #    def __init__(self):
     #        super().__init__(name='PermissionList', uri ='permissionList')
 
     def defineProperties(self):
-        self.addIntegerProperty(name='id', label='ID', isKey=True)
-        self.addStringProperty(name='name', label='Name')
-        self.addStringProperty(name='email', label='eMail')
-        self.addStringProperty(name='roles', label='Roles')
-        self.addMultiSelectProperty(name='rolesSelection', label='Role keys', selectables=[])
-        self.addBooleanProperty(name='admin', label='Admin')
+        self.addIntegerProperty(name="id", label="ID", isKey=True)
+        self.addStringProperty(name="name", label="Name")
+        self.addStringProperty(name="email", label="eMail")
+        self.addStringProperty(name="roles", label="Roles")
+        self.addMultiSelectProperty(name="rolesSelection", label="Role keys", selectables=[])
+        self.addBooleanProperty(name="admin", label="Admin")
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
         print("getDataViewHandler for PermissionUserList")
@@ -70,7 +71,7 @@ class PermissionUserList(DataView):
         return entrylist
 
     def __repr__(self):
-        return '<{} with {} properties>'.format(self.name, len(self.properties))
+        return "<{} with {} properties>".format(self.name, len(self.properties))
 
     # Handler for a request to create a new view entry
     def createViewEntryHandler(self, user, workspace, entry):
@@ -85,9 +86,9 @@ class PermissionUserList(DataView):
         print("Handle updateViewEntryHandler request for " + self.uri)
         all_groups = PermissionGroup.query.all()
         u = User.query.filter_by(id=key).first()
-        if hasattr(entry, 'rolesSelection'):
+        if hasattr(entry, "rolesSelection"):
             u.permission_groups.clear()
             for g in all_groups:
-                if g.id in entry['rolesSelection']:
+                if g.id in entry["rolesSelection"]:
                     u.permission_groups.append(g)
         self.emitSyncUpdate(key)

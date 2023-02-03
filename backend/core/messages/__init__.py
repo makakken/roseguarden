@@ -24,7 +24,7 @@ import os
 from flask import Blueprint
 from core.messages.messageManager import MessageManager
 
-messages_bp = Blueprint('messages', __name__)
+messages_bp = Blueprint("messages", __name__)
 
 messageManager = MessageManager()
 
@@ -32,25 +32,20 @@ messageManager = MessageManager()
 def send_mail(recipients, subject, workspace, mail_template, data):
     template_path = mail_template
     if workspace is not None:
-        template_path = os.path.join(workspace.path, 'templates', mail_template)
+        template_path = os.path.join(workspace.path, "templates", mail_template)
     messageManager.add_mail_job(recipients, subject, template_path, data)
 
 
-def send_message(recipient_user,
-                 subject,
-                 workspace,
-                 message_template,
-                 data,
-                 sender="System",
-                 mail=False,
-                 mail_template=None):
+def send_message(
+    recipient_user, subject, workspace, message_template, data, sender="System", mail=False, mail_template=None
+):
     if workspace is not None:
-        template_path = os.path.join(workspace.path, 'templates', message_template)
+        template_path = os.path.join(workspace.path, "templates", message_template)
 
     mail_template_path = mail_template
     if mail is True:
         if workspace is not None and mail_template_path is not None:
-            template_path = os.path.join(workspace.path, 'templates', mail_template)
+            template_path = os.path.join(workspace.path, "templates", mail_template)
 
     messageManager.add_message(recipient_user, subject, template_path, data, sender, mail, mail_template_path)
 

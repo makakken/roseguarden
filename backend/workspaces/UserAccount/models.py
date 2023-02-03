@@ -27,7 +27,7 @@ from core import db
 
 # This is just a test model
 class Todo(db.Model):
-    __tablename__ = 'usertodos'
+    __tablename__ = "usertodos"
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(120), default="")
     done = db.Column(db.Boolean, default=False)

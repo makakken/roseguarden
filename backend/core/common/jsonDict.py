@@ -27,11 +27,12 @@ from core import db
 
 class JsonDict(db.TypeDecorator):
     """Enables JSON storage by encoding and decoding on the fly."""
+
     impl = db.Text
 
     def process_bind_param(self, value, dialect):
         if value is None:
-            return '{}'
+            return "{}"
         else:
             return json.dumps(value)
 

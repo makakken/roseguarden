@@ -26,31 +26,30 @@ from core.users.enum import UserAuthenticatorStatus
 from core.users import userManager
 from core.users.models import User
 from core.common.deface import deface_string_end
+
 """ A view contaning a list of all user authenticator
 """
 
 
 class AuthenticatorList(DataView):
 
-    uri = 'userAuthenticatorList'
+    uri = "userAuthenticatorList"
     requireLogin = True
 
     def defineProperties(self):
-        self.addStringProperty(name='name', label='User name')
-        self.addMailProperty(name='email', label='eMail', isKey=True)
-        self.addStringProperty(name='status', label='User status')
-        self.addBooleanProperty(name='verified', label='Verified', hide=True)
-        self.addBooleanProperty(name='locked', label='Locked', hide=True)
-        self.addStringProperty(name='auth_status', label='Auth. status')
-        self.addStringProperty(name='cashed', label='Auth. Cached')
-        self.addStringProperty(name='hash', label='Private key hash')
-        self.addStringProperty(name='public_key', label='Public key')
-        self.addDatetimeProperty(name="change_date", label='Last change')
-        self.addActionProperty(name='lock',
-                               label='Lock auth.',
-                               action='lock',
-                               actionHandler=self.lockHandler,
-                               icon='lock')
+        self.addStringProperty(name="name", label="User name")
+        self.addMailProperty(name="email", label="eMail", isKey=True)
+        self.addStringProperty(name="status", label="User status")
+        self.addBooleanProperty(name="verified", label="Verified", hide=True)
+        self.addBooleanProperty(name="locked", label="Locked", hide=True)
+        self.addStringProperty(name="auth_status", label="Auth. status")
+        self.addStringProperty(name="cashed", label="Auth. Cached")
+        self.addStringProperty(name="hash", label="Private key hash")
+        self.addStringProperty(name="public_key", label="Public key")
+        self.addDatetimeProperty(name="change_date", label="Last change")
+        self.addActionProperty(
+            name="lock", label="Lock auth.", action="lock", actionHandler=self.lockHandler, icon="lock"
+        )
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
         print("getDataViewHandler for " + self.uri)
@@ -63,7 +62,7 @@ class AuthenticatorList(DataView):
 
             # fill entry
             entry.email = u.email
-            entry.name = u.firstname + ' ' + u.lastname
+            entry.name = u.firstname + " " + u.lastname
 
             if u.authenticator is None or u.authenticator == "":
                 entry.hash = "-"
@@ -84,13 +83,13 @@ class AuthenticatorList(DataView):
                 entry.cashed = "No"
 
             if u.account_verified:
-                entry.status = 'Verified'
+                entry.status = "Verified"
                 if u.account_locked:
-                    entry.status = 'Verified and locked'
+                    entry.status = "Verified and locked"
             else:
-                entry.status = 'Not verified'
+                entry.status = "Not verified"
                 if u.account_locked:
-                    entry.status = 'Not verified and locked'
+                    entry.status = "Not verified and locked"
 
             entry.public_key = u.authenticator_public_key
             entry.auth_status = str(u.authenticator_status.value)
@@ -100,7 +99,7 @@ class AuthenticatorList(DataView):
         return entrylist
 
     def __repr__(self):
-        return '<{} with {} properties>'.format(self.name, len(self.properties))
+        return "<{} with {} properties>".format(self.name, len(self.properties))
 
     def lockHandler(self, user, workspace, action, entrykey):
         user = User.query.filter_by(email=entrykey).first()

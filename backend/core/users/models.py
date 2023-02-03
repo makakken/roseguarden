@@ -28,7 +28,7 @@ import arrow
 
 
 class User(db.Model):
-    __tablename__ = 'users'
+    __tablename__ = "users"
     # nonvolatile data stored in the db
     id = db.Column(db.Integer, primary_key=True)
     _authenticator_hash = db.Column(db.Binary(128))
@@ -65,7 +65,7 @@ class User(db.Model):
         self.admin = isAdmin
 
     def __repr__(self):
-        return '<User {} {} : {}>'.format(self.firstname, self.lastname, self.email)
+        return "<User {} {} : {}>".format(self.firstname, self.lastname, self.email)
 
     @hybrid_property
     def password(self):
@@ -119,7 +119,7 @@ class User(db.Model):
 
 
 class Authenticator(db.Model):
-    __tablename__ = 'authenticator_requests'
+    __tablename__ = "authenticator_requests"
     id = db.Column(db.Integer, primary_key=True)
     _authenticator_hash = db.Column(db.Binary(128))
     authenticator_public_key = db.Column(db.String(64), default="")

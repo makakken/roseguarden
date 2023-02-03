@@ -23,24 +23,25 @@ __license__ = "GPLv3"
 from core.workspaces.workspace import Workspace
 from core.workspaces.dataView import DataView
 from core.users.models import User
+
 """ A View contaning the user info
 """
 
 
 class UserInfo(DataView):
 
-    uri = 'userInfo'
+    uri = "userInfo"
     requireLogin = True
 
     def defineProperties(self):
-        self.addMailProperty(name='email', isKey=True)
-        self.addStringProperty(name='firstname')
-        self.addStringProperty(name='lastname')
-        self.addStringProperty(name='organization')
-        self.addStringProperty(name='phone')
+        self.addMailProperty(name="email", isKey=True)
+        self.addStringProperty(name="firstname")
+        self.addStringProperty(name="lastname")
+        self.addStringProperty(name="organization")
+        self.addStringProperty(name="phone")
         self.addStringProperty(name="pinIsLocked")
         self.addStringProperty(name="authenticator_status")
-        self.addSelectProperty(name='verified', selectables=['Yes', 'No'], label='Verified')
+        self.addSelectProperty(name="verified", selectables=["Yes", "No"], label="Verified")
         self.addDatetimeProperty(name="creationdate")
         self.addDatetimeProperty(name="lastlogindate")
 
@@ -57,7 +58,7 @@ class UserInfo(DataView):
         entry.phone = user.phone
         entry.pinIsLocked = user.pinIsLocked
         entry.authenticator_status = user.authenticator_status.value
-        entry.verified = 'Yes' if user.account_verified else 'No',
+        entry.verified = ("Yes" if user.account_verified else "No",)
         entry.creationdate = user.account_created_date.format()
         entry.lastlogindate = user.last_login_date.format()
         # add single entry
@@ -65,7 +66,7 @@ class UserInfo(DataView):
         return userInfo
 
     def __repr__(self):
-        return '<{} with {} properties>'.format(self.name, len(self.properties))
+        return "<{} with {} properties>".format(self.name, len(self.properties))
 
     # Handler for a request to create a new view entry
     def createViewEntryHandler(self, user, workspace, entry):
@@ -79,5 +80,5 @@ class UserInfo(DataView):
         user.lastname = entry.lastname
         user.organization = entry.organization
         user.phone = entry.phone
-        self.emitSyncUpdate(self.entrykey, 'userInfo')
+        self.emitSyncUpdate(self.entrykey, "userInfo")
         print("Handle updateViewEntryHandler request for " + self.uri)

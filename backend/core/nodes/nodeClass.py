@@ -30,7 +30,7 @@ class NodeStatus(Enum):
 
 class NodeClass(object):
     """Base class that each node class have to inherit from.
-       The class define methods that all nodes must implement
+    The class define methods that all nodes must implement
     """
 
     disable = False  # enable or disable detection
@@ -40,7 +40,7 @@ class NodeClass(object):
     version = "1.0"  # version of the node this class should handle
 
     def __init__(self, class_id=class_id, name=name):
-        self.description = 'UNKNOWN'
+        self.description = "UNKNOWN"
         if name is None:
             self.name = self.__class__.__name__
         self.status = NodeStatus.UNKNOWN
@@ -53,12 +53,12 @@ class NodeClass(object):
         self.db = db
 
     def defineActionProperty(self, actionname, property_name, optional=False, description=""):
-        self.actions[actionname]['properties'].append(property_name)
-        self.actions[actionname]['optional'] = optional
+        self.actions[actionname]["properties"].append(property_name)
+        self.actions[actionname]["optional"] = optional
 
     def defineNodeActionRequest(self, name, description=""):
-        action = {'name': name, 'properties': []}
-        action['description'] = description
+        action = {"name": name, "properties": []}
+        action["description"] = description
         self.actions[name] = action
 
     def check_actions_available(self, action_names_list):

@@ -30,7 +30,7 @@ import json
 
 
 @cross_origin()
-@nodes_bp.route('/api/v1/nodes', methods=["POST"])
+@nodes_bp.route("/api/v1/nodes", methods=["POST"])
 def nodes():
     reply_dict = {}
     s = json.dumps(request.json, indent=4)
@@ -56,7 +56,7 @@ def nodes():
 @nodes_bp.after_request
 def after_request(response):
     header = response.headers
-    header['Access-Control-Allow-Origin'] = '*'
-    header['Access-Control-Allow-Headers'] = '*'
-    header['Access-Control-Allow-Methods'] = '*'
+    header["Access-Control-Allow-Origin"] = "*"
+    header["Access-Control-Allow-Headers"] = "*"
+    header["Access-Control-Allow-Methods"] = "*"
     return response

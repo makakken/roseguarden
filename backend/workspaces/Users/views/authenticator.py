@@ -25,27 +25,28 @@ from core.workspaces.dataView import DataView
 from core.users.enum import AuthenticatorValidityType
 from core.common.deface import deface_string_end, deface_string_middle
 from core.users.models import Authenticator, User
+
 """ A view contaning a list of all available authenticator
 """
 
 
 class AuthenticatorList(DataView):
 
-    uri = 'authenticatorList'
+    uri = "authenticatorList"
     requireLogin = True
 
     def defineMetadata(self):
         self.addStringMeta("test")
 
     def defineProperties(self):
-        self.addIntegerProperty(name='id', label='Id', isKey=True, hide=True)
-        self.addStringProperty(name='type', label='Type')
-        self.addStringProperty(name='hash', label='Hash')
-        self.addStringProperty(name='code', label='Code')
-        self.addDatetimeProperty(name="code_send", label='Code send')
-        self.addDatetimeProperty(name="creation_date", label='Created at')
-        self.addStringProperty(name='validity', label='Validity')
-        self.addDatetimeProperty(name="expiration_date", label='Expires at')
+        self.addIntegerProperty(name="id", label="Id", isKey=True, hide=True)
+        self.addStringProperty(name="type", label="Type")
+        self.addStringProperty(name="hash", label="Hash")
+        self.addStringProperty(name="code", label="Code")
+        self.addDatetimeProperty(name="code_send", label="Code send")
+        self.addDatetimeProperty(name="creation_date", label="Created at")
+        self.addStringProperty(name="validity", label="Validity")
+        self.addDatetimeProperty(name="expiration_date", label="Expires at")
 
     def getViewMetaHandler(self, user, workspace):
         meta = self.createMeta()
@@ -75,7 +76,7 @@ class AuthenticatorList(DataView):
                 entry.validity = "Expires"
             if ar.validity_type == AuthenticatorValidityType.LIMITED_USAGE:
                 entry.validity = str(ar.usage_limit) + " times"
-            entry.code_send = str(ar.code_send_by.value) + ' (' + str(ar.code_send_to) + ')'
+            entry.code_send = str(ar.code_send_by.value) + " (" + str(ar.code_send_to) + ")"
             entry.creation_date = ar.creation_date.format()
             entry.expiration_date = ar.expiration_date.format()
 
@@ -83,7 +84,7 @@ class AuthenticatorList(DataView):
         return entrylist
 
     def __repr__(self):
-        return '<{} with {} properties>'.format(self.name, len(self.properties))
+        return "<{} with {} properties>".format(self.name, len(self.properties))
 
     # Handler for a request to create a new view entry
     def createViewEntryHandler(self, user, workspace, entry):

@@ -28,7 +28,7 @@ from core.users.models import User
 class VerifyUser(Action):
     def __init__(self, app):
         # logManager.info("ProvideMenu of type Action created")
-        super().__init__(app, uri='verifyUser')
+        super().__init__(app, uri="verifyUser")
 
     def handle(self, action, user, workspace, actionManager):
         logManager.info("Request user verification")
@@ -37,7 +37,7 @@ class VerifyUser(Action):
             raise Exception("User not found")
         else:
             user.account_verified = True
-        return 'success', []
+        return "success", []
 
     @staticmethod
     def generate(**kwargs):

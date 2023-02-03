@@ -144,8 +144,10 @@ def has_user_access_to_space(user, node):
         return False, "User has no access on this weekday"
 
     # check for granted daytime
-    if not is_time_between(time(accessgroup.daily_access_start_time.hour, accessgroup.daily_access_start_time.minute),
-                           time(accessgroup.daily_access_end_time.hour, accessgroup.daily_access_end_time.minute)):
+    if not is_time_between(
+        time(accessgroup.daily_access_start_time.hour, accessgroup.daily_access_start_time.minute),
+        time(accessgroup.daily_access_end_time.hour, accessgroup.daily_access_end_time.minute),
+    ):
         return False, "User has no access in this time range"
 
     return True, "Access granted"

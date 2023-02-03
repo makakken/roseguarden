@@ -25,10 +25,18 @@ from core.logs import logManager
 from core.users import userManager
 from core.users.enum import AuthenticatorSendBy, AuthenticatorType, AuthenticatorValidityType
 
-from workspaces.Access.nodes.common.serverActionRequests import UpdateUserInfoAction, \
-    UpdateAssignInfoAction, RequestPinAction, DenyAccessAction, GrandAccessAction
-from workspaces.Access.access import (has_user_access_to_space, update_user_access_properties_after_access_granted,
-                                      is_user_budget_sufficient)
+from workspaces.Access.nodes.common.serverActionRequests import (
+    UpdateUserInfoAction,
+    UpdateAssignInfoAction,
+    RequestPinAction,
+    DenyAccessAction,
+    GrandAccessAction,
+)
+from workspaces.Access.access import (
+    has_user_access_to_space,
+    update_user_access_properties_after_access_granted,
+    is_user_budget_sufficient,
+)
 
 
 class DoorWithPinTerminal(NodeClass):
@@ -54,37 +62,38 @@ class DoorWithPinTerminal(NodeClass):
 
     def handleNodeActionRequest(self, node, action, header):
         logManager.info("handleNodeActionRequest for {}".format(self.name))
-        action_name = action['action']
+        action_name = action["action"]
         public_key = ""
-        if 'public_key' in action:
-            public_key = action['public_key']
+        if "public_key" in action:
+            public_key = action["public_key"]
 
         if action_name == "requestNodeUpdate":
             return [{}]
         elif action_name == "requestUserInfo":
             node_action = UpdateUserInfoAction.generate(
-                userManager.get_user_by_authenticator(action['auth_key'], public_key))
+                userManager.get_user_by_authenticator(action["auth_key"], public_key)
+            )
             return [node_action]
         elif action_name == "requestUserAccess":
-            user = userManager.get_user_by_authenticator(action['auth_key'], public_key)
+            user = userManager.get_user_by_authenticator(action["auth_key"], public_key)
             if user is None:
                 return [DenyAccessAction.generate("Access denied", "")]
 
             if userManager.getUserRemainingPinAttempts(user.email) <= 0:
                 return [DenyAccessAction.generate("Access denied", "Pin locked")]
 
-            if 'pin' not in action:
+            if "pin" not in action:
                 return [RequestPinAction.generate()]
             else:
-                if action['pin'] is None or action['pin'] == "":
+                if action["pin"] is None or action["pin"] == "":
                     return [RequestPinAction.generate()]
-            pinValid = userManager.checkUserPin(user.email, action['pin'])
+            pinValid = userManager.checkUserPin(user.email, action["pin"])
 
             if pinValid is False:
                 remaining = userManager.getUserRemainingPinAttempts(user.email)
                 return [DenyAccessAction.generate("Wrong pin", "Remaining attempts: " + str(remaining))]
 
-            access, = has_user_access_to_space(user, node)
+            (access,) = has_user_access_to_space(user, node)
             if access is False:
                 return [DenyAccessAction.generate("Access denied", "")]
 
@@ -96,12 +105,17 @@ class DoorWithPinTerminal(NodeClass):
 
             return [GrandAccessAction.generate(user)]
         elif action_name == "requestAssignCode":
-            if userManager.checkUserAuthenticatorExists(action['auth_key'], public_key) is True:
+            if userManager.checkUserAuthenticatorExists(action["auth_key"], public_key) is True:
                 node_action = UpdateAssignInfoAction.generate("", False)
             else:
-                code = userManager.createUserAuthenticatorRequest(action['auth_key'], public_key, AuthenticatorType.USER,
-                                                                  AuthenticatorValidityType.ONCE,
-                                                                  AuthenticatorSendBy.NODE, self.identity['nodename'])
+                code = userManager.createUserAuthenticatorRequest(
+                    action["auth_key"],
+                    public_key,
+                    AuthenticatorType.USER,
+                    AuthenticatorValidityType.ONCE,
+                    AuthenticatorSendBy.NODE,
+                    self.identity["nodename"],
+                )
                 node_action = UpdateAssignInfoAction.generate(code, True)
             return [node_action]
         else:

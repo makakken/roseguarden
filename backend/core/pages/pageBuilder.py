@@ -22,9 +22,11 @@ __license__ = "GPLv3"
 
 
 class PageBuilder(object):
-    """ The PageBuilder ...
-    """
-    def __init__(self, ):
+    """The PageBuilder ..."""
+
+    def __init__(
+        self,
+    ):
         # preparation to instanciate
         pass
 

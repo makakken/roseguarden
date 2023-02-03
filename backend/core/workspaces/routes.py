@@ -23,11 +23,11 @@ __license__ = "GPLv3"
 from core.workspaces import workspaces_bp
 
 
-@workspaces_bp.route('/api/page', methods=["GET"])
+@workspaces_bp.route("/api/page", methods=["GET"])
 def page():
     return ""
 
 
-@workspaces_bp.route('/api/menu', methods=["GET"])
+@workspaces_bp.route("/api/menu", methods=["GET"])
 def menu():
     return ""

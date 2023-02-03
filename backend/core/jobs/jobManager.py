@@ -31,9 +31,11 @@ from core.common.objDict import ObjDict
 
 
 class JobManager(object):
-    """ The MessageManager ...
-    """
-    def __init__(self, ):
+    """The MessageManager ..."""
+
+    def __init__(
+        self,
+    ):
         # preparation to instanciate
         self.config = None
         self.app = None
@@ -63,13 +65,14 @@ class JobManager(object):
         self.db = db
         self.scheduler = BackgroundScheduler()
         self.scheduler.add_listener(self.listener, EVENT_ALL)
-        self.jobstore = SQLAlchemyJobStore(url='sqlite:///jobs.sqlite')
-        self.scheduler.add_jobstore(self.jobstore, alias='sqlalchemy')
+        self.jobstore = SQLAlchemyJobStore(url="sqlite:///jobs.sqlite")
+        self.scheduler.add_jobstore(self.jobstore, alias="sqlalchemy")
         self.scheduler.start()
 
         logging.basicConfig()
-        logging.getLogger('apscheduler').setLevel(logging.DEBUG)
+        logging.getLogger("apscheduler").setLevel(logging.DEBUG)
         from core.jobs.models import JobExecute
+
         self.job = JobExecute
 
         logManager.info("JobManager initialized")
@@ -82,10 +85,10 @@ class JobManager(object):
         workspace_name = None
         if workspace is not None:
             if type(workspace) is str:
-                jobkey += workspace + '/'
+                jobkey += workspace + "/"
                 workspace_name = workspace.name
             else:
-                jobkey += workspace.name + '/'
+                jobkey += workspace.name + "/"
                 workspace_name = workspace.name
 
         jobInstance = job_class()
@@ -95,20 +98,20 @@ class JobManager(object):
         if workspace is not None:
             jobInstance.workspace = workspace.name
         job = {
-            'job_class': job_class,
-            'name': jobInstance.name,
-            'workspace': workspace_name,
-            'description': jobInstance.description,
-            'parameters': jobInstance.parameters,
-            'trigger': 'Internal',
-            'log_in_db': log_in_db,
-            'cron': jobInstance.cron,
-            'day': jobInstance.day,
-            'week': jobInstance.week,
-            'day_of_week': jobInstance.day_of_week,
-            'hour': jobInstance.hour,
-            'minute': jobInstance.minute,
-            'second': jobInstance.second
+            "job_class": job_class,
+            "name": jobInstance.name,
+            "workspace": workspace_name,
+            "description": jobInstance.description,
+            "parameters": jobInstance.parameters,
+            "trigger": "Internal",
+            "log_in_db": log_in_db,
+            "cron": jobInstance.cron,
+            "day": jobInstance.day,
+            "week": jobInstance.week,
+            "day_of_week": jobInstance.day_of_week,
+            "hour": jobInstance.hour,
+            "minute": jobInstance.minute,
+            "second": jobInstance.second,
         }
 
         if jobInstance.cron is True:
@@ -144,20 +147,20 @@ class JobManager(object):
             options.casing_type = CasingTypeEnum.LowerCase
             descripter = ExpressionDescriptor(cron_string, options)
             logManager.info("Register repetitive job '{}' triggered {}".format(jobkey, descripter.get_description()))
-            self.scheduler.add_job(jobInstance.start_job,
-                                   kwargs=({
-                                       "job_id": str(jobkey)
-                                   }),
-                                   id=(str(jobkey)),
-                                   trigger='cron',
-                                   replace_existing=True,
-                                   day=job_class.day,
-                                   day_of_week=job_class.day_of_week,
-                                   week=job_class.week,
-                                   hour=job_class.hour,
-                                   minute=job_class.minute,
-                                   second=job_class.second)
-            job['trigger'] = descripter.get_description()
+            self.scheduler.add_job(
+                jobInstance.start_job,
+                kwargs=({"job_id": str(jobkey)}),
+                id=(str(jobkey)),
+                trigger="cron",
+                replace_existing=True,
+                day=job_class.day,
+                day_of_week=job_class.day_of_week,
+                week=job_class.week,
+                hour=job_class.hour,
+                minute=job_class.minute,
+                second=job_class.second,
+            )
+            job["trigger"] = descripter.get_description()
 
         self.jobs[str(jobkey)] = ObjDict(job.copy())
 
@@ -167,6 +170,7 @@ class JobManager(object):
             je = None
             if log_trigger is True:
                 from core.jobs.models import JobExecute
+
                 je = JobExecute()
                 je.triggered_on = str(datetime.now())
                 if user is None:
@@ -187,7 +191,7 @@ class JobManager(object):
             # else:
 
             # handle a single trigger job
-            jobInstance = self.jobs[jobkey]['job_class']()
+            jobInstance = self.jobs[jobkey]["job_class"]()
             self.job_counter += 1
             job_ececution_id = None
 
@@ -196,12 +200,14 @@ class JobManager(object):
 
             kwargs = {"job_id": str(jobkey) + str(self.job_counter), "job_execution_id": job_ececution_id}
             kwargs = {**kwargs, **args}
-            self.scheduler.add_job(jobInstance.start_job,
-                                   id=(str(jobkey) + str(self.job_counter)),
-                                   trigger='date',
-                                   next_run_time=str(date),
-                                   kwargs=kwargs,
-                                   max_instances=max_instances)
+            self.scheduler.add_job(
+                jobInstance.start_job,
+                id=(str(jobkey) + str(self.job_counter)),
+                trigger="date",
+                next_run_time=str(date),
+                kwargs=kwargs,
+                max_instances=max_instances,
+            )
             if je is not None:
                 return je.id
             else:

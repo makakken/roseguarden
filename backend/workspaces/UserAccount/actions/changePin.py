@@ -28,21 +28,23 @@ from core.actions import webclientActions
 class ChangePin(Action):
     def __init__(self, app):
         # logManager.info("ProvideMenu of type Action created")
-        super().__init__(app, uri='changePin')
+        super().__init__(app, uri="changePin")
 
     def handle(self, action, user, workspace, actionManager):
         logManager.info("Execute change pin action")
         if user is not None:
-            if user.checkPassword(action['oldpassword']):
-                user.pin = action['pin']
+            if user.checkPassword(action["oldpassword"]):
+                user.pin = action["pin"]
                 user.pinIsLocked = False
                 user.failedPinAttempts = 0
                 notification_action = webclientActions.NotificationAction.generate("Pin changed", "success")
             else:
                 notification_action = webclientActions.NotificationAction.generate(
-                    "Pin unchanged. Password is invalid", "error")
+                    "Pin unchanged. Password is invalid", "error"
+                )
         else:
-            notification_action = webclientActions.NotificationAction.generate("Internal error (user not found)",
-                                                                               "error")
+            notification_action = webclientActions.NotificationAction.generate(
+                "Internal error (user not found)", "error"
+            )
 
-        return 'success', [notification_action]
+        return "success", [notification_action]

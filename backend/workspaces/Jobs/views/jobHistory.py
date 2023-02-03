@@ -24,27 +24,28 @@ from core.workspaces.workspace import Workspace
 from core.workspaces.dataView import DataView
 from core.users.models import User
 from core.jobs.models import JobExecute
+
 """ A view contaning a list of permissions
 """
 
 
 class JobHistory(DataView):
 
-    uri = 'jobHistory'
+    uri = "jobHistory"
     requireLogin = True
 
     #    def __init__(self):
     #        super().__init__(name='PermissionList', uri ='permissionList')
 
     def defineProperties(self):
-        self.addIntegerProperty(name='id', label='ID', isKey=True)
-        self.addStringProperty(name='jobid', label='JobId')
-        self.addStringProperty(name='name', label='Jobname')
-        self.addStringProperty(name='workspace', label='Workspace')
-        self.addStringProperty(name='triggered_by', label='Triggered by')
-        self.addStringProperty(name='date', label='Date')
-        self.addStringProperty(name='duration', label='Duration')
-        self.addStringProperty(name='state', label='State')
+        self.addIntegerProperty(name="id", label="ID", isKey=True)
+        self.addStringProperty(name="jobid", label="JobId")
+        self.addStringProperty(name="name", label="Jobname")
+        self.addStringProperty(name="workspace", label="Workspace")
+        self.addStringProperty(name="triggered_by", label="Triggered by")
+        self.addStringProperty(name="date", label="Date")
+        self.addStringProperty(name="duration", label="Duration")
+        self.addStringProperty(name="state", label="State")
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
         print("getDataViewHandler for JobHistory")
@@ -69,7 +70,7 @@ class JobHistory(DataView):
         return entrylist
 
     def __repr__(self):
-        return '<{} with {} properties>'.format(self.name, len(self.properties))
+        return "<{} with {} properties>".format(self.name, len(self.properties))
 
     # Handler for a request to create a new view entry
     def createViewEntryHandler(self, user, workspace, entry):

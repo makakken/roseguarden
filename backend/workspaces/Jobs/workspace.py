@@ -21,11 +21,12 @@ __credits__ = []
 __license__ = "GPLv3"
 
 from core.workspaces.workspace import Workspace
+
 """ The jobs workspace
 """
 
 
 class Jobs(Workspace):
     disable = False  # IMPORTANT: set this to False to enable the workspace.
-    uri = 'jobs'
-    description = 'A job workspace'
+    uri = "jobs"
+    description = "A job workspace"

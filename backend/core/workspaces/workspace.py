@@ -37,13 +37,13 @@ from core.logs import logManager
 
 class Workspace(object):
     """Base class that each workspaceinherit from.
-       The class define methods that all workspaces have to implement
+    The class define methods that all workspaces have to implement
     """
 
     disable = False
 
     def __init__(self, app, db, name=None, uri=None):
-        self.description = 'UNKNOWN'
+        self.description = "UNKNOWN"
         if name is None:
             self.name = type(self).__name__
         else:
@@ -81,12 +81,12 @@ class Workspace(object):
         return self.pages[key]
 
     def discoverJobs(self, workspaceSource):
-        jobSource = workspaceSource + '.' + self.name + '.' + 'jobs'
-        imported_source = __import__(jobSource, fromlist=['blah'])
+        jobSource = workspaceSource + "." + self.name + "." + "jobs"
+        imported_source = __import__(jobSource, fromlist=["blah"])
 
-        for _, jobname, ispkg in pkgutil.iter_modules(imported_source.__path__, imported_source.__name__ + '.'):
+        for _, jobname, ispkg in pkgutil.iter_modules(imported_source.__path__, imported_source.__name__ + "."):
             if not ispkg:
-                job_module = __import__(jobname, fromlist=['blah'])
+                job_module = __import__(jobname, fromlist=["blah"])
                 clsmembers = inspect.getmembers(job_module, inspect.isclass)
                 for (_, c) in clsmembers:
                     # Check for DataView classes
@@ -96,12 +96,12 @@ class Workspace(object):
                             jobManager.register_job(self, c, True)
 
     def discoverPermissions(self, workspaceSource):
-        permissionsSource = workspaceSource + '.' + self.name
-        imported_source = __import__(permissionsSource, fromlist=['blah'])
+        permissionsSource = workspaceSource + "." + self.name
+        imported_source = __import__(permissionsSource, fromlist=["blah"])
 
-        for _, permissionname, ispkg in pkgutil.iter_modules(imported_source.__path__, imported_source.__name__ + '.'):
+        for _, permissionname, ispkg in pkgutil.iter_modules(imported_source.__path__, imported_source.__name__ + "."):
             if not ispkg:
-                permission_module = __import__(permissionname, fromlist=['blah'])
+                permission_module = __import__(permissionname, fromlist=["blah"])
                 clsmembers = inspect.getmembers(permission_module, inspect.isclass)
                 for (_, c) in clsmembers:
                     # Check for Permission classes
@@ -111,7 +111,7 @@ class Workspace(object):
                         self.addPermission(str(permissionInstance.name), permissionInstance)
 
     def discoverSections(self, workspaceSource):
-        '''
+        """
         sectionsSource = workspaceSource + '.' + self.name
         imported_source = __import__(sectionsSource, fromlist=['blah'])
 
@@ -125,19 +125,19 @@ class Workspace(object):
                         sectionInstance = c()
                         logManager.info(f'Section: "{c.__module__}" created for workspace: "{self.name}"')
                         #self.dataViews[str(dataViewInstance.uri)] = (dataViewInstance)
-        '''
+        """
 
     def discoverNodeClasses(self, workspaceSource):
         # for _, node_class, ispkg in pkgutil.iter_modules(imported_source.__path__, imported_source.__name__ + '.'):
         #    if ispkg:
         #        print(node_class)
 
-        node_sources = workspaceSource + '.' + self.name + '.' + 'nodes'
-        imported_source = __import__(node_sources, fromlist=['blah'])
+        node_sources = workspaceSource + "." + self.name + "." + "nodes"
+        imported_source = __import__(node_sources, fromlist=["blah"])
 
-        for _, nodename, ispkg in pkgutil.iter_modules(imported_source.__path__, imported_source.__name__ + '.'):
+        for _, nodename, ispkg in pkgutil.iter_modules(imported_source.__path__, imported_source.__name__ + "."):
             if not ispkg:
-                node_module = __import__(nodename, fromlist=['blah'])
+                node_module = __import__(nodename, fromlist=["blah"])
                 clsmembers = inspect.getmembers(node_module, inspect.isclass)
                 for (_, c) in clsmembers:
                     # Check for DataView classes
@@ -147,7 +147,7 @@ class Workspace(object):
                             nodeManager.register_node_class(self, c)
                         else:
                             logManager.info(f'NodeClass: "{c.__module__}" is diabled and wont show up"')
-        '''
+        """
         for i in os.listdir(node_sources):
             module_path = os.path.join(node_sources,i)
             if os.path.isdir(module_path):
@@ -164,15 +164,15 @@ class Workspace(object):
                             nodeManager.register_node_class(self, c)
                         else:
                             logManager.info(f'NodeClass: "{c.__module__}" is diabled and wont show up"')
-        '''
+        """
 
     def discoverPages(self, workspaceSource):
-        pagesSource = workspaceSource + '.' + self.name + '.' + 'pages'
-        imported_source = __import__(pagesSource, fromlist=['blah'])
+        pagesSource = workspaceSource + "." + self.name + "." + "pages"
+        imported_source = __import__(pagesSource, fromlist=["blah"])
 
-        for _, pagename, ispkg in pkgutil.iter_modules(imported_source.__path__, imported_source.__name__ + '.'):
+        for _, pagename, ispkg in pkgutil.iter_modules(imported_source.__path__, imported_source.__name__ + "."):
             if not ispkg:
-                page_module = __import__(pagename, fromlist=['blah'])
+                page_module = __import__(pagename, fromlist=["blah"])
                 clsmembers = inspect.getmembers(page_module, inspect.isclass)
                 for (_, c) in clsmembers:
                     # Check for DataView classes
@@ -185,17 +185,17 @@ class Workspace(object):
                             self.pages[str(pageInstance.name)] = pageInstance
 
     def discoverDataViews(self, workspaceSource):
-        actionsSource = workspaceSource + '.' + self.name + '.' + 'views'
-        imported_source = __import__(actionsSource, fromlist=['blah'])
+        actionsSource = workspaceSource + "." + self.name + "." + "views"
+        imported_source = __import__(actionsSource, fromlist=["blah"])
 
-        for _, actionname, ispkg in pkgutil.iter_modules(imported_source.__path__, imported_source.__name__ + '.'):
+        for _, actionname, ispkg in pkgutil.iter_modules(imported_source.__path__, imported_source.__name__ + "."):
             if not ispkg:
-                action_module = __import__(actionname, fromlist=['blah'])
+                action_module = __import__(actionname, fromlist=["blah"])
                 clsmembers = inspect.getmembers(action_module, inspect.isclass)
                 for (_, c) in clsmembers:
                     # Check for DataView classes
                     if issubclass(c, DataView) & (c is not DataView):
-                        if hasattr(c, 'name'):
+                        if hasattr(c, "name"):
                             dataViewInstance = c(c.name, c.uri)
                             logManager.info(f'DataView "{c.name}" loaded from "{c.__module__}"')
                         else:
@@ -208,17 +208,17 @@ class Workspace(object):
                         if dataViewInstance.disable is True:
                             logManager.info(f'DataView: "{dataViewInstance.name}" is diabled and wont show up')
                         else:
-                            self.dataViews[str(dataViewInstance.uri)] = (dataViewInstance)
+                            self.dataViews[str(dataViewInstance.uri)] = dataViewInstance
 
                         if dataViewInstance.entrykey is None:
                             raise LookupError("DataView {} dont define a key".format(dataViewInstance.name))
 
     def discoverCommands(self, workspaceSource):
 
-        command_source_path = workspaceSource + '.' + self.name + '.' + 'commands'
+        command_source_path = workspaceSource + "." + self.name + "." + "commands"
         # print("Discover actions for", self.uri, "from", actionsSource)
         try:
-            command_source = __import__(command_source_path, fromlist=['blah'])
+            command_source = __import__(command_source_path, fromlist=["blah"])
             self.app.register_blueprint(command_source.bp, cli_group=self.uri)
         except ModuleNotFoundError:
             logManager.info(f'No commands found for for workspace "{self.name}"')
@@ -242,15 +242,15 @@ class Workspace(object):
 
         logManager.info(f'Actions for handling DataViews created for workspace "{self.name}"')
 
-        actionsSource = workspaceSource + '.' + self.name + '.' + 'actions'
+        actionsSource = workspaceSource + "." + self.name + "." + "actions"
         # print("Discover actions for", self.uri, "from", actionsSource)
-        imported_source = __import__(actionsSource, fromlist=['blah'])
+        imported_source = __import__(actionsSource, fromlist=["blah"])
 
         # print(imported_source)
 
-        for _, actionname, ispkg in pkgutil.iter_modules(imported_source.__path__, imported_source.__name__ + '.'):
+        for _, actionname, ispkg in pkgutil.iter_modules(imported_source.__path__, imported_source.__name__ + "."):
             if not ispkg:
-                action_module = __import__(actionname, fromlist=['blah'])
+                action_module = __import__(actionname, fromlist=["blah"])
                 clsmembers = inspect.getmembers(action_module, inspect.isclass)
                 for (_, c) in clsmembers:
                     # Check for Action classes
@@ -265,10 +265,11 @@ class Workspace(object):
     def addPermission(self, name, permission):
         from .models import Permission
         from core import db
+
         key = self.name + "." + name
         description = "No description available"
 
-        if hasattr(permission, 'description'):
+        if hasattr(permission, "description"):
             description = permission.description
 
         engine = db.get_engine()

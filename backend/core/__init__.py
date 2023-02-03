@@ -55,8 +55,8 @@ def create_app(minimal=False, config_file="config.ini", test=False):
     # configure the app
     configure_app(app, config, test)
 
-    if __name__ != '__main__' and test is False:
-        gunicorn_logger = logging.getLogger('gunicorn.error')
+    if __name__ != "__main__" and test is False:
+        gunicorn_logger = logging.getLogger("gunicorn.error")
         app.logger.handlers = gunicorn_logger.handlers
         app.logger.setLevel(gunicorn_logger.level)
 
@@ -71,37 +71,47 @@ def create_app(minimal=False, config_file="config.ini", test=False):
         bcrypt.init_app(app)
 
     from core import app_bp  # noqa: F401
+
     app.register_blueprint(app_bp)
 
     from core.actions import actions_bp, models  # noqa: F401, F811
+
     app.register_blueprint(actions_bp)
 
     from core.users import auth_bp, models  # noqa: F401, F811
+
     app.register_blueprint(auth_bp)
 
     from core.logs import logs_bp  # noqa: F401, F811
+
     app.register_blueprint(logs_bp)
 
     from core.jobs import jobs_bp  # noqa: F401, F811
+
     app.register_blueprint(jobs_bp)
 
     from core.messages import messages_bp  # noqa: F401, F811
+
     app.register_blueprint(messages_bp)
 
     from core.files import files_bp  # noqa: F401, F811
+
     app.register_blueprint(files_bp)
 
     from core.nodes import nodes_bp  # noqa: F401, F811
+
     app.register_blueprint(nodes_bp)
 
     # import workspace blueprint and models
     from core.workspaces import workspaces_bp, models  # noqa: F401, F811
+
     app.register_blueprint(workspaces_bp)
 
     from api import api_bp  # noqa: F401, F811
+
     app.register_blueprint(api_bp)
 
-    is_database_new = not database_exists(app.config['SQLALCHEMY_DATABASE_URI'])
+    is_database_new = not database_exists(app.config["SQLALCHEMY_DATABASE_URI"])
     db.init_app(app)
 
     with app.app_context():
@@ -125,6 +135,6 @@ def create_app(minimal=False, config_file="config.ini", test=False):
 
 
 # declare app routes
-app_bp = Blueprint('app', __name__, static_folder="../client")
+app_bp = Blueprint("app", __name__, static_folder="../client")
 
 from core import routes  # noqa: F401

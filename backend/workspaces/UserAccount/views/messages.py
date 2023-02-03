@@ -24,26 +24,25 @@ from core.workspaces.workspace import Workspace
 from core.workspaces.dataView import DataView
 from core.users.models import User
 from core.messages.models import Message
+
 """ A view contaning a list of all users not locked
 """
 
 
 class UserMessages(DataView):
 
-    uri = 'userMessages'
+    uri = "userMessages"
     requireLogin = True
 
     def defineProperties(self):
-        self.addIntegerProperty(name='id', label='ID', isKey=True)
-        self.addStringProperty(name='subject', label='Subject')
-        self.addStringProperty(name='sender', label='Subject')
-        self.addDatetimeProperty(name='datetime', label='Date')
-        self.addBooleanProperty(name='read', label='Read')
-        self.addActionProperty(name='getMesasge',
-                               label='Get message',
-                               action='getMesasge',
-                               actionHandler=self.getMesasge,
-                               icon='clear')
+        self.addIntegerProperty(name="id", label="ID", isKey=True)
+        self.addStringProperty(name="subject", label="Subject")
+        self.addStringProperty(name="sender", label="Subject")
+        self.addDatetimeProperty(name="datetime", label="Date")
+        self.addBooleanProperty(name="read", label="Read")
+        self.addActionProperty(
+            name="getMesasge", label="Get message", action="getMesasge", actionHandler=self.getMesasge, icon="clear"
+        )
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
         print("getDataViewHandler for UserView")
@@ -56,7 +55,7 @@ class UserMessages(DataView):
             # fill entry
             entry.id = m.id
             entry.subject = m.subject
-            entry.datetime = m.message_send_date.format('YYYY-MM-DD HH:mm:ss')
+            entry.datetime = m.message_send_date.format("YYYY-MM-DD HH:mm:ss")
             entry.sender = m.sender_name
             entry.read = m.message_read
 
@@ -65,7 +64,7 @@ class UserMessages(DataView):
         return messages_list
 
     def __repr__(self):
-        return '<{} with {} properties>'.format(self.name, len(self.properties))
+        return "<{} with {} properties>".format(self.name, len(self.properties))
 
     def getMesasge(self, user, workspace, action, entrykey):
         msg = Message.query.filter_by(id=entrykey).first()
