@@ -158,6 +158,8 @@ class UserManager(object):
         #  - a list of all users with the corresponding public key
         #  - (if not found) a list of all users without / empty public key
         for u in user_list:
+            logManager.info(f"Check {authenticator_private_key} to match for user {str(u)}")
+
             # save the time consuming authenticator check for users in volatile cache
             if u.email in self.user_authenticator_cache.values():
                 continue
