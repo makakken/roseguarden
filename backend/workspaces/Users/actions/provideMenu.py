@@ -33,7 +33,6 @@ class ProvideMenu(Action):
     def handle(self, action, user, workspace, actionManager):
         # userManager = actionManager.userManager
         menuBuilder = actionManager.menuBuilder
-        logManager.info("Execute registration action")
         menu = menuBuilder.buildMenu(user)
         updateMenu_action = webclientActions.UpdateMenuAction.generate(menu)
         return "success", [updateMenu_action]
