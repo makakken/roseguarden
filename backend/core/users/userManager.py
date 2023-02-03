@@ -34,7 +34,9 @@ from core.workspaces.workspaceHooks import WorkspaceHooks
 class UserManager(object):
     """The UserManager ..."""
 
-    def __init__(self,):
+    def __init__(
+        self,
+    ):
         # preparation to instanciate
         pass
 
