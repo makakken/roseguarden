@@ -22,7 +22,6 @@ __license__ = "GPLv3"
 
 from core.workspaces.workspace import Workspace
 from core.workspaces.dataView import DataView
-from workspaces.Access.types import SpaceAccessType
 from core.users.models import User
 import arrow
 
@@ -97,7 +96,7 @@ class AccessGroupsList(DataView):
     # Handler for a request to update a single view entry
     def updateViewEntryHandler(self, user, workspace, key, entry):
         print("Handle updateViewEntryHandler request for " + self.uri)
-        u: User = User.query.filter_by(email=key).first()
+        u = User.query.filter_by(email=key).first()
         if u.access is not None:
             u.access.access_last_update_date = arrow.utcnow()
             if hasattr(entry, "access_start_date"):
@@ -113,13 +112,8 @@ class AccessGroupsList(DataView):
             else:
                 u.access.access_budget = entry.access_budget
         if hasattr(entry, "access_group"):
-            g: SpaceAccessGroup = SpaceAccessGroup.query.filter_by(id=entry["access_group"]).first()
+            g = SpaceAccessGroup.query.filter_by(id=entry["access_group"]).first()
             u.spaceaccess_accessgroup = g
-            if (
-                g.access_type == SpaceAccessType.USER_BUDGET
-                or g.access_type == SpaceAccessType.AUTO_RECHARGED_USER_BUDGET
-            ):
-                u.budget = g.access_default_start_budget
         self.emitSyncUpdate(key)
 
     # Handler for a request to update a single view entry
