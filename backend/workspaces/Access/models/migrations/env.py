@@ -46,9 +46,9 @@ target_metadata = db.Model.metadata
 
 # fixme: this is probably fine for our use case, but in configure_app()
 # we also allow setting from os.environ.get('DATABASE_URL')
-app_config = load_config("config.ini")
-database_path = app_config["SYSTEM"].get("database_path", None)
 basedir = file.parents[4]
+app_config = load_config(os.path.join(basedir,"config.ini"))
+database_path = "sqlite:///" + app_config["SYSTEM"].get("database_path", None) 
 
 config.set_main_option(
     "sqlalchemy.url", database_path or os.environ.get("DATABASE_URL") or "sqlite:///" + os.path.join(basedir, "app.db")
