@@ -41,6 +41,21 @@
       </v-col>
     </v-row>
 
+    <v-row dense v-if="userBudgetVisibility">
+      <v-col cols="1" />
+      <v-col cols="10">
+        <v-subheader>Start budget</v-subheader>
+        <v-text-field
+          label="Users start budget"
+          type="number"
+          v-model="group.start_budget"
+          hide-details
+          solo
+          dense
+        ></v-text-field>
+      </v-col>
+    </v-row>
+
     <v-row dense v-if="groupBudgetVisibility">
       <v-col cols="1" />
       <v-col cols="10">
@@ -59,7 +74,7 @@
     <v-row dense v-if="commonSectionsVisibility">
       <v-col cols="1" />
       <v-col cols="3" height="100%">
-        <v-subheader>Expires (per default)</v-subheader>
+        <v-subheader>Expires</v-subheader>
         <v-switch
           v-model="group.expires_as_default"
           hide-details
@@ -69,7 +84,7 @@
         ></v-switch>
       </v-col>
       <v-col cols="7" align-end justify-end height="100%">
-        <v-subheader>Expires after (per default)</v-subheader>
+        <v-subheader>Expires after</v-subheader>
         <v-text-field
           v-model="group.expires_after_days_default"
           type="number"
@@ -126,7 +141,7 @@
     <v-row dense v-if="rechargeSectionsVisibility">
       <v-col cols="1" />
       <v-col cols="3" height="100%">
-        <v-subheader>Limit recharge</v-subheader>
+        <v-subheader>Limit</v-subheader>
         <v-switch
           v-model="group.recharge_budget_gets_cutoff"
           hide-details
@@ -417,6 +432,20 @@ export default {
         return false;
       }
     },
+    userBudgetVisibility: function () {
+      if (this.group) {
+        if (
+          this.group.type === "User Budget" ||
+          this.group.type === "Auto-recharged user budget"
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    },    
   },
   watch: {
     open: function (newVal, oldVal) {
