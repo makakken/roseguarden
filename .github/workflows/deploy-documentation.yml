@@ -6,6 +6,9 @@ on:
       - main
     # Review gh actions docs if you want to further define triggers, paths, etc
     # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#on
+defaults:
+  run:
+    working-directory: docs
 
 jobs:
   deploy:
@@ -16,12 +19,12 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: docs/yarn
+          cache: "yarn"
 
       - name: Install dependencies
-        run: cd docs && yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile
       - name: Build website
-        run: cd docs && yarn build
+        run: yarn build
 
       # Popular action to deploy to GitHub Pages:
       # Docs: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-docusaurus
