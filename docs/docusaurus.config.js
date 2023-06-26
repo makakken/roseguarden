@@ -11,14 +11,14 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://konglomerat.github.io/roseguarden',
+  url: 'https://konglomerat.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: '/roseguarden/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  projectName: 'konglomerat.github.io',
+  projectName: 'konglomerat.github.io/roseguarden',
   organizationName: 'konglomerat',
   trailingSlash: false,
 
