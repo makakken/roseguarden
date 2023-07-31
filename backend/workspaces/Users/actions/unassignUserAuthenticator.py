@@ -79,7 +79,8 @@ class UnassignUserAuthentictor(Action):
 
         user_to_unassign.resetAuthenticatorHash()
         user_to_unassign.authenticator_status = UserAuthenticatorStatus.UNSET
-
+        user_to_unassign.authenticator_public_key = ""
+        
         return (
             "success",
             [notification_action],
