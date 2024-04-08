@@ -175,6 +175,7 @@ class UserManager(object):
                     u.authenticator_public_key = public_key
                 return u
         # no user found for the given private key
+        logManager.info(f"No user found for {str(authenticator_private_key)} and {str(authenticator_public_key)}")
         return None
 
     def checkUserAuthenticatorExists(self, authenticator_private_key, authenticator_public_key):
