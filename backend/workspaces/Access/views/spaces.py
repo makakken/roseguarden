@@ -25,27 +25,26 @@ from core.workspaces.dataView import DataView
 from core.nodes.models import Node
 from workspaces.Access.models import SpaceAccessSpace
 from core.users.models import User
+
 """ A view contaning a list of spaces
 """
 
 
 class SpacesList(DataView):
-
-    uri = 'spacesList'
+    uri = "spacesList"
     requireLogin = True
 
     def defineProperties(self):
-        self.addIntegerProperty(name='id', label='ID', isKey=True)
-        self.addStringProperty(name='name', label='Name')
-        self.addStringProperty(name='description', label='Description')
-        self.addMultiSelectProperty(name='entrance_nodes', label='Entrance node keys', selectables=[])
+        self.addIntegerProperty(name="id", label="ID", isKey=True)
+        self.addStringProperty(name="name", label="Name")
+        self.addStringProperty(name="description", label="Description")
+        self.addMultiSelectProperty(name="entrance_nodes", label="Entrance node keys", selectables=[])
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
         print("getDataViewHandler for SpacesList")
         entrylist = []
         all_spaces = SpaceAccessSpace.query.all()
         for s in all_spaces:
-
             # get new empty entry
             entry = self.createEntry()
 
@@ -61,12 +60,12 @@ class SpacesList(DataView):
         return entrylist
 
     def __repr__(self):
-        return '<{} with {} properties>'.format(self.name, len(self.properties))
+        return "<{} with {} properties>".format(self.name, len(self.properties))
 
     # Handler for a request to create a new view entry
     def createViewEntryHandler(self, user, workspace, entry):
         s = SpaceAccessSpace()
-        if hasattr(entry, 'name'):
+        if hasattr(entry, "name"):
             s.name = entry.name
         else:
             s.name = "New space"
@@ -86,13 +85,13 @@ class SpacesList(DataView):
         print("Handle updateViewEntryHandler request for " + self.uri)
         all_nodes = Node.query.all()
         s = SpaceAccessSpace.query.filter_by(id=key).first()
-        if hasattr(entry, 'name'):
+        if hasattr(entry, "name"):
             s.name = entry.name
-        if hasattr(entry, 'description'):
+        if hasattr(entry, "description"):
             s.description = entry.description
-        if hasattr(entry, 'entrance_nodes'):
+        if hasattr(entry, "entrance_nodes"):
             s.entrance_nodes.clear()
             for n in all_nodes:
-                if n.id in entry['entrance_nodes']:
+                if n.id in entry["entrance_nodes"]:
                     s.entrance_nodes.append(n)
         self.emitSyncUpdate(key)

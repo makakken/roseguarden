@@ -25,9 +25,11 @@ from core.logs import logManager
 
 
 class FileManager(object):
-    """ The FileManager ...
-    """
-    def __init__(self, ):
+    """The FileManager ..."""
+
+    def __init__(
+        self,
+    ):
         # preparation to instanciate
         self.config = None
         self.app = None
@@ -41,12 +43,13 @@ class FileManager(object):
         self.workspaceManager = workspaceManager
 
         from core.files.models import FileStorage
+
         self.filestorage = FileStorage
         self.upload_dir_path = None
 
-        if 'file_storage_path' in config['SYSTEM']:
-            if os.path.exists(config['SYSTEM']['file_storage_path']):
-                upload_dir_path = os.path.join(config['SYSTEM']['file_storage_path'], "uploads")
+        if "file_storage_path" in config["SYSTEM"]:
+            if os.path.exists(config["SYSTEM"]["file_storage_path"]):
+                upload_dir_path = os.path.join(config["SYSTEM"]["file_storage_path"], "uploads")
                 if not os.path.exists(upload_dir_path):
                     os.mkdir(upload_dir_path)
                 self.upload_dir_path = upload_dir_path

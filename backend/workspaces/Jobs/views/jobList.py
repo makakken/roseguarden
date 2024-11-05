@@ -24,33 +24,32 @@ from core.workspaces.workspace import Workspace
 from core.workspaces.dataView import DataView
 from core.jobs import jobManager
 from core.users.models import User
+
 """ A view contaning a list of permissions
 """
 
 
 class JobList(DataView):
-
-    uri = 'jobList'
+    uri = "jobList"
     requireLogin = True
 
     #    def __init__(self):
     #        super().__init__(name='PermissionList', uri ='permissionList')
 
     def defineProperties(self):
-        self.addStringProperty(name='id', label='ID', isKey=True)
-        self.addStringProperty(name='workspace', label='Workspace')
-        self.addStringProperty(name='name', label='Name')
-        self.addStringProperty(name='trigger', label='Triggered')
-        self.addStringProperty(name='log', label='Log')
-        self.addStringProperty(name='need_parameters', label='Parameters')
-        self.addStringProperty(name='description', label='Description')
+        self.addStringProperty(name="id", label="ID", isKey=True)
+        self.addStringProperty(name="workspace", label="Workspace")
+        self.addStringProperty(name="name", label="Name")
+        self.addStringProperty(name="trigger", label="Triggered")
+        self.addStringProperty(name="log", label="Log")
+        self.addStringProperty(name="need_parameters", label="Parameters")
+        self.addStringProperty(name="description", label="Description")
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
         print("getDataViewHandler for JobList")
         entrylist = []
         all_jobs = jobManager.get_jobs()
         for key, j in all_jobs.items():
-
             # get new empty entry
             entry = self.createEntry()
 
@@ -75,7 +74,7 @@ class JobList(DataView):
         return entrylist
 
     def __repr__(self):
-        return '<{} with {} properties>'.format(self.name, len(self.properties))
+        return "<{} with {} properties>".format(self.name, len(self.properties))
 
     # Handler for a request to create a new view entry
     def createViewEntryHandler(self, user, workspace, entry):

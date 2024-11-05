@@ -22,14 +22,12 @@ def copytree(src, dst, exclude=[], symlinks=False, ignore=None):
 
 
 hdr = {
-    'User-Agent':
-    'Mozilla/5.0 (X11; Linux x86_64) Chrome/23.0.1271.64 Safari/537.11',
-    'Accept':
-    'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-    'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3',
-    'Accept-Encoding': 'none',
-    'Accept-Language': 'en-US,en;q=0.8',
-    'Connection': 'keep-alive'
+    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) Chrome/23.0.1271.64 Safari/537.11",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.3",
+    "Accept-Encoding": "none",
+    "Accept-Language": "en-US,en;q=0.8",
+    "Connection": "keep-alive",
 }
 
 url = "https://gitlab.com/roseguarden/roseguarden/-/jobs/artifacts/master/download?job=pack"
@@ -50,14 +48,14 @@ if os.path.exists("roseguarden"):
     shutil.rmtree("roseguarden")
 
 try:
-    with open(package_name + ".zip", 'wb') as out_file:
+    with open(package_name + ".zip", "wb") as out_file:
         shutil.copyfileobj(response, out_file)
 except Exception as e:
     print("Failed to save latest package {}".format(str(e)))
     exit(1)
 
 try:
-    with zipfile.ZipFile(package_name + ".zip", 'r') as zip_ref:
+    with zipfile.ZipFile(package_name + ".zip", "r") as zip_ref:
         zip_ref.extractall(package_name)
 except Exception as e:
     print("Failed to unzip latest package {}".format(str(e)))
@@ -73,15 +71,11 @@ except Exception as e:
     exit(1)
 
 try:
-    copytree("backend/api", "roseguarden/api", exclude=['__pycache__'])
-    copytree("backend/core", "roseguarden/core", exclude=['__pycache__'])
-    copytree("backend/migrations",
-             "roseguarden/migrations",
-             exclude=['__pycache__'])
-    copytree("backend/tests", "roseguarden/tests", exclude=['__pycache__'])
-    copytree("backend/workspaces",
-             "roseguarden/workspaces",
-             exclude=['__pycache__'])
+    copytree("backend/api", "roseguarden/api", exclude=["__pycache__"])
+    copytree("backend/core", "roseguarden/core", exclude=["__pycache__"])
+    copytree("backend/migrations", "roseguarden/migrations", exclude=["__pycache__"])
+    copytree("backend/tests", "roseguarden/tests", exclude=["__pycache__"])
+    copytree("backend/workspaces", "roseguarden/workspaces", exclude=["__pycache__"])
     copyfile("backend/requirements.txt", "roseguarden/requirements.txt")
     copyfile("backend/setup.py", "roseguarden/setup.py")
     copyfile("backend/config.template", "roseguarden/config.template")
@@ -97,13 +91,15 @@ except Exception as e:
 if not os.path.exists("frontend/dist"):
     print("No frontend build found in 'frontend', try latest package")
     if os.path.exists("latest_package/roseguarden/client"):
-        copytree("latest_package/roseguarden/client",
-                 "roseguarden/client",
-                 exclude=['__pycache__'])
+        copytree(
+            "latest_package/roseguarden/client",
+            "roseguarden/client",
+            exclude=["__pycache__"],
+        )
     else:
         print("No frontend build found in 'frontend' nor in latest package")
         exit(1)
 else:
-    copytree("frontend/dist", "roseguarden/client", exclude=['__pycache__'])
+    copytree("frontend/dist", "roseguarden/client", exclude=["__pycache__"])
 
 print("finished")

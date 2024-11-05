@@ -26,10 +26,10 @@ from sqlalchemy_utils import ArrowType
 
 
 class Message(db.Model):
-    __tablename__ = 'messages'
+    __tablename__ = "messages"
     # nonvolatile data stored in the db
     id = db.Column(db.Integer, primary_key=True)
-    recipient_email = db.Column(db.String, db.ForeignKey('users.email'))
+    recipient_email = db.Column(db.String, db.ForeignKey("users.email"))
     recipient = db.relationship("User", backref=db.backref("messages", uselist=True))
     sender_name = db.Column(db.String(120), default="")
     subject = db.Column(db.String(120), default="")
@@ -38,5 +38,6 @@ class Message(db.Model):
     message_read = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
-        return '<Message from {} to {} with subject "{}" [{}] >'.format(self.sender_name, self.recipient_name,
-                                                                        self.subject, self.message_send_date)
+        return '<Message from {} to {} with subject "{}" [{}] >'.format(
+            self.sender_name, self.recipient_name, self.subject, self.message_send_date
+        )

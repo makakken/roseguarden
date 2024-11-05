@@ -22,9 +22,11 @@ __license__ = "GPLv3"
 
 
 class MenuBuilder(object):
-    """ The MenuBuilder ...
-    """
-    def __init__(self, ):
+    """The MenuBuilder ..."""
+
+    def __init__(
+        self,
+    ):
         # preparation to instanciate
         self.actionsMap = {}
 
@@ -36,56 +38,76 @@ class MenuBuilder(object):
 
     def makeHeader(self, name):
         header = {}
-        header['header'] = name
+        header["header"] = name
         return header
 
-    def makeDivider(self, ):
+    def makeDivider(
+        self,
+    ):
         divider = {}
-        divider['divider'] = True
+        divider["divider"] = True
         return divider
 
     def makeEntry(self, title, group, name, icon, path, external=False):
         entry = {}
-        entry['title'] = title
-        entry['group'] = group
-        entry['name'] = name
-        entry['icon'] = icon
-        entry['href'] = path
-        entry['external'] = external
+        entry["title"] = title
+        entry["group"] = group
+        entry["name"] = name
+        entry["icon"] = icon
+        entry["href"] = path
+        entry["external"] = external
         return entry
 
-    def buildGuestMenu(self, ):
+    def buildGuestMenu(
+        self,
+    ):
         print("buildGuestMenu")
         menu = []
-        menu.append(self.makeHeader('Roseguarden'))
-        menu.append(self.makeEntry('Home', 'app', 'Dashboard', 'dashboard', '/dashboard'))
+        menu.append(self.makeHeader("Roseguarden"))
+        menu.append(self.makeEntry("Home", "app", "Dashboard", "dashboard", "/dashboard"))
         menu.append(self.makeDivider())
         return menu
 
     def buildUserMenu(self, user):
         print("buildUserMenu")
         menu = self.buildGuestMenu()
-        menu.append(self.makeHeader('User'))
-        menu.append(self.makeEntry(title='Account', group='user', name='Account', icon='face', path='/user/account'))
+        menu.append(self.makeHeader("User"))
+        menu.append(
+            self.makeEntry(
+                title="Account",
+                group="user",
+                name="Account",
+                icon="face",
+                path="/user/account",
+            )
+        )
         menu.append(self.makeDivider())
         return menu
 
     def buildAdminMenu(self, user):
         print("buildAdminMenu")
         menu = self.buildUserMenu(user)
-        menu.append(self.makeHeader('Admin'))
-        menu.append(self.makeEntry('Users', 'admin', 'Users', 'supervisor_account', '/admin/users'))
-        menu.append(self.makeEntry('Permissions', 'admin', 'Permissions', 'verified_user', '/admin/permissions'))
+        menu.append(self.makeHeader("Admin"))
+        menu.append(self.makeEntry("Users", "admin", "Users", "supervisor_account", "/admin/users"))
+        menu.append(
+            self.makeEntry(
+                "Permissions",
+                "admin",
+                "Permissions",
+                "verified_user",
+                "/admin/permissions",
+            )
+        )
         # menu.append(self.makeEntry('Access cards'   , 'admin', 'Cards'       , 'credit_card', '/admin/cards'))
         # menu.append(self.makeEntry('Space access'   , 'admin', 'Access'      , 'lock', '/admin/access'))
         # menu.append(self.makeEntry('Nodes'          , 'admin', 'Nodes'       , 'adjust', '/admin/nodes'))
-        menu.append(self.makeEntry('Log', 'admin', 'Log', 'description', '/admin/log'))
+        menu.append(self.makeEntry("Log", "admin", "Log", "description", "/admin/log"))
 
         menu.append(self.makeDivider())
         return menu
 
     def checkUserPermissions(self, user, requirement, workspace):
-        key = workspace.name + '.' + requirement.name
+        key = workspace.name + "." + requirement.name
         for g in user.permission_groups:
             for p in g.permissions:
                 if key == p.name:
@@ -100,7 +122,7 @@ class MenuBuilder(object):
             if user.admin is True:
                 return True
             if page.requireAdmin is False:
-                if hasattr(page, 'requirePermission'):
+                if hasattr(page, "requirePermission"):
                     if page.requirePermission is None:
                         return True
                     else:
@@ -128,7 +150,7 @@ class MenuBuilder(object):
                             menu_groups[str(p.group)] = p.rank, []
                 else:
                     if self.hasPermission(user, p, w):
-                        menu_groups['_' + str(p.name)] = p.rank, [p]
+                        menu_groups["_" + str(p.name)] = p.rank, [p]
 
         sorted_menu_groups = sorted(menu_groups.items(), key=lambda x: x[1], reverse=True)
 
@@ -139,7 +161,15 @@ class MenuBuilder(object):
                 menu.append(self.makeHeader(str(group)))
                 for p in pagelist:
                     print(p)
-                    menu.append(self.makeEntry(title=p.title, group=p.group, name=p.name, icon=p.icon, path=p.route))
+                    menu.append(
+                        self.makeEntry(
+                            title=p.title,
+                            group=p.group,
+                            name=p.name,
+                            icon=p.icon,
+                            path=p.route,
+                        )
+                    )
                 menu.append(self.makeDivider())
         if len(menu) > 0:
             menu.pop()
@@ -147,7 +177,7 @@ class MenuBuilder(object):
         return menu
 
 
-'''
+"""
 EXAMPLE of menu structure
 [
   {header: 'roseguarden'},
@@ -183,4 +213,4 @@ EXAMPLE of menu structure
   }
 ];
 
-'''
+"""

@@ -23,7 +23,7 @@ __license__ = "GPLv3"
 from flask import Blueprint
 from core.files.fileManager import FileManager
 
-files_bp = Blueprint('files', __name__)
+files_bp = Blueprint("files", __name__)
 
 fileManager = FileManager()
 

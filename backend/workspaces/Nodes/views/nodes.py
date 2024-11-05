@@ -27,54 +27,61 @@ from core.users.models import User
 from core.nodes.models import Node
 from core.nodes.errors import AuthorizationError
 from core.nodes import nodeManager
+
 """ A view contaning a list of permission groups
 """
 
 
 class NodeList(DataView):
-
-    uri = 'nodeList'
+    uri = "nodeList"
     requireLogin = True
 
     def defineProperties(self):
-        self.addIntegerProperty(name='id', label='ID', isKey=True, hide=True)
-        self.addStringProperty(name='name', label='Name')
-        self.addBooleanProperty(name='active', label='Active', hide=True)
-        self.addStringProperty(name='status', label='Status')
-        self.addBooleanProperty(name='authorized', label='Authorized', hide=True)
-        self.addStringProperty(name='authorization_status', label='Authorization')
-        self.addStringProperty(name='fingerprint', label='Fingerprint')
-        self.addStringProperty(name='nodeclass', label='Class id')
-        self.addStringProperty(name='workspace', label='Workspace')
-        self.addDateProperty(name='last_request_datetime', label='Last request')
-        self.addActionProperty(name='revoke',
-                               label='Revoke',
-                               action='revoke',
-                               actionHandler=self.revoke,
-                               color="orange",
-                               icon='block')
-        self.addActionProperty(name='remove',
-                               label='Remove',
-                               action='remove',
-                               actionHandler=self.removeViewEntryHandler,
-                               icon='clear')
-        self.addActionProperty(name='requestAuthorization',
-                               label='',
-                               action='requestAuthorization',
-                               actionHandler=self.requestAuthorization,
-                               icon='')
-        self.addActionProperty(name='getIdentification',
-                               label='',
-                               action='getIdentification',
-                               actionHandler=self.getIdentification,
-                               icon='')
+        self.addIntegerProperty(name="id", label="ID", isKey=True, hide=True)
+        self.addStringProperty(name="name", label="Name")
+        self.addBooleanProperty(name="active", label="Active", hide=True)
+        self.addStringProperty(name="status", label="Status")
+        self.addBooleanProperty(name="authorized", label="Authorized", hide=True)
+        self.addStringProperty(name="authorization_status", label="Authorization")
+        self.addStringProperty(name="fingerprint", label="Fingerprint")
+        self.addStringProperty(name="nodeclass", label="Class id")
+        self.addStringProperty(name="workspace", label="Workspace")
+        self.addDateProperty(name="last_request_datetime", label="Last request")
+        self.addActionProperty(
+            name="revoke",
+            label="Revoke",
+            action="revoke",
+            actionHandler=self.revoke,
+            color="orange",
+            icon="block",
+        )
+        self.addActionProperty(
+            name="remove",
+            label="Remove",
+            action="remove",
+            actionHandler=self.removeViewEntryHandler,
+            icon="clear",
+        )
+        self.addActionProperty(
+            name="requestAuthorization",
+            label="",
+            action="requestAuthorization",
+            actionHandler=self.requestAuthorization,
+            icon="",
+        )
+        self.addActionProperty(
+            name="getIdentification",
+            label="",
+            action="getIdentification",
+            actionHandler=self.getIdentification,
+            icon="",
+        )
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
         print("getDataViewHandler for NodeList")
         entrylist = []
         all_nodes = Node.query.all()
         for n in all_nodes:
-
             # get new empty entry
             entry = self.createEntry()
 
@@ -97,7 +104,7 @@ class NodeList(DataView):
         return entrylist
 
     def __repr__(self):
-        return '<{} with {} properties>'.format(self.name, len(self.properties))
+        return "<{} with {} properties>".format(self.name, len(self.properties))
 
     def getSettings(self, user, workspace, action, entrykey):
         pass
@@ -110,20 +117,20 @@ class NodeList(DataView):
     def requestAuthorization(self, user, workspace, action, entrykey):
         n = Node.query.filter_by(id=entrykey).first()
         try:
-            nodeManager.handle_authorization_request(n, action['entry']['authentification'])
+            nodeManager.handle_authorization_request(n, action["entry"]["authentification"])
         except AuthorizationError as e:
-            return {'succeed': False, 'message': str(e)}
+            return {"succeed": False, "message": str(e)}
 
         self.emitSyncUpdate(entrykey)
-        return {'succeed': True, 'message': "Authorization successful"}
+        return {"succeed": True, "message": "Authorization successful"}
 
     def getIdentification(self, user, workspace, action, entrykey):
         ident_json = {}
         n = Node.query.filter_by(id=entrykey).first()
-        ident_json['fingerprint'] = n.fingerprint
-        ident_json['classid'] = n.class_id
-        ident_json['workspace'] = n.class_workspace
-        ident_json['identification'] = json.dumps(n.identification, indent=1)
+        ident_json["fingerprint"] = n.fingerprint
+        ident_json["classid"] = n.class_id
+        ident_json["workspace"] = n.class_workspace
+        ident_json["identification"] = json.dumps(n.identification, indent=1)
         return ident_json
 
     # Handler for a request to create a new view entry

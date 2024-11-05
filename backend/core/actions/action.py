@@ -23,7 +23,7 @@ __license__ = "GPLv3"
 
 class Action(object):
     """Base class that each action for every workspace have to inherit from.
-       The class define methods that all action must implement by the plugin
+    The class define methods that all action must implement by the plugin
     """
 
     disable = False
@@ -35,12 +35,10 @@ class Action(object):
             self.uri = uri
 
     def handle(self, action, user, workspace, actionManager):
-        """ Action handler method
-        """
+        """Action handler method"""
         raise NotImplementedError
 
     @staticmethod
     def generate(**kwargs):
-        """ Action generator method
-        """
+        """Action generator method"""
         raise NotImplementedError

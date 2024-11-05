@@ -24,39 +24,38 @@ from core.workspaces.workspace import Workspace
 from core.workspaces.dataView import DataView
 from core.nodes.models import NodeLog
 from core.users.models import User
+
 """ A view contaning a list of node logs
 """
 
 
 class NodeLogs(DataView):
-
-    uri = 'nodeLogs'
+    uri = "nodeLogs"
     requireLogin = True
 
     #    def __init__(self):
     #        super().__init__(name='PermissionList', uri ='permissionList')
 
     def defineProperties(self):
-        self.addIntegerProperty(name='id', label='ID', isKey=True)
-        self.addStringProperty(name='date', label='Date')
-        self.addStringProperty(name='node', label='Node')
-        self.addStringProperty(name='node_actions', label='Node actions')
-        self.addIntegerProperty(name='node_uptime', label='Node uptime [s]')
-        self.addIntegerProperty(name='node_logcounter', label='Node logs')
-        self.addIntegerProperty(name='node_errorcounter', label='Node errors')
+        self.addIntegerProperty(name="id", label="ID", isKey=True)
+        self.addStringProperty(name="date", label="Date")
+        self.addStringProperty(name="node", label="Node")
+        self.addStringProperty(name="node_actions", label="Node actions")
+        self.addIntegerProperty(name="node_uptime", label="Node uptime [s]")
+        self.addIntegerProperty(name="node_logcounter", label="Node logs")
+        self.addIntegerProperty(name="node_errorcounter", label="Node errors")
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
         print("getDataViewHandler for NodeLogs")
         entrylist = []
         all_logs = NodeLog.query.all()
         for lg in all_logs:
-
             # get new empty entry
             entry = self.createEntry()
 
             # fill entry
             entry.id = lg.id
-            entry.node = lg.node_name + ' (' + lg.request_source + ')'
+            entry.node = lg.node_name + " (" + lg.request_source + ")"
             entry.date = lg.request_date.format()
             entry.node_actions = lg.request_actions
             entry.node_uptime = lg.node_uptime
@@ -67,7 +66,7 @@ class NodeLogs(DataView):
         return entrylist
 
     def __repr__(self):
-        return '<{} with {} properties>'.format(self.name, len(self.properties))
+        return "<{} with {} properties>".format(self.name, len(self.properties))
 
     # Handler for a request to create a new view entry
     def createViewEntryHandler(self, user, workspace, entry):

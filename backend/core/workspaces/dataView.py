@@ -25,14 +25,14 @@ from core.common.objDict import ObjDict
 
 
 class DataView(object):
-    """Build up data-views
-    """
+    """Build up data-views"""
+
     disable = False
     requireLogin = True
     requirePermission = None  # a permission is required in the meaning of one of the following
 
     def __init__(self, name=None, uri=None):
-        self.description = 'UNKNOWN'
+        self.description = "UNKNOWN"
         if name is None:
             self.name = type(self).__name__
         else:
@@ -57,42 +57,42 @@ class DataView(object):
         return ObjDict(self.metaDataList.copy())
 
     def addMailMeta(self, name, label="", group=None, description=""):
-        meta = {'name': name, 'label': label, 'type': 'email'}
+        meta = {"name": name, "label": label, "type": "email"}
         self.metaDataList[name] = None
         self.metadata.append(meta)
 
     def addStringMeta(self, name, label="", group=None, description=""):
-        meta = {'name': name, 'label': label, 'type': 'string'}
+        meta = {"name": name, "label": label, "type": "string"}
         self.metaDataList[name] = None
         self.metadata.append(meta)
 
     def addIntegerMeta(self, name, label="", group=None, description=""):
-        meta = {'name': name, 'label': label, 'type': 'integer'}
+        meta = {"name": name, "label": label, "type": "integer"}
         self.metaDataList[name] = None
         self.metadata.append(meta)
 
     def addDoubleMeta(self, name, label="", group=None, description=""):
-        meta = {'name': name, 'label': label, 'type': 'double'}
+        meta = {"name": name, "label": label, "type": "double"}
         self.metaDataList[name] = None
         self.metadata.append(meta)
 
     def addBooleanMeta(self, name, label="", group=None, description=""):
-        meta = {'name': name, 'label': label, 'type': 'boolean'}
+        meta = {"name": name, "label": label, "type": "boolean"}
         self.metaDataList[name] = None
         self.metadata.append(meta)
 
     def addTimeMeta(self, name, label="", group=None, description=""):
-        meta = {'name': name, 'label': label, 'type': 'time'}
+        meta = {"name": name, "label": label, "type": "time"}
         self.metaDataList[name] = None
         self.metadata.append(meta)
 
     def addDateMeta(self, name, label="", group=None, description=""):
-        meta = {'name': name, 'label': label, 'type': 'date'}
+        meta = {"name": name, "label": label, "type": "date"}
         self.metaDataList[name] = None
         self.metadata.append(meta)
 
     def addDatetimeMeta(self, name, label="", group=None, description=""):
-        meta = {'name': name, 'label': label, 'type': 'datetime'}
+        meta = {"name": name, "label": label, "type": "datetime"}
         self.metaDataList[name] = None
         self.metadata.append(meta)
 
@@ -103,294 +103,346 @@ class DataView(object):
         properties = []
         for p in self.properties:
             pn = copy.copy(p)
-            if pn['type'] == 'multiselect' or pn['type'] == 'select':
+            if pn["type"] == "multiselect" or pn["type"] == "select":
                 try:
-                    if callable(p['selection']):
-                        pn['selection'] = p['selection']()
+                    if callable(p["selection"]):
+                        pn["selection"] = p["selection"]()
                     else:
-                        pn['selection'] = p['selection']
+                        pn["selection"] = p["selection"]
                 except Exception as e:
                     raise e
             properties.append(pn)
         return properties
 
-    def addMailProperty(self,
-                        name,
-                        label="",
-                        group=None,
-                        updateHandler=None,
-                        isKey=False,
-                        readOnly=True,
-                        description=""):
-        prop = {'name': name, 'label': label, 'type': 'email'}
+    def addMailProperty(
+        self,
+        name,
+        label="",
+        group=None,
+        updateHandler=None,
+        isKey=False,
+        readOnly=True,
+        description="",
+    ):
+        prop = {"name": name, "label": label, "type": "email"}
         if isKey is True:
-            prop['isKey'] = True
+            prop["isKey"] = True
             if self.entrykey is not None:
-                raise KeyError("DataView '{}' already have a key ({}) and cant be overridden with {}".format(
-                    self.name, self.entrykey, name))
+                raise KeyError(
+                    "DataView '{}' already have a key ({}) and cant be overridden with {}".format(
+                        self.name, self.entrykey, name
+                    )
+                )
             self.entrykey = name
 
-        prop['readOnly'] = readOnly
-        prop['group'] = group
-        prop['description'] = description
+        prop["readOnly"] = readOnly
+        prop["group"] = group
+        prop["description"] = description
         self.dataUpdateHandler[str(name)] = updateHandler
         self.properties.append(prop)
         self.entryPropList[name] = None
 
-    def addStringProperty(self,
-                          name,
-                          label="",
-                          group=None,
-                          updateHandler=None,
-                          isKey=False,
-                          readOnly=True,
-                          description="",
-                          hide=False):
-        prop = {'name': name, 'label': label, 'type': 'string'}
+    def addStringProperty(
+        self,
+        name,
+        label="",
+        group=None,
+        updateHandler=None,
+        isKey=False,
+        readOnly=True,
+        description="",
+        hide=False,
+    ):
+        prop = {"name": name, "label": label, "type": "string"}
         if isKey is True:
-            prop['isKey'] = True
+            prop["isKey"] = True
             if self.entrykey is not None:
-                raise KeyError("DataView '{}' already have a key ({}) and cant be overridden with {}".format(
-                    self.name, self.entrykey, name))
+                raise KeyError(
+                    "DataView '{}' already have a key ({}) and cant be overridden with {}".format(
+                        self.name, self.entrykey, name
+                    )
+                )
             self.entrykey = name
-        prop['readOnly'] = readOnly
-        prop['group'] = group
-        prop['hide'] = hide
-        prop['description'] = description
+        prop["readOnly"] = readOnly
+        prop["group"] = group
+        prop["hide"] = hide
+        prop["description"] = description
         self.dataUpdateHandler[str(name)] = updateHandler
         self.properties.append(prop)
         self.entryPropList[name] = None
 
-    def addDoubleProperty(self,
-                          name,
-                          label="",
-                          group=None,
-                          updateHandler=None,
-                          isKey=False,
-                          readOnly=True,
-                          description=""):
-        prop = {'name': name, 'label': label, 'type': 'double'}
+    def addDoubleProperty(
+        self,
+        name,
+        label="",
+        group=None,
+        updateHandler=None,
+        isKey=False,
+        readOnly=True,
+        description="",
+    ):
+        prop = {"name": name, "label": label, "type": "double"}
         if isKey is True:
-            prop['isKey'] = True
+            prop["isKey"] = True
             if self.entrykey is not None:
-                raise KeyError("DataView '{}' already have a key ({}) and cant be overridden with {}".format(
-                    self.name, self.entrykey, name))
+                raise KeyError(
+                    "DataView '{}' already have a key ({}) and cant be overridden with {}".format(
+                        self.name, self.entrykey, name
+                    )
+                )
             self.entrykey = name
-        prop['readOnly'] = readOnly
-        prop['group'] = group
-        prop['description'] = description
+        prop["readOnly"] = readOnly
+        prop["group"] = group
+        prop["description"] = description
         self.dataUpdateHandler[str(name)] = updateHandler
         self.properties.append(prop)
         self.entryPropList[name] = None
 
-    def addIntegerProperty(self,
-                           name,
-                           label="",
-                           group=None,
-                           updateHandler=None,
-                           isKey=False,
-                           readOnly=True,
-                           description="",
-                           hide=False):
-        prop = {'name': name, 'label': label, 'type': 'integer'}
+    def addIntegerProperty(
+        self,
+        name,
+        label="",
+        group=None,
+        updateHandler=None,
+        isKey=False,
+        readOnly=True,
+        description="",
+        hide=False,
+    ):
+        prop = {"name": name, "label": label, "type": "integer"}
         if isKey is True:
-            prop['isKey'] = True
+            prop["isKey"] = True
             if self.entrykey is not None:
-                raise KeyError("DataView '{}' already have a key ({}) and cant be overridden with {}".format(
-                    self.name, self.entrykey, name))
+                raise KeyError(
+                    "DataView '{}' already have a key ({}) and cant be overridden with {}".format(
+                        self.name, self.entrykey, name
+                    )
+                )
             self.entrykey = name
-        prop['hide'] = hide
-        prop['readOnly'] = readOnly
-        prop['group'] = group
-        prop['description'] = description
+        prop["hide"] = hide
+        prop["readOnly"] = readOnly
+        prop["group"] = group
+        prop["description"] = description
         self.dataUpdateHandler[str(name)] = updateHandler
         self.properties.append(prop)
         self.entryPropList[name] = None
 
-    def addDatetimeProperty(self,
-                            name,
-                            label="",
-                            group=None,
-                            updateHandler=None,
-                            isKey=False,
-                            readOnly=True,
-                            description=""):
-        prop = {'name': name, 'label': label, 'type': 'datetime'}
+    def addDatetimeProperty(
+        self,
+        name,
+        label="",
+        group=None,
+        updateHandler=None,
+        isKey=False,
+        readOnly=True,
+        description="",
+    ):
+        prop = {"name": name, "label": label, "type": "datetime"}
         if isKey is True:
-            prop['isKey'] = True
+            prop["isKey"] = True
             if self.entrykey is not None:
-                raise KeyError("DataView '{}' already have a key ({}) and cant be overridden with {}".format(
-                    self.name, self.entrykey, name))
+                raise KeyError(
+                    "DataView '{}' already have a key ({}) and cant be overridden with {}".format(
+                        self.name, self.entrykey, name
+                    )
+                )
             self.entrykey = name
-        prop['readOnly'] = readOnly
-        prop['group'] = group
-        prop['description'] = description
+        prop["readOnly"] = readOnly
+        prop["group"] = group
+        prop["description"] = description
         self.dataUpdateHandler[str(name)] = updateHandler
         self.properties.append(prop)
         self.entryPropList[name] = None
 
-    def addTimeProperty(self,
-                        name,
-                        label="",
-                        group=None,
-                        updateHandler=None,
-                        isKey=False,
-                        readOnly=True,
-                        description=""):
-        prop = {'name': name, 'label': label, 'type': 'time'}
+    def addTimeProperty(
+        self,
+        name,
+        label="",
+        group=None,
+        updateHandler=None,
+        isKey=False,
+        readOnly=True,
+        description="",
+    ):
+        prop = {"name": name, "label": label, "type": "time"}
         if isKey is True:
-            prop['isKey'] = True
+            prop["isKey"] = True
             if self.entrykey is not None:
-                raise KeyError("DataView '{}' already have a key ({}) and cant be overridden with {}".format(
-                    self.name, self.entrykey, name))
+                raise KeyError(
+                    "DataView '{}' already have a key ({}) and cant be overridden with {}".format(
+                        self.name, self.entrykey, name
+                    )
+                )
             self.entrykey = name
-        prop['readOnly'] = readOnly
-        prop['group'] = group
-        prop['description'] = description
+        prop["readOnly"] = readOnly
+        prop["group"] = group
+        prop["description"] = description
         self.dataUpdateHandler[str(name)] = updateHandler
         self.properties.append(prop)
         self.entryPropList[name] = None
 
-    def addDateProperty(self,
-                        name,
-                        label="",
-                        group=None,
-                        updateHandler=None,
-                        isKey=False,
-                        readOnly=True,
-                        description=""):
-        prop = {'name': name, 'label': label, 'type': 'date'}
+    def addDateProperty(
+        self,
+        name,
+        label="",
+        group=None,
+        updateHandler=None,
+        isKey=False,
+        readOnly=True,
+        description="",
+    ):
+        prop = {"name": name, "label": label, "type": "date"}
         if isKey is True:
-            prop['isKey'] = True
+            prop["isKey"] = True
             if self.entrykey is not None:
-                raise KeyError("DataView '{}' already have a key ({}) and cant be overridden with {}".format(
-                    self.name, self.entrykey, name))
+                raise KeyError(
+                    "DataView '{}' already have a key ({}) and cant be overridden with {}".format(
+                        self.name, self.entrykey, name
+                    )
+                )
             self.entrykey = name
-        prop['readOnly'] = readOnly
-        prop['group'] = group
-        prop['description'] = description
+        prop["readOnly"] = readOnly
+        prop["group"] = group
+        prop["description"] = description
         self.dataUpdateHandler[str(name)] = updateHandler
         self.properties.append(prop)
         self.entryPropList[name] = None
 
-    def addBooleanProperty(self,
-                           name,
-                           label="",
-                           group=None,
-                           updateHandler=None,
-                           isKey=False,
-                           readOnly=True,
-                           description="",
-                           hide=False):
-        prop = {'name': name, 'label': label, 'type': 'boolean'}
+    def addBooleanProperty(
+        self,
+        name,
+        label="",
+        group=None,
+        updateHandler=None,
+        isKey=False,
+        readOnly=True,
+        description="",
+        hide=False,
+    ):
+        prop = {"name": name, "label": label, "type": "boolean"}
         if isKey is True:
-            prop['isKey'] = True
+            prop["isKey"] = True
             if self.entrykey is not None:
-                raise KeyError("DataView '{}' already have a key ({}) and cant be overridden with {}".format(
-                    self.name, self.entrykey, name))
+                raise KeyError(
+                    "DataView '{}' already have a key ({}) and cant be overridden with {}".format(
+                        self.name, self.entrykey, name
+                    )
+                )
             self.entrykey = name
-        prop['readOnly'] = readOnly
-        prop['group'] = group
-        prop['hide'] = hide
-        prop['description'] = description
+        prop["readOnly"] = readOnly
+        prop["group"] = group
+        prop["hide"] = hide
+        prop["description"] = description
         self.dataUpdateHandler[str(name)] = updateHandler
         self.properties.append(prop)
         self.entryPropList[name] = None
 
-    def addSelectProperty(self,
-                          name,
-                          selectables,
-                          label="",
-                          group=None,
-                          updateHandler=None,
-                          isKey=False,
-                          readOnly=True,
-                          description=""):
-        prop = {'name': name, 'label': label, 'type': 'select'}
+    def addSelectProperty(
+        self,
+        name,
+        selectables,
+        label="",
+        group=None,
+        updateHandler=None,
+        isKey=False,
+        readOnly=True,
+        description="",
+    ):
+        prop = {"name": name, "label": label, "type": "select"}
         if isKey is True:
-            prop['isKey'] = True
+            prop["isKey"] = True
             if self.entrykey is not None:
-                raise KeyError("DataView '{}' already have a key ({}) and cant be overridden with {}".format(
-                    self.name, self.entrykey, name))
+                raise KeyError(
+                    "DataView '{}' already have a key ({}) and cant be overridden with {}".format(
+                        self.name, self.entrykey, name
+                    )
+                )
             self.entrykey = name
-        prop['readOnly'] = readOnly
-        prop['selection'] = selectables
-        prop['group'] = group
-        prop['description'] = description
+        prop["readOnly"] = readOnly
+        prop["selection"] = selectables
+        prop["group"] = group
+        prop["description"] = description
         self.dataUpdateHandler[str(name)] = updateHandler
         self.properties.append(prop)
         self.entryPropList[name] = None
 
-    def addMultiSelectProperty(self,
-                               name,
-                               selectables,
-                               label="",
-                               group=None,
-                               updateHandler=None,
-                               isKey=False,
-                               readOnly=True,
-                               description=""):
-        prop = {'name': name, 'label': label, 'type': 'multiselect'}
+    def addMultiSelectProperty(
+        self,
+        name,
+        selectables,
+        label="",
+        group=None,
+        updateHandler=None,
+        isKey=False,
+        readOnly=True,
+        description="",
+    ):
+        prop = {"name": name, "label": label, "type": "multiselect"}
         if isKey is True:
-            prop['isKey'] = True
+            prop["isKey"] = True
             if self.entrykey is not None:
-                raise KeyError("DataView '{}' already have a key ({}) and cant be overridden with {}".format(
-                    self.name, self.entrykey, name))
+                raise KeyError(
+                    "DataView '{}' already have a key ({}) and cant be overridden with {}".format(
+                        self.name, self.entrykey, name
+                    )
+                )
             self.entrykey = name
-        prop['readOnly'] = readOnly
-        prop['selection'] = selectables
-        prop['group'] = group
-        prop['description'] = description
+        prop["readOnly"] = readOnly
+        prop["selection"] = selectables
+        prop["group"] = group
+        prop["description"] = description
         self.dataUpdateHandler[str(name)] = updateHandler
         self.properties.append(prop)
         self.entryPropList[name] = None
 
-    def addActionProperty(self,
-                          name,
-                          label,
-                          action,
-                          icon,
-                          actionHandler=None,
-                          isKey=False,
-                          readOnly=True,
-                          color='red',
-                          description=""):
-        prop = {'name': name, 'label': label, 'type': 'action'}
-        prop['isKey'] = False
-        prop['icon'] = icon
-        prop['color'] = color
-        prop['action'] = action
-        prop['description'] = description
+    def addActionProperty(
+        self,
+        name,
+        label,
+        action,
+        icon,
+        actionHandler=None,
+        isKey=False,
+        readOnly=True,
+        color="red",
+        description="",
+    ):
+        prop = {"name": name, "label": label, "type": "action"}
+        prop["isKey"] = False
+        prop["icon"] = icon
+        prop["color"] = color
+        prop["action"] = action
+        prop["description"] = description
         self.dataAction[str(action)] = actionHandler
         self.properties.append(prop)
         self.entryPropList[name] = None
 
     def addRemoveEntryOption(self, name, label):
-        prop = {'name': name, 'label': label, 'type': 'remove'}
-        prop['isKey'] = False
-        prop['icon'] = 'delete'
+        prop = {"name": name, "label": label, "type": "remove"}
+        prop["isKey"] = False
+        prop["icon"] = "delete"
         self.properties.append(prop)
 
     def emitUpdate(self, key, property, value):
-        self.dataUpdates.append({'key': key, 'property': property, 'value': value, 'view': self.uri})
+        self.dataUpdates.append({"key": key, "property": property, "value": value, "view": self.uri})
 
     def emitSyncUpdate(self, key, view=None, workspace=None):
         if view is None:
             view = self.uri
 
-        self.dataSyncs.append({'type': 'update', 'key': key, 'view': view, 'workspace': workspace})
+        self.dataSyncs.append({"type": "update", "key": key, "view": view, "workspace": workspace})
 
     def emitSyncRemove(self, key, view=None, workspace=None):
         if view is None:
             view = self.uri
 
-        self.dataSyncs.append({'type': 'remove', 'key': key, 'view': view, 'workspace': workspace})
+        self.dataSyncs.append({"type": "remove", "key": key, "view": view, "workspace": workspace})
 
     def emitSyncCreate(self, key, view=None, workspace=None):
         if view is None:
             view = self.name
 
-        self.dataSyncs.append({'type': 'create', 'key': key, 'view': view, 'workspace': workspace})
+        self.dataSyncs.append({"type": "create", "key": key, "view": view, "workspace": workspace})
 
     # Handler for getting the freshly build view
     def getViewHandler(self, user, workspace, query=None):

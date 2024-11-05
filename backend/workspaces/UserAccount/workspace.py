@@ -21,10 +21,11 @@ __credits__ = []
 __license__ = "GPLv3"
 
 from core.workspaces.workspace import Workspace
+
 """This plugin handle the user account
 """
 
 
 class UserAccount(Workspace):
-    uri = 'account'
-    description = 'User account workspace'
+    uri = "account"
+    description = "User account workspace"

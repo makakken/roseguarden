@@ -24,12 +24,16 @@ from core.users import auth_bp
 from flask import jsonify, request
 from pprint import pprint
 
-from flask_jwt_extended import (create_access_token, jwt_refresh_token_required,
-                                get_jwt_identity, set_access_cookies,
-                                unset_jwt_cookies)
+from flask_jwt_extended import (
+    create_access_token,
+    jwt_refresh_token_required,
+    get_jwt_identity,
+    set_access_cookies,
+    unset_jwt_cookies,
+)
 
 
-@auth_bp.route('/activate', methods=['POST'])
+@auth_bp.route("/activate", methods=["POST"])
 def activate():
     return "Activate", 200
 
@@ -37,12 +41,11 @@ def activate():
 # With JWT_COOKIE_CSRF_PROTECT set to True, set_access_cookies() and
 # set_refresh_cookies() will now also set the non-httponly CSRF cookies
 # as well
-@auth_bp.route('/login', methods=['POST'])
+@auth_bp.route("/login", methods=["POST"])
 def login():
-
     # not used add the moment
     pprint(request.json, indent=4)
-    return jsonify({'login': False}), 401
+    return jsonify({"login": False}), 401
 
     # username = request.json.get('username', None)
     # password = request.json.get('password', None)
@@ -61,7 +64,7 @@ def login():
     # return resp, 200
 
 
-@auth_bp.route('/login/refresh', methods=['POST'])
+@auth_bp.route("/login/refresh", methods=["POST"])
 @jwt_refresh_token_required
 def refresh():
     # Create the new access token
@@ -70,7 +73,7 @@ def refresh():
 
     # Set the access JWT and CSRF double submit protection cookies
     # in this response
-    resp = jsonify({'refresh': True})
+    resp = jsonify({"refresh": True})
     set_access_cookies(resp, access_token)
     return resp, 200
 
@@ -80,8 +83,8 @@ def refresh():
 # We need the backend to send us a response to delete the cookies
 # in order to logout. unset_jwt_cookies is a helper function to
 # do just that.
-@auth_bp.route('/logout', methods=['POST'])
+@auth_bp.route("/logout", methods=["POST"])
 def logout():
-    resp = jsonify({'logout': True})
+    resp = jsonify({"logout": True})
     unset_jwt_cookies(resp)
     return resp, 200

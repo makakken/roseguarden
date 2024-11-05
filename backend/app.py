@@ -24,14 +24,14 @@ from core import create_app, db
 from devEnv import create_devEnv
 from core.nodes import nodeManager
 
-app = create_app()
+app, is_database_new = create_app()
 
 print()
 print(app.url_map)
 
 with app.app_context():
-    nodeManager.init_nodes()
-    create_devEnv(app, db)
+    if is_database_new:
+        create_devEnv(app, db)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run()

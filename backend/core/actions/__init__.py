@@ -23,20 +23,29 @@ __license__ = "GPLv3"
 from flask import Blueprint
 from core.actions.actionManager import ActionManager
 
-actions_bp = Blueprint('actions', __name__)
+actions_bp = Blueprint("actions", __name__)
 
 actionManager = ActionManager()
 
 
-def generateActionLink(workspace,
-                       action_uri,
-                       action_params,
-                       redirect_to="",
-                       once=True,
-                       need_login=True,
-                       expire_hours=24):
-    return actionManager.createActionLink(workspace, action_uri, action_params, redirect_to, once, need_login,
-                                          expire_hours)
+def generateActionLink(
+    workspace,
+    action_uri,
+    action_params,
+    redirect_to="",
+    once=True,
+    need_login=True,
+    expire_hours=24,
+):
+    return actionManager.createActionLink(
+        workspace,
+        action_uri,
+        action_params,
+        redirect_to,
+        once,
+        need_login,
+        expire_hours,
+    )
 
 
 def executeActionLink(hash, user):

@@ -26,13 +26,14 @@ import traceback
 import os
 import pkgutil
 from core.workspaces.workspace import Workspace
+from core.workspaces.commands import roseguarden_cli
 from core.workspaces.workspaceHooks import WorkspaceHooks
 from core.logs import logManager
 
 
 class WorkspaceManager(object):
-    """ The WorkspaceManager holds all available workspaces and load them while creation.
-    """
+    """The WorkspaceManager holds all available workspaces and load them while creation."""
+
     def __init__(self, workspaceSource):
         self.workspaceSource = workspaceSource
 
@@ -44,6 +45,8 @@ class WorkspaceManager(object):
             self.registerWorkspacePlugins()
             self.registerWorkspacePermissions()
             logManager.info("Workspaces initialized")
+            self.register_command_line_client()
+            logManager.info("Command line client initialized")
 
     def getWorkspace(self, name):
         for w in self.workspaces:
@@ -59,7 +62,7 @@ class WorkspaceManager(object):
                 if hook == WorkspaceHooks.REMOVEUSER:
                     w.removeUserHook(**kwargs)
             except Exception as e:
-                logManager.error('Failed to run hook {} on {} with {}'.format(hook, w.name, e))
+                logManager.error("Failed to run hook {} on {} with {}".format(hook, w.name, e))
 
     def reloadWorkspaces(self):
         """Reset the list of all plugins and initiate the walk over the main
@@ -68,26 +71,25 @@ class WorkspaceManager(object):
         self.workspaces = []
         self.seen_paths = []
         logManager.info("")
-        logManager.info(f'Discover workspaces in path : {self.workspaceSource}')
+        logManager.info(f"Discover workspaces in path : {self.workspaceSource}")
         self.discoverWorkspaces(self.workspaceSource)
 
     def registerWorkspacePermissions(self):
-        """ Run createPermissions for all workspaces and store permissions
-        """
+        """Run createPermissions for all workspaces and store permissions"""
         logManager.info("")
         all_permissions = {}
         for ws in self.workspaces:
-
             workspace_permissions = ws.permissions
             if workspace_permissions is not None:
                 all_permissions = {**all_permissions, **workspace_permissions}
-            logManager.info(f'Register permissions for {ws.name}-workspace : {workspace_permissions}')
+            logManager.info(f"Register permissions for {ws.name}-workspace : {workspace_permissions}")
 
-        logManager.info(f'Delete orphaned permissions for {ws.name}-workspace')
+        logManager.info(f"Delete orphaned permissions for {ws.name}-workspace")
 
         # delete orphaned permissions for security reasons
         from .models import Permission
         from core import db
+
         engine = db.get_engine()
         table_exists = engine.dialect.has_table(engine, Permission.__tablename__)
         if table_exists:
@@ -98,15 +100,24 @@ class WorkspaceManager(object):
                     self.db.session.delete(permission)
                     self.db.session.commit()
 
+    def register_command_line_client(self):
+        self.app.cli.add_command(roseguarden_cli)
+
     def registerWorkspacePlugins(self):
-        """Recursively walk the supplied package to retrieve components for all plugins (workspaces)
-        """
+        """Recursively walk the supplied package to retrieve components for all plugins (workspaces)"""
         logManager.info("")
         logManager.info("Register components from workspaces:")
         logManager.info("")
 
         for w in self.workspaces:
             logManager.info(f'Workspace: "{w.name}"')
+
+            # try to discover commands
+            try:
+                w.discoverCommands(self.workspaceSource)
+            except Exception as e:
+                traceback.print_exc(file=sys.stdout)
+                logManager.error(f'Workspace "{w.name}" unable to discover commands  ({str(type(e).__name__)}:{e})')
 
             # try to register permissions
             try:
@@ -147,11 +158,10 @@ class WorkspaceManager(object):
             try:
                 w.discoverNodeClasses(self.workspaceSource)
             except ModuleNotFoundError:
-                logManager.info(f'No node classes discover for "{w.name}"')
+                logManager.info(f'No node classes discovered for "{w.name}"')
             except Exception as e:
                 traceback.print_exc(file=sys.stdout)
-                logManager.error(
-                    f'Workspace "{w.name}" unable to discover node classes  ({str(type(e).__name__)}:{e})')
+                logManager.error(f'Workspace "{w.name}" unable to discover node classes  ({str(type(e).__name__)}:{e})')
 
             # try to register permissions
             try:
@@ -164,7 +174,7 @@ class WorkspaceManager(object):
 
     def discoverModels(self):
         source = self.workspaceSource
-        imported_source = __import__(source, fromlist=['blah'])
+        imported_source = __import__(source, fromlist=["blah"])
         all_current_paths = []
 
         # all_current_paths.append(imported_source.__path__._path)
@@ -183,17 +193,16 @@ class WorkspaceManager(object):
 
             for child_pkg in child_pkgs:
                 try:
-                    __import__(source + '.' + child_pkg + '.models', fromlist=['blah'])
+                    __import__(source + "." + child_pkg + ".models", fromlist=["blah"])
                 except ModuleNotFoundError:
-                    modelmodule = source + '.' + child_pkg + '.models'
-                    logManager.info(f'No model found for {modelmodule}')
+                    modelmodule = source + "." + child_pkg + ".models"
+                    logManager.info(f"No model found for {modelmodule}")
                 print(child_pkg)
         print("Finished")
 
     def discoverWorkspaces(self, source):
-        """Recursively walk the supplied package to retrieve all plugins (workspaces)
-        """
-        imported_source = __import__(source, fromlist=['blah'])
+        """Recursively walk the supplied package to retrieve all plugins (workspaces)"""
+        imported_source = __import__(source, fromlist=["blah"])
         all_current_paths = []
 
         # all_current_paths.append(imported_source.__path__._path)
@@ -212,42 +221,50 @@ class WorkspaceManager(object):
 
             # Every sub directory contains one workspace
             for child_pkg in child_pkgs:
-                imported_package = __import__(source + '.' + child_pkg, fromlist=['blah'])
-                for _, workspacename, ispkg in pkgutil.iter_modules(imported_package.__path__,
-                                                                    imported_package.__name__ + '.'):
+                imported_package = __import__(source + "." + child_pkg, fromlist=["blah"])
+                for _, workspacename, ispkg in pkgutil.iter_modules(
+                    imported_package.__path__, imported_package.__name__ + "."
+                ):
                     workspaceCounter = 0
                     if not ispkg:
-                        workspace_module = __import__(workspacename, fromlist=['blah'])
+                        workspace_module = __import__(workspacename, fromlist=["blah"])
                         clsmembers = inspect.getmembers(workspace_module, inspect.isclass)
 
-                        for (_, c) in clsmembers:
+                        for _, c in clsmembers:
                             # Check for workspace classes
                             if issubclass(c, Workspace) & (c is not Workspace):
                                 workspaceCounter += 1
                                 if workspaceCounter > 1:
                                     logManager.error(
-                                        'Only one workspace is allowed for one folder, other workspaces will skipped')
+                                        "Only one workspace is allowed for one folder, other workspaces will skipped"
+                                    )
                                     break
 
                                 uri = ""
-                                if hasattr(c, 'uri'):
+                                if hasattr(c, "uri"):
                                     uri = c.uri
                                 else:
                                     logManager.error(
-                                        f'No uri defined and will not be accessable for workspace: {c.__module__}')
+                                        f"No uri defined and will not be accessable for workspace: {c.__module__}"
+                                    )
 
                                 name = c.__name__
-                                if hasattr(c, 'name'):
+                                if hasattr(c, "name"):
                                     name = c.name
                                 workspaceInstance = c(self.app, self.db, name, uri)
                                 workspaceInstance.path = os.path.dirname(workspace_module.__file__)
-                                logManager.info('Workspace discovered : {} [{}] with uri "{}"'.
-                                                format(workspaceInstance.name,
-                                                       c.__module__,
-                                                       workspaceInstance.uri))
+                                logManager.info(
+                                    'Workspace discovered : {} [{}] with uri "{}"'.format(
+                                        workspaceInstance.name,
+                                        c.__module__,
+                                        workspaceInstance.uri,
+                                    )
+                                )
                                 if workspaceInstance.disable is True:
-                                    logManager.info('Workspace {} [{}] is disabled and wont show up.'.
-                                                    format(workspaceInstance.name,
-                                                           c.__module__))
+                                    logManager.info(
+                                        "Workspace {} [{}] is disabled and wont show up.".format(
+                                            workspaceInstance.name, c.__module__
+                                        )
+                                    )
                                 else:
                                     self.workspaces.append(workspaceInstance)

@@ -23,8 +23,8 @@ __license__ = "GPLv3"
 from flask import Blueprint
 from core.users.userManager import UserManager
 
-auth_bp = Blueprint('auth', __name__)
-users_bp = Blueprint('users', __name__)
+auth_bp = Blueprint("auth", __name__)
+users_bp = Blueprint("users", __name__)
 
 userManager = UserManager()
 

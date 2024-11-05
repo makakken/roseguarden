@@ -23,13 +23,14 @@ __license__ = "GPLv3"
 from core.workspaces.workspace import Workspace
 
 from workspaces.Access.models import SpaceAccessProperties
+
 """This plugin for the administration of the permissions
 """
 
 
 class Access(Workspace):
-    uri = 'access'
-    description = 'Access administration workspace'
+    uri = "access"
+    description = "Access administration workspace"
 
     def createUserHook(self, user):
         user.access = SpaceAccessProperties()

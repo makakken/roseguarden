@@ -4,15 +4,15 @@ from core import create_app, db
 from testEnv import create_testEnv
 
 
-@pytest.fixture(scope="function")
-def set_up_and_tear_down_database():
+@pytest.fixture(scope="session")
+def base_setup():
     """
     This function prepares and destruct the flask application and the database
     before and after each test.
     All lines before the yield statement will be executed before the tests
     and each line after the yield statement will be called at the end of the tests
     """
-    app = create_app(config_file="config_test.ini", test=True)
+    app, _ = create_app(config_file="config_test.ini", test=True)
     app_context = app.app_context()
     app_context.push()
     create_testEnv(app, db)

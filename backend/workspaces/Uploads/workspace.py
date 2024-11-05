@@ -21,11 +21,12 @@ __credits__ = []
 __license__ = "GPLv3"
 
 from core.workspaces.workspace import Workspace
+
 """This upload workspace
 """
 
 
 class Uploads(Workspace):
     disable = True  # IMPORTANT: set this to False to enable the workspace.
-    uri = 'uploads'
-    description = 'The workspace to manage uploads'
+    uri = "uploads"
+    description = "The workspace to manage uploads"

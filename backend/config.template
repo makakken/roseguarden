@@ -2,12 +2,19 @@
 base_url="http://localhost:3000"
 session_expiration_minutes=30
 file_storage_path="your/file/storage/path"
+database_path = "/var/roseguarden/app.db"
 
 [MAIL]
 sender="mailer@yourdomain.org"
 server="your.mailserver.org"
 port=465
+save_sent_mails=False
+imap_port=993
+imap_sent_folder="Sent"
 username="your.mailserver.username.org"
 password="your.mailserver.password.org"
 tls=False
 ssl=True
+
+[DEV]
+allow_basic_authentication = False

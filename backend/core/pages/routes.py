@@ -24,6 +24,6 @@ from core.pages import pages_bp
 from flask import make_response
 
 
-@pages_bp.route('/api/v1/pages', methods=["GET"])
+@pages_bp.route("/api/v1/pages", methods=["GET"])
 def pages():
     return make_response("not implemented yet", 200)

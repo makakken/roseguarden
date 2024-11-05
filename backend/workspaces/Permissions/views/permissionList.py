@@ -24,29 +24,28 @@ from core.workspaces.workspace import Workspace
 from core.workspaces.dataView import DataView
 from core.workspaces.models import Permission
 from core.users.models import User
+
 """ A view contaning a list of permissions
 """
 
 
 class PermissionList(DataView):
-
-    uri = 'permissionList'
+    uri = "permissionList"
     requireLogin = True
 
     #    def __init__(self):
     #        super().__init__(name='PermissionList', uri ='permissionList')
 
     def defineProperties(self):
-        self.addIntegerProperty(name='id', label='ID', isKey=True)
-        self.addStringProperty(name='name', label='Name')
-        self.addStringProperty(name='description', label='Description')
+        self.addIntegerProperty(name="id", label="ID", isKey=True)
+        self.addStringProperty(name="name", label="Name")
+        self.addStringProperty(name="description", label="Description")
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
         print("getDataViewHandler for PermissionList")
         entrylist = []
         all_permissions = Permission.query.all()
         for p in all_permissions:
-
             # get new empty entry
             entry = self.createEntry()
 
@@ -59,7 +58,7 @@ class PermissionList(DataView):
         return entrylist
 
     def __repr__(self):
-        return '<{} with {} properties>'.format(self.name, len(self.properties))
+        return "<{} with {} properties>".format(self.name, len(self.properties))
 
     # Handler for a request to create a new view entry
     def createViewEntryHandler(self, user, workspace, entry):

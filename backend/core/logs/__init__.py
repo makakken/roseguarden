@@ -24,6 +24,6 @@ from core.logs.logManager import LogManager
 from flask import Blueprint
 
 logManager = LogManager()
-logs_bp = Blueprint('logs', __name__)
+logs_bp = Blueprint("logs", __name__)
 
 from core.logs import routes  # noqa: F401

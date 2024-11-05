@@ -24,8 +24,8 @@ from flask import Blueprint
 
 from .workspaceManager import WorkspaceManager
 
-workspaceManager = WorkspaceManager('workspaces')
+workspaceManager = WorkspaceManager("workspaces")
 
-workspaces_bp = Blueprint('workspaces', __name__)
+workspaces_bp = Blueprint("workspaces", __name__)
 
 from core.workspaces import routes  # noqa: F401

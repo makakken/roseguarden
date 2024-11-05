@@ -25,20 +25,20 @@ from core.workspaces.dataView import DataView
 from core.users.models import User
 
 from workspaces.UserAccount.models import Todo
+
 """ A view contaning a list of all users not locked
 """
 
 
 class TodoList(DataView):
-
     disable = True
-    uri = 'todoList'
+    uri = "todoList"
     requireLogin = True
 
     def defineProperties(self):
-        self.addIntegerProperty(name='id', label='ID', isKey=True)
-        self.addStringProperty(name='description', label='Description')
-        self.addSelectProperty(name='done', selectables=['Yes', 'No'], label='Done')
+        self.addIntegerProperty(name="id", label="ID", isKey=True)
+        self.addStringProperty(name="description", label="Description")
+        self.addSelectProperty(name="done", selectables=["Yes", "No"], label="Done")
 
     def getViewHandler(self, user: User, workspace: Workspace, query=None):
         print("getDataViewHandler for UserView")
@@ -51,14 +51,14 @@ class TodoList(DataView):
             # fill entry
             entry.id = t.id
             entry.description = t.description
-            entry.done = 'Yes' if t.done else 'No'
+            entry.done = "Yes" if t.done else "No"
 
             # append entry
             userlist.append(entry.extract())
         return userlist
 
     def __repr__(self):
-        return '<{} with {} properties>'.format(self.name, len(self.properties))
+        return "<{} with {} properties>".format(self.name, len(self.properties))
 
     # Handler for a request to create a new view entry
     def createViewEntryHandler(self, user, workspace, entry):

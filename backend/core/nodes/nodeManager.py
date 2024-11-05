@@ -30,8 +30,8 @@ from core.nodes.errors import AuthorizationError
 
 
 class NodeManager(object):
-    """ The NodeManager holds all available node-types and load them while creation.
-    """
+    """The NodeManager holds all available node-types and load them while creation."""
+
     def __init__(self):
         self.node_classes = {}
         self.nodes = {}
@@ -56,19 +56,22 @@ class NodeManager(object):
         if nodeInstance is not None:
             self.nodes[node.fingerprint] = nodeInstance
         else:
-            logManager.error("NodeManager is unable to register node {} [{}] with unknown class_id '{}'".
-                             format(node.name, node.fingerprint, node.class_id))
+            logManager.error(
+                "NodeManager is unable to register node {} [{}] with unknown class_id '{}'".format(
+                    node.name, node.fingerprint, node.class_id
+                )
+            )
 
         node.active = True
         node.status = "Active"
 
     def register_node_class(self, workspace, node_class):
         nodeInstance = node_class()
-        nodekey = str(workspace.name) + '/' + nodeInstance.name
+        nodekey = str(workspace.name) + "/" + nodeInstance.name
         self.node_classes[nodekey] = node_class
 
     def init_nodes(self):
-        logManager.info('Initialize nodes')
+        logManager.info("Initialize nodes")
         all_nodes = self.node.query.all()
         for n in all_nodes:
             if n.authorized is True:
@@ -86,11 +89,11 @@ class NodeManager(object):
 
     def buildActionReply(self, actions, target="node", source="server", version="1.0.0"):
         reply = {}
-        reply['header'] = {}
-        reply['header']['version'] = version
-        reply['header']['target'] = target
-        reply['header']['source'] = source
-        reply['actions'] = actions
+        reply["header"] = {}
+        reply["header"]["version"] = version
+        reply["header"]["target"] = target
+        reply["header"]["source"] = source
+        reply["actions"] = actions
         return reply
 
     def revoke_node_authorization(self, node):
@@ -116,13 +119,17 @@ class NodeManager(object):
                 if node_class_key is None:
                     node_class_key = key
                 else:
-                    raise AuthorizationError("Authorization failed, duplicate class_id for "
-                                             + self.node_classes[key].name + " and "
-                                             + self.node_classes[node_class_key].name)
+                    raise AuthorizationError(
+                        "Authorization failed, duplicate class_id for "
+                        + self.node_classes[key].name
+                        + " and "
+                        + self.node_classes[node_class_key].name
+                    )
 
         if node_class_key is None:
-            raise AuthorizationError("Authorization failed, no match found for registered node classes with class_id: "
-                                     + node.class_id)
+            raise AuthorizationError(
+                "Authorization failed, no match found for registered node classes with class_id: " + node.class_id
+            )
 
         if node.checkAuthentification(authentification_plain) is False:
             raise AuthorizationError("Authorization failed, authentification secret mismatch.")
@@ -137,12 +144,12 @@ class NodeManager(object):
     def create_node_from_identification(self, ident_action, fingerprint, authentification_plain):
         # make copy of the ident action and remove action specific entries
         ident_copy = ident_action.copy()
-        if 'version' in ident_copy:
-            del ident_copy['version']
-        if 'action' in ident_copy:
-            del ident_copy['action']
-        if 'actionid' in ident_copy:
-            del ident_copy['actionid']
+        if "version" in ident_copy:
+            del ident_copy["version"]
+        if "action" in ident_copy:
+            del ident_copy["action"]
+        if "actionid" in ident_copy:
+            del ident_copy["actionid"]
 
         # create a sha256 hash
         ident_hash = hashlib.sha256()
@@ -150,14 +157,14 @@ class NodeManager(object):
         ident_hash.update(ident_copy_json_encoded)
 
         # create node
-        name = ident_action['nodename']
+        name = ident_action["nodename"]
         n = self.node(name, fingerprint, authentification_plain)
-        n.name = ident_action['nodename']
+        n.name = ident_action["nodename"]
         n.fingerprint = fingerprint
         n.authentification = authentification_plain
-        n.class_name = ident_action['classname']
-        n.class_id = ident_action['classid']
-        n.class_workspace = ident_action['classworkspace']
+        n.class_name = ident_action["classname"]
+        n.class_id = ident_action["classid"]
+        n.class_workspace = ident_action["classworkspace"]
         n.identification = ident_copy
         n.identification_hash = ident_hash.hexdigest()
 
@@ -166,37 +173,31 @@ class NodeManager(object):
 
     def check_for_identification_sync(self, request_actions):
         for i in request_actions:
-            if i['action'] == "syncNodeIdentification":
+            if i["action"] == "syncNodeIdentification":
                 return i
         return None
 
     def handle_node_request(self, request):
-        logManager.info('Handle node action request')
-        header = request['header']
-        source = header['source']
-        fingerprint = header['fingerprint']
-        authentification = header['authentification']
-        actions = request['actions']
+        header = request["header"]
+        source = header["source"]
+        fingerprint = header["fingerprint"]
+        authentification = header["authentification"]
+        actions = request["actions"]
 
         actions_string = ""
         action_names_list = []
         if len(actions) > 0:
             for i in actions:
-                action_names_list.append(i['action'])
+                action_names_list.append(i["action"])
                 if actions_string != "":
                     actions_string = actions_string + ", "
-                actions_string = actions_string + i['action']
+                actions_string = actions_string + i["action"]
 
-        # create node log
-        lg = self.nodeLog()
-        lg.request_source = header['source']
-        lg.node_uptime = header['uptime']
-        lg.node_logcounter = header['logcounter']
-        lg.node_errorcounter = header['errorcounter']
-        lg.request_actions = actions_string
-        lg.request_date = arrow.utcnow()
-        self.db.session.add(lg)
-        self.db.session.commit()
+        # Node data
+        # header["source"]
+        # header["uptime"]
+        # header["logcounter"]
+        # header["errorcounter"]
 
         # check
         n = self.node.query.filter_by(fingerprint=fingerprint).first()
@@ -223,11 +224,10 @@ class NodeManager(object):
 
         reply_actions = []
         for a in actions:
-            action_reply = self.nodes[fingerprint].handleNodeActionRequest(a, header)
+            action_reply = self.nodes[fingerprint].handleNodeActionRequest(n, a, header)
             reply_actions = reply_actions + action_reply
+        self.db.session.commit()
 
-        # node is known
-        logManager.info("handle request of {} ({})".format(source, fingerprint))
         return self.buildActionReply(reply_actions)
 
     def init_manager(self, app, db, workspaceManager):
@@ -237,5 +237,6 @@ class NodeManager(object):
         logManager.info("NodeManager initialized")
 
         from core.nodes.models import Node, NodeLog
+
         self.node = Node
         self.nodeLog = NodeLog

@@ -22,7 +22,7 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/konglo_logo.png' }
     ],
     script: [
-      {}//src: 'https://cdnjs.cloudflare.com/ajax/libs/echarts/4.0.4/echarts-en.min.js' }
+      {} //src: 'https://cdnjs.cloudflare.com/ajax/libs/echarts/4.0.4/echarts-en.min.js' }
     ]
   },
 
@@ -154,14 +154,16 @@ module.exports = {
 
     // With options
     '/api/v1/log': {
-      target: 'http://localhost:5000',
+      // target: 'http://localhost:5000',
+      target: 'http://backend:5000',
       // target: 'https://www.roseguarden.fabba.space',
       ws: true,
       secure: true,
       changeOrigin: true
     },
     '/api/v1': {
-      target: 'http://localhost:5000',
+      // target: 'http://localhost:5000',
+      target: 'http://backend:5000',
       // target: 'https://www.roseguarden.fabba.space',
       ws: true,
       secure: false,

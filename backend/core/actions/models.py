@@ -28,7 +28,7 @@ from core.common.jsonDict import JsonDict
 
 
 class ActionLink(db.Model):
-    __tablename__ = 'actionlinks'
+    __tablename__ = "actionlinks"
     # nonvolatile data stored in the db
     id = db.Column(db.Integer, primary_key=True)
     hash = db.Column(db.String(128), default="")
@@ -41,5 +41,6 @@ class ActionLink(db.Model):
     redirect_to = db.Column(db.String(255), default="")
 
     def __repr__(self):
-        return '<ActionLink {} for {}/{} [expires on {}] >'.format(self.link, self.workspace, self.action,
-                                                                   self.expire_on_date)
+        return "<ActionLink {} for {}/{} [expires on {}] >".format(
+            self.link, self.workspace, self.action, self.expire_on_date
+        )

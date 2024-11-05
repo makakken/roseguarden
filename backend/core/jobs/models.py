@@ -28,7 +28,7 @@ from core.common.jsonDict import JsonDict
 
 
 class JobExecute(db.Model):
-    __tablename__ = 'jobs'
+    __tablename__ = "jobs"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), default="")
     workspace = db.Column(db.String(120), default="")
@@ -41,4 +41,4 @@ class JobExecute(db.Model):
     results = db.Column(JsonDict)
 
     def __repr__(self):
-        return '<Job {} for {}/{} >'.format(self.name, self.workspace, self.job)
+        return "<Job {} for {}/{} >".format(self.name, self.workspace, self.job)

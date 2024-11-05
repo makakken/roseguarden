@@ -28,29 +28,33 @@ from core.messages.mailingJob import MailFromFileTemplateJob
 
 
 class MessageManager(object):
-    """ The MessageManager ...
-    """
-    def __init__(self, ):
+    """The MessageManager ..."""
+
+    def __init__(
+        self,
+    ):
         # preparation to instanciate
         self.config = None
         self.app = None
         self.db = None
         self.workspaceManager = None
 
-    def add_message(self,
-                    recipient_user,
-                    subject,
-                    message_template_path,
-                    data,
-                    sender,
-                    mail=True,
-                    mail_template_path=None):
+    def add_message(
+        self,
+        recipient_user,
+        subject,
+        message_template_path,
+        data,
+        sender,
+        mail=True,
+        mail_template_path=None,
+    ):
         if mail is True and mail_template_path is not None:
             user_mail = recipient_user.email
             self.add_mail_job([user_mail], subject, mail_template_path, data)
         # Add the Message
         # Get File Content in String
-        jinja2_template_string = open(message_template_path, 'r').read()
+        jinja2_template_string = open(message_template_path, "r").read()
 
         # Create Template Object
         template = Template(jinja2_template_string)
@@ -67,11 +71,11 @@ class MessageManager(object):
 
     def add_mail_job(self, recipients, subject, template_path, data):
         args = {
-            'mail_config': self.config['MAIL'],
-            'recipients': recipients,
-            'subject': subject,
-            'template_path': template_path,
-            'data': data
+            "mail_config": self.config["MAIL"],
+            "recipients": recipients,
+            "subject": subject,
+            "template_path": template_path,
+            "data": data,
         }
         add_dated_job(None, MailFromFileTemplateJob(), args)
 
@@ -82,6 +86,7 @@ class MessageManager(object):
         self.workspaceManager = workspaceManager
 
         from core.messages.models import Message
+
         self.message = Message
 
         jobManager.register_job(None, MailFromFileTemplateJob)

@@ -21,16 +21,17 @@ __credits__ = []
 __license__ = "GPLv3"
 
 from core.workspaces.page import Page
+
 """ The user messages page
 """
 
 
 class Messages(Page):
-    title = 'Messages'  # Shown label of the page in the menu
-    group = 'User'  # groupname multiple pages
-    icon = 'email'  # icon (in typeset of material design icons)
-    route = '/user/messages'  # routing
-    builder = 'frontend'  # page get build by the client (frontend)
+    title = "Messages"  # Shown label of the page in the menu
+    group = "User"  # groupname multiple pages
+    icon = "email"  # icon (in typeset of material design icons)
+    route = "/user/messages"  # routing
+    builder = "frontend"  # page get build by the client (frontend)
     rank = 10.1  # ranks (double) the page higher values are at the top of the menu
     # groups will be ranked by the sum of the rank-values of their entries
     requireLogin = True  # login is required to view the page

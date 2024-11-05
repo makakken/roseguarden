@@ -21,9 +21,11 @@ __credits__ = []
 __license__ = "GPLv3"
 
 from core.logs import logs_bp, logManager
+from flask_jwt_extended import jwt_required
 
 
-@logs_bp.route('/api/v1/log', methods=["GET"])
+@logs_bp.route("/api/v1/log", methods=["GET"])
+@jwt_required
 def log():
     log_string = ""
     for e in logManager.logQueue:

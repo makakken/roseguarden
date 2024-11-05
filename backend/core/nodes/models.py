@@ -29,7 +29,7 @@ from core.common.jsonDict import JsonDict
 
 
 class Node(db.Model):
-    __tablename__ = 'nodes'
+    __tablename__ = "nodes"
     # nonvolatile data stored in the db
     id = db.Column(db.Integer, primary_key=True)
     _authentification_hash = db.Column(db.Binary(128))
@@ -47,7 +47,7 @@ class Node(db.Model):
     status = db.Column(db.String(120), default="Not active")
 
     def __repr__(self):
-        return '<Node {} [{}] >'.format(self.name, self.fingerprint)
+        return "<Node {} [{}] >".format(self.name, self.fingerprint)
 
     def __init__(self, name, fingerprint, authentification):
         self.name = name
@@ -68,15 +68,15 @@ class Node(db.Model):
 
 
 class NodeSettings(db.Model):
-    __tablename__ = 'node_settings'
+    __tablename__ = "node_settings"
     # nonvolatile data stored in the db
     id = db.Column(db.Integer, primary_key=True)
-    node_id = db.Column(db.Integer, db.ForeignKey('nodes.id'))
+    node_id = db.Column(db.Integer, db.ForeignKey("nodes.id"))
     node = db.relationship("Node", backref=db.backref("settings", uselist=True))
 
 
 class NodeLog(db.Model):
-    __tablename__ = 'node_logs'
+    __tablename__ = "node_logs"
     id = db.Column(db.Integer, primary_key=True)
     node_name = db.Column(db.String(120), default="UNKNOWN")
     node_fingerprint = db.Column(db.String(120), default="")

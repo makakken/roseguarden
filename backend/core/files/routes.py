@@ -28,12 +28,12 @@ import os
 from . import fileManager
 
 
-@files_bp.route('/api/v1/file/download/<id>', methods=['GET'])
+@files_bp.route("/api/v1/file/download/<id>", methods=["GET"])
 def file_request(id):
     return "File", 200
 
 
-@files_bp.route('/api/v1/file/upload', methods=['POST'])
+@files_bp.route("/api/v1/file/upload", methods=["POST"])
 def upload_request():
     print(request.files)
     for f in request.files.values():
@@ -41,6 +41,6 @@ def upload_request():
         if fileManager.upload_dir_path is not None:
             f.save(os.path.join(fileManager.upload_dir_path, secure_filename(f.filename)))
         else:
-            return 'file uploaded failed', 500
+            return "file uploaded failed", 500
 
-    return 'file uploaded successfully', 200
+    return "file uploaded successfully", 200

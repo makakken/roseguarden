@@ -23,39 +23,53 @@ __license__ = "GPLv3"
 from core.workspaces.workspace import Workspace
 from core.workspaces.dataView import DataView
 from core.users.models import User
+
 """ A view contaning a list of all users not locked
 """
 
 
 class UserList(DataView):
-
-    uri = 'userList'
+    uri = "userList"
     requireLogin = True
 
     def defineMetadata(self):
         self.addStringMeta("test")
 
     def defineProperties(self):
-        self.addMailProperty(name='email', label='eMail', isKey=True)
-        self.addStringProperty(name='name', label='Name')
-        self.addStringProperty(name='organization', label='Organization')
-        self.addSelectProperty(name='verified', selectables=['Yes', 'No'], label='Verified')
-        self.addActionProperty(name='lock',
-                               label='Lock user',
-                               action='lock',
-                               actionHandler=self.lockHandler,
-                               icon='clear')
-        self.addActionProperty(name='setAdmin',
-                               label='Give admin privileges',
-                               action='setAdmin',
-                               actionHandler=self.setAdmin,
-                               icon='flash_on',
-                               color="green")
-        self.addActionProperty(name='unsetAdmin',
-                               label='Remove admin privileges',
-                               action='unsetAdmin',
-                               actionHandler=self.unsetAdmin,
-                               icon='flash_off')
+        self.addMailProperty(name="email", label="eMail", isKey=True)
+        self.addStringProperty(name="name", label="Name")
+        self.addStringProperty(name="organization", label="Organization")
+        self.addSelectProperty(name="verified", selectables=["Yes", "No"], label="Verified")
+        self.addActionProperty(
+            name="verify",
+            label="Verify user",
+            action="verify",
+            actionHandler=self.verify,
+            icon="check",
+            color="orange",
+        )
+        self.addActionProperty(
+            name="lock",
+            label="Lock user",
+            action="lock",
+            actionHandler=self.lockHandler,
+            icon="clear",
+        )
+        self.addActionProperty(
+            name="setAdmin",
+            label="Give admin privileges",
+            action="setAdmin",
+            actionHandler=self.setAdmin,
+            icon="flash_on",
+            color="green",
+        )
+        self.addActionProperty(
+            name="unsetAdmin",
+            label="Remove admin privileges",
+            action="unsetAdmin",
+            actionHandler=self.unsetAdmin,
+            icon="flash_off",
+        )
 
     def getViewMetaHandler(self, user, workspace):
         meta = self.createMeta()
@@ -67,7 +81,6 @@ class UserList(DataView):
         userlist = []
         all_user = User.query.filter_by(account_locked=False).all()
         for u in all_user:
-
             assert isinstance(u, User)
             # get new empty entry
             entry = self.createEntry()
@@ -76,7 +89,12 @@ class UserList(DataView):
             entry.email = u.email
             entry.name = "{0} {1}".format(u.firstname, u.lastname)
             entry.organization = u.organization
-            entry.verified = 'Yes' if u.account_verified else 'No'
+
+            if u.account_verified:
+                entry.verified = "Yes"
+            else:
+                entry.verify = True
+                entry.verified = "No"
 
             # set entry actions
             entry.lock = False
@@ -110,8 +128,14 @@ class UserList(DataView):
             user_to_change.admin = True
         self.emitSyncRemove(entrykey, "userList")
 
+    def verify(self, user, workspace, action, entrykey):
+        if user.admin is True:
+            user_to_change = User.query.filter_by(email=entrykey).first()
+            user_to_change.account_verified = True
+        self.emitSyncRemove(entrykey, "userList")
+
     def __repr__(self):
-        return '<{} with {} properties>'.format(self.name, len(self.properties))
+        return "<{} with {} properties>".format(self.name, len(self.properties))
 
     # Handler for a request to create a new view entry
     def createViewEntryHandler(self, user, workspace, entry):

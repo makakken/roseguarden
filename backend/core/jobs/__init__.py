@@ -28,7 +28,7 @@ from core.jobs.jobManager import JobManager
 from core.logs import logManager
 from inspect import isclass
 
-jobs_bp = Blueprint('jobs', __name__)
+jobs_bp = Blueprint("jobs", __name__)
 
 jobManager = JobManager()
 
@@ -45,12 +45,12 @@ def add_dated_job(user, job, args, date=None, workspace=None, max_instances=10):
     key = ""
     if workspace is not None:
         if type(workspace) == str:
-            key += workspace + '/'
+            key += workspace + "/"
         elif isclass(workspace):
             logManager.error("Class parameters are not allowed for add_dated_job")
             return
         else:
-            key += workspace.name + '/'
+            key += workspace.name + "/"
 
     if type(job) == str:
         key += job
